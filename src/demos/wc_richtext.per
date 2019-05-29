@@ -1,0 +1,67 @@
+
+ACTION DEFAULTS
+	ACTION mycopy (TEXT=%"My Copy", IMAGE="fa-copy")
+	ACTION mypaste (TEXT=%"My Paste", IMAGE="fa-paste")
+	ACTION deftext (TEXT=%"Default", IMAGE="fa-commenting-o")
+	ACTION clear (TEXT=%"Clear", IMAGE="fa-eraser")
+	ACTION savetext (TEXT=%"Save Text", IMAGE="fa-save")
+	ACTION loadText (TEXT=%"Load Text", IMAGE="fa-file-text-o")
+
+	ACTION set_focus_to_fn (TEXT=%"Focus FileName", IMAGE="fa-mouse-pointer")
+	ACTION set_focus_to_test (TEXT=%"Focus Test", IMAGE="fa-mouse-pointer")
+	ACTION set_focus_to_wc (TEXT=%"Focus RichText", IMAGE="fa-mouse-pointer")
+END -- AD
+
+TOOLBAR
+	ITEM quit
+	ITEM mycopy
+	ITEM mypaste
+	ITEM deftext
+	ITEM clear
+	ITEM savetext
+	ITEM loadtext
+	ITEM set_focus_to_fn
+	ITEM set_focus_to_test
+	ITEM set_focus_to_wc
+	ITEM about
+END -- TB
+
+LAYOUT (TEXT=%"WC Richtext Demo",MINWIDTH=80,MINHEIGHT=20, STYLE="main2")
+GRID
+{
+[l001:f001          :    :l002:a1       ]
+[rt                                     ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[info                                   ]
+}
+END
+END
+ATTRIBUTES
+LABEL l001 : filename,TEXT=%"File Name:", JUSTIFY=RIGHT;
+f001 = FORMONLY.fileName;
+LABEL l002 : lab2,TEXT=%"Test:", JUSTIFY=RIGHT;
+a1=FORMONLY.fld2, SCROLL;
+
+WEBCOMPONENT rt = FORMONLY.richtext,
+COMPONENTTYPE = "fglrichtext",
+PROPERTIES = (
+toolbar = "bold|italic|underline|fontsizeselect|undo|redo|color|image|emoji",
+spellcheck = "browser",
+autoflush = "autosave",
+autoflush_interval = 30
+),
+  SIZEPOLICY = FIXED,
+  SCROLLBARS = NONE,
+  STRETCH = BOTH;
+
+LABEL info = FORMONLY.info;
+END
