@@ -4,3 +4,9 @@
 [submodule "gbc_mdi"]
 	path = gbc_mdi
 	url = https://github.com/neilm-fourjs/gbc_mdi.git
+[submodule "gbc_njm"]
+	path = gbc_njm
+	url = https://github.com/neilm-fourjs/gbc_njm.git
+[submodule "gbc_clean"]
+	path = gbc_clean
+	url = https://github.com/neilm-fourjs/gbc_clean.git
