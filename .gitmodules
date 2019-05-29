@@ -1,3 +1,6 @@
 [submodule "g2_lib"]
 	path = g2_lib
 	url = https://github.com/neilm-fourjs/g2_lib.git
+[submodule "gbc_mdi"]
+	path = gbc_mdi
+	url = https://github.com/neilm-fourjs/gbc_mdi.git
