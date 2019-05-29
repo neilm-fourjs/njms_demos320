@@ -9,7 +9,7 @@ FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
   OPEN FORM w FROM l_form
   DISPLAY FORM w
   CALL ui.Interface.setText(l_text)
-  CALL fgl_settitle(l_title)
+  CALL ui.window.getCurrent().setText(l_title)
 
   LET currTable = 1
   CALL on_change_currTable()

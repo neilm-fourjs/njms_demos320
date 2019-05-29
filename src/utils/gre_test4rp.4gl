@@ -83,7 +83,7 @@ MAIN
 
     OPEN FORM f FROM "gre_test4rp"
     DISPLAY FORM f
-    CALL fgl_settitle(l_ver)
+    CALL ui.window.getCurrent().setText(l_ver)
     DISPLAY BY NAME m_greserver, m_greserverPort, m_gresrv, m_fontdir
     WHILE NOT int_flag
       INPUT BY NAME l_inFile, l_4rp, l_device, l_targetName, l_preview, l_merge_cells, m_gresrv

@@ -115,7 +115,7 @@ MAIN
 
   OPEN FORM win FROM "ipod"
   DISPLAY FORM win
-  CALL fgl_settitle("Loading, please wait ...")
+  CALL ui.window.getCurrent().setText("Loading, please wait ...")
   CALL ui.interface.refresh()
 
   LET l_file = "iTunes Music Library.xml"
@@ -159,7 +159,7 @@ FUNCTION mainDialog()
   LET m_prev_album = "."
   DISPLAY CURRENT, ": Starting main dialog."
   DISPLAY "noimage" TO album_art
-  CALL fgl_settitle("My Genero Music Tree Demo")
+  CALL ui.window.getCurrent().setText("My Genero Music Tree Demo")
 
   DIALOG ATTRIBUTES(UNBUFFERED)
     DISPLAY ARRAY tree_a TO tree.*
@@ -319,7 +319,7 @@ FUNCTION openLibrary(file)
     RETURN
   END IF
 
-  CALL fgl_settitle("Loading, please wait ...")
+  CALL ui.window.getCurrent().setText("Loading, please wait ...")
   CALL ui.interface.refresh()
 
   LET f = om.SaxDocumentHandler.createForName("ipod_sax")
