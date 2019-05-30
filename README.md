@@ -72,6 +72,8 @@ MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';
 This demo uses imported git repos for common library code and GBC customizations
 * git submodule add https://github.com/neilm-fourjs/g2_lib.git g2_lib
 * git submodule add https://github.com/neilm-fourjs/gbc_mdi.git gbc_mdi
+* git submodule add https://github.com/neilm-fourjs/gbc_njm.git gbc_njm
+* git submodule add https://github.com/neilm-fourjs/gbc_clean.git gbc_clean
 
 If libraries change do:
 * git submodule foreach git pull origin master

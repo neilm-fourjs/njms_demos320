@@ -64,7 +64,7 @@
   </Settings>
   <LanguageList version="1.0"/>
   <PlatformList version="1.0"/>
-  <Group id="1346150139" label="Configs" language="Genero">
+  <Group excludeFromBuild="true" id="1346150139" label="Configs" language="Genero" targetDirectory="$(ProjectDir)/bin320">
     <Group id="-1860471333" label="Configs">
       <Library binaryName="etc" id="-400184264" label="etc">
         <File filePath="etc/default.4ad"/>
@@ -498,7 +498,7 @@
       <File filePath="ggc/ggc_1.4gl"/>
     </Application>
   </Group>
-  <Group id="-213600251" label="Tests Programs" language="Genero" targetDirectory="$(ProjectDir)/bin320">
+  <Group excludeFromBuild="true" id="-213600251" label="Tests Programs" language="Genero" targetDirectory="$(ProjectDir)/bin320">
     <Application binaryName="genStock" id="248692011" label="genStock">
       <File filePath="test_app/genStock.4gl"/>
     </Application>
