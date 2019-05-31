@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="30a09" version="6.00">
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="31403" version="6.00">
     <report:Settings RWPageWidth="a4length" RWPageLength="a4width" RWLeftMargin="0.5cm" RWTopMargin="1.0cm" RWRightMargin="0.5cm" RWBottomMargin="1.0cm">
         <report:FormatList>
             <report:Format-SVG/>
@@ -12,6 +12,7 @@
     <rtl:stylesheet>
         <PXML>
             <rtl:match name="Report" nameConstraint="Report">
+                <rtl:match name="FirstPageHeader" nameConstraint="FirstPageHeader" minOccurs="0" maxOccurs="1"/>
                 <rtl:match name="Group order_number" nameConstraint="Group" minOccurs="0" maxOccurs="unbounded">
                     <MINIPAGE name="Page Root" width="max" length="max" alignment="near" fontName="Arial" layoutDirection="topToBottom" swapX="false">
                         <LAYOUTNODE name="Page Header" width="max" length="min" port="firstPageHeader" floatingBehavior="enclosed">
@@ -95,8 +96,8 @@
                                 <rtl:input-variable name="r_detailline.pack_flag" type="FGLString" expectedLocation="expectedHere"/>
                                 <MINIPAGE name="Detail Lines" rtl:condition="r_detailline.pack_flag.matches(&quot;[NPE]&quot;)" width="min" length="max" bgColor="{{line_num%2&gt;0?Color.fromRGBA(100,200,100,100):Color.WHITE}}" fontSize="12" layoutDirection="leftToRight" swapX="false">
                                     <WORDBOX name="Spacer_1" alignment="baseline" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" port="itemSeparator" text=" "/>
-                                    <rtl:input-variable name="r_detailline.pack_flag" type="FGLString" expectedLocation="expectedHere"/>
                                     <rtl:input-variable name="r_detailline.stock_code" type="FGLString" expectedLocation="expectedHere"/>
+                                    <rtl:input-variable name="r_detailline.pack_flag" type="FGLString" expectedLocation="expectedHere"/>
                                     <WORDBOX name="stock_code Value" width="width(&quot;M&quot;)*8" alignment="baseline" floatingBehavior="enclosed" text="{{r_detailline.stock_code+r_detailline.pack_flag}}"/>
                                     <rtl:input-variable name="r_detailline.description" type="FGLString" expectedLocation="expectedHere"/>
                                     <WORDBOX name="r_detailline.description Value" width="width(&quot;M&quot;)*30" alignment="center" floatingBehavior="enclosed" text="{{r_detailline.description}}"/>
