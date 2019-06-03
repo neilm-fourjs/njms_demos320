@@ -30,6 +30,14 @@ The Application Framework:
 * Web Ordering
 
 
+*IMPORTANT* Make sure you use the --recursive flag when you clone this repo, eg: On Linux
+```
+$ git clone --recursive https://github.com/neilm-fourjs/njms_demos320.git
+$ cd njms_demos320
+$ make
+```
+
+
 When deployed as via the gas the application urls will be:
 ```
 http://<server>/<gas-alias>/ua/r/<xcf>
