@@ -6,6 +6,9 @@ export PROJBASE=$(PWD)
 export DBTYPE=pgs
 export GBC=gbc-clean
 export GBCPROJDIR=/opt/fourjs/gbc-current
+export APP=njms_demos
+export ARCH=$(APP)$(GENVER)_$(DBTYPE)
+export GASCFG=$(FGLASDIR)/etc/as.xcf
 export MUSICDIR=~/Music
 
 export RENDERER=ur
@@ -30,7 +33,7 @@ g2_lib/$(BIN)/g2_lib.42x:
 	cd g2_lib && gsmake g2_lib.4pw
 
 $(BIN)/menu.42r: g2_lib/$(BIN)/g2_lib.42x
-	gsmake njms_demos$(GENVER).4pw
+	gsmake $(APP)$(GENVER).4pw
 
 gbc_clean/gbc-current:
 	cd gbc_clean && ln -s $(GBCPROJDIR)
@@ -57,6 +60,20 @@ clean:
 
 run: $(BIN)/menu.42r
 	cd $(BIN); fglrun menu.42r
+
+
+undeploy: 
+	cd distbin && gasadmin gar -f $(GASCFG) --disable-archive $(ARCH) | true
+	cd distbin && gasadmin gar -f $(GASCFG) --undeploy-archive $(ARCH).gar
+	rm -f distbin/.deployed
+
+deploy: 
+	cd distbin && gasadmin gar -f $(GASCFG) --deploy-archive $(ARCH).gar
+	cd distbin && gasadmin gar -f $(GASCFG) --enable-archive $(ARCH)
+	echo "deployed" > distbin/.deployed
+
+redeploy: undeploy deploy
+
 
 # Not supported!
 runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip
