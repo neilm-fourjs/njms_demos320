@@ -432,6 +432,15 @@
         <File filePath="src/utils/matDesTest_modal.per"/>
       </Application>
     </Group>
+    <Group id="417956768" label="WebServices" targetDirectory="$(ProjectDir)/ws_bin320">
+      <Application binaryName="stockQuery" dependencies="1136561508_14000,1986" id="-1861949473" label="stockQuery" targetDirectory="$(ProjectDir)/ws_bin320">
+        <File filePath="src/ws/stockQuery.4gl"/>
+        <File filePath="src/ws/stockQuery_main.4gl"/>
+      </Application>
+      <Library binaryName="xcf" id="367791215" label="xcf">
+        <File filePath="gas_ws/ws_demo.xcf"/>
+      </Library>
+    </Group>
   </Group>
   <Group id="252404927" label="Packages" language="Genero" targetDirectory="$(ProjectDir)/bin320">
     <Package binaryName="gdc_update_srv" dependencies="-580790058,-850398834,654551740,14000" description="GDC Update WebService" id="364266706" label="gdc_update_srv" platform="Genero Application Server">
@@ -473,6 +482,14 @@
       <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/src/OpenIdLogin"/>
       <Directory includedFiles="homer-doh_Login.png" label="img" sourceDirectory="$(ProjectDir)/pics"/>
     </Package>
+    <Package binaryName="ws_demos320_pgs" dependencies="-1861949473,367791215" id="-2138345710" label="ws_demos320_pgs" platform="Genero Application Server">
+      <DynamicProperty name="packageId" value="myapp"/>
+      <DynamicProperty name="packageLabel" value="MyApp"/>
+      <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/ws_bin320"/>
+      <Directory includedFiles="profile" label="Config" sourceDirectory="$(ProjectDir)/etc/pgs"/>
+      <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/gas_ws"/>
+      <Directory includedFiles="*.42?" label="libbin" sourceDirectory="$(ProjectDir)/g2_lib/bin320"/>
+    </Package>
     <Library binaryName="xcf_files_deploy" id="1211226226" label="xcf_files_deploy">
       <File filePath="gas_deploy/materialDesignTest.xcf"/>
       <File filePath="gas_deploy/njmdemo.xcf"/>
@@ -481,22 +498,5 @@
       <File filePath="gas_deploy/njmweb.xcf"/>
       <File filePath="gas_deploy/njmweb2.xcf"/>
     </Library>
-  </Group>
-  <Group excludeFromBuild="true" id="-692030966" label="Test GGC" language="Genero" targetDirectory="$(ProjectDir)/ggc">
-    <Application binaryName="ggc_1" id="-1028916705" label="ggc_1">
-      <File filePath="ggc/ggc_1.4gl"/>
-    </Application>
-  </Group>
-  <Group excludeFromBuild="true" id="-213600251" label="Tests Programs" language="Genero" targetDirectory="$(ProjectDir)/bin320">
-    <Application binaryName="genStock" id="248692011" label="genStock">
-      <File filePath="test_app/genStock.4gl"/>
-    </Application>
-    <Application binaryName="test_app" dependencies="14000" id="-110946196" label="test_app">
-      <File filePath="test_app/test_app.4gl"/>
-      <File filePath="test_app/test_form.per"/>
-    </Application>
-    <Application binaryName="test_encrypt" dependencies="14000" id="1714291644" label="test_encrypt">
-      <File filePath="test_app/test_encrypt.4gl"/>
-    </Application>
   </Group>
 </Project>
