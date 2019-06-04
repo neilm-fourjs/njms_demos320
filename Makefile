@@ -22,7 +22,7 @@ export FGLLDPATH=../g2_lib/bin$(GENVER):$(GREDIR)/lib
 export LANG=en_GB.utf8
 
 TARGETS=\
-	$(BIN)/menu.42r\
+	gars\
 	gbc_clean/distbin/gbc-clean.zip\
 	gbc_njm/distbin/gbc-njm.zip\
 	gbc_mdi/distbin/gbc-mdi.zip
@@ -34,6 +34,8 @@ g2_lib/$(BIN)/g2_lib.42x:
 
 $(BIN)/menu.42r: g2_lib/$(BIN)/g2_lib.42x
 	gsmake $(APP)$(GENVER).4pw
+
+gars: $(BIN)/menu.42r
 
 gbc_clean/gbc-current:
 	cd gbc_clean && ln -s $(GBCPROJDIR)
