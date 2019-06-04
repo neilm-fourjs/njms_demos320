@@ -5,6 +5,7 @@ IMPORT util
 IMPORT FGL g2_lib
 IMPORT FGL g2_logging
 IMPORT FGL g2_db
+IMPORT FGL g2_sql
 
 SCHEMA njm_demo310
 DEFINE ws_response RECORD
@@ -76,14 +77,23 @@ PUBLIC FUNCTION start()
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- get a stock record
+PUBLIC FUNCTION getStockList( )
+ ATTRIBUTES(WSGet, WSPath = "/getStockList", WSDescription = "Get Stock List") RETURNS STRING
+
+	RETURN service_reply(0, "test" )
+END FUNCTION
+----------------------------------------------------------------------------------------------------
+-- get a stock record
 PUBLIC FUNCTION getStockItem( l_itemCode STRING ATTRIBUTES(WSParam) )
  ATTRIBUTES(WSGet, WSPath = "/getStockItem/{l_itemCode}", WSDescription = "Get a Stock Item") RETURNS STRING
-	DEFINE l_stk RECORD LIKE stock.*
-	SELECT * INTO l_stk.* FROM stock WHERE stock_code = l_itemCode
-	IF STATUS = 100 THEN
+	DEFINE l_sql g2_sql.sql
+	CALL l_sql.g2_SQLinit("stock","*","stock_code", SFMT("%1 = '%2'","stock_code",l_itemCode))
+	CALL l_sql.g2_SQLgetRow(1, FALSE)
+	IF l_sql.rows_count = 0 THEN
 		RETURN service_reply(100, SFMT("Stock item '%1' not found.",l_itemCode))
 	END IF
-	RETURN service_reply(0, util.JSON.stringify( l_stk ) )
+	CALL l_sql.g2_SQLrec2Json()
+	RETURN service_reply(0, util.JSON.stringify( l_sql.json_rec.toString() ) )
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- Just exit the service
