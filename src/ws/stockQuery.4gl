@@ -13,14 +13,14 @@ SCHEMA njm_demo310
 PUBLIC DEFINE g2_log g2_logging.logger
 
 ----------------------------------------------------------------------------------------------------
--- Initialize the service - Start the log and connect to database.
+-- Initialize the service: Start the log, connect to database and start the service
 PUBLIC FUNCTION init()
   DEFINE l_db g2_db.dbInfo
   CALL g2_log.init(NULL, NULL, "log", "TRUE")
   WHENEVER ANY ERROR CALL g2_lib.g2_error
 	LET g2_ws.m_server = g2_lib.g2_getHostname()
   CALL l_db.g2_connect(NULL)
-  RUN "env | sort > /tmp/gas.env"
+--  RUN "env | sort > /tmp/gas.env"
   CALL g2_log.logIt("Service Initialized.")
   CALL g2_ws.start("stockQuery","stockQuery", g2_log)
 END FUNCTION
@@ -49,7 +49,8 @@ PUBLIC FUNCTION getStockItem( l_itemCode STRING ATTRIBUTES(WSParam) )
 		RETURN service_reply(100, SFMT("Stock item '%1' not found.",l_itemCode))
 	END IF
 	CALL l_sql.g2_SQLrec2Json()
-	RETURN service_reply(0, util.JSON.stringify( l_sql.json_rec.toString() ) )
+	DISPLAY "JSON:", l_sql.json_rec.toString()
+	RETURN service_reply(0, l_sql.json_rec.toString() )
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- Just exit the service
