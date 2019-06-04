@@ -437,6 +437,9 @@
         <File filePath="src/ws/stockQuery.4gl"/>
         <File filePath="src/ws/stockQuery_main.4gl"/>
       </Application>
+      <Library binaryName="ws_lib" dependencies="1136561508_14000" id="294831536" label="ws_lib">
+        <File filePath="src/ws/ws_lib.4gl"/>
+      </Library>
       <Library binaryName="xcf" id="367791215" label="xcf">
         <File filePath="gas_ws/ws_demo.xcf"/>
       </Library>

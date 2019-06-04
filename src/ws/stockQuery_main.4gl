@@ -6,10 +6,6 @@ IMPORT FGL stockQuery
 
 MAIN
 
-  IF NOT stockQuery.init() THEN
-    EXIT PROGRAM
-  END IF
-
-  CALL stockQuery.start()
+  CALL stockQuery.init()
 
 END MAIN
