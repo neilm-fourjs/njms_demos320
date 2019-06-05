@@ -10,6 +10,8 @@ IMPORT FGL g2_ws
 
 SCHEMA njm_demo310
 
+CONSTANT c_stockItemsPerPage = 10
+
 PUBLIC DEFINE g2_log g2_logging.logger
 
 ----------------------------------------------------------------------------------------------------
@@ -17,6 +19,7 @@ PUBLIC DEFINE g2_log g2_logging.logger
 PUBLIC FUNCTION init()
   DEFINE l_db g2_db.dbInfo
   CALL g2_log.init(NULL, NULL, "log", "TRUE")
+	LET g2_lib.m_isWS = TRUE
   WHENEVER ANY ERROR CALL g2_lib.g2_error
 	LET g2_ws.m_server = g2_lib.g2_getHostname()
   CALL l_db.g2_connect(NULL)
@@ -33,10 +36,30 @@ END FUNCTION
 
 ----------------------------------------------------------------------------------------------------
 -- get a stock record
-PUBLIC FUNCTION listStock( )
- ATTRIBUTES(WSGet, WSPath = "/listStock", WSDescription = "Get Stock List") RETURNS STRING
+PUBLIC FUNCTION listStock( l_pgno SMALLINT  ATTRIBUTES(WSParam) )
+ ATTRIBUTES(WSGet, WSPath = "/listStock/{l_pgno}", WSDescription = "Get Stock List") RETURNS STRING
+	DEFINE l_arr DYNAMIC ARRAY OF RECORD
+		stock_code LIKE stock.stock_code,
+		description LIKE stock.description,
+		price LIKE stock.price,
+		stock LIKE stock.free_stock
+	END RECORD
+	DEFINE x, y SMALLINT
+	DECLARE stkcur SCROLL CURSOR FOR SELECT stock_code, description, price, free_stock FROM stock
+	IF l_pgno IS NULL THEN LET l_pgno = 1 END IF
+	OPEN stkcur
+	LET y = 1
+	LET x = (( l_pgno - 1 ) * c_stockItemsPerPage ) + 1
+	WHILE STATUS != NOTFOUND
+		DISPLAY "Row:",x
+		FETCH ABSOLUTE x stkcur INTO l_arr[y].*
+		LET y = y + 1
+		LET x = x + 1
+		IF y = c_stockItemsPerPage THEN EXIT WHILE END IF
+	END WHILE
+	CLOSE stkcur
 
-	RETURN service_reply(0, "test" )
+	RETURN service_reply(0, util.JSONArray.fromFGL(l_arr).toString() )
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- get a stock record
