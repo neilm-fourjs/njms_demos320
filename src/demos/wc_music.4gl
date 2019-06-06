@@ -297,7 +297,7 @@ FUNCTION get_songs(l_path STRING)
       END IF
 
       LET l_ext = os.path.extension(l_path)
-      IF l_ext IS NULL OR (l_ext != "mp3") THEN
+      IF l_ext IS NULL OR (l_ext != "mp3" AND l_ext != "ogg") THEN
 --				DISPLAY "Skipping File:",l_path
         CONTINUE WHILE
       END IF
