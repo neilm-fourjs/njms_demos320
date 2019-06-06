@@ -10,7 +10,7 @@ IMPORT FGL g2_ws
 
 SCHEMA njm_demo310
 
-CONSTANT c_stockItemsPerPage = 10
+CONSTANT c_stockItemsPerPage = 15
 
 PUBLIC DEFINE g2_log g2_logging.logger
 
