@@ -6,7 +6,7 @@ IMPORT FGL combos
 
 SCHEMA njm_demo310
 DEFINE m_sql g2_sql.sql
-DEFINE m_ui g2_ui.ui
+DEFINE m_ui g2_ui.g2_ui
 MAIN
   DEFINE l_db g2_db.dbInfo
 	DEFINE l_key STRING
