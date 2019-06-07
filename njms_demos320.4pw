@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Project defaultApplication="1554019048" gstVersion="31404" version="3.3">
+<Project defaultApplication="-1277007627" gstVersion="31404" version="3.3">
   <Settings>
     <DynamicProperties version="2">
       <DynamicProperty description="Accent color (Android 5.0 and later)" initialValue="#9575CD" isDefaultInherited="false" isHidden="false" label="Accent color" name="gma-accent-color" readOnly="false" type="COLOR"/>
@@ -178,7 +178,11 @@
         <File filePath="etc/custlist1.4rp"/>
         <File filePath="src/app_web/custs.4gl"/>
       </Application>
-      <Application binaryName="prodmnt" commandLineArguments="S FR01" dependencies="-310428106,1986,1136561508_14000" id="-1277007627" label="prodmnt">
+      <Application binaryName="prodmnt" commandLineArguments="S ST03-RD " dependencies="-310428106,1986,1136561508_14000" id="-1277007627" label="prodmnt">
+        <VirtualFolder label="wc">
+          <File filePath="pics/webcomponents/colour/colour.html"/>
+          <File filePath="pics/webcomponents/colour/colour.js"/>
+        </VirtualFolder>
         <File filePath="src/app_web/prodmnt.4gl"/>
         <File filePath="src/app_web/prodmnt.per"/>
       </Application>

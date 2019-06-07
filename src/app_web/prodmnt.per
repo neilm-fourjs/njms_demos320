@@ -13,6 +13,7 @@ GRID
  [l005      ][f005                          ]
  [l006      ][f006                          ]
  [l06a      ][f06a                          ]
+             [col   ]
 <                                            >
 }
 END -- GRID
@@ -87,6 +88,13 @@ LABEL l006 : ldesc, TEXT="Description", JUSTIFY=RIGHT;
 f006 = FORMONLY.description;
 LABEL l06a : lcolr, TEXT="Colour", JUSTIFY=RIGHT;
 COMBOBOX f06a = FORMONLY.colour_code, INITIALIZER=cb_colours;
+WEBCOMPONENT col = FORMONLY.colour_hex, 
+	STYLE="noborder",
+	SIZEPOLICY=INITIAL, 
+	STRETCH=NONE, 
+	SCROLLBARS=NONE, 
+	HEIGHT=64 PIXELS, WIDTH=128 PIXELS,
+	COMPONENTTYPE="colour";
 
 LABEL l007 : lpric, TEXT="Price", JUSTIFY=RIGHT;
 f007 = FORMONLY.price;
