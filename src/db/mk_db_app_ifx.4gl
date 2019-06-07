@@ -43,6 +43,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 		supp_code CHAR(10),
 		barcode CHAR(13),
 		description CHAR(30),
+		colour_code INTEGER,
 		price DECIMAL(12, 2),
 		cost DECIMAL(12, 2),
 		tax_code CHAR(1),

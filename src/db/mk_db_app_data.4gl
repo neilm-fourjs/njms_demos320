@@ -33,6 +33,9 @@ FUNCTION insert_app_data()
 	DEFINE l_jsonData TEXT
 	DEFINE x SMALLINT
 
+	CALL insColours()
+	CALL insCountries()
+
   CALL mkdb_progress("Inserting test customer data...")
 	LOCATE l_jsonData IN MEMORY
 	CALL l_jsonData.readFile("../etc/customers.json")
@@ -140,9 +143,7 @@ FUNCTION insert_app_data()
   INSERT INTO disc VALUES("DD", "CC", 1.45)
   INSERT INTO disc VALUES("DD", "DD", 1.55)
 
-	CALL insColours()
   CALL insSupp()
-	CALL insCountries()
 
   CALL genQuotes()
 
@@ -162,6 +163,7 @@ FUNCTION insStock(
 
   DEFINE
     l_bc CHAR(13),
+		l_col INTEGER,
     l_cst DECIMAL(12, 2),
     l_sup CHAR(10),
     l_tc CHAR(1)
@@ -197,6 +199,11 @@ FUNCTION insStock(
     END IF
   END IF
 
+	LET l_col = 0
+	IF l_ds MATCHES "*Red*" THEN LET l_col = get_colour("Red") END IF
+	IF l_ds MATCHES "*Blue*" THEN LET l_col = get_colour("Blue") END IF
+	IF l_ds MATCHES "*Black*" THEN LET l_col = get_colour("Black") END IF
+
   IF l_sc IS NULL THEN
     LET l_sc = l_cat[1, 2] || (m_prod_key USING "&&&&&&")
     LET m_prod_key = m_prod_key + 1
@@ -223,7 +230,7 @@ FUNCTION insStock(
   LET l_ps = l_ps + 50
   LET l_fr = l_ps - l_al
   LET l_cst = (l_pr * 0.75)
-  DISPLAY l_sc, "-", l_bc, "-", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
+--  DISPLAY l_sc, "-", l_bc, "-", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
   IF l_img IS NULL THEN
     LET l_img = downshift(l_sc CLIPPED)
   END IF
@@ -234,6 +241,7 @@ FUNCTION insStock(
           l_sup,
           l_bc,
           l_ds,
+					l_col,
           l_pr,
           l_cst,
           l_tc,
@@ -463,7 +471,7 @@ FUNCTION orderHead(cst, dte)
   LET m_ordHead.order_ref = "Auto Generated " || m_ordHead.order_number || " " || TODAY
   INSERT INTO ord_head VALUES m_ordHead.*
   LET m_ordHead.order_number = SQLCA.SQLERRD[2] -- Fetch SERIAL order num
-  DISPLAY "Order Head:", m_ordHead.order_number, ":", cst, " ", dte
+--  DISPLAY "Order Head:", m_ordHead.order_number, ":", cst, " ", dte
   LET m_ordDet.line_number = 0
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -576,7 +584,7 @@ FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
             OTHERWISE
               LET l_cat = "??"
           END CASE
-          DISPLAY "DIR --    Path:", l_path, " Cat:", l_cat
+--          DISPLAY "DIR --    Path:", l_path, " Cat:", l_cat
           CALL genStock(os.path.join(l_base, l_path), l_cat, TRUE)
         END IF
         CONTINUE WHILE
@@ -634,6 +642,12 @@ FUNCTION insColours()
 	CALL c.close()
 	SELECT COUNT(*) INTO l_cnt FROM colours
   CALL mkdb_progress(SFMT("Loaded %1 Colours.", l_cnt ) )
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION get_colour( l_col STRING ) RETURNS INT
+	DEFINE l_key INTEGER = 0
+	SELECT colour_key INTO l_key FROM colours WHERE colour_name = l_col
+	RETURN l_key
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION genQuotes()
@@ -742,7 +756,7 @@ FUNCTION genQuotes()
 }
       INSERT INTO quote_detail VALUES l_quote_det.*
 			LET l_quote.quote_total = l_quote.quote_total + ( l_quote_det.quantity * l_quote_det.unit_rrp )
-			DISPLAY  l_quote_det.quote_number, ":", l_quote.quote_total
+--			DISPLAY  l_quote_det.quote_number, ":", l_quote.quote_total
     END FOR
  		UPDATE quotes SET quote_total = l_quote.quote_total WHERE quote_number = l_quote.quote_number
   END FOR

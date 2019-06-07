@@ -80,6 +80,7 @@ FUNCTION custom_form_init()
   CALL glm_mkForm.setComboBox("stock_cat", f_init_cb)
   CALL glm_mkForm.setComboBox("supp_code", f_init_cb)
   CALL glm_mkForm.setComboBox("disc_code", f_init_cb)
+  CALL glm_mkForm.setComboBox("colour_code", f_init_cb)
   CALL glm_mkForm.setWidgetProps("pack_flag", "CheckBox", "P", "", "")
   CALL glm_mkForm.setWidgetProps("long_desc", "TextEdit", "2", "40", "both")
   CALL glm_mkForm.hideField("cost")
@@ -97,6 +98,8 @@ FUNCTION init_cb(l_cb ui.ComboBox)
   CASE l_cb.getColumnName()
     WHEN "stock_cat"
       LET l_sql = "SELECT catid, cat_name FROM stock_cat ORDER BY cat_name"
+    WHEN "colour_code"
+      LET l_sql = "SELECT colour_key, colour_name FROM colours ORDER BY colour_name"
     WHEN "supp_code"
       LET l_sql = "SELECT supp_code, supp_name FROM supplier ORDER BY supp_name"
     WHEN "disc_code"
