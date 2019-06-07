@@ -109,7 +109,7 @@ FUNCTION init_cb(l_cb ui.ComboBox)
     DISPLAY "Loading ComboBox for: ", l_cb.getColumnName()
     DECLARE cb_cur CURSOR FROM l_sql
     FOREACH cb_cur INTO l_key, l_desc
-      IF l_key.trim().getLength() > 1 THEN
+      IF l_key.trim().getLength() > 0 THEN
         --DISPLAY "Key:",l_key.trim()," Desc:",l_desc.trim()
         CALL l_cb.addItem(l_key.trim(), l_desc.trim())
       END IF

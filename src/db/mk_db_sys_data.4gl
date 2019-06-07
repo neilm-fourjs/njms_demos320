@@ -90,14 +90,14 @@ FUNCTION insert_system_data()
       "enq",
       "main",
       "F",
-      "Stock Enquiry",
+      "Stock Enquiry (dynMaint)",
       "dynMaint.42r " || l_db || " stock stock_code YYNNNN",
       "")
   CALL addMenu(
       "enq",
       "main",
       "F",
-      "Supplier Enquiry",
+      "Supplier Enquiry (dynMaint)",
       "dynMaint.42r " || l_db || " supplier supp_code YYNNNN",
       "")
 
@@ -117,6 +117,20 @@ FUNCTION insert_system_data()
       "F",
       "Supplier Maintenance",
       "dynMaint.42r " || l_db || " supplier supp_code",
+      "")
+  CALL addMenu(
+      "mnt",
+      "main",
+      "F",
+      "Colours Maintenance",
+      "dynMaint.42r " || l_db || " colours colour_key",
+      "")
+  CALL addMenu(
+      "mnt",
+      "main",
+      "F",
+      "Countries Maintenance",
+      "dynMaint.42r " || l_db || " countries country_code",
       "")
 
   CALL addMenu("oe", "main", "T", "Order Entry", "", "")
