@@ -142,6 +142,7 @@ FUNCTION insert_app_data()
 
 	CALL insColours()
   CALL insSupp()
+	CALL insCountries()
 
   CALL genQuotes()
 
@@ -607,6 +608,14 @@ FUNCTION tidy_name(l_nam STRING) RETURNS STRING
     LET l_nam = l_nam.append(l_word CLIPPED || " ")
   END WHILE
   RETURN l_nam.trim()
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION insCountries()
+	DEFINE l_cnt INTEGER
+  CALL mkdb_progress("Loading Countries ...")
+	LOAD FROM "../etc/countries.unl" INSERT INTO countries
+	SELECT COUNT(*) INTO l_cnt FROM countries
+	CALL mkdb_progress(SFMT("Loaded %1 Countries.", l_cnt))
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insColours()

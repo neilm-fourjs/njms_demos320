@@ -9,8 +9,8 @@
       <PATH>$(res.deployment.path)</PATH>
       <MODULE>stockQuery</MODULE>
       <POOL>
-        <START>1</START>
-        <MIN_AVAILABLE>1</MIN_AVAILABLE>
+        <START>3</START>
+        <MIN_AVAILABLE>3</MIN_AVAILABLE>
         <MAX_AVAILABLE>10</MAX_AVAILABLE>
       </POOL>
     </EXECUTION>

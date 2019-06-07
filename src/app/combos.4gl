@@ -47,3 +47,12 @@ FUNCTION cb_custs(l_cb ui.ComboBox)
 	END FOREACH
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
+FUNCTION cb_countries(l_cb ui.ComboBox)
+	DEFINE l_code LIKE countries.country_code
+	DEFINE l_name LIKE countries.country_name
+	DECLARE l_countriescur CURSOR FOR SELECT country_code, country_name FROM countries
+	FOREACH l_countriescur INTO l_code, l_name
+		CALL l_cb.addItem(l_code CLIPPED, l_name CLIPPED)
+	END FOREACH
+END FUNCTION
+----------------------------------------------------------------------------------------------------

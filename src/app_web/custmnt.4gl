@@ -7,6 +7,9 @@ IMPORT FGL combos
 SCHEMA njm_demo310
 DEFINE m_sql g2_sql.sql
 DEFINE m_ui g2_ui.g2_ui
+DEFINE m_cst RECORD LIKE customer.*
+DEFINE m_del RECORD LIKE addresses.*
+DEFINE m_inv RECORD LIKE addresses.*
 MAIN
   DEFINE l_db g2_db.dbInfo
 	DEFINE l_key STRING
@@ -33,12 +36,36 @@ MAIN
       CALL g2_lib.g2_winMessage("Error", SFMT("Customer '%1' not found!", l_key), "exclamation")
       EXIT PROGRAM
     END IF
+		CALL m_sql.g2_SQLrec2Json()
+		CALL m_sql.json_rec.toFGL( m_cst )
+		DISPLAY "Customer:",m_cst.customer_name
+
+		SELECT * INTO m_del.* FROM addresses WHERE addresses.rec_key = m_cst.del_addr
+		SELECT * INTO m_inv.* FROM addresses WHERE addresses.rec_key = m_cst.inv_addr
   END IF
+	LET m_ui.init_inp_func = FUNCTION init_input
 	LET m_ui.before_inp_func = FUNCTION before_input
 	LET m_ui.after_fld_func = FUNCTION after_field
 	CALL m_ui.g2_UIinput(l_new, m_sql, "save", FALSE)
   CALL g2_lib.g2_exitProgram(0, "Finished")
 END MAIN
+----------------------------------------------------------------------------------------------------
+FUNCTION init_input( l_new BOOLEAN, l_d ui.Dialog ) RETURNS ()
+	IF NOT l_new THEN
+		CALL m_ui.g2_addFormOnlyField("del_add_line1", "VARCHAR(40)", m_del.line1, TRUE)
+		CALL m_ui.g2_addFormOnlyField("del_add_line2", "VARCHAR(40)", m_del.line2, TRUE )
+		CALL m_ui.g2_addFormOnlyField("del_add_line3", "VARCHAR(40)", m_del.line3, TRUE )
+		CALL m_ui.g2_addFormOnlyField("del_add_line4", "VARCHAR(40)", m_del.line4, TRUE )
+		CALL m_ui.g2_addFormOnlyField("del_postal_code", "CHAR(8)", m_del.postal_code, TRUE )
+		CALL m_ui.g2_addFormOnlyField("del_country_code", "CHAR(3)", m_del.country_code, TRUE ) 
+		CALL m_ui.g2_addFormOnlyField("inv_add_line1", "VARCHAR(40)", m_inv.line1, TRUE)
+		CALL m_ui.g2_addFormOnlyField("inv_add_line2", "VARCHAR(40)", m_inv.line2, TRUE )
+		CALL m_ui.g2_addFormOnlyField("inv_add_line3", "VARCHAR(40)", m_inv.line3, TRUE )
+		CALL m_ui.g2_addFormOnlyField("inv_add_line4", "VARCHAR(40)", m_inv.line4, TRUE )
+		CALL m_ui.g2_addFormOnlyField("inv_postal_code", "CHAR(8)", m_inv.postal_code, TRUE )
+		CALL m_ui.g2_addFormOnlyField("inv_country_code", "CHAR(3)", m_inv.country_code, TRUE ) 
+	END IF
+END FUNCTION
 ----------------------------------------------------------------------------------------------------
 FUNCTION before_input( l_new BOOLEAN, l_d ui.Dialog ) RETURNS ()
 	DEFINE l_key LIKE customer.customer_code
