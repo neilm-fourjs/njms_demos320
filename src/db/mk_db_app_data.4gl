@@ -200,9 +200,12 @@ FUNCTION insStock(
   END IF
 
 	LET l_col = 0
-	IF l_ds MATCHES "*Red*" THEN LET l_col = get_colour("Red") END IF
-	IF l_ds MATCHES "*Blue*" THEN LET l_col = get_colour("Blue") END IF
-	IF l_ds MATCHES "*Black*" THEN LET l_col = get_colour("Black") END IF
+	IF DOWNSHIFT(l_ds) MATCHES "*red*" THEN LET l_col = get_colour("Red") END IF
+	IF DOWNSHIFT(l_ds) MATCHES("*blue*") THEN LET l_col = get_colour("Blue") END IF
+	IF DOWNSHIFT(l_ds) MATCHES("*black*") THEN LET l_col = get_colour("Black") END IF
+	IF DOWNSHIFT(l_ds) MATCHES("*green*") THEN LET l_col = get_colour("Green") END IF
+	IF DOWNSHIFT(l_ds) MATCHES("*yellow*") THEN LET l_col = get_colour("Yellow") END IF
+	IF DOWNSHIFT(l_ds) MATCHES("*purple*") THEN LET l_col = get_colour("Purple") END IF
 
   IF l_sc IS NULL THEN
     LET l_sc = l_cat[1, 2] || (m_prod_key USING "&&&&&&")
@@ -596,7 +599,7 @@ FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
           END IF
           LET l_nam = os.path.rootName(l_path)
           LET l_desc = tidy_name(l_nam)
-          DISPLAY "Path:", l_path, " Cat:", l_cat, " Name:", l_nam, " Ext:", l_ext
+          --DISPLAY "Path:", l_path, " Cat:", l_cat, " Name:", l_nam, " Ext:", l_ext
           CALL insStock(NULL, NULL, l_desc, l_cat, 0, "CC", os.path.join(l_dir, l_nam))
         END IF
       END IF
@@ -646,6 +649,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION get_colour( l_col STRING ) RETURNS INT
 	DEFINE l_key INTEGER = 0
+	DISPLAY "Colour:",l_col
 	SELECT colour_key INTO l_key FROM colours WHERE colour_name = l_col
 	RETURN l_key
 END FUNCTION
