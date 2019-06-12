@@ -214,6 +214,7 @@
       <Library binaryName="mk_db_lib" dependencies="-400184264,1986,-310428106,1136561508_14000" id="726830537" label="mk_db_lib">
         <File filePath="src/db/mk_db_app_data.4gl"/>
         <File filePath="src/db/mk_db_app_ifx.4gl"/>
+        <File filePath="src/db/mk_db_lib.4gl"/>
       </Library>
     </Group>
     <Group id="1989900296" label="Demos MD Wizard">

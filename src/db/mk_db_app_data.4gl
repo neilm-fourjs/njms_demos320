@@ -3,6 +3,7 @@
 IMPORT util
 IMPORT os
 IMPORT FGL g2_db
+IMPORT FGL mk_db_lib
 &include "schema.inc"
 
 DEFINE m_ordHead RECORD LIKE ord_head.*
@@ -36,7 +37,7 @@ FUNCTION insert_app_data()
 	CALL insColours()
 	CALL insCountries()
 
-  CALL mkdb_progress("Inserting test customer data...")
+  CALL mk_db_lib.mkdb_progress("Inserting test customer data...")
 	LOCATE l_jsonData IN MEMORY
 	CALL l_jsonData.readFile("../etc/customers.json")
   CALL util.JSON.parse( l_jsonData, l_jcust )
@@ -64,7 +65,7 @@ FUNCTION insert_app_data()
 	END FOR
 
 
-  CALL mkdb_progress("Inserting test stock data...")
+  CALL mk_db_lib.mkdb_progress("Inserting test stock data...")
 
   LET m_bc_cnt = 124212
   LET m_prod_key = 1
@@ -149,7 +150,7 @@ FUNCTION insert_app_data()
 
   CALL genOrders()
 
-  CALL mkdb_progress("Done.")
+  CALL mk_db_lib.mkdb_progress("Done.")
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insStock(
@@ -390,7 +391,7 @@ FUNCTION genOrders()
   CALL cst.deleteElement(cst.getLength())
   CALL stk.deleteElement(stk.getLength())
 
-  CALL mkdb_progress("Generating " || MAX_ORDERS || " Orders")
+  CALL mk_db_lib.mkdb_progress("Generating " || MAX_ORDERS || " Orders")
   FOR x = 1 TO MAX_ORDERS
     LET c = util.math.rand(cst.getLength())
     IF c = 0 OR c > cst.getLength() THEN
@@ -623,10 +624,10 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insCountries()
 	DEFINE l_cnt INTEGER
-  CALL mkdb_progress("Loading Countries ...")
+  CALL mk_db_lib.mkdb_progress("Loading Countries ...")
 	LOAD FROM "../etc/countries.unl" INSERT INTO countries
 	SELECT COUNT(*) INTO l_cnt FROM countries
-	CALL mkdb_progress(SFMT("Loaded %1 Countries.", l_cnt))
+	CALL mk_db_lib.mkdb_progress(SFMT("Loaded %1 Countries.", l_cnt))
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insColours()
@@ -634,7 +635,7 @@ FUNCTION insColours()
 	DEFINE l_col RECORD LIKE colours.*
 	DEFINE l_cnt SMALLINT
 	DELETE FROM colours
-  CALL mkdb_progress("Loading Colours ...")
+  CALL mk_db_lib.mkdb_progress("Loading Colours ...")
 	LET c = base.Channel.create()
 	CALL c.openFile("../etc/colour_names.txt","r")
 	WHILE NOT c.isEof()
@@ -644,7 +645,7 @@ FUNCTION insColours()
 	END WHILE
 	CALL c.close()
 	SELECT COUNT(*) INTO l_cnt FROM colours
-  CALL mkdb_progress(SFMT("Loaded %1 Colours.", l_cnt ) )
+  CALL mk_db_lib.mkdb_progress(SFMT("Loaded %1 Colours.", l_cnt ) )
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION get_colour( l_col STRING ) RETURNS INT
@@ -678,7 +679,7 @@ FUNCTION genQuotes()
   CALL l_cst.deleteElement(l_cst.getLength())
   CALL l_stk.deleteElement(l_stk.getLength())
 
-  CALL mkdb_progress("Generating " || MAX_QUOTES || " Quotes")
+  CALL mk_db_lib.mkdb_progress("Generating " || MAX_QUOTES || " Quotes")
   FOR x = 1 TO MAX_ORDERS
 		INITIALIZE l_quote.* TO NULL
 		LET l_quote.revision = 1

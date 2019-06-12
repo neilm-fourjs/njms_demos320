@@ -1,13 +1,14 @@
 
 IMPORT FGL g2_db
+IMPORT FGL mk_db_lib
 
 #+ Create the application database tables: Informix
 --------------------------------------------------------------------------------
 FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
-	CALL mkdb_progress("Creating application tables...")
+	CALL mk_db_lib.mkdb_progress("Creating application tables...")
 
 	CREATE TABLE customer (
-		customer_code CHAR(8),
+		customer_code CHAR(8) NOT NULL,
 		customer_name VARCHAR(30),
 		contact_name VARCHAR(30),
 		email VARCHAR(100),
@@ -37,7 +38,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 
 	--EXECUTE IMMEDIATE "
 	CREATE TABLE stock(
-		stock_code CHAR(8),
+		stock_code CHAR(8) NOT NULL,
 		stock_cat CHAR(10),
 		pack_flag CHAR(1),
 		supp_code CHAR(10),
@@ -207,5 +208,5 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 		,FOREIGN KEY(stock_code) REFERENCES stock(stock_code)
 		,FOREIGN KEY(colour_key) REFERENCES colours(colour_key)
 	)
-	CALL mkdb_progress("Done.")
+	CALL mk_db_lib.mkdb_progress("Done.")
 END FUNCTION

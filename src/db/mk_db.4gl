@@ -1,11 +1,11 @@
 IMPORT FGL g2_lib
 IMPORT FGL g2_db
+IMPORT FGL mk_db_lib
 IMPORT FGL mk_db_sys_data
 IMPORT FGL mk_db_sys_ifx
 IMPORT FGL mk_db_app_data
 IMPORT FGL mk_db_app_ifx
 &include "schema.inc"
-DEFINE m_stat STRING
 
 MAIN
   DEFINE l_arg STRING
@@ -14,8 +14,8 @@ MAIN
   OPEN FORM f FROM "mk_db"
   DISPLAY FORM f
 
-  LET m_stat = SFMT("mk_db.42r running, arg:%1", l_arg)
-  DISPLAY BY NAME m_stat
+  LET mk_db_lib.m_stat = SFMT("mk_db.42r running, arg:%1", l_arg)
+  DISPLAY BY NAME mk_db_lib.m_stat
   CALL ui.Interface.refresh()
 
   LET l_arg = arg_val(1)
@@ -98,10 +98,3 @@ FUNCTION drop_app()
   CALL mkdb_progress("Done.")
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION mkdb_progress(l_mess STRING)
-  LET l_mess = CURRENT, ":", NVL(l_mess, "NULL!")
-  LET m_stat = m_stat.append(l_mess || "\n")
-  DISPLAY l_mess
-  DISPLAY BY NAME m_stat
-  CALL ui.Interface.refresh()
-END FUNCTION
