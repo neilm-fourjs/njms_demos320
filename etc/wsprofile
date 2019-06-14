@@ -1,0 +1,2 @@
+
+security.global.ca = "../etc/CABundle.pem"
