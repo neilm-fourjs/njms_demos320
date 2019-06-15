@@ -68,7 +68,7 @@ MAIN
     ON ACTION refresh
       CALL get_music(FALSE)
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+      CALL g2_about.g2_about(m_appInfo)
   END DIALOG
 
   CALL g2_lib.g2_exitProgram(0, % "Program Finished")
@@ -180,22 +180,27 @@ FUNCTION get_music(l_useCache BOOLEAN)
   DEFINE d INTEGER
 
   IF NOT os.path.exists(m_base) THEN
-		ERROR SFMT("MUSICDIR '%1' Not Found!", m_base)
+    ERROR SFMT("MUSICDIR '%1' Not Found!", m_base)
     CALL g2_lib.g2_winMessage("Error", SFMT("MUSICDIR '%1' Not Found!", m_base), "exclamation")
     RETURN
   END IF
 
-  CALL g2_aui.g2_winInfo(1, "Getting Music Info, please wait ...", "information")
-
   LET l_cache = os.Path.join(m_base, "musiccache.json")
+  DISPLAY "Getting Music from ", m_base, " Cache:", l_cache
   IF os.path.exists(l_cache) AND l_useCache THEN
-    CALL g2_aui.g2_winInfo(2, "Reading cache file", "")
+    IF g2_lib.m_mdi != "C" THEN
+      CALL g2_aui.g2_winInfo(2, SFMT("Reading cache file %1", m_base), "")
+    END IF
     CALL loadCache(l_cache)
-    CALL g2_aui.g2_winInfo(3, "", "")
+    IF g2_lib.m_mdi != "C" THEN
+      CALL g2_aui.g2_winInfo(3, "", "")
+    END IF
     RETURN
   END IF
 
-  DISPLAY "Getting Music from ", m_base
+  CALL g2_aui.g2_winInfo(
+      1, SFMT("Getting Music Info from %1, please wait ...", m_base), "information")
+
   LET m_songno = 1
   CALL m_songs.clear()
   CALL os.Path.dirSort("name", 1)
@@ -215,8 +220,7 @@ FUNCTION get_music(l_useCache BOOLEAN)
       IF l_path = "Music_Vids" THEN
         CONTINUE WHILE
       END IF
-      CALL g2_aui.g2_winInfo(
-          2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
+      CALL g2_aui.g2_winInfo(2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
       IF os.path.isDirectory(os.path.join(m_base, l_path)) THEN
         LET m_songs[m_songno].genre = l_path
 --				DISPLAY "Processing Dir:",l_path, " songno=",(m_songno USING "&&&&")," Artist:", m_songs[ m_songno ].artist
@@ -258,8 +262,7 @@ FUNCTION get_albums(l_path STRING)
       IF l_path = "mpd" THEN
         CONTINUE WHILE
       END IF
-      CALL g2_aui.g2_winInfo(
-          2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
+      CALL g2_aui.g2_winInfo(2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
       IF os.path.isDirectory(os.path.join(l_dir, l_path)) THEN
         LET m_songs[m_songno].artist = l_path
 --				DISPLAY "Processing Dir:",l_path, " songno=",(m_songno USING "&&&&")," Artist:", m_songs[ m_songno ].artist

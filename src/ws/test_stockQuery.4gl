@@ -1,4 +1,7 @@
 
+-- NOTE: The cli_stockQuery module was generated using:
+-- fglrestful -o cli_stockQuery.4gl https://generodemos.dynu.net/f/ws/r/ws_demo/stockQuery?openapi.json
+
 IMPORT FGL cli_stockQuery
 
 MAIN

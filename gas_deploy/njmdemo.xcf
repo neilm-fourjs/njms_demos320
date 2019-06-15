@@ -1,7 +1,5 @@
-<?xml version="1.0"?>
-<APPLICATION Parent="defaultgdc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gas/3.00/cfextwa.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<APPLICATION Parent="defaultgdc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gas/3.00/cfextwa.xsd">
 	<RESOURCE Id="res.genver" Source="INTERNAL">320</RESOURCE>
 	<RESOURCE Id="res.path.njm_demo" Source="INTERNAL">$(res.deployment.path)</RESOURCE>
 	<EXECUTION>
