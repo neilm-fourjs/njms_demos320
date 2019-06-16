@@ -5,37 +5,37 @@ LAYOUT (TEXT=%"Login",WINDOWSTYLE="dialog2 center grad2", IMAGE="fa-user-secret"
 
 GRID (STYLE="center")
 {
-<G logo_grid                                      >
-[sp1:logo                                    :sp2]
-<                                                 >
-<G grp1                                           >
-[: :titl                                      : :]
+<G logo_grid                             >
+ [sp1:logo                          :sp2]
+<                                        >
+<G grp1                                  >
+ [: :titl                            : :]
+ [""]
+ [l001                    ]
+ [f001                                  ]
+ [l002                    ]
+ [f002                    ]
+ [l003]
+ [openid        ]
+ [l004                    ]
+ [f004                    ]
+ [""]
+ [:    :accept :newacc :about :    :]
+<                                        >
 [""]
-["  "][l001                    ]
-["  "][f001                                    ]
-["  "][l002                    ]
-["  "][f002                    ]
-["  "][l003]
-["  "][openid                  ]
-["  "][l004                    ]
-["  "][f004                    ]
-[""]
-[:        :accept:forgotten:newacc:about:       :]
-<                                                 >
-[""]
-<G grp2                                           >
-["  "][l005                    ]
-["  "][f005                    ]
-["  "][l006                    ]
-["  "][f006                    ]
-[l_rules                                         ]
-[                                                ]
-[                                                ]
-[                                                ]
-[                                                ]
-[                                                ]
-[                                                ]
-<                                                 >
+<G grp2                                  >
+ [" "][l005                    ]
+ [" "][f005                    ]
+ [" "][l006                    ]
+ [" "][f006                    ]
+ [l_rules                               ]
+ [                                      ]
+ [                                      ]
+ [                                      ]
+ [                                      ]
+ [                                      ]
+ [                                      ]
+<                                        >
 }
 END -- GRID
 
@@ -51,10 +51,10 @@ LABEL titl : titl,TEXT=%"Welcome", SIZEPOLICY=DYNAMIC,JUSTIFY=CENTER,STYLE="head
 
 LABEL l001 : lemail,TEXT=%"Email:",COMMENT=%"Email address", STYLE="bold left";
 f001 = FORMONLY.l_login, NOT NULL,COMMENT=%"Email address", DOWNSHIFT,
-	PLACEHOLDER=%"Email Address", REQUIRED;
+	PLACEHOLDER=%"Email Address", REQUIRED, SCROLL ;
 
 LABEL l002 : lpassw,TEXT=%"Password:", STYLE="bold left";
-f002 = FORMONLY.l_pass, INVISIBLE, REQUIRED, NOT NULL,PLACEHOLDER=%"Password";
+BUTTONEDIT f002 = FORMONLY.l_pass, INVISIBLE, REQUIRED, NOT NULL,PLACEHOLDER=%"Password", ACTION=forgotten;
 
 LABEL l003 : lor,TEXT=%"Or Use:", STYLE="bold left";
 BUTTON openid : openid, TEXT=%"GoogleId", IMAGE="fab-google";
@@ -71,7 +71,7 @@ f006 = FORMONLY.l_pass2, INVISIBLE, REQUIRED, NOT NULL;
 TEXTEDIT l_rules = FORMONLY.l_rules, SCROLLBARS=NONE,STRETCH=BOTH,STYLE="small";
 
 BUTTON accept : accept, TEXT=%"Login",IMAGE="fa-user";
-BUTTON newacc : acct_new, TEXT=%"New Account", IMAGE="fa-user-plus";
+BUTTON newacc : acct_new, TEXT=%"New User", IMAGE="fa-user-plus";
 
-BUTTON forgotten : forgotten, TEXT=%"Reset Password?", IMAGE="fa-question-circle";
+--BUTTON forgotten : forgotten, TEXT=%"Reset Password?", IMAGE="fa-question-circle";
 BUTTON about : about, TEXT=%"About?", IMAGE="fa-info-circle";

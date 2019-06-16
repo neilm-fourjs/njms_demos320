@@ -53,6 +53,7 @@ Property of Four Js*
 	<ActionDefault name="rpt" text="Report" image="fa-print" acceleratorName="Control-P" contextMenu="no"/>
 	
 	<ActionDefault name="testlogin" text="Test Login" image="fa-key" contextMenu="yes" acceleratorName="f12" />
+	<ActionDefault name="forgotten" text="Forgotten" image="fa-question" comment="Forgotten?" defaultView="no" contextMenu="no" />
 
 	<ActionDefault name="calendar_selection" text="eh!" defaultView="no" contextMenu="no" />
 	<ActionDefault name="prevmonth" text="eh!" defaultView="no" contextMenu="no" />
