@@ -185,7 +185,6 @@ FUNCTION mk_demo_account()
 	LET l_user.pass_expire = TODAY + 365
 	LET l_user.gbc_theme = NULL
 	LET l_user.photo_uri = NULL
-
 	TRY
 		INSERT INTO sys_users VALUES l_user.*
     CALL mkdb_progress(
@@ -195,30 +194,21 @@ FUNCTION mk_demo_account()
     EXIT PROGRAM
   END TRY
 
-  CALL mkdb_progress("Creating guest account ...")
+  CALL mkdb_progress("Creating 'guest' account ...")
 	LET l_user.salutation = ""
 	LET l_user.forenames = "Guest"
 	LET l_user.surname = "Guest"
 	LET l_user.position = "Guest"
 	LET l_user.email = "guest"
 	LET l_user.comment = "A Guest account"
-	LET l_user.acct_type = 0
-	LET l_user.active = 1
-	LET l_user.forcepwchg = "N"
-	LET l_user.hash_type = g2_secure.g2_getHashType()
 	LET l_user.login_pass = "guest"
 	LET l_user.salt = g2_secure.g2_genSalt( l_user.hash_type)
 	LET l_user.pass_hash = g2_secure.g2_genPasswordHash("guest", l_user.salt, l_user.hash_type)
-	LET l_user.pass_expire = TODAY + 365
-	LET l_user.gbc_theme = NULL
-	LET l_user.photo_uri = NULL
-
 	TRY
 		INSERT INTO sys_users VALUES l_user.*
-    CALL mkdb_progress(
-        SFMT("Test Account Inserted: %1 / %2 with %3 hash.",C_DEF_USER_EMAIL , C_DEF_USER_PASSWD, l_user.hash_type ))
+    CALL mkdb_progress("'Guest' Account guest/guest Inserted." )
   CATCH
-    CALL mkdb_progress("Insert test account failed!\n" || STATUS || ":" || SQLERRMESSAGE)
+    CALL mkdb_progress("Insert 'Guest' account failed!\n" || STATUS || ":" || SQLERRMESSAGE)
     EXIT PROGRAM
   END TRY
 
