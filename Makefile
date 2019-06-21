@@ -78,6 +78,9 @@ redeploy: undeploy deploy
 
 
 
+run: $(BIN)/menu.42r
+	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun menu.42r
+
 runclean: $(BIN)/menu.42r
 	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun materialDesignTest.42r
 
