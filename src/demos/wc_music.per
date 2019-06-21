@@ -15,7 +15,7 @@ TREE mytree ( PARENTIDCOLUMN=pid, IDCOLUMN=id, STYLE="tree"  )
 END -- TABLE
 GRID
 {
-[quit:                :prev:next:                 :about]
+[quit:     :accept:   :prev:next:                 :about]
 [wc                                                     ]
 [                                                       ]
 [                                                       ]
@@ -47,6 +47,7 @@ PHANTOM FORMONLY.file;
 PHANTOM FORMONLY.img;
 
 BUTTON quit : quit;
+BUTTON accept : accept, TEXT="Select";
 BUTTON prev : previous;
 BUTTON next : next;
 BUTTON about : about;

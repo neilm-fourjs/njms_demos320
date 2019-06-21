@@ -67,6 +67,10 @@
 		<StyleAttribute name="border" value="none" />
 	</Style>
 
+	<Style name="Table">
+		<StyleAttribute name="headerAlignment" value="auto" />
+	</Style>
+
 	<Style name="Table.noheading">
 		<StyleAttribute name="headerHidden" value="yes" />
 	</Style>

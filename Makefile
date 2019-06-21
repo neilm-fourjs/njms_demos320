@@ -14,7 +14,7 @@ export MUSICDIR=~/Music
 export RENDERER=ur
 
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
-export FGLIMAGEPATH=$(PROJBASE)/pics:$(FGLDIR)/lib/image2font.txt
+export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
 export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.$(RENDERER)
 export FGLLDPATH=../g2_lib/bin$(GENVER):$(GREDIR)/lib
@@ -76,6 +76,13 @@ deploy:
 
 redeploy: undeploy deploy
 
+
+
+runclean: $(BIN)/menu.42r
+	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun materialDesignTest.42r
+
+runnat: $(BIN)/menu.42r
+	FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.nat && cd $(BIN) && fglrun materialDesignTest.42r
 
 # Not supported!
 runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip

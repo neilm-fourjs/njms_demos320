@@ -71,6 +71,10 @@
 		<StyleAttribute name="border" value="none" />
 	</Style>
 
+	<Style name="Table">
+		<StyleAttribute name="headerAlignment" value="auto" />
+	</Style>
+
 	<Style name="Table.menu">
 		<StyleAttribute name="headerHidden" value="yes" />
 		<StyleAttribute name="highlightCurrentRow" value="no" />
