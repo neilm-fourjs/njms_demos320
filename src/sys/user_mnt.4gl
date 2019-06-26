@@ -362,7 +362,7 @@ FUNCTION user_rpt()
 	DEFINE l_rpt greRpt
 
 	LET l_rpt.pageWidth = 132
-	IF NOT l_rpt.init("users", TRUE, "SVG") THEN
+	IF NOT l_rpt.init("users", TRUE, "SVG", TRUE) THEN
 		CALL g2_lib.g2_winMessage("Error","Failed to start report","exclamation")
 		RETURN
 	END IF

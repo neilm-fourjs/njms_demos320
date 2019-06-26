@@ -86,7 +86,7 @@ FUNCTION rpt_func1()
 	DEFINE l_rpt greRpt
 	DEFINE x, l_max INTEGER
 	LET l_rpt.pageWidth = 132
-	IF NOT l_rpt.init( "prodlist1", TRUE, "PDF" ) THEN
+	IF NOT l_rpt.init( "prodlist1", TRUE, "PDF", TRUE ) THEN
 		CALL g2_lib.g2_winMessage("Error","Report Initialization failed!","exclamation")
 		RETURN
 	END IF

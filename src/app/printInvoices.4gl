@@ -60,7 +60,12 @@ MAIN
 	END FOR
   DISPLAY "Arg1:", l_args
 
-	IF NOT m_rpt.init(l_report, l_preview, l_dev) THEN
+-- Initialize GRE
+	IF NOT m_rpt.init(l_report, l_preview, l_dev, FALSE) THEN
+	END IF
+--	LET m_rpt.greDistributed = FALSE
+	IF NOT m_rpt.start() THEN
+-- Failed to setup GRE!!!
 	END IF
 
   LET m_fullname = app_lib.getUserName()
@@ -179,9 +184,11 @@ MAIN
   END FOREACH
 
   IF l_rptStart THEN
+		--PROMPT "test" FOR CHAR l_packcode
     FINISH REPORT rpt
     CALL g2_aui.g2_winInfo(3,NULL,NULL)
     CALL m_rpt.finish()
+		DISPLAY "Duration:", m_rpt.finished - m_rpt.started
   ELSE
     CALL g2_aui.g2_winInfo(1,% "No Orders to print",NULL)
     SLEEP 3
