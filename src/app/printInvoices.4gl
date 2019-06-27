@@ -47,6 +47,7 @@ MAIN
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
+	DISPLAY "GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
   CALL m_db.g2_connect(NULL)
 	FOR x  = 1 TO base.Application.getArgumentCount()
 		LET l_args = l_args.append(x||":"||base.Application.getArgument(x)||" ")
@@ -201,7 +202,7 @@ END MAIN
 FUNCTION printInv()
   DEFINE l_row SMALLINT
 
-  DISPLAY "Order:", g_ordHead.order_number
+--  DISPLAY "Order:", g_ordHead.order_number
   FOR l_row = 1 TO g_detailArray.getLength()
     IF g_detailArray[l_row].stock_code IS NOT NULL AND g_detailArray[l_row].stock_code != " " THEN
       OUTPUT TO REPORT rpt(m_fullname, g_ordHead.*, g_detailArray[l_row].*)
@@ -267,11 +268,11 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
     FIRST PAGE HEADER
       LET print_date = TODAY
       PRINT print_date, rpt_user, m_logo
-      DISPLAY "First Page Header"
+      --DISPLAY "First Page Header"
 
     BEFORE GROUP OF r_ordHead.order_number
       LET order_date = r_ordHead.order_datetime
-      DISPLAY "DEBUG GROUP:", r_ordHead.customer_name
+      --DISPLAY "DEBUG GROUP:", r_ordHead.customer_name
       LET line_num = 0
       LET tax_0 = 0
       LET tax_1 = 0
@@ -303,12 +304,12 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
       IF NOT os.Path.exists("../pics/products/" || (r_detailline.img_url CLIPPED) || ".jpg") THEN
         LET r_detailline.img_url = "noimage"
       END IF
-      DISPLAY "DEBUG: ON EVERY ROW:",
+{      DISPLAY "DEBUG: ON EVERY ROW:",
           r_detailLine.stock_code,
           " bc:",
           r_detailLine.barcode,
           " img:",
-          r_detailLine.img_url
+          r_detailLine.img_url}
       PRINT r_detailline.*
       PRINT tax_0, tax_1, tax_2, tax_3
       PRINT rpt_timestamp, line_num
