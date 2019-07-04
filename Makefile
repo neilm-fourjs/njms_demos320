@@ -77,15 +77,20 @@ deploy:
 redeploy: undeploy deploy
 
 
-
 run: $(BIN)/menu.42r
+	cd $(BIN) && fglrun menu.42r
+
+runur: $(BIN)/menu.42r
 	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun menu.42r
 
-runclean: $(BIN)/menu.42r
-	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun materialDesignTest.42r
-
 runnat: $(BIN)/menu.42r
-	FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.nat && cd $(BIN) && fglrun materialDesignTest.42r
+	FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.nat && cd $(BIN) && fglrun menu.42r
+
+rundef: $(BIN)/menu.42r
+	unset FGLGBCDIR && cd $(BIN) && fglrun menu.42r
+
+runmatdes: $(BIN)/menu.42r
+	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun materialDesignTest.42r
 
 # Not supported!
 runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip
