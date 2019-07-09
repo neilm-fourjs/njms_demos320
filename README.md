@@ -69,6 +69,17 @@ GRANT
 postgres=# \q
 ```
 
+or
+```
+postgres=# \connect njm_demo310;
+You are now connected to database "njm_demo310" as user "postgres".
+njm_demo310=# GRANT UPDATE ON ALL TABLES IN SCHEMA public TO fourjs;
+GRANT
+njm_demo310=# GRANT INSERT ON ALL TABLES IN SCHEMA public TO fourjs;
+GRANT
+njm_demo310=# GRANT DELETE ON ALL TABLES IN SCHEMA public TO fourjs;
+GRANT
+```
 
 For MariaDB added a user of 'dbuser' to connect to the database.
 ```
