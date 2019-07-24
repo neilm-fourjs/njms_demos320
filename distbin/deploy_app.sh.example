@@ -4,15 +4,19 @@
 function localDeploy() {
 	GAR=$1
 	VER=$2
+	USER=$3
 
 	# Set the GAS environment
 	. /opt/fourjs/gas$VER/envas
 
 	# Define the command using our custom XCF
 	if [ -e $FGLASDIR/etc/isv_as$VER.xcf ]; then
-		CMD="gasadmin gar -f $FGLASDIR/etc/isv_as$VER.xcf"
+		CMD="$FGLASDIR/bin/gasadmin gar -f $FGLASDIR/etc/isv_as$VER.xcf"
 	else
-		CMD="gasadmin gar"
+		CMD="$FGLASDIR/bin/gasadmin gar"
+	fi
+	if [ ! -z "$USER" ]; then
+		CMD="sudo -u $USER $CMD"
 	fi
 	
 	echo -e "\n attempt to disable previous version of app ..."
@@ -47,7 +51,8 @@ function localDeploy() {
 function remoteDeploy() {
 	GAR=$1
 	VER=$2
-	CMD="./deploy_app.sh 0 $GAR $VER"
+	USER=$3
+	CMD="./deploy_app.sh 0 $GAR $VER $USER"
 
 	echo "Deploying ${GAR}.gar to $HOST ..."
 	# Copy the gar to the server
@@ -60,38 +65,45 @@ function remoteDeploy() {
 
 PORT=22
 SRV=${1:-1}
-APP=${2:-njms_demos$VER}
 VER=${3:-320}
+APP=${2:-njms_demos$VER}
+USER=${4}
 DB=pgs
-GAR=${APP}${VER}_${DB}
+GAR=${APP}_${DB}
 
-echo "Srv: $SRV Gar: $GAR Ver: $VER"
+case $SRV in
+0)
+	GAR=$APP
+	HOST=local
+;;
+1)
+	HOST=myuser@myserver
+	USER=fourjs
+	PORT=666
+;;
+5)
+	HOST=$5
+	DB=${6:-ifx}
+;;
+esac
+
+
+echo "Srv: $SRV Host: $HOST Gar: $GAR Ver: $VER"
 
 if [ ! -e ${GAR}.gar ]; then
 	echo "${GAR}.gar missing!"
 	exit 1
 fi
 
-
-case $SRV in
-0)
-	HOST=local
-;;
-1)
-	HOST=myuser@myserver.com
-	PORT=666
-;;
-2)
-	HOST=$4
-	DB=${5:-ifx}
-;;
-esac
-
+if [ ! -e ${GAR}.gar ]; then
+	echo "${GAR}.gar missing!"
+	exit 1
+fi
 
 if [ "$HOST" == "local" ]; then
-	localDeploy $GAR $VER
+	localDeploy $GAR $VER $USER
 else
-	remotelDeploy $GAR $VER
+	remoteDeploy $GAR $VER $USER
 fi
 
 echo "Finished."
