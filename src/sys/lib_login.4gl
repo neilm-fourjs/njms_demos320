@@ -8,7 +8,6 @@ IMPORT FGL g2_lib
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 IMPORT FGL g2_secure
-
 &include "schema.inc"
 &include "app.inc"
 &include "OpenIdLogin.inc"
@@ -47,8 +46,6 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
   IF l_login IS NOT NULL THEN
     RETURN l_login
   END IF
-
-	CALL ui.Interface.refresh()
 
   LET l_allow_new = TRUE
   IF m_new_acc_func IS NULL THEN
@@ -147,7 +144,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
 
   CALL g2_lib.g2_log.logIt("after input for login:" || l_login)
   CALL fgl_setenv("APPUSER", l_login)
-	CALL l_appInfo.setUserName(l_login)
+  CALL l_appInfo.setUserName(l_login)
   RETURN l_login
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -261,8 +258,7 @@ PRIVATE FUNCTION forgotten(l_login LIKE sys_users.email)
   LET l_acc.login_pass = g2_secure.g2_genPassword()
   LET l_acc.hash_type = g2_secure.g2_getHashType()
   LET l_acc.salt = g2_secure.g2_genSalt(l_acc.hash_type)
-  LET l_acc.pass_hash =
-      g2_secure.g2_genPasswordHash(l_acc.login_pass, l_acc.salt, l_acc.hash_type)
+  LET l_acc.pass_hash = g2_secure.g2_genPasswordHash(l_acc.login_pass, l_acc.salt, l_acc.hash_type)
   LET l_acc.forcepwchg = "Y"
   LET l_b64 = g2_secure.g2_toBase64(l_acc.pass_hash)
 -- Need to actually send email!!
@@ -355,8 +351,7 @@ PRIVATE FUNCTION passchg(l_login LIKE sys_users.email) RETURNS BOOLEAN
   LET l_acc.login_pass = l_pass1
   LET l_acc.hash_type = g2_secure.g2_getHashType()
   LET l_acc.salt = g2_secure.g2_genSalt(l_acc.hash_type)
-  LET l_acc.pass_hash =
-      g2_secure.g2_genPasswordHash(l_acc.login_pass, l_acc.salt, l_acc.hash_type)
+  LET l_acc.pass_hash = g2_secure.g2_genPasswordHash(l_acc.login_pass, l_acc.salt, l_acc.hash_type)
   LET l_acc.forcepwchg = "N"
   LET l_acc.pass_expire = NULL
   --DISPLAY "New Hash:",l_acc.pass_hash
