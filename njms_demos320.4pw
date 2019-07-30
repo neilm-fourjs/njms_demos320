@@ -398,7 +398,7 @@
         <File filePath="src/OpenIdLogin/OpenIdLogin.4st"/>
         <File filePath="src/OpenIdLogin/OpenIdLogin.inc"/>
         <File filePath="src/OpenIdLogin/OpenIdLogin.per"/>
-        <File filePath="src/OpenIdLogin/OpenIdLogin.xcf"/>
+        <File filePath="src/OpenIdLogin/OpenIdLogin.xcf.example"/>
       </Application>
       <Application binaryName="user_mnt" commandLineArguments="S 1" dependencies="1835393312,1986,-1090563702,-310428106,-1155424042,1136561508_14000,1136561508_-2003847556" id="-1334009856" label="user_mnt">
         <File compilerOptions="--build-rdd" filePath="src/sys/user_mnt.4gl"/>

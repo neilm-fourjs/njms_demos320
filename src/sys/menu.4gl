@@ -47,16 +47,23 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
   DEFINE l_db g2_db.dbInfo
 	DEFINE l_user STRING
 	DEFINE l_user_id INTEGER
+	DEFINE l_splashTime SMALLINT
 
   IF g2_lib.m_mdi = "S" THEN
-    CALL g2_lib.g2_splash(0, C_SPLASH) -- open splash
+    CALL g2_lib.g2_splash(0, C_SPLASH, 243, 53) -- open splash
   END IF
 
   CALL l_db.g2_connect(NULL)
 
   IF g2_lib.m_mdi = "S" THEN
-    SLEEP 2
-    CALL g2_lib.g2_splash(-1, NULL) -- close splash
+		IF ui.Interface.getFrontEndName() = "GDC" THEN
+			LET l_splashTime = 4
+		ELSE
+			LET l_splashTime = 2
+		END IF
+		DISPLAY CURRENT," SLEEP "||l_splashTime
+    SLEEP l_splashTime
+    CALL g2_lib.g2_splash(-1, NULL, 0, 0) -- close splash
   END IF
 
   LET lib_login.m_logo_image = C_SPLASH

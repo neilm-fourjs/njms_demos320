@@ -69,24 +69,34 @@ VER=${3:-320}
 APP=${2:-njms_demos$VER}
 USER=${4}
 DB=pgs
-GAR=${APP}_${DB}
 
 case $SRV in
 0)
-	GAR=$APP
-	HOST=local
+  GAR=$APP
+  HOST=local
 ;;
 1)
-	HOST=myuser@myserver
-	USER=fourjs
-	PORT=666
+  HOST=myuser@myserver
+  USER=fourjs
 ;;
-5)
-	HOST=$5
-	DB=${6:-ifx}
+2)
+  HOST=myuser@myserver2
+  USER=fourjs
+  PORT=666
+  DB=sqt
+;;
+3)
+  HOST=$5
+  DB=ifx
 ;;
 esac
 
+
+if [ -z "$2" ]; then
+	GAR=${APP}_${DB}
+else
+	GAR=${APP}
+fi
 
 echo "Srv: $SRV Host: $HOST Gar: $GAR Ver: $VER"
 
