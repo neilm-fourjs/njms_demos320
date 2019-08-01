@@ -1,5 +1,10 @@
+
+-- URL for service - used by the lib_login unless set in the env using $OPENIDLOGIN_URL
 CONSTANT C_OPENIDLOGIN = "https://generodemos.dynu.net/g/ua/r/OpenIdLogin"
+
 CONSTANT C_OPENID = "#OpenId#"
+
+-- Record structure returned
 TYPE t_oidc RECORD
   email STRING,
   family STRING,
