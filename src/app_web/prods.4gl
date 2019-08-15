@@ -24,7 +24,7 @@ MAIN
 
   CALL g2_lib.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
-  CALL combos.dummy()
+  CALL combos.dummy() -- required to make the linker not exclude the combos library!
 
   OPEN FORM list FROM "prodlist"
   DISPLAY FORM list

@@ -34,15 +34,13 @@ DEFINE m_arrCol DYNAMIC ARRAY OF RECORD
   col11 STRING
 END RECORD
 MAIN
+  DEFINE l_db g2_db.dbInfo
   DEFINE l_rec RECORD LIKE quotes.*
   DEFINE l_search STRING
   DEFINE l_where STRING
-  DEFINE l_db g2_db.dbInfo
-  CALL l_db.g2_connect(NULL)
 
   CALL g2_lib.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
-
   CALL combos.dummy() -- required to make the linker not exclude the combos library!
 
   OPEN FORM list FROM "quotelist"
