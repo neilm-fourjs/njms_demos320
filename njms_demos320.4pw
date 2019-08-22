@@ -99,7 +99,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,value:GBCNAME=gbc-clean,file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),value:GDCUPDATESERVER=https://generodemo.hopto.org/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310,value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/bin320">
+  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=ur,value:GBCNAME=gbc-clean,file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),value:GDCUPDATESERVER=https://generodemo.hopto.org/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310,value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/bin320">
     <Group id="1174162370" label="Business Apps" language="Genero">
       <Library binaryName="App_Lib" dependencies="1986,-310428106,1136561508_14000" id="-1090563702" label="App_Lib">
         <File filePath="src/app/app.inc"/>
@@ -269,6 +269,10 @@
       </Application>
       <Application binaryName="showfile" id="-1746016620" label="showfile">
         <File filePath="src/demos/showfile.4gl"/>
+      </Application>
+      <Application binaryName="stackDemo" dependencies="1136561508_14000,1986" id="-1239450589" label="stackDemo">
+        <File filePath="src/demos/stackDemo.4gl"/>
+        <File filePath="src/demos/stackDemo.per"/>
       </Application>
       <Application binaryName="widgets" dependencies="-310428106,1136561508_14000" id="1663756762" label="widgets">
         <VirtualFolder label="etc">

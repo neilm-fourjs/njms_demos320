@@ -91,10 +91,17 @@ FUNCTION add_contact(l_name STRING, l_bio STRING)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION disp_contacts()
+	DEFINE l_info, l_img STRING
   DISPLAY ARRAY m_contList TO arr.* ATTRIBUTES(ACCEPT = FALSE, CANCEL = FALSE)
     BEFORE ROW
+			LET l_img = os.path.join(C_IMGPATH, m_conts[DIALOG.getCurrentRow("arr")].house)
       DISPLAY BY NAME m_conts[DIALOG.getCurrentRow("arr")].*
-      DISPLAY os.path.join(C_IMGPATH, m_conts[DIALOG.getCurrentRow("arr")].house) TO himg
+      DISPLAY l_img TO himg
+			LET l_info = SFMT("Image path '%1'", l_img)
+		ON ACTION show_info ATTRIBUTES( ROWBOUND, TEXT="Show", IMAGE="fa-info" )
+			CALL g2_lib.g2_winMessage("Imagel",l_info,"information")
+		ON UPDATE
+			CALL g2_lib.g2_winMessage("Imagel","Update not support yet!","information")
     ON ACTION close
       EXIT DISPLAY
     ON ACTION quit

@@ -518,9 +518,23 @@ FUNCTION cb_gbc_theme(l_cb ui.Combobox)
     RETURN
   END IF
   CALL ui.Interface.frontCall("theme", "listThemes", [], [l_result])
-  --DISPLAY "GBC Themes:", l_result
   CALL util.JSON.parse(l_result, m_themes)
   FOR x = 1 TO m_themes.getLength()
     CALL l_cb.addItem(m_themes[x].name, m_themes[x].title)
+  END FOR
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION cb_gbcTheme(l_cb ui.Combobox)
+  DEFINE l_result STRING
+  DEFINE x SMALLINT
+	DEFINE l_themes DYNAMIC ARRAY OF RECORD
+		name STRING,
+		title STRING,
+		conditions DYNAMIC ARRAY OF STRING
+	END RECORD
+  CALL ui.Interface.frontCall("theme", "listThemes", [], [l_result])
+  CALL util.JSON.parse(l_result, l_themes)
+  FOR x = 1 TO m_themes.getLength()
+    CALL l_cb.addItem(l_themes[x].name, l_themes[x].title)
   END FOR
 END FUNCTION
