@@ -76,6 +76,10 @@ MAIN
       BEFORE ROW
         DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr2"), l_listView.getLength())
             TO tab2info
+			ON UPDATE
+				CALL g2_lib.g2_winMessage("Update","Update not available!","exclamation")
+			ON DELETE
+				CALL g2_lib.g2_winMessage("Delete","Delete not available!","exclamation")
     END DISPLAY
     DISPLAY ARRAY l_listView TO arr3.*
       BEFORE ROW

@@ -139,7 +139,7 @@
         <File filePath="src/app/ordent.per"/>
         <File filePath="src/app/ordent2.per"/>
       </Application>
-      <Application binaryName="printInvoices" commandLineArguments="S 1 0 ordent ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
+      <Application binaryName="printInvoices" commandLineArguments="S 1 0 ordent-1 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
         <VirtualFolder label="Reports">
           <File filePath="etc/ordent-1.4rp"/>
           <File filePath="etc/ordent-2.4rp"/>

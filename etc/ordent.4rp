@@ -18,7 +18,7 @@
                         <LAYOUTNODE name="Page Header" width="max" length="min" port="firstPageHeader" floatingBehavior="enclosed">
                             <MINIPAGE name="HeadTop" width="min" length="max" bgColor="#c1d4ff" layoutDirection="leftToRight" floatingBehavior="enclosed">
                                 <rtl:input-variable name="m_logo" type="FGLString" expectedLocation="expectedBefore"/>
-                                <IMAGEBOX name="ImageBox3" width="335.671" length="100.106" alignment="near" scaleX=".25" scaleY=".25" floatingBehavior="enclosed" url="{{m_logo+&quot;njm_demo_icon.png&quot;}}" intendedResolution="72"/>
+                                <IMAGEBOX name="ImageBox3" width="335.671" length="100.106" alignment="near" scaleX=".25" scaleY=".25" floatingBehavior="enclosed" url="{{m_logo}}" intendedResolution="72"/>
                                 <WORDBOX name="Report Title" x="0" y="max/2" anchorX="0" anchorY="0.5" alignment="baseline" fontSize="25" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" floatingBehavior="enclosed" text="{{&quot;Sales Invoice&quot;.translate()}}"/>
                                 <WORDBOX name="printed" x="0" y="675" width="50" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" text="Printed:"/>
                                 <rtl:input-variable name="print_date" type="FGLString" expectedLocation="expectedBefore"/>

@@ -74,7 +74,10 @@ MAIN
     ON ACTION advanced
       MESSAGE "Not yet!"
     ON ACTION close
-      EXIT DIALOG
+			IF confirm("Are you sure you want to exit this program?") THEN
+      	LET int_flag = TRUE
+     		EXIT DIALOG
+			END IF
     ON ACTION add
       LET l_rec.quote_number = 0
       RUN "fglrun quotemnt.42r " || g2_lib.m_mdi || " " || l_rec.quote_number WITHOUT WAITING

@@ -8,7 +8,7 @@ PUBLIC DEFINE m_user RECORD LIKE sys_users.*
 #+
 #+ @param l_key the key for the user or NULL to default to ARG 2
 #+ @param l_email the users email address
-FUNCTION getUser(l_key LIKE sys_users.user_key, l_email LIKE sys_users.email)
+FUNCTION getUser(l_key LIKE sys_users.user_key, l_email LIKE sys_users.email) RETURNS ()
 
   IF l_email IS NOT NULL THEN
     SELECT * INTO m_user.* FROM sys_users WHERE email = l_email
@@ -58,7 +58,7 @@ END FUNCTION
 #+ @param l_user_key Users Serial key
 #+ @param l_role Role Name
 #+ @param l_verb TRUE=Verbose error FALSE=silent
-FUNCTION checkUserRoles(l_user_key, l_role, l_verb)
+FUNCTION checkUserRoles(l_user_key, l_role, l_verb) RETURNS BOOLEAN
   DEFINE l_user_key LIKE sys_users.user_key
   DEFINE l_user LIKE sys_users.surname
   DEFINE l_role LIKE sys_roles.role_name
@@ -125,16 +125,15 @@ FUNCTION checkUserRoles(l_user_key, l_role, l_verb)
   RETURN TRUE
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION toggle(var)
-  DEFINE var CHAR(1)
-  IF var = "Y" THEN
+FUNCTION toggle(l_var CHAR(1)) RETURNS CHAR(1)
+  IF l_var = "Y" THEN
     RETURN "N"
   END IF
   RETURN "Y"
 END FUNCTION
 --------------------------------------------------------------------------------
 -- Setup actions based on a allowed actions
-FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6))
+FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6)) RETURNS ()
   DEFINE d ui.Dialog
 &define ACT_FIND l_allowedActions[1]
 &define ACT_LIST l_allowedActions[2]
@@ -189,4 +188,12 @@ FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6))
     CALL d.setActionActive("firstrow", FALSE)
   END IF
 
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION confirm(l_msg STRING) RETURNS BOOLEAN
+	IF g2_lib.g2_winQuestion("Confirm",l_msg,"Yes","Yes|No","question") = "Yes" THEN
+		RETURN TRUE
+	ELSE
+		RETURN FALSE
+	END IF
 END FUNCTION

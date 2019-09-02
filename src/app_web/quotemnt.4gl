@@ -73,9 +73,11 @@ FUNCTION showDets(l_rec RECORD LIKE quotes.*)
     END INPUT
     DISPLAY ARRAY l_dets TO qdets.*
     END DISPLAY
-    ON ACTION close
-      LET int_flag = TRUE
-      EXIT DIALOG
+    ON ACTION CLOSE
+			IF confirm("Are you sure you want to cancel this?") THEN
+      	LET int_flag = TRUE
+     		EXIT DIALOG
+			END IF
   END DIALOG
 
 END FUNCTION

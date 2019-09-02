@@ -60,10 +60,6 @@ clean:
 	find . -name \*.zip -delete
 	find . -name \*.gar -delete
 
-run: $(BIN)/menu.42r
-	cd $(BIN); fglrun menu.42r
-
-
 undeploy: 
 	cd distbin && gasadmin gar -f $(GASCFG) --disable-archive $(ARCH) | true
 	cd distbin && gasadmin gar -f $(GASCFG) --undeploy-archive $(ARCH).gar
@@ -75,7 +71,6 @@ deploy:
 	echo "deployed" > distbin/.deployed
 
 redeploy: undeploy deploy
-
 
 run: $(BIN)/menu.42r
 	cd $(BIN) && fglrun menu.42r
@@ -90,7 +85,12 @@ rundef: $(BIN)/menu.42r
 	unset FGLGBCDIR && cd $(BIN) && fglrun menu.42r
 
 runmatdes: $(BIN)/menu.42r
-	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun materialDesignTest.42r
+	export FGLPROFILE=../etc/profile.nat && \
+	cd $(BIN) && fglrun materialDesignTest.42r
+
+runmatdesur: $(BIN)/menu.42r
+	export FGLPROFILE=../etc/profile.ur && \
+	cd $(BIN) && fglrun materialDesignTest.42r
 
 # Not supported!
 runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip
