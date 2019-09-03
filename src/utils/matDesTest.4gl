@@ -43,7 +43,7 @@ MAIN
 
   CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "matDesTest")
-
+  CALL ui.Interface.setImage("fa-bug")
   FOR X = 1 TO 15
     LET l_arr[x].col1 = "Row " || x
     LET l_arr[x].col2 = x
@@ -76,10 +76,10 @@ MAIN
       BEFORE ROW
         DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr2"), l_listView.getLength())
             TO tab2info
-			ON UPDATE
-				CALL g2_lib.g2_winMessage("Update","Update not available!","exclamation")
-			ON DELETE
-				CALL g2_lib.g2_winMessage("Delete","Delete not available!","exclamation")
+      ON UPDATE
+        CALL g2_lib.g2_winMessage("Update", "Update not available!", "exclamation")
+      ON DELETE
+        CALL g2_lib.g2_winMessage("Delete", "Delete not available!", "exclamation")
     END DISPLAY
     DISPLAY ARRAY l_listView TO arr3.*
       BEFORE ROW
@@ -94,6 +94,8 @@ MAIN
       ERROR "Error Message"
     ON ACTION win
       CALL win()
+    ON ACTION win_mess
+      CALL g2_lib.g2_winMessage("Info", "Testing", "information")
     ON ACTION arr2
       CALL DIALOG.nextField("lvcol1")
     ON ACTION arr3
