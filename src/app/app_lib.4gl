@@ -8,7 +8,7 @@ PUBLIC DEFINE m_user RECORD LIKE sys_users.*
 #+
 #+ @param l_key the key for the user or NULL to default to ARG 2
 #+ @param l_email the users email address
-FUNCTION getUser(l_key LIKE sys_users.user_key, l_email LIKE sys_users.email) RETURNS ()
+FUNCTION getUser(l_key LIKE sys_users.user_key, l_email LIKE sys_users.email) RETURNS()
 
   IF l_email IS NOT NULL THEN
     SELECT * INTO m_user.* FROM sys_users WHERE email = l_email
@@ -133,7 +133,7 @@ FUNCTION toggle(l_var CHAR(1)) RETURNS CHAR(1)
 END FUNCTION
 --------------------------------------------------------------------------------
 -- Setup actions based on a allowed actions
-FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6)) RETURNS ()
+FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6)) RETURNS()
   DEFINE d ui.Dialog
 &define ACT_FIND l_allowedActions[1]
 &define ACT_LIST l_allowedActions[2]
@@ -191,9 +191,9 @@ FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6)) RETURNS ()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION confirm(l_msg STRING) RETURNS BOOLEAN
-	IF g2_lib.g2_winQuestion("Confirm",l_msg,"Yes","Yes|No","question") = "Yes" THEN
-		RETURN TRUE
-	ELSE
-		RETURN FALSE
-	END IF
+  IF g2_lib.g2_winQuestion("Confirm", l_msg, "Yes", "Yes|No", "question") = "Yes" THEN
+    RETURN TRUE
+  ELSE
+    RETURN FALSE
+  END IF
 END FUNCTION
