@@ -34,7 +34,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 		LET m_useUR = TRUE
 		CALL l_form.setElementImage("renderer_toggle","fa-toggle-on")
 	END IF
-	IF NOT m_isGDC OR  m_prf.getIndexOf(".",1) = 0 THEN -- not got .nat or .ur on FGLPROFILE!
+	IF NOT m_isGDC OR  m_prf.getIndexOf("profile.",1) = 0 THEN -- not got .nat or .ur on FGLPROFILE!
 		CALL l_form.setElementHidden("renderer_toggle", TRUE)
 		CALL l_form.setElementHidden("l_renderer", TRUE)
 	END IF
@@ -261,8 +261,8 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION swap_nat_ur(l_renderer STRING) RETURNS ()
 	DEFINE x SMALLINT
-	LET x = m_prf.getIndexOf(".",1)
+	LET x = m_prf.getIndexOf("profile.",1)
 	IF x < 1 THEN RETURN END IF
-	LET m_prf = m_prf.subString(1,x)||l_renderer
+	LET m_prf = m_prf.subString(1,x-1)||"profile."||l_renderer
 END FUNCTION
 --------------------------------------------------------------------------------
