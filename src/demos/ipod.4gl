@@ -180,10 +180,11 @@ FUNCTION mainDialog()
               DISPLAY getAlbumArtURL(m_album) TO album_art
             END IF
             LET m_prev_album = m_album
-            CALL ui.interface.refresh()
+            --CALL ui.interface.refresh()
           END IF
         END IF
         DISPLAY CURRENT, ":Current Row:", arr_curr(), " Artist:", m_artist, " Album:", m_album
+
       ON ACTION search
         NEXT FIELD search
       ON UPDATE

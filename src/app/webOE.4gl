@@ -35,6 +35,8 @@ MAIN
   WHENEVER ANY ERROR CALL g2_lib.g2_error
   CALL m_db.g2_connect(NULL)
 
+  CALL ui.Interface.setText(C_PRGDESC)
+
   LET m_csslayout = FALSE
   IF fgl_getEnv("GBC_CUSTOM") = "csslayout" THEN
     LET m_csslayout = TRUE

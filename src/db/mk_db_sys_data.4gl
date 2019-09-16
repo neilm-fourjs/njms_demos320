@@ -3,7 +3,7 @@ IMPORT FGL g2_lib
 IMPORT FGL g2_db
 IMPORT FGL g2_secure
 &include "schema.inc"
-&include "app.inc"
+&include "app.inc" -- This sets C_DEF_USER_EMAIL / C_DEF_USER_PASSWD
 
 DEFINE m_mkey, m_ukey, m_rkey INTEGER
 --------------------------------------------------------------------------------
