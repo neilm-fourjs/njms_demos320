@@ -82,9 +82,7 @@
   <Style name="Table.listview">
     <StyleAttribute name="tableType" value="listView" />
   </Style>
-	<Style name="Table.disparr">
-		<StyleAttribute name="summaryLineAlwaysAtBottom" value="no" />
-	</Style>
+
 	<Style name="Table.wizard:focus">
 		<StyleAttribute name="backgroundColor" value="White" />
 	</Style>
@@ -110,7 +108,9 @@
 		<StyleAttribute name="textColor" value="darkred" />
 	</Style>
 
-
+	<Style name="Table.disparr">
+		<StyleAttribute name="summaryLineAlwaysAtBottom" value="no" />
+	</Style>
   <Style name="Table.disparr:odd">
     <StyleAttribute name="backgroundColor" value="#D5FFD5"/>
   </Style>

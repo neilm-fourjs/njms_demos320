@@ -43,7 +43,7 @@ MAIN
 
   CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "matDesTest")
-  CALL ui.Interface.setImage("fa-bug")
+--  CALL ui.Interface.setImage("fa-bug")
   FOR X = 1 TO 15
     LET l_arr[x].col1 = "Row " || x
     LET l_arr[x].col2 = x

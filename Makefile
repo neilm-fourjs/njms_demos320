@@ -95,3 +95,6 @@ runmatdesur: $(BIN)/menu.42r
 # Not supported!
 runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip
 	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-mdi && cd $(BIN) && fglrun container.42r
+
+recmatdes: $(BIN)/menu.42r
+	cd $(BIN) && fglrun --start-guilog=../ggc/matdes.log materialDesignTest.42r

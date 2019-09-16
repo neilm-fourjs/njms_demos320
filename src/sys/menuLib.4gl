@@ -20,11 +20,24 @@ DEFINE m_menu DYNAMIC ARRAY OF RECORD
   m_img STRING
 END RECORD
 DEFINE m_menus DYNAMIC ARRAY OF VARCHAR(6)
-
+DEFINE m_prf STRING
+DEFINE m_useUR BOOLEAN
 --------------------------------------------------------------------------------
 FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
+	DEFINE l_form ui.Form
   WHENEVER ANY ERROR CALL g2_lib.g2_error
-  OPEN WINDOW menu WITH FORM "menu_gbc"
+  OPEN WINDOW w_menu WITH FORM "menu"
+	LET l_form = ui.Window.getCurrent().getForm()
+	LET m_prf = "FGLPROFILE="||fgl_getEnv("FGLPROFILE")
+	LET m_useUR = FALSE
+	IF m_prf.getIndexOf(".ur",1) > 1 THEN
+		LET m_useUR = TRUE
+		CALL l_form.setElementImage("renderer_toggle","fa-toggle-on")
+	END IF
+	IF NOT m_isGDC OR  m_prf.getIndexOf(".",1) = 0 THEN -- not got .nat or .ur on FGLPROFILE!
+		CALL l_form.setElementHidden("renderer_toggle", TRUE)
+		CALL l_form.setElementHidden("l_renderer", TRUE)
+	END IF
 
   DISPLAY l_logo TO logo
   CALL ui.Interface.setText(l_appInfo.progDesc)
@@ -71,6 +84,16 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
           EXIT DISPLAY
         END IF
 
+			ON ACTION renderer_toggle
+				LET m_useUR = NOT m_useUR
+				IF m_useUR THEN
+					CALL swap_nat_ur( "ur" )
+					CALL l_form.setElementImage("renderer_toggle","fa-toggle-on")
+				ELSE
+					CALL swap_nat_ur( "nat" )
+					CALL l_form.setElementImage("renderer_toggle","fa-toggle-off")
+				END IF
+
       ON ACTION back
         DISPLAY CURRENT, ":BACK m_curMenu:", m_curMenu
         IF m_curMenu > 1 THEN
@@ -88,11 +111,11 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
     END IF
   END WHILE
 
-  CLOSE WINDOW menu
+  CLOSE WINDOW w_menu
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION process_menu_item(x SMALLINT)
-  DEFINE l_prog, l_args STRING
+  DEFINE l_cmd, l_prog, l_args STRING
 
   DISPLAY CURRENT, ":Process_menu_item:" || x || ":", m_menu[x].m_type || "-" || m_menu[x].m_text
 
@@ -113,32 +136,27 @@ FUNCTION process_menu_item(x SMALLINT)
 
     WHEN "F" -- Run a standard 42r - with defaults args
       CALL progArgs(m_menu[x].m_item) RETURNING l_prog, l_args
-      CALL g2_lib.g2_log.logit("RUN:fglrun " || l_prog || " " || m_args || " " || l_args)
-      --DISPLAY "l_prog:",l_prog," m_args:",m_args, " l_args:",l_args
-      --DISPLAY "Run: fglrun "||l_prog||" "||m_args||" "||l_args
+			LET l_cmd = SFMT("%1 fglrun %2 %3 %4",  m_prf, l_prog, m_args, l_args)
       IF NOT os.path.exists(l_prog) THEN
         CALL g2_lib.g2_errPopup(SFMT(% "This program '%1' appears to not be installed!", l_prog))
       END IF
-      RUN "fglrun " || l_prog || " " || m_args || " " || l_args WITHOUT WAITING
+			CALL run_withoutWaiting( l_cmd )
 
     WHEN "S" -- Run a simple 42r - no args
-      CALL g2_lib.g2_log.logit("RUN:fglrun " || m_menu[x].m_item)
       IF NOT os.path.exists(m_menu[x].m_item) THEN
         CALL g2_lib.g2_errPopup(
             SFMT(% "This program '%1' appears to not be installed!", m_menu[x].m_item))
-      END IF
-      RUN "fglrun " || m_menu[x].m_item WITHOUT WAITING
+      END IF 
+			LET l_cmd = SFMT("fglrun %1", m_menu[x].m_item )
+			CALL run_withoutWaiting( l_cmd )
 
     WHEN "P"
       CALL progArgs(m_menu[x].m_item) RETURNING l_prog, l_args
-      CALL g2_lib.g2_log.logit("RUN:" || l_prog || " " || l_args)
-      DISPLAY "Run: " || l_prog || " " || l_args
-      RUN l_prog || " " || l_args WITHOUT WAITING
+			LET l_cmd = SFMT("%1 %2", l_prog, l_args )
+			CALL run_withoutWaiting( l_cmd )
 
     WHEN "O"
-      CALL g2_lib.g2_log.logit("OSRUN:" || m_menu[x].m_item)
-      DISPLAY "exec: " || m_menu[x].m_item
-      RUN m_menu[arr_curr()].m_item WITHOUT WAITING
+			CALL run_withoutWaiting( m_menu[x].m_item )
 
     WHEN "M"
       LET m_menus[m_curMenu + 1] = m_menu[x].m_item
@@ -234,5 +252,17 @@ FUNCTION quit() RETURNS BOOLEAN
     END IF
   END IF
   RETURN TRUE
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION run_withoutWaiting(l_cmd STRING)
+  CALL g2_lib.g2_log.logit("RUN: "||NVL(l_cmd,"NULL!"))
+	RUN l_cmd
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION swap_nat_ur(l_renderer STRING) RETURNS ()
+	DEFINE x SMALLINT
+	LET x = m_prf.getIndexOf(".",1)
+	IF x < 1 THEN RETURN END IF
+	LET m_prf = m_prf.subString(1,x)||l_renderer
 END FUNCTION
 --------------------------------------------------------------------------------

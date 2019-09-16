@@ -92,14 +92,13 @@
       </Library>
       <Library binaryName="xcf_files" id="1211289508" label="xcf_files_local">
         <File filePath="gas/demo310.xcf"/>
-        <File filePath="gas/matDesTest.xcf"/>
       </Library>
     </Group>
     <Library binaryName="README" id="-1076375655" label="README">
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=ur,value:GBCNAME=gbc-clean,file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),value:GDCUPDATESERVER=https://generodemo.hopto.org/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310,value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/bin320">
+  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,value:GBCNAME=gbc-clean,file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),value:GDCUPDATESERVER=https://generodemo.hopto.org/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310,value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/bin320">
     <Group id="1174162370" label="Business Apps" language="Genero">
       <Library binaryName="App_Lib" dependencies="1986,-310428106,1136561508_14000" id="-1090563702" label="App_Lib">
         <File filePath="src/app/app.inc"/>
@@ -123,6 +122,10 @@
         <File filePath="src/gl_dynMaint/glm_ui.4gl"/>
       </Library>
       <Library binaryName="oe_lib" dependencies="-400184264,1986,-310428106,1136561508_14000" id="-272766546" label="oe_lib">
+        <VirtualFolder label="etc">
+          <File filePath="etc/weboe.4ad"/>
+          <File filePath="etc/weboe.4st"/>
+        </VirtualFolder>
         <File filePath="src/app/getcust.per"/>
         <File filePath="src/app/getorder.per"/>
         <File filePath="src/app/getstock.per"/>
@@ -152,18 +155,10 @@
         <File filePath="src/app/printInvoices.4gl"/>
       </Application>
       <Application binaryName="webOE" dependencies="-272766546,-1090563702,-400184264,1986,-310428106,1136561508_14000" id="-559263813" label="webOE">
-        <VirtualFolder label="etc">
-          <File filePath="etc/weboe.4ad"/>
-          <File filePath="etc/weboe.4st"/>
-        </VirtualFolder>
         <File filePath="src/app/webOE.4gl"/>
         <File filePath="src/app/webOE.per"/>
       </Application>
       <Application binaryName="webOE2" dependencies="-272766546,-1090563702,1986,-310428106,1136561508_14000" id="2103145373" label="webOE2">
-        <VirtualFolder label="etc">
-          <File filePath="etc/weboe2.4ad"/>
-          <File filePath="etc/weboe2.4st"/>
-        </VirtualFolder>
         <File filePath="src/app/webOE2.4gl"/>
         <File filePath="src/app/webOE2.per"/>
       </Application>
@@ -388,7 +383,6 @@
       <Application binaryName="menu" commandLineArguments="S" dependencies="-1463189462,2135194580,-1090563702,-310428106" id="1554019048" label="menu">
         <File filePath="src/sys/menu.4gl"/>
         <File filePath="src/sys/menu.per"/>
-        <File filePath="src/sys/menu_gbc.per"/>
         <File filePath="src/sys/menuLib.4gl"/>
         <File filePath="src/sys/new_acct.4gl"/>
         <File filePath="src/sys/new_acct.per"/>

@@ -79,8 +79,8 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
 
     AFTER FIELD l_login
       IF l_login = "t" THEN
-        LET l_login = "test@test.com"
-        LET l_pass = "12test"
+				LET l_login = C_DEF_USER_EMAIL
+				LET l_pass = C_DEF_USER_PASSWD
         ACCEPT INPUT
       END IF
 

@@ -1,16 +1,8 @@
 
 &include "schema.inc"
 
-LAYOUT ( TEXT="NJM's Menu", STYLE="centered grad2", MINWIDTH=50, MINHEIGHT=16  )
-HBOX
-GRID hpadding2
-{
-[hsp1]
-}
-END -- GRID
-GROUP
-VBOX
-GRID (STYLE="menu grad1")
+LAYOUT ( TEXT="NJM's Menu", STYLE="centered", MINWIDTH=50, MINHEIGHT=16  )
+GRID (STYLE="menu formborder")
 {
  [titl                             ]
 <T menu                             >
@@ -27,30 +19,19 @@ GRID (STYLE="menu grad1")
  [a|desc                           ]
  [a|desc                           ]
 <                                   >
-}
-END -- GRID
-GRID (STYLE="menu grad1")
-{
- [: :lb:f001                  :   :]
+ [: :l_user:f001              :   :]
+ [: :l_renderer:rd:               :]
  [:  :back :close:logout:about:   :]
  [sp1:logo                     :sp2]
      [                         ]
 }
 END -- GRID
-END -- VBOX
-END -- GROUP
-GRID hpadding3
-{
-[hsp2]
-}
-END -- GRID
-END -- HBOX
+END -- LAYOUT
+
 TABLES
 sys_menus
 
 ATTRIBUTES
-IMAGE hsp1 : spacer, IMAGE="fa-fw", STRETCH=X, STYLE="noborder";
-IMAGE hsp2 : spacer, IMAGE="fa-fw", STRETCH=X, STYLE="noborder";
 
 LABEL titl = FORMONLY.l_titl,STYLE="heading",JUSTIFY=CENTER;
 
@@ -64,8 +45,10 @@ PHANTOM sys_menus.m_item;
 PHANTOM sys_menus.m_passw;
 PHANTOM FORMONLY.m_img;
 
-LABEL lb : lb, TEXT=%"User:",STYLE="small";
-LABEL f001 = FORMONLY.l_user, SIZEPOLICY=DYNAMIC,STYLE="small";
+LABEL l_user : l_user, TEXT=%"User:",STYLE="small";
+LABEL f001 = FORMONLY.userName, SIZEPOLICY=DYNAMIC,STYLE="small";
+LABEL l_renderer : l_renderer,TEXT=%"Universal Renderer:", JUSTIFY=RIGHT;
+BUTTON rd : renderer_toggle,TEXT="",IMAGE="fa-toggle-off", STYLE="noborder";
 
 --BUTTON accept : accept, TEXT=%"Select", IMAGE="fa-arrow-circle-right";
 BUTTON back : back, TEXT=%"Back", IMAGE="fa-arrow-circle-left";

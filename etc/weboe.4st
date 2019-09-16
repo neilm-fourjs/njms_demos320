@@ -12,8 +12,8 @@
 		<StyleAttribute name="tabbedContainer" value="yes" />
 		<StyleAttribute name="tabbedContainerCloseMethod" value="both" />
 		<StyleAttribute name="windowMenu" value="yes" />
-		<StyleAttribute name="actionPanelPosition" value="top" />
-		<StyleAttribute name="ringMenuPosition" value="top" />
+		<StyleAttribute name="actionPanelPosition" value="none" />
+		<StyleAttribute name="ringMenuPosition" value="none" />
 	</Style>
 	<Style name="Window.dialog">
 		<StyleAttribute name="windowType" value="modal" />
@@ -171,6 +171,7 @@
 	</Style>
 	<Style name=".big">
 		<StyleAttribute name="fontSize" value="1.2em" />
+		<StyleAttribute name="scaleIcon" value="24px" />
 	</Style>
 	<Style name=".vbig">
 		<StyleAttribute name="fontSize" value="1.5em" />
@@ -218,4 +219,9 @@
 		<StyleAttribute name="border" value="none" />
 		<StyleAttribute name="fontSize" value="4pt" />
 	</Style>
+
+	<Style name=".tiles">
+		<StyleAttribute name="customWidget" value="pagedScrollGrid" />
+	</Style>
+	
 </StyleList>
