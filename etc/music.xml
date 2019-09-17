@@ -2756,16 +2756,6 @@
       <Track album_key="172" artist_key="10" genre_key="8" title="Golliwog&apos;s Cakewalk" trackno="50" dur="02:55" file="C:/Media/Music/Classical/50 greats for the Piano/50 - C Debussy - Golliwog&apos;s Cakewalk.mp3" play_count="" rating=""/>
     </Artist>
   </Genre>
-  <Genre name="Documentary" genre_key="9">
-    <Artist name="HolyRoses" artist_key="61" genre_key="9">
-      <Track album_key="1" artist_key="61" genre_key="9" title="Avatar: Creating the World of Pandora (H" trackno="0" dur="22:55" file="E:/Temp/Azureus Downloads/Complete/Avatar.Creating.the.World.of.Pandora.MP4.x264.720p-HR/Avatar - Cr" play_count="" rating=""/>
-    </Artist>
-  </Genre>
-  <Genre name="Duet" genre_key="10">
-    <Artist name="Robbie Williams &amp; Nicole Kidman" artist_key="62" genre_key="10">
-      <Track album_key="16" artist_key="62" genre_key="10" title="Something Stupid" trackno="0" dur="02:44" file="C:/Media/Music/Misc/Misc/Something Stupid.m4a" play_count="1" rating=""/>
-    </Artist>
-  </Genre>
   <Genre name="Electronic" genre_key="11">
     <Artist name="Jean Michel Jarre" artist_key="63" genre_key="11">
       <Album name="Equinoxe" album_key="173" year="1978" artist_key="63" genre_key="11"/>

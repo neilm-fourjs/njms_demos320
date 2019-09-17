@@ -434,7 +434,7 @@ FUNCTION al_searchDB(what)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION loadMusic()
-  DEFINE x, y, z, k INTEGER
+  DEFINE x, y, z, k, g INTEGER
   DEFINE xml_g, xml_ar, xml_al, xml_tr om.domNode
   DEFINE nl, nl2, nl3 om.nodeList
 
@@ -445,13 +445,14 @@ FUNCTION loadMusic()
 
   DISPLAY CURRENT, ": Loading from XML into array ..."
   LET nl = xml_r.selectByTagName("Genre")
+	LET g = 0
   FOR x = 1 TO nl.getlength()
     LET xml_g = nl.item(x)
-    LET k = xml_g.getAttribute("genre_key")
-    LET genre_a[k].genre = xml_g.getAttribute("name")
-    LET genre_a[k].genre_key = k
+		LET g = g + 1
+    LET genre_a[g].genre = xml_g.getAttribute("name")
+    LET genre_a[g].genre_key = g
     LET nl2 = xml_g.selectByTagName("Artist")
-    LET genre_a[k].artist_cnt = nl2.getLength()
+    LET genre_a[g].artist_cnt = nl2.getLength()
     FOR y = 1 TO nl2.getLength()
       LET xml_ar = nl2.item(y)
       LET k = xml_ar.getAttribute("artist_key")

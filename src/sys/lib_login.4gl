@@ -116,6 +116,12 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
 
     ON CHANGE l_theme
       CALL ui.Interface.frontCall("theme", "setTheme", [l_theme], [])
+			IF l_theme = "default" THEN
+  			CALL login_ver_title(l_appname, l_ver)
+			ELSE
+  			CALL login_ver_title(l_appname||" ("||l_theme||")", l_ver)
+			END IF
+			CALL ui.Interface.refresh()
 
     ON ACTION testlogin
       LET l_login = C_DEF_USER_EMAIL
