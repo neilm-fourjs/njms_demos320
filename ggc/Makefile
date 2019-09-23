@@ -43,3 +43,6 @@ oe_test.42m: oe_test.4gl
 
 run_oe_test: oe_test.42m
 	fglrun oe_test.42m tcp --working-directory ../$(BIN) --command-line 'fglrun orderEntry.42r S 1'
+
+clean:
+	rm *.42?

@@ -499,7 +499,7 @@
       <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/src/OpenIdLogin"/>
       <Directory includedFiles="homer-doh_Login.png" label="img" sourceDirectory="$(ProjectDir)/pics"/>
     </Package>
-    <Package binaryName="ws_demos320_pgs" dependencies="-1861949473,367791215" id="-2138345710" label="ws_demos320_pgs" platform="Genero Application Server">
+    <Package binaryName="ws_demos320_pgs" dependencies="-1861949473,367791215,1211226226" id="-2138345710" label="ws_demos320_pgs" platform="Genero Application Server">
       <DynamicProperty name="packageId" value="myapp"/>
       <DynamicProperty name="packageLabel" value="MyApp"/>
       <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/ws_bin320"/>
