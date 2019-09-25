@@ -256,7 +256,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION run_withoutWaiting(l_cmd STRING)
   CALL g2_lib.g2_log.logit("RUN: "||NVL(l_cmd,"NULL!"))
-	RUN l_cmd
+	RUN l_cmd WITHOUT WAITING
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION swap_nat_ur(l_renderer STRING) RETURNS ()
