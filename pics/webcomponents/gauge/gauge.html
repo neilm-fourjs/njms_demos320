@@ -1,0 +1,209 @@
+<html>
+<head>
+	<link rel="stylesheet" href="gauge.css" type="text/css">
+  <script src="https://assets.highcharts.com/js/code_prettify.js" type="text/javascript"></script>
+  <script src="jquery-3.1.1.js" type="text/javascript"></script>
+  <script type="text/javascript">
+jQuery(document).ready(function(){jQuery("#view-menu").click(function(e){jQuery("#wrap").toggleClass("toggled")}),jQuery("#sidebar-close").click(function(e){jQuery("#wrap").removeClass("toggled")}),jQuery(document).keydown(function(e){var t;"INPUT"!=e.target.tagName&&(39==e.keyCode?t=document.getElementById("next-example"):37==e.keyCode&&(t=document.getElementById("previous-example")),t&&(location.href=t.href))}),jQuery("#switcher-selector").bind("change",function(){var e=jQuery(this).val();return e&&(window.location=e),!1})});
+  </script>
+
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+</head>
+
+<body>
+
+	<div class="outer">
+    <div id="container-speed" class="chart-container"></div>
+    <div id="container-rpm" class="chart-container"></div>
+	</div>
+
+	<script>
+var myProps
+var has_focus=false;
+var clicked=false;
+
+// This function is called by the Genero Client Container
+// so the web component can initialize itself and initialize
+// the gICAPI handlers
+onICHostReady = function(version) {
+
+	if ( version != 1.0 ) {
+		alert('Invalid API version');
+		return;
+	}
+
+	gICAPI.onFocus = function( polarity ) {
+		if ( polarity && clicked ) {
+			//alert('onFocus');
+			clicked = false;
+		}
+		has_focus = polarity;
+	}
+
+	gICAPI.onProperty = function(props) {
+		myProps = eval("(" + props + ")");
+	}
+
+	gICAPI.onData = function( data ) {
+		myData = eval("(" + data + ")");
+		//document.getElementById("data2").innerHTML=data;
+		clicked = true;
+		gICAPI.SetFocus();
+	}
+}
+
+
+
+var gaugeOptions = {
+
+	chart: {
+		type: 'solidgauge'
+	},
+
+	title: null,
+
+	pane: {
+		center: ['50%', '85%'],
+		size: '140%',
+		startAngle: -90,
+		endAngle: 90,
+		background: {
+			backgroundColor:
+				Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+			innerRadius: '60%',
+			outerRadius: '100%',
+			shape: 'arc'
+		}
+	},
+
+	tooltip: {
+		enabled: false
+	},
+
+	// the value axis
+	yAxis: {
+		stops: [
+			[0.1, '#55BF3B'], // green
+			[0.5, '#DDDF0D'], // yellow
+			[0.9, '#DF5353'] // red
+		],
+		lineWidth: 0,
+		minorTickInterval: null,
+		tickAmount: 2,
+		title: {
+			y: -70
+		},
+		labels: {
+			y: 16
+		}
+	},
+
+	plotOptions: {
+		solidgauge: {
+			dataLabels: {
+				y: 5,
+				borderWidth: 0,
+				useHTML: true
+			}
+		}
+	}
+};
+
+// The speed gauge
+var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+	yAxis: {
+		min: 0,
+		max: 200,
+		title: {
+			text: 'Speed'
+		}
+	},
+
+	credits: {
+		enabled: false
+	},
+
+	series: [{
+		name: 'Speed',
+		data: [80],
+		dataLabels: {
+			format:
+				'<div style="text-align:center">' +
+				'<span style="font-size:25px">{y}</span><br/>' +
+				'<span style="font-size:12px;opacity:0.4">km/h</span>' +
+				'</div>'
+		},
+		tooltip: {
+			valueSuffix: ' km/h'
+		}
+	}]
+
+}));
+
+// The RPM gauge
+var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+	yAxis: {
+		min: 0,
+		max: 5,
+		title: {
+			text: 'RPM'
+		}
+	},
+
+	series: [{
+		name: 'RPM',
+		data: [1],
+		dataLabels: {
+			format:
+				'<div style="text-align:center">' +
+				'<span style="font-size:25px">{y:.1f}</span><br/>' +
+				'<span style="font-size:12px;opacity:0.4">' +
+				'* 1000 / min' +
+				'</span>' +
+				'</div>'
+		},
+		tooltip: {
+			valueSuffix: ' revolutions/min'
+		}
+	}]
+
+}));
+
+// Bring life to the dials
+setInterval(function () {
+	// Speed
+	var point,
+		newVal,
+		inc;
+
+	if (chartSpeed) {
+		point = chartSpeed.series[0].points[0];
+		inc = Math.round((Math.random() - 0.5) * 100);
+		newVal = point.y + inc;
+
+		if (newVal < 0 || newVal > 200) {
+			newVal = point.y - inc;
+		}
+
+		point.update(newVal);
+	}
+
+	// RPM
+	if (chartRpm) {
+		point = chartRpm.series[0].points[0];
+		inc = Math.random() - 0.5;
+		newVal = point.y + inc;
+
+		if (newVal < 0 || newVal > 5) {
+			newVal = point.y - inc;
+		}
+
+		point.update(newVal);
+	}
+}, 2000);
+	</script>
+
+</body>
+</html>
