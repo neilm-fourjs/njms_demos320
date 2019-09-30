@@ -11,7 +11,7 @@ CONSTANT C_PRGICON = "logo_dark"
 DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_debug BOOLEAN
-	DEFINE l_wc STRING
+	DEFINE l_wc INTEGER
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
@@ -23,7 +23,12 @@ MAIN
   OPEN FORM f FROM "wc_gauge"
   DISPLAY FORM f
 
-	INPUT BY NAME l_wc
+	LET l_wc = 50
+	INPUT BY NAME l_wc ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
+		ON ACTION plus5
+			LET l_wc = l_wc + 5
+		ON ACTION minus5
+			LET l_wc = l_wc - 5
 		ON ACTION quit EXIT INPUT
 	END INPUT
 

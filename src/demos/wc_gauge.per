@@ -1,5 +1,10 @@
 
-LAYOUT (TEXT="WC Test")
+TOOLBAR
+	ITEM quit ( IMAGE="fa-power-off" )
+	ITEM plus5 ( TEXT="Plus5", IMAGE="fa-plus" )
+	ITEM minus5 ( TEXT="Minus5", IMAGE="fa-minus" )
+END -- TB
+LAYOUT (TEXT="WC Test", STYLE="main2")
 GRID
 {
 [wc                                              ]
@@ -16,8 +21,8 @@ END -- GRID
 
 ATTRIBUTES
 WEBCOMPONENT wc = FORMONLY.l_wc,
-	HEIGHT=600 PIXELS,
-	WIDTH=800 PIXELS,
+	HEIGHT=400 PIXELS,
+	WIDTH=400 PIXELS,
 	STRETCH=NONE,
 	SCROLLBARS=NONE,
 	SIZEPOLICY=FIXED,

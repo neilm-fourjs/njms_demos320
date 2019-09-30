@@ -1,17 +1,17 @@
 
 body {
 	background-color: black;
+	color: white;
 }
 
-.outer {
+.mydebug {
 	background-color: white;
-	width: 600px;
-	height: 200px;
-	margin: 0 auto;
+	color: black;
 }
+
 .outer .chart-container {
+	background-color: white;
 	width: 300px;
-	float: left;
 	height: 200px;
 }
 .highcharts-yaxis-grid .highcharts-grid-line {
@@ -21,7 +21,7 @@ body {
 @media (max-width: 600px) {
 	.outer {
 		width: 100%;
-		height: 400px;
+		height: 200px;
 	}
 	.outer .chart-container {
 		width: 300px;
