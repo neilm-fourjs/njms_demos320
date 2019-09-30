@@ -98,7 +98,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,value:GBCNAME=gbc-njm,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/bin320">
+  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,value:GBCNAME=gbc,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/bin320">
     <Group id="1174162370" label="Business Apps" language="Genero">
       <Library binaryName="App_Lib" dependencies="1986,-310428106,1136561508_14000" id="-1090563702" label="App_Lib">
         <File filePath="src/app/app.inc"/>
@@ -330,6 +330,15 @@
         <File filePath="src/demos/wc_d3charts_demo.4gl"/>
         <File filePath="src/demos/wc_d3charts_demo.per"/>
       </Application>
+      <Application binaryName="wc_gauge" dependencies="1136561508_14000" id="1287057631" label="wc_gauge">
+        <VirtualFolder label="wc">
+          <File filePath="pics/webcomponents/gauge/gauge.css"/>
+          <File filePath="pics/webcomponents/gauge/gauge.html"/>
+          <File filePath="pics/webcomponents/gauge/gauge.js"/>
+        </VirtualFolder>
+        <File filePath="src/demos/wc_gauge.4gl"/>
+        <File filePath="src/demos/wc_gauge.per"/>
+      </Application>
       <Application binaryName="wc_googleMaps" dependencies="-310428106,1136561508_14000" id="-2121135278" label="wc_googleMaps">
         <VirtualFolder label="wc">
           <File filePath="pics/webcomponents/gm/gm.html"/>
@@ -426,10 +435,9 @@
       </Application>
       <Application binaryName="materialDesignTest" dependencies="-400184264,528729868,-310428106,1136561508_14000" id="1848127715" label="materialDesignTest">
         <File filePath="src/utils/matDesTest.4gl"/>
+        <File filePath="etc/matDesTest.4st"/>
         <File filePath="src/utils/matDesTest.per"/>
         <File filePath="src/utils/matDesTest_forms.per"/>
-        <File filePath="etc/matDesTest_GBC.4st"/>
-        <File filePath="etc/matDesTest_GDC.4st"/>
         <File filePath="src/utils/matDesTest_modal.per"/>
       </Application>
     </Group>

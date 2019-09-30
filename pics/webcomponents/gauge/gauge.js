@@ -28,7 +28,7 @@ onICHostReady = function(version) {
 	gICAPI.onData = function( data ) {
 		point = chartSpeed.series[0].points[0];
 		val1 = eval("(" + data + ")");;
-		document.getElementById("debug").innerHTML="gicapi:"+val1+" point.y:"+point.y;
+		document.getElementById("debug").innerHTML="gicapi:"+val1;
 		point.y = val1;
 		point.update(val1);
 		clicked = true;
