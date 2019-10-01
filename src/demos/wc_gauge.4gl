@@ -1,3 +1,6 @@
+
+# A simple WC demo for https://www.highcharts.com/demo/gauge-solid
+
 IMPORT util
 IMPORT FGL g2_lib
 IMPORT FGL g2_appInfo
@@ -11,7 +14,7 @@ CONSTANT C_PRGICON = "logo_dark"
 DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_debug BOOLEAN
-	DEFINE l_wc INTEGER
+	DEFINE l_wc, l_slider INTEGER
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
@@ -24,12 +27,17 @@ MAIN
   DISPLAY FORM f
 
 	LET l_wc = 50
-	INPUT BY NAME l_wc ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
+	LET l_slider = l_wc
+	INPUT BY NAME l_wc,l_slider ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
 		ON ACTION plus5
 			LET l_wc = l_wc + 5
+			LET l_slider = l_wc
 		ON ACTION minus5
 			LET l_wc = l_wc - 5
+			LET l_slider = l_wc
 		ON ACTION quit EXIT INPUT
+		ON CHANGE l_slider
+			LET l_wc = l_slider
 	END INPUT
 
   CALL g2_lib.g2_exitProgram(0, % "Program Finished")

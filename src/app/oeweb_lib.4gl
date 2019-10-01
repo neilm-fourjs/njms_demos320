@@ -108,7 +108,7 @@ FUNCTION build_cats(l_form ui.Form)
     CALL n.setAttribute("gridHeight", "1")
     CALL n.setAttribute("posY", x + 1)
     CALL n.setAttribute("posX", "1")
-    CALL n.setAttribute("style", "big")
+    CALL n.setAttribute("style", "bigbutt")
   END FOR
 END FUNCTION
 --------------------------------------------------------------------------------

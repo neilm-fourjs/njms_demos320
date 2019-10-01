@@ -119,6 +119,7 @@ LABEL cl07 : nett ,TEXT=%"Nett Value:",JUSTIFY=RIGHT;
 
 a001 = stock.stock_code,TITLE=%"Item",NOENTRY;
 PHANTOM stock.barcode;
+PHANTOM stock.img_url;
 a002 = stock.description,TITLE=%"Description",NOENTRY;
 PHANTOM stock.pack_flag;
 a003 = stock.price,TITLE=%"Price",NOENTRY;
@@ -132,6 +133,7 @@ PHANTOM ord_detail.tax_value;
 a005 = FORMONLY.nett_value,TITLE=%"Total",NOENTRY;
 PHANTOM ord_detail.gross_value;
 PHANTOM FORMONLY.accepted;
+
 BUTTON delete : delete,TEXT=%"Remove selected item";
 
 d010 = ord_head.customer_code,NOENTRY;

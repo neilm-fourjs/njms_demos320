@@ -169,10 +169,17 @@
 	<Style name=".error">
 		<StyleAttribute name="textColor" value="red" />
 	</Style>
+
 	<Style name=".big">
 		<StyleAttribute name="fontSize" value="1.2em" />
-		<StyleAttribute name="scaleIcon" value="24px" />
 	</Style>
+
+	<Style name=".bigbutt">
+		<StyleAttribute name="fontSize" value="1.2em" />
+		<StyleAttribute name="scaleIcon" value="24px" />
+		<StyleAttribute name="alignment" value="verticalCenter left" />
+	</Style>
+
 	<Style name=".vbig">
 		<StyleAttribute name="fontSize" value="1.5em" />
 	</Style>
@@ -217,7 +224,7 @@
 	<Style name=".gbc_status">
 		<StyleAttribute name="fontWeight" value="normal" />
 		<StyleAttribute name="border" value="none" />
-		<StyleAttribute name="fontSize" value="4pt" />
+		<StyleAttribute name="fontSize" value="0pt" />
 	</Style>
 
 	<Style name=".tiles">

@@ -7,6 +7,7 @@ END -- TB
 LAYOUT (TEXT="WC Test", STYLE="main2")
 GRID
 {
+[s001                                            ]
 [wc                                              ]
 [                                                ]
 [                                                ]
@@ -20,6 +21,7 @@ GRID
 END -- GRID
 
 ATTRIBUTES
+SLIDER s001 = FORMONLY.l_slider, VALUEMAX=200, VALUEMIN=1;
 WEBCOMPONENT wc = FORMONLY.l_wc,
 	HEIGHT=400 PIXELS,
 	WIDTH=400 PIXELS,

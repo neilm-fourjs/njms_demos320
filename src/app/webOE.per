@@ -10,6 +10,7 @@ TOOLBAR ( STYLE="gbc_weboe")
 END -- TB
 
 LAYOUT (TEXT="Main Store Front", STYLE="gbc_footer", IMAGE="njm_demo_icon")
+VBOX
 
 HBOX --(SPLITTER)
 
@@ -28,8 +29,6 @@ GRID (STYLE="scrollable")
 [tot_nett   : :]
 [t007       : :]
 [: :p1:p2:p3: :]
-[f001          ]
-[status        ]
 }
 END --GRID
 
@@ -42,6 +41,13 @@ END -- GRID
 END -- VBOX
 
 END --HBOX
+GRID -- dummy fields
+{
+[f001          ]
+[status        ]
+}
+END -- GRID
+END -- VBOX
 
 TABLES
 stock
@@ -54,12 +60,12 @@ ATTRIBUTES
 LABEL f001 = FORMONLY.custname,SIZEPOLICY=DYNAMIC, STYLE="gbc_status",TAG="user";
 LABEL status = FORMONLY.status,SIZEPOLICY=DYNAMIC, STYLE="gbc_status",TAG="status";
 
-IMAGE p1 : pt1, IMAGE="fa-cc-paypal", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS,STYLE="noborder";
-IMAGE p2 : pt2, IMAGE="fa-cc-mastercard", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
-IMAGE p3 : pt3, IMAGE="fa-cc-visa", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
+IMAGE p1 : pt1, IMAGE="fab-cc-paypal", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS,STYLE="noborder";
+IMAGE p2 : pt2, IMAGE="fab-cc-mastercard", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
+IMAGE p3 : pt3, IMAGE="fab-cc-visa", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
 
 GROUP cats : cats, TEXT=%"Categories:", STYLE="cats";
-GROUP tots : tots, TEXT=%"This Sale:";
+GROUP tots : tots, TEXT=%"";
 LABEL tot_items : tot_items,TEXT=%"Total Qty:", STYLE="big";
 t002 = ord_head.total_qty, STYLE="big";
 t003 = ord_head.total_gross, HIDDEN;
