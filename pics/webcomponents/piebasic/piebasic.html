@@ -1,0 +1,56 @@
+<html>
+<head>
+	<script src="https://assets.highcharts.com/js/code_prettify.js" type="text/javascript"></script>
+	<script src="jquery-3.1.1.js" type="text/javascript"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="piebasic.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div id="container_pie" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+	<script>
+Highcharts.chart('container_pie', {
+	chart: {
+		plotBackgroundColor: null,
+		plotBorderWidth: null,
+		plotShadow: false,
+		type: 'pie'
+	},
+	title: {
+		text: 'Browser market shares in January, 2018'
+	},
+	tooltip: {
+		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: true,
+				format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+			}
+		}
+	},
+	series: [{
+		name: 'Brands',
+		colorByPoint: true,
+		data: [{
+			name: 'Chrome',
+			y: 61.41,
+			sliced: true,
+			selected: true
+		}, {
+			name: 'Internet Explorer',
+			y: 11.84
+		}, {
+			name: 'Other',
+			y: 26.75
+		}]
+	}]
+});
+	</script>
+</body>
+</html>

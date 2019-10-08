@@ -84,12 +84,15 @@ runnat: $(BIN)/menu.42r
 rundef: $(BIN)/menu.42r
 	unset FGLGBCDIR && cd $(BIN) && fglrun menu.42r
 
-runmatdes: $(BIN)/menu.42r
+clear:
+	clear
+
+runmatdes: clear $(BIN)/menu.42r
 	export FGLPROFILE=../etc/profile.nat && \
 	cd $(BIN) && fglrun materialDesignTest.42r
 
-runmatdesur: $(BIN)/menu.42r
-	export FGLPROFILE=../etc/profile.ur && \
+runmatdesur: clear $(BIN)/menu.42r
+	echo $(GBC) && export FGLPROFILE=../etc/profile.ur && \
 	cd $(BIN) && fglrun materialDesignTest.42r
 
 # Not supported!

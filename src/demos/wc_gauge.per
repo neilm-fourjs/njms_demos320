@@ -3,12 +3,14 @@ TOOLBAR
 	ITEM quit ( IMAGE="fa-power-off" )
 	ITEM plus5 ( TEXT="Plus5", IMAGE="fa-plus" )
 	ITEM minus5 ( TEXT="Minus5", IMAGE="fa-minus" )
+	ITEM refresh ( TEXT="Refresh Pie", IMAGE="fa-refresh")
 END -- TB
 LAYOUT (TEXT="WC Test", STYLE="main2")
+HBOX
 GRID
 {
 [s001                                            ]
-[wc                                              ]
+[wc_guage                                        ]
 [                                                ]
 [                                                ]
 [                                                ]
@@ -19,10 +21,22 @@ GRID
 [                                                ]
 }
 END -- GRID
+GRID
+{
+[wc_pie              ]
+[                    ]
+[                    ]
+[                    ]
+[                    ]
+[                    ]
+}
+END -- GRID
+
+END -- HBOX
 
 ATTRIBUTES
 SLIDER s001 = FORMONLY.l_slider, VALUEMAX=200, VALUEMIN=1;
-WEBCOMPONENT wc = FORMONLY.l_wc,
+WEBCOMPONENT wc_guage = FORMONLY.l_wc_guage,
 	HEIGHT=400 PIXELS,
 	WIDTH=400 PIXELS,
 	STRETCH=NONE,
@@ -30,3 +44,12 @@ WEBCOMPONENT wc = FORMONLY.l_wc,
 	SIZEPOLICY=FIXED,
 	PROPERTIES=(title="Test"),
 	COMPONENTTYPE="gauge";
+
+WEBCOMPONENT wc_pie = FORMONLY.l_wc_pie,
+  HEIGHT=420 PIXELS,
+  WIDTH=600 PIXELS,
+  STRETCH=NONE,
+  SCROLLBARS=NONE,
+  SIZEPOLICY=FIXED,
+  PROPERTIES=(text="Title"),
+  COMPONENTTYPE="piebasic";
