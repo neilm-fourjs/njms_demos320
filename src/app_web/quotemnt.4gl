@@ -2,7 +2,7 @@ IMPORT FGL g2_lib
 IMPORT FGL g2_db
 IMPORT FGL combos
 
-SCHEMA njm_demo310
+&include "schema.inc"
 
 MAIN
   DEFINE l_db g2_db.dbInfo

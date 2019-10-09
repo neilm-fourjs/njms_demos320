@@ -4,7 +4,7 @@ IMPORT FGL g2_db
 IMPORT FGL g2_grw
 IMPORT FGL combos
 
-SCHEMA njm_demo310
+&include "schema.inc"
 
 DEFINE m_arr DYNAMIC ARRAY OF RECORD LIKE stock.*
 TYPE t_scrRec  RECORD

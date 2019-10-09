@@ -2,7 +2,7 @@ IMPORT FGL g2_lib
 IMPORT FGL g2_db
 IMPORT FGL combos
 
-SCHEMA njm_demo310
+&include "schema.inc"
 
 DEFINE m_arr DYNAMIC ARRAY OF RECORD LIKE quotes.*
 DEFINE m_scrArr DYNAMIC ARRAY OF RECORD
