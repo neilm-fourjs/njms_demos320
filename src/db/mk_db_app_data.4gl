@@ -10,13 +10,13 @@ DEFINE m_ordHead RECORD LIKE ord_head.*
 DEFINE m_ordDet RECORD LIKE ord_detail.*
 DEFINE m_cust RECORD LIKE customer.*
 
-CONSTANT MAX_ORDERS = 50
+CONSTANT MAX_ORDERS = 100
 CONSTANT MAX_QUOTES = 50
-CONSTANT MAX_LINES = 20
+CONSTANT MAX_LINES = 25
 CONSTANT MAX_QTY = 25
 
 DEFINE m_bc_cnt, m_prod_key INTEGER
-
+DEFINE m_containsPack BOOLEAN
 ---------------------------------------------------
 FUNCTION insert_app_data()
 	DEFINE l_jcust DYNAMIC ARRAY OF RECORD
@@ -403,11 +403,9 @@ FUNCTION genOrders()
     LET l = util.math.rand(MAX_LINES + 1)
     CALL dets.clear()
     IF l >= stk.getLength() THEN
-      LET l = stk.getLength() - 5
+      LET l = stk.getLength() - 4
     END IF
-    IF l < 2 THEN
-      LET l = 2
-    END IF
+    IF l < 2 THEN LET l = 2 END IF -- min number of order lines
     FOR y = 1 TO l
       LET q = util.math.rand(MAX_QTY)
       IF q = 0 OR q > MAX_QTY THEN
@@ -431,8 +429,12 @@ FUNCTION genOrders()
       LET dets[y].sc = stk[s]
     END FOR
     FOR y = 1 TO dets.getLength()
+			LET m_containsPack = FALSE
       CALL orderDetail(dets[y].sc CLIPPED, dets[y].qt)
     END FOR
+		IF m_containsPack THEN
+			LET m_ordHead.order_ref = m_ordHead.order_ref CLIPPED," (pack)"
+		END IF
     UPDATE ord_head SET ord_head.* = m_ordHead.* WHERE order_number = m_ordHead.order_number
   END FOR
 END FUNCTION
@@ -478,7 +480,8 @@ FUNCTION orderHead(cst, dte)
 --  DISPLAY "Order Head:", m_ordHead.order_number, ":", cst, " ", dte
   LET m_ordDet.line_number = 0
 END FUNCTION
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-- 
 FUNCTION orderDetail(stk, q)
   DEFINE stk CHAR(8)
   DEFINE q SMALLINT
@@ -518,6 +521,7 @@ FUNCTION orderDetail(stk, q)
     LET pflag = "P"
   END IF
   LET m_ordDet.pack_flag = pflag
+	IF pflag = "P" THEN LET m_containsPack = TRUE END IF
 
   CALL oe_calcLineTot()
 

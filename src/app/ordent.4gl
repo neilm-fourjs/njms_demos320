@@ -597,8 +597,8 @@ FUNCTION getOrder()
   LET l_oh.order_number =
       g2_lookup.g2_lookup(
           "ord_head",
-          "order_number,order_date,customer_name,items,total_qty,total_nett",
-          "Ord No.,Date,Customer,Items,Qty,Value",
+          "order_number,order_date, order_ref ,customer_name,items,total_qty,total_nett",
+          "Ord No.,Date, Reference,Customer,Items,Qty,Value",
           "1=1",
           "order_number")
   RETURN l_oh.order_number
