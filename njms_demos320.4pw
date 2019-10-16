@@ -262,7 +262,7 @@
         <File filePath="etc/picflow.4st"/>
         <File filePath="src/demos/picflow.per"/>
       </Application>
-      <Application binaryName="showfile" id="-1746016620" label="showfile">
+      <Application binaryName="showfile" commandLineArguments="widgets.42f" id="-1746016620" label="showfile">
         <File filePath="src/demos/showfile.4gl"/>
       </Application>
       <Application binaryName="stackDemo" dependencies="1136561508_14000,1986" id="-1239450589" label="stackDemo">
