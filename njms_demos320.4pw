@@ -317,19 +317,19 @@
         <File filePath="src/demos/wc_calendar_demo.4gl"/>
         <File filePath="src/demos/wc_calendar_demo.per"/>
       </Application>
-      <Library binaryName="wc_d3charts" id="2068081444" label="wc_d3charts">
+      <Application binaryName="wc_d3Charts" dependencies="-400184264,2068081444,-310428106,1136561508_14000" id="-1072068994" label="wc_d3Charts">
+        <File filePath="src/demos/wc_d3Charts.4gl"/>
+        <File filePath="src/demos/wc_d3Charts.per"/>
+      </Application>
+      <Library binaryName="wc_d3Charts_lib" id="2068081444" label="wc_d3Charts_lib">
         <VirtualFolder label="wc">
           <File filePath="pics/webcomponents/d3charts/d3charts.html"/>
           <File filePath="pics/webcomponents/d3charts/d3charts.js"/>
           <File filePath="pics/webcomponents/d3charts/style.css"/>
         </VirtualFolder>
-        <File filePath="src/demos/wc_d3charts.4gl"/>
-        <File filePath="src/demos/wc_d3charts.per"/>
+        <File filePath="src/demos/wc_d3ChartsLib.4gl"/>
+        <File filePath="src/demos/wc_d3ChartsLib.per"/>
       </Library>
-      <Application binaryName="wc_d3charts_demo" dependencies="-400184264,2068081444,-310428106,1136561508_14000" id="-1072068994" label="wc_d3charts_demo">
-        <File filePath="src/demos/wc_d3charts_demo.4gl"/>
-        <File filePath="src/demos/wc_d3charts_demo.per"/>
-      </Application>
       <Application binaryName="wc_gauge" dependencies="1136561508_14000" id="1287057631" label="wc_gauge">
         <VirtualFolder label="wc">
           <File filePath="pics/webcomponents/gauge/gauge.css"/>

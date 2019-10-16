@@ -3,7 +3,7 @@ IMPORT FGL g2_lib
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 IMPORT FGL g2_calendar
-IMPORT FGL wc_d3charts
+IMPORT FGL wc_d3ChartsLib
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Charts Demo"
@@ -14,7 +14,7 @@ DEFINE m_data DYNAMIC ARRAY OF RECORD
   vals INTEGER,
   days ARRAY[31] OF INTEGER
 END RECORD
-DEFINE m_graph_data DYNAMIC ARRAY OF wc_d3charts.t_d3_rec
+DEFINE m_graph_data DYNAMIC ARRAY OF wc_d3ChartsLib.t_d3_rec
 DEFINE m_monthView BOOLEAN
 DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
@@ -30,17 +30,17 @@ MAIN
   CALL genRndData()
 
 -- Pass the d3charts library my click handler function.
-  LET wc_d3charts.m_d3_clicked = FUNCTION clicked
-  CALL wc_d3charts.wc_d3_init(700, 500, "My Sales")
-  LET wc_d3charts.m_y_label = "Total Sales"
+  LET wc_d3ChartsLib.m_d3_clicked = FUNCTION clicked
+  CALL wc_d3ChartsLib.wc_d3_init(700, 500, "My Sales")
+  LET wc_d3ChartsLib.m_y_label = "Total Sales"
   CALL setData(0) --MONTH( CURRENT ) )
 
-  OPEN FORM f FROM "wc_d3charts_demo"
+  OPEN FORM f FROM "wc_d3Charts"
   DISPLAY FORM f
 
   DIALOG ATTRIBUTES(UNBUFFERED)
 
-    SUBDIALOG wc_d3charts.d3_wc
+    SUBDIALOG wc_d3ChartsLib.d3_wc
 
     DISPLAY ARRAY m_graph_data TO arr.*
     END DISPLAY
@@ -80,8 +80,8 @@ FUNCTION setData(l_month SMALLINT)
 
   IF l_month > 0 THEN
     LET m_monthView = FALSE
-    LET wc_d3charts.m_x_label = "Days"
-    LET wc_d3charts.m_title = "Sales for ", g2_calendar.month_fullName_int(l_month)
+    LET wc_d3ChartsLib.m_x_label = "Days"
+    LET wc_d3ChartsLib.m_title = "Sales for ", g2_calendar.month_fullName_int(l_month)
     FOR x = 1 TO g2_calendar.days_in_month(l_month)
       LET m_graph_data[x].labs = x
       LET m_graph_data[x].vals = m_data[l_month].days[x]
@@ -89,7 +89,7 @@ FUNCTION setData(l_month SMALLINT)
     END FOR
   ELSE
     LET m_monthView = TRUE
-    LET wc_d3charts.m_x_label = "Months"
+    LET wc_d3ChartsLib.m_x_label = "Months"
     FOR x = 1 TO 12
       LET m_graph_data[x].labs = g2_calendar.month_fullName_int(x)
       LET m_graph_data[x].vals = m_data[x].vals
@@ -97,7 +97,7 @@ FUNCTION setData(l_month SMALLINT)
     END FOR
   END IF
 
-  CALL wc_d3charts.wc_d3_setData(m_graph_data)
+  CALL wc_d3ChartsLib.wc_d3_setData(m_graph_data)
 END FUNCTION
 --------------------------------------------------------------------------------
 -- Generate my random test data
