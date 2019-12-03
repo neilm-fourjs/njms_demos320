@@ -13,7 +13,8 @@ CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Kite Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
-CONSTANT WC_KITE_PATH = "../pics/webcomponents/kite"
+
+DEFINE m_kitePath STRING = "../pics/webcomponents/kite"
 
 DEFINE m_kites DYNAMIC ARRAY OF STRING
 DEFINE m_rec RECORD
@@ -32,13 +33,22 @@ MAIN
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "wc_kite")
 
+-- Try and find the kite folder
+	IF os.path.isDirectory("../pics/webcomponents/kite") THEN
+		LET m_kitePath = "../pics/webcomponents/kite"
+	END IF
+	IF os.path.isDirectory("../wc_kite/webcomponents/kite") THEN
+		LET m_kitePath = "../wc_kite/webcomponents/kite"
+	END IF
+	DISPLAY "Kite Path:",m_kitePath
+
   OPEN FORM f FROM "wc_kite"
   DISPLAY FORM f
 
 -- Default kite to show on load.
   LET m_rec.kitename = "Talon_std"
   LET m_rec.colourSchemaName = "New"
-  LET m_rec.kiteFileName = os.path.join(WC_KITE_PATH, "kite_" || m_rec.kitename || ".svg")
+  LET m_rec.kiteFileName = os.path.join(m_kitePath, "kite_" || m_rec.kitename || ".svg")
   CALL setSVG(m_rec.kitename)
   LET wc_data = serializePanels()
 
@@ -50,7 +60,7 @@ MAIN
       ON CHANGE kitename
         CALL m_rec.panels.clear()
         LET m_rec.colourSchemaName = "New"
-        LET m_rec.kiteFileName = os.path.join(WC_KITE_PATH, "kite_" || m_rec.kitename || ".svg")
+        LET m_rec.kiteFileName = os.path.join(m_kitePath, "kite_" || m_rec.kitename || ".svg")
         CALL setSVG(m_rec.kitename)
         LET wc_data = serializePanels()
       ON ACTION kiteupdated
@@ -63,7 +73,7 @@ MAIN
     ON ACTION newKite
       CALL m_rec.panels.clear()
       LET m_rec.colourSchemaName = "New"
-      LET m_rec.kiteFileName = os.path.join(WC_KITE_PATH, "kite_" || m_rec.kitename || ".svg")
+      LET m_rec.kiteFileName = os.path.join(m_kitePath, "kite_" || m_rec.kitename || ".svg")
       CALL setSVG(m_rec.kitename)
       LET wc_data = serializePanels()
       NEXT FIELD kitename
@@ -241,7 +251,7 @@ FUNCTION cb_kites(cb)
   CALL m_kites.clear()
   CALL os.Path.dirsort("name", 1)
 
-  LET dir = os.Path.diropen(WC_KITE_PATH)
+  LET dir = os.Path.diropen(m_kitePath)
   WHILE dir > 0
     LET l_file = os.Path.dirnext(dir)
     IF l_file IS NULL THEN

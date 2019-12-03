@@ -34,7 +34,7 @@ DEFINE m_allowedActions CHAR(6)
 DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
-
+	DEFINE l_fields_per_page SMALLINT
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
@@ -50,11 +50,18 @@ MAIN
   CALL glm_sql.glm_mkSQL("*", "1=2") -- not fetching any data.
 
 -- create Form
+	LET l_fields_per_page = C_FIELDS_PER_PAGE
+{	CALL m_appInfo.getClientInfo()
+	CASE m_appInfo.scr_h
+		WHEN 1080 LET l_fields_per_page = 14
+		WHEN 1280 LET l_fields_per_page = 18
+	END CASE
+	DISPLAY "Screen Height:", m_appInfo.scr_h}
   CALL glm_mkForm.init_form(
       m_dbname,
       glm_sql.m_tab,
       glm_sql.m_key_fld,
-      C_FIELDS_PER_PAGE,
+      l_fields_per_page,
       glm_sql.m_fields,
       "main2") -- 10 fields by folder page
   CALL ui.window.getCurrent().setText(C_PRGDESC)

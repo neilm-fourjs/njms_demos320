@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Project defaultApplication="1554019048" gstVersion="31405" version="3.3">
+<Project defaultApplication="1554019048" gstVersion="31407" version="3.3">
   <Settings>
     <DynamicProperties version="2">
       <DynamicProperty description="Accent color (Android 5.0 and later)" initialValue="#9575CD" isDefaultInherited="false" isHidden="false" label="Accent color" name="gma-accent-color" readOnly="false" type="COLOR"/>
@@ -98,7 +98,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,value:GBCNAME=gbc,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
+  <Group environment="dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=ur,dir:GBCDISTPATH=/opt/fourjs/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
     <Group id="1174162370" label="Business Apps" language="Genero">
       <Library binaryName="App_Lib" dependencies="1986,-310428106,1136561508_14000" id="-1090563702" label="App_Lib">
         <File filePath="src/app/app.inc"/>
@@ -243,11 +243,11 @@
         <File filePath="src/demos/fglfind.4gl"/>
       </Application>
       <Application binaryName="ipodTree" dependencies="-310428106,1136561508_14000" id="-217822240" label="ipodTree">
-        <File filePath="src/demos/ipod.4gl"/>
-        <File filePath="src/demos/ipod.per"/>
         <File filePath="src/demos/ipod_big_cover.per"/>
         <File filePath="src/demos/ipod_sax.4gl"/>
+        <File filePath="src/demos/ipodtree.4gl"/>
         <File filePath="etc/ipodtree.4st"/>
+        <File filePath="src/demos/ipodtree.per"/>
       </Application>
       <Application binaryName="listView" dependencies="-310428106,1136561508_14000" id="1211711094" label="listView">
         <File filePath="src/demos/listView.4gl"/>
