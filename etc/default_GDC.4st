@@ -95,7 +95,7 @@
 	</Style>
 
 	<Style name="Label">
-		<StyleAttribute name="textColor" value="darkblue" />
+		<!-- StyleAttribute name="textColor" value="darkblue" /-->
 		<StyleAttribute name="fontWeight" value="bold" />
 	</Style>
 	<Style name=".test:active">
@@ -104,9 +104,9 @@
 	<Style name=".test:active:focus">
 		<StyleAttribute name="backgroundColor" value="GhostWhite" />
 	</Style>
-	<Style name=":inactive">
+	<!--Style name=":inactive">
 		<StyleAttribute name="textColor" value="darkred" />
-	</Style>
+	</Style-->
 
 	<Style name="Table.disparr">
 		<StyleAttribute name="summaryLineAlwaysAtBottom" value="no" />

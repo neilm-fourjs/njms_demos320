@@ -57,10 +57,11 @@ MAIN
 
   CALL oe_cursors()
 
-  OPEN FORM ordent FROM "ordent"
+  --OPEN FORM ordent FROM "ordent"
   OPEN FORM ordent2 FROM "ordent2"
   DISPLAY FORM ordent2
   CALL ui.Interface.setText(C_PRGDESC)
+	CALL ui.Interface.setImage("fa-chess-queen")
   DISPLAY SFMT(% "Welcome %1", m_fullname) TO welcome
   --CALL setTitle()
 

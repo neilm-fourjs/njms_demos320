@@ -47,7 +47,7 @@ MAIN
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
-	DISPLAY "GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
+	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
   CALL m_db.g2_connect(NULL)
 	FOR x  = 1 TO base.Application.getArgumentCount()
 		LET l_args = l_args.append(x||":"||base.Application.getArgument(x)||" ")
@@ -59,18 +59,23 @@ MAIN
 			WHEN 7 LET l_interactive = (base.Application.getArgument(x)="1")
 		END CASE
 	END FOR
-  DISPLAY "Arg1:", l_args
+  DISPLAY CURRENT,": Arg1:", l_args
 
 -- Initialize GRE
+	LET m_rpt.fileName = l_report
 	IF NOT m_rpt.init(l_report, l_preview, l_dev, FALSE) THEN
+		DISPLAY CURRENT,": gre init failed!"
+		EXIT PROGRAM
 	END IF
 --	LET m_rpt.greDistributed = FALSE
 	IF NOT m_rpt.start() THEN
 -- Failed to setup GRE!!!
+		DISPLAY CURRENT,": gre start failed!"
+		EXIT PROGRAM
 	END IF
 
   LET m_fullname = app_lib.getUserName()
-  DISPLAY "l_ordNo:", l_ordno, ":", m_fullname
+  DISPLAY CURRENT,": l_ordNo:", l_ordno, ":", m_fullname
 
   IF l_ordno IS NULL THEN
     CALL g2_lib.g2_errPopup(% "No valid order passed!")
@@ -85,7 +90,7 @@ MAIN
     PREPARE pre FROM l_stmt
     DECLARE cur CURSOR FOR pre
   CATCH
-    DISPLAY "Failed to prepare/declare statement:", l_stmt
+    DISPLAY CURRENT,": Failed to prepare/declare statement:", l_stmt
   END TRY
 
   LET l_row = 1
@@ -116,6 +121,7 @@ MAIN
       IF m_rpt.handle IS NULL THEN
         CALL g2_lib.g2_exitProgram(1, "Failed to start report")
       END IF
+			DISPLAY CURRENT,":Printing, please wait..."
       CALL g2_aui.g2_winInfo(1,% "Printing, please wait...",NULL)
       START REPORT rpt TO XML HANDLER m_rpt.handle
       LET l_rptStart = TRUE
@@ -189,8 +195,9 @@ MAIN
     FINISH REPORT rpt
     CALL g2_aui.g2_winInfo(3,NULL,NULL)
     CALL m_rpt.finish()
-		DISPLAY "Duration:", m_rpt.finished - m_rpt.started
+		DISPLAY CURRENT,": Duration:", m_rpt.finished - m_rpt.started
   ELSE
+		DISPLAY CURRENT,": No Orders to print"
     CALL g2_aui.g2_winInfo(1,% "No Orders to print",NULL)
     SLEEP 3
     CALL g2_aui.g2_winInfo(3,NULL,NULL)

@@ -1,3 +1,6 @@
+
+--TODO: need to add a warning for no internet or make it work wihtout!
+
 IMPORT util
 IMPORT FGL g2_lib
 IMPORT FGL g2_appInfo
