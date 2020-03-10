@@ -6,7 +6,7 @@ FUNCTION wizard_ui_sd(l_state STRING)
     CASE l_state
       WHEN "combo"
         LET l_state = "left"
-        INPUT BY NAME currtable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED)
+        INPUT BY NAME currtable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED) -- Combobox
           ON CHANGE currtable
             CALL on_change_currtable()
           ON ACTION goleft
@@ -24,7 +24,7 @@ FUNCTION wizard_ui_sd(l_state STRING)
         END INPUT
       WHEN "left"
         LET l_state = "right"
-        DISPLAY ARRAY lfields TO l.* ATTRIBUTES(UNBUFFERED)
+        DISPLAY ARRAY lfields TO l.* ATTRIBUTES(UNBUFFERED) -- Left field list
           ON ACTION right
             CALL right(DIALOG)
             CALL upd_right()
@@ -51,7 +51,7 @@ FUNCTION wizard_ui_sd(l_state STRING)
         END DISPLAY
       WHEN "right"
         LET l_state = "combo"
-        DISPLAY ARRAY rfields TO r.* ATTRIBUTES(UNBUFFERED)
+        DISPLAY ARRAY rfields TO r.* ATTRIBUTES(UNBUFFERED) -- Right selected field list
           ON ACTION left
             CALL left(DIALOG)
             CALL upd_left()

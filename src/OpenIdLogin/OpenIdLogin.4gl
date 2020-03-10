@@ -37,7 +37,7 @@ MAIN
 		DISPLAY "Login Okay:",l_oidc.email
 	END IF
 
---	CALL dumpEnv() -- just for testing.
+	CALL dumpEnv() -- just for testing.
 
 	LET l_store = util.JSONObject.fromFGL( l_oidc ).toString()
 	CALL logIt( l_store )
