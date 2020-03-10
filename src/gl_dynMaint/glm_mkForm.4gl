@@ -258,7 +258,7 @@ FUNCTION update_form_value(l_sql_handle base.SqlHandle)
     END IF
     CALL m_json_rec.put(m_fld_props[x].colname, m_fld_props[x].value)
   END FOR
-  DISPLAY m_json_rec.toString()
+--  DISPLAY m_json_rec.toString()
   CALL ui.Interface.refresh()
 END FUNCTION
 --------------------------------------------------------------------------------
