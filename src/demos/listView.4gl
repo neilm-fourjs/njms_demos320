@@ -92,35 +92,24 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION disp_contacts()
 	DEFINE l_info, l_img STRING
-	DEFINE cont_name STRING
+	DISPLAY ARRAY m_contList TO arr.* ATTRIBUTES(ACCEPT = FALSE, CANCEL = FALSE)
+		BEFORE ROW
+			LET l_img = os.path.join(C_IMGPATH, m_conts[DIALOG.getCurrentRow("arr")].house)
+			DISPLAY BY NAME m_conts[DIALOG.getCurrentRow("arr")].*
+			DISPLAY l_img TO himg
+			LET l_info = SFMT("Image path '%1'", l_img)
+		ON ACTION show_info ATTRIBUTES( ROWBOUND, TEXT="Show", IMAGE="fa-info" )
+			CALL g2_lib.g2_winMessage("Imagel",l_info,"information")
+		ON UPDATE
+			CALL g2_lib.g2_winMessage("Imagel","Update not support yet!","information")
+		ON ACTION close
+			EXIT DISPLAY
+		ON ACTION quit
+			EXIT DISPLAY
+		ON ACTION about
+			CALL g2_about.g2_about(m_appInfo)
+	END DISPLAY
 
-{	DIALOG ATTRIBUTES(UNBUFFERED)
-		INPUT BY NAME cont_name
-		END INPUT}
-		DISPLAY ARRAY m_contList TO arr.* -- ATTRIBUTES(ACCEPT = FALSE, CANCEL = FALSE)
-			BEFORE ROW
-				LET l_img = os.path.join(C_IMGPATH, m_conts[DIALOG.getCurrentRow("arr")].house)
-				DISPLAY BY NAME m_conts[DIALOG.getCurrentRow("arr")].*
-				DISPLAY l_img TO himg
-				LET l_info = SFMT("Image path '%1'", l_img)
-			ON ACTION show_info ATTRIBUTES( ROWBOUND, TEXT="Show", IMAGE="fa-info" )
-				CALL g2_lib.g2_winMessage("Imagel",l_info,"information")
-			ON UPDATE
-				CALL g2_lib.g2_winMessage("Imagel","Update not support yet!","information")
-		{	ON ACTION close
-				EXIT DISPLAY
-			ON ACTION quit
-				EXIT DISPLAY}
-			ON ACTION about
-				CALL g2_about.g2_about(m_appInfo)
-		END DISPLAY
-	{	ON ACTION accept
-			EXIT DIALOG
-    ON ACTION close
-      EXIT DIALOG
-    ON ACTION quit
-      EXIT DIALOG
-	END DIALOG}
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION getImagePath()

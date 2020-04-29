@@ -70,7 +70,7 @@ MAIN
 	DIALOG ATTRIBUTE(UNBUFFERED,FIELD ORDER FORM)
 		INPUT BY NAME l_rec.* ATTRIBUTES(WITHOUT DEFAULTS)
 		END INPUT
-		DISPLAY ARRAY l_arr TO arr1.* ATTRIBUTES(ACCEPT=FALSE)
+		DISPLAY ARRAY l_arr TO arr1.* --ATTRIBUTES(ACCEPT=FALSE)
 		END DISPLAY
 		DISPLAY ARRAY l_listView TO arr2.*
 			BEFORE ROW
@@ -202,6 +202,8 @@ MAIN
 			ERROR "F11"
 		ON ACTION f12
 			ERROR "F12"
+		ON ACTION fc_ismob
+			CALL fgl_winMessage("Mobile?", IIF(gbc_isMobile(),"App Running on Mobile device!","App not running on Mobile device"),"information")
 		ON ACTION close
 			EXIT DIALOG
 		ON ACTION quit
@@ -246,6 +248,15 @@ FUNCTION pg(l_f ui.Form, l_just_set INTEGER)
 			CALL ui.Interface.refresh()
 		END FOR
 	END IF
+END FUNCTION
+--------------------------------------------------------------------------------
+-- GBC ONLY - isMobile
+FUNCTION gbc_isMobile() RETURNS BOOLEAN
+	DEFINE l_bool BOOLEAN = FALSE
+	IF ui.interface.getFrontEndName() MATCHES "GM?" THEN RETURN TRUE END IF
+	IF ui.interface.getFrontEndName() = "GDC" THEN RETURN FALSE END IF
+	CALL ui.Interface.frontCall(	"mymodule", "isMobile", [], l_bool)
+	RETURN l_bool
 END FUNCTION
 --------------------------------------------------------------------------------
 -- GBC ONLY - Dynamically replace HTML code
