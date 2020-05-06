@@ -3,7 +3,7 @@ IMPORT com
 IMPORT FGL g2_debug
 IMPORT FGL g2_db
 IMPORT FGL ws_lib
-IMPORT FGL njm_ws_cust
+IMPORT FGL njm_cust_ws
 
 &include "../../g2_lib/src/g2_debug.inc"
 
@@ -20,7 +20,7 @@ MAIN
   GL_DBGMSG(0,SFMT("%1 Server started",base.Application.getProgramName()))
 
 -- Services
-  CALL com.WebServiceEngine.RegisterRestService("njm_ws_cust", "customers")
+  CALL com.WebServiceEngine.RegisterRestService("njm_cust_ws", "customers")
 
   CALL com.WebServiceEngine.Start()
   WHILE ws_lib.ws_ProcessServices_stat( com.WebServiceEngine.ProcessServices(-1) )

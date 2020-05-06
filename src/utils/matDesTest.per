@@ -70,10 +70,10 @@ HBOX ( SPLITTER )
 GRID
 {
 [lab1|f001      ]
-[lab2|f002           ]
-[lab3|f003           ]
-[lab4|f004      :a   ]
-[: :b:but1  :msg     :err   : :]
+[lab2|f002           ][a   ]
+[lab3|f003           ][b   ]
+[lab4|f004           ][c   ]
+[: :b1:but1  :msg    :err   : :]
 <G g1                          >
 [lab5|f005         ]
 [lab6|f006           ]
@@ -212,7 +212,9 @@ f005 = FORMONLY.fld5, TABINDEX=5;
 f006 = FORMONLY.fld6, NOENTRY;
 p101 = FORMONLY.fld7, TABINDEX=6;
 p102 = FORMONLY.fld8, NOENTRY;
-CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", TABINDEX=7;
+CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=7;
+CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=8;
+CHECKBOX c = FORMONLY.nul, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Nul?", TABINDEX=9;
 IMAGE logo : logo, IMAGE="logo_dark", SIZEPOLICY=INITIAL,STYLE="noborder center";
 IMAGE logo2 : logo2, IMAGE="logo_light", SIZEPOLICY=INITIAL,STYLE="noborder center";
 
@@ -223,7 +225,7 @@ PHANTOM FORMONLY.img;
 
 PROGRESSBAR pg = FORMONLY.pg, VALUEMAX=10000;
 
-BUTTON b : bomb, IMAGE="fa-bomb", TEXT="", TABINDEX=1;
+BUTTON b1 : bomb, IMAGE="fa-bomb", TEXT="", TABINDEX=1;
 BUTTON but1 : quit;
 BUTTON msg : msg;
 BUTTON err: err;

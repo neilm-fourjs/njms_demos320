@@ -26,7 +26,9 @@ MAIN
 		fld6 STRING,
 		fld7 STRING,
 		fld8 STRING,
-		okay BOOLEAN
+		okay BOOLEAN,
+		notokay BOOLEAN,
+		nul BOOLEAN
 	END RECORD
 	DEFINE l_arr DYNAMIC ARRAY OF RECORD
 		col1 STRING,
@@ -60,6 +62,9 @@ MAIN
 	LET l_rec.fld6 = "Inactive"
 	LET l_rec.fld7 = "Active"
 	LET l_rec.fld8 = "Inactive"
+	LET l_rec.okay = TRUE
+	LET l_rec.notokay = FALSE
+	LET l_rec.nul = NULL
 
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
