@@ -15,11 +15,23 @@ PUBLIC FUNCTION list(l_token STRING ATTRIBUTE(WSParam)) ATTRIBUTES(
   IF ws_lib.checkToken( l_token ) THEN
     CALL m_customers.getCustomersDB()
   ELSE
-		IF l_token = "testcase" THEN
-    	LET m_customers.message = "Ticket#104318 — Returns -"
-		ELSE
-    	LET m_customers.message = "Invalid Token."
-		END IF
+   	LET m_customers.message = "Invalid Token."
+  END IF
+  RETURN m_customers.*
+END FUNCTION
+--------------------------------------------------------------------------------
+#+ GET <server>/ws/r/njm/customers/get/<l_key>/<token>
+#+ result: An array of customers
+PUBLIC FUNCTION get(l_key STRING ATTRIBUTE(WSParam), l_token STRING ATTRIBUTE(WSParam)) ATTRIBUTES(
+    WSPath = "/get/{l_key}/{l_token}",
+    WSGet,
+    WSDescription = "Get a Customers")
+  RETURNS (t_customers ATTRIBUTES(WSMedia = 'application/json'))
+	CALL m_customers.arr.clear()
+  IF ws_lib.checkToken( l_token ) THEN
+    CALL m_customers.getCustomerDB(l_key)
+  ELSE
+   	LET m_customers.message = "Invalid Token."
   END IF
   RETURN m_customers.*
 END FUNCTION

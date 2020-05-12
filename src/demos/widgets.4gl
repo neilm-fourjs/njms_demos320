@@ -446,7 +446,7 @@ MAIN
       ON ACTION src_per
         CALL show_src("src/demos", "widgets.per", "Section")
       ON ACTION src_tab
-        CALL show_src("src/demos", "table.per", "")
+        CALL show_src("src/demos", "widgets_table.per", "")
       ON ACTION src_new
         CALL show_src("src/demos", "newwin.per", "")
       ON ACTION src_tm
@@ -872,7 +872,7 @@ END FUNCTION
 FUNCTION lookup1(d_i)
   DEFINE d_i CHAR(1)
 
-  OPEN WINDOW lk1 WITH FORM "table"
+  OPEN WINDOW lk1 WITH FORM "widgets_table"
 
   IF d_i = "D" THEN
     DISPLAY "A Display Array" TO tabtitl

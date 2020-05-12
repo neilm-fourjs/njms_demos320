@@ -1,34 +1,45 @@
-
-LAYOUT (TEXT="Lookup1", STYLE="dialog4")
-VBOX
-GRID
+SCHEMA njm_demo310
+LAYOUT (TEXT="Dispaly Array")
+TABLE
 {
- [                        :t:                        ]
-<T tab1                                                     >
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
- [tc1|tabc2|tabc3     |tabc4                  |tabc5|tabc6 ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+[f001       |f002                             |f003         |f004  ]
+                                              [t003         |t004  ]
 }
-END -- GRID
-END -- VBOX
+END -- TABLE
+END -- LAYOUT
+
+TABLES
+stock
 
 ATTRIBUTES
-LABEL t = FORMONLY.tabtitl, STYLE="tabtitl";
-tc1 = FORMONLY.tabc1, JUSTIFY=RIGHT, TITLE="No";
-tabc2 = FORMONLY.tabc2, TITLE="Text";
-DATEEDIT tabc3 = FORMONLY.tabc3, TITLE="Date";
-COMBOBOX tabc4 = FORMONLY.tabc4, ITEMS=("Hello World!","Goodbye Cruel World","The World is not Enough!"), TITLE="Combo";
-BUTTONEDIT tabc5 = FORMONLY.tabc5, ACTION=be, TITLE="BE";
-CHECKBOX tabc6= FORMONLY.tabc6, TEXT="Okay", VALUECHECKED="Y", VALUEUNCHECKED="N", TITLE="Check";
-END
+f001 = stock.stock_code, TITLE="Code";
+PHANTOM stock.stock_cat;
+PHANTOM stock.pack_flag;
+PHANTOM stock.supp_code;
+PHANTOM stock.barcode;
+f002 = stock.description, TITLE="Description";
+PHANTOM stock.colour_code;
+f003 = stock.price, TITLE="Price";
+PHANTOM stock.cost;
+PHANTOM stock.tax_code;
+PHANTOM stock.disc_code;
+PHANTOM stock.physical_stock;
+PHANTOM stock.allocated_stock;
+f004 = stock.free_stock, TITLE="Stock";
+PHANTOM stock.long_desc;
+PHANTOM stock.img_url;
+
+AGGREGATE t003 = FORMONLY.tot_price, AGGREGATETEXT = "Totals:", AGGREGATETYPE = SUM;
+AGGREGATE t004 = FORMONLY.tot_stock, AGGREGATETYPE = SUM;
 
 INSTRUCTIONS
-SCREEN RECORD newarr2 ( tabc1 THRU tabc6 )
-END
+SCREEN RECORD scrarr ( stock.* )
