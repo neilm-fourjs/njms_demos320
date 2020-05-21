@@ -20,4 +20,12 @@ MAIN
 	CALL l_rec.deleteElement( l_rec.getLength() ) -- delete last empty row
 -- Display data
 	DISPLAY ARRAY l_rec TO scrarr.*
+		BEFORE ROW
+			DISPLAY base.TypeInfo.create(l_rec[ arr_curr() ]).toString()
+	END DISPLAY
+	IF int_flag THEN
+		CALL fgldialog.fgl_winMessage("Aborted","Selection Cancelled","exclamation")
+	ELSE
+		CALL fgldialog.fgl_winMessage("Choosen",SFMT("You selected %1 - %2" ,l_rec[arr_curr()].stock_code, l_rec[arr_curr()].description),"exclamation")
+	END IF
 END MAIN
