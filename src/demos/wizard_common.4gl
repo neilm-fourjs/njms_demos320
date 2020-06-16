@@ -30,7 +30,7 @@ FUNCTION left(d) -- move row(s) to the left
     END IF
   END FOR
 -- now delete from source array
-  FOR i = lfields.getLength() TO 1 STEP -1
+  FOR i = rfields.getLength() TO 1 STEP -1
     IF d.isRowSelected("r", i) THEN
       CALL rfields.deleteElement(i)
       IF x > 1 THEN

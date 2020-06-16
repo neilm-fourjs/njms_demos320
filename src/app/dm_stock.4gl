@@ -107,12 +107,12 @@ FUNCTION init_cb(l_cb ui.ComboBox)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION my_before_inp(l_new BOOLEAN, l_d ui.Dialog)
-	DISPLAY "BEFORE INPUT : ", l_new
+	DISPLAY "BEFORE INPUT : ", IIF(l_new," Insert"," Update")
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION my_after_inp(l_new BOOLEAN, l_d ui.Dialog) RETURNS BOOLEAN
 	DEFINE l_stk RECORD LIKE stock.*
-	DISPLAY "AFTER INPUT : ", l_new
+	DISPLAY "AFTER INPUT : ", IIF(l_new," Insert"," Update")
 	CALL util.JSON.parse(glm_mkForm.m_json_rec.toString(), l_stk) -- turn generic record back into stock record
 	IF l_stk.price < 0.10 THEN
 		ERROR "Stock price can't be less than 0.10!"
