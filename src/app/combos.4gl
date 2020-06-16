@@ -56,6 +56,15 @@ FUNCTION cb_colours(l_cb ui.ComboBox)
   END FOREACH
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
+FUNCTION cb_countries(l_cb ui.ComboBox)
+  DEFINE l_code LIKE countries.country_code
+  DEFINE l_name LIKE countries.country_name
+  DECLARE l_ccur CURSOR FOR SELECT country_code, country_name FROM countries
+  FOREACH l_ccur INTO l_code, l_name
+    CALL l_cb.addItem(l_code CLIPPED, l_name CLIPPED)
+  END FOREACH
+END FUNCTION
+----------------------------------------------------------------------------------------------------
 FUNCTION cb_division(l_cb ui.ComboBox)
   CALL l_cb.addItem(0, "Reseller")
   CALL l_cb.addItem(1, "Key Accounts")

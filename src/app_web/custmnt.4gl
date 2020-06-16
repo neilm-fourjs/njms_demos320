@@ -2,7 +2,7 @@ IMPORT FGL g2_lib
 IMPORT FGL g2_db
 IMPORT FGL g2_sql
 IMPORT FGL g2_ui
-IMPORT FGL combos
+IMPORT FGL combos -- from business apps app_lib
 
 &include "schema.inc"
 
