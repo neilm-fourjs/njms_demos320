@@ -10,7 +10,6 @@ IMPORT util
 
 IMPORT FGL g2_lib
 IMPORT FGL g2_about
-IMPORT FGL g2_appInfo
 IMPORT FGL g2_db
 IMPORT FGL g2_aui
 IMPORT FGL g2_lookup
@@ -94,14 +93,13 @@ DEFINE cnt SMALLINT
 DEFINE scal SMALLINT
 DEFINE f_n om.domNode
 DEFINE m_dbname VARCHAR(20)
-DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE tmp STRING
   DEFINE stat SMALLINT
   DEFINE f ui.Form
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "widgets")
 
   GL_DBGMSG(2, "init_genero, done.")
@@ -311,7 +309,7 @@ MAIN
 --        CALL gl_splash.gl_splash(4)
 
 			ON ACTION about
-				CALL g2_about.g2_about(m_appInfo)
+				CALL g2_about.g2_about(g2_lib.m_appInfo)
 
       ON ACTION gl_lookup
         IF NOT db_opened THEN
@@ -547,6 +545,8 @@ FUNCTION do1()
 
     BEFORE INPUT
       DISPLAY "---------- BEFORE INPUT"
+
+
 --			CALL chg_flds()
       DISPLAY 1 TO combo
 
@@ -1366,7 +1366,8 @@ END FUNCTION
 FUNCTION change_tb(l_tb STRING)
   DISPLAY "Widgets: Changing Toolbar to '" || l_tb || "'"
   TRY
-    CALL g_frm.loadToolbar(l_tb)
+		CALL ui.Interface.loadToolBar(l_tb)
+    --CALL g_frm.loadToolbar(l_tb)
   CATCH
     ERROR SFMT("Failed to load toolbar %1", l_tb)
   END TRY

@@ -1,7 +1,6 @@
 #+ User Maintenance Demo - by N.J.Martin neilm@4js.com
 
 IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 IMPORT FGL g2_secure
@@ -30,14 +29,12 @@ DEFINE m_fullname DYNAMIC ARRAY OF STRING
 DEFINE m_drag_source STRING
 DEFINE m_save, m_saveUser, m_saveRoles BOOLEAN
 DEFINE m_user_key, m_this_user_key LIKE sys_users.user_key
-DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE dnd ui.DragDrop
   DEFINE l_rules STRING
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-
+  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
   WHENEVER ANY ERROR CALL g2_lib.g2_error
 
@@ -235,7 +232,7 @@ MAIN
     ON ACTION close
       EXIT DIALOG
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about(g2_lib.m_appInfo)
   END DIALOG
   CALL g2_lib.g2_exitProgram(0, "Program Finished")
 END MAIN

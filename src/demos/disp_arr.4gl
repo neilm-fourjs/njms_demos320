@@ -9,7 +9,6 @@
 IMPORT util -- used for rand function for testdata
 IMPORT FGL g2_lib
 IMPORT FGL g2_about
-IMPORT FGL g2_appInfo
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "Display Array Demo"
@@ -25,10 +24,9 @@ DEFINE m_arr DYNAMIC ARRAY OF RECORD
   chkd STRING,
   seld STRING
 END RECORD
-DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
   CALL ui.Interface.setText(C_PRGDESC)
@@ -95,7 +93,7 @@ FUNCTION disp_arr1()
         LET int_flag = TRUE
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about(g2_lib.m_appInfo)
 -- Default actions to leave the statement
     ON ACTION close
       EXIT DISPLAY

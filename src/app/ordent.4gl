@@ -10,7 +10,6 @@
 
 IMPORT util
 IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
 IMPORT FGL g2_db
 IMPORT FGL g2_about
 IMPORT FGL g2_lookup
@@ -25,13 +24,12 @@ CONSTANT C_PRGDESC = "Order Entry Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
-DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE l_email STRING
   DEFINE l_key INTEGER
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_lib.g2_init( ARG_VAL(1), "default")
   WHENEVER ANY ERROR CALL g2_lib.g2_error
   CALL ui.Interface.setText(C_PRGDESC)
@@ -86,7 +84,7 @@ MAIN
       ON ACTION help
         CALL showHelp(1)
 			ON ACTION about
-				CALL g2_about.g2_about(m_appInfo)
+				CALL g2_about.g2_about(g2_lib.m_appInfo)
       ON ACTION close
         EXIT MENU
       ON ACTION quit
@@ -117,7 +115,7 @@ FUNCTION new()
         CALL dispHead()
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about(g2_lib.m_appInfo)
   END INPUT
   IF int_flag THEN
     MESSAGE % "Order Cancelled."
@@ -278,7 +276,7 @@ FUNCTION new()
         END IF
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about(g2_lib.m_appInfo)
   END INPUT
   IF int_flag THEN
     ROLLBACK WORK -- Rollback and end transaction.
@@ -416,7 +414,7 @@ FUNCTION enquire()
             EXIT INPUT
           END IF
 				ON ACTION about
-					CALL g2_about.g2_about(m_appInfo)
+					CALL g2_about.g2_about(g2_lib.m_appInfo)
       END INPUT
     END IF
     IF int_flag THEN
@@ -531,7 +529,7 @@ FUNCTION enquire()
         EXIT DISPLAY
         --ON KEY (F12) DISPLAY "F12" LET int_flag = TRUE EXIT DISPLAY
 			ON ACTION about
-				CALL g2_about.g2_about(m_appInfo)
+				CALL g2_about.g2_about(g2_lib.m_appInfo)
     END DISPLAY
 
     IF benchmark OR int_flag THEN

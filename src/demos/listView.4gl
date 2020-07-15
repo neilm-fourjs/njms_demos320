@@ -3,7 +3,6 @@ IMPORT os
 
 IMPORT FGL g2_lib
 IMPORT FGL g2_about
-IMPORT FGL g2_appInfo
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "List View Demo"
@@ -28,10 +27,9 @@ END RECORD
 
 DEFINE m_conts DYNAMIC ARRAY OF t_contact
 DEFINE m_contList DYNAMIC ARRAY OF t_contactList
-DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
   CALL load_contacts()
@@ -107,7 +105,7 @@ FUNCTION disp_contacts()
 		ON ACTION quit
 			EXIT DISPLAY
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about(g2_lib.m_appInfo)
 	END DISPLAY
 
 END FUNCTION

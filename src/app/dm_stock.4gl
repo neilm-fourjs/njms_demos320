@@ -5,7 +5,6 @@
 IMPORT util
 -- Core libraries
 IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 IMPORT FGL app_lib
@@ -26,11 +25,10 @@ CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_FIELDS_PER_PAGE = 10
 DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
-DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
 
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
 	LET m_allowedActions = "YYYYYY"
@@ -62,6 +60,7 @@ END MAIN
 --------------------------------------------------------------------------------
 -- Initialize the form by setting the defaults and comboboxes.
 FUNCTION custom_form_init()
+--TODO: fix this
 	DEFINE f_init_cb t_init_cb
 	LET f_init_cb = FUNCTION init_cb
 	CALL glm_mkForm.setComboBox("stock_cat", f_init_cb)

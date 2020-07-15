@@ -156,3 +156,7 @@ FUNCTION isHoliday(l_dte DATE) RETURNS(BOOLEAN, STRING)
     RETURN FALSE, NULL
   END IF
 END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION cmb_init_month( l_cb ui.ComboBox )
+
+END FUNCTION

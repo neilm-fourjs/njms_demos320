@@ -4,7 +4,6 @@
 IMPORT os
 IMPORT FGL g2_lib
 IMPORT FGL g2_about
-IMPORT FGL g2_appInfo
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -41,9 +40,8 @@ MAIN
 		img STRING
 	END RECORD
 	DEFINE x SMALLINT
-	DEFINE l_appInfo g2_appInfo.appInfo
 
-	CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_lib.g2_init(ARG_VAL(1), "matDesTest")
 --  CALL ui.Interface.setImage("fa-bug")
 	FOR X = 1 TO 15
@@ -130,7 +128,7 @@ MAIN
 		ON ACTION inactive
 			CALL dummy()
 		ON ACTION about
-			CALL g2_about.g2_about(l_appInfo)
+			CALL g2_about.g2_about(g2_lib.m_appInfo)
 		ON ACTION actiona
 			ERROR "Control-A"
 		ON ACTION actionb

@@ -118,8 +118,11 @@
 		<StyleAttribute name="fontSize" value="11pt"/>
   </Style>
 
-  <Style name='Table:odd'>
+  <Style name='Table.tab1:odd'>
     <StyleAttribute name='backgroundColor'           value='#D5FFD5'/>
+  </Style>
+  <Style name='Table.tab1:even'>
+    <StyleAttribute name='backgroundColor'           value='#FDFDFD'/>
   </Style>
 
   <Style name='.tabtitl'>
@@ -145,8 +148,6 @@
   </Style>
 
   <Style name="Window">
-    <!--StyleAttribute name='fontSize' value='1.5em'/-->
-
      <StyleAttribute name="windowType" value="normal" />
   </Style>
   <Style name="Window.main">

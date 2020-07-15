@@ -299,7 +299,7 @@
           <File filePath="etc/widgets_arr.4tb"/>
         </VirtualFolder>
         <File filePath="src/demos/widgets.4gl"/>
-        <File filePath="src/demos/widgets.4fd"/>
+        <File filePath="src/demos/widgets.per"/>
         <File filePath="src/demos/widgets_charts.4gl"/>
         <File filePath="src/demos/widgets_clock.4gl"/>
         <File filePath="src/demos/widgets_table.per"/>

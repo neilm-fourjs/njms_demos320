@@ -3,7 +3,6 @@
 
 IMPORT os
 IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 
 CONSTANT C_PRGDESC = "FontAwesome Viewer"
@@ -59,9 +58,8 @@ DEFINE m_img STRING
 MAIN
   DEFINE l_ret SMALLINT
   DEFINE l_filter STRING
-  DEFINE l_appInfo g2_appInfo.appInfo
 
-  CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "fontAwesome"
@@ -130,7 +128,7 @@ MAIN
       CALL load_arr3(l_filter)
       NEXT FIELD l_filter
     ON ACTION about
-      CALL g2_about.g2_about(l_appInfo)
+      CALL g2_about.g2_about(g2_lib.m_appInfo)
     ON ACTION quit
       EXIT DIALOG
     ON ACTION close
