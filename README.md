@@ -83,8 +83,34 @@ GRANT
 
 For MariaDB added a user of 'dbuser' to connect to the database.
 ```
+sudo mysql
 MariaDB [(none)]> CREATE USER 'dbuser'@'%';
 MariaDB [(none)]> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';
+```
+
+For MySQL 8
+```
+$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
+
+mysql> CREATE USER 'dbuser'@'%' IDENTIFIED BY '12dbuser' ;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'dbuser'@'%';
+Query OK, 0 rows affected (0.01 sec)
+
+
+$ mysql -u dbuser
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
+
+mysql> CREATE DATABASE njm_demo310;
+Query OK, 1 row affected (0.00 sec)
+mysql> GRANT ALL PRIVILEGES ON njm_demo310.* TO 'dbuser'@'%' WITH GRANT OPTION;
+Query OK, 1 row affected (0.00 sec)
 ```
 
 

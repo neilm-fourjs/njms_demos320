@@ -27,6 +27,7 @@
 	<ActionDefault name="nexttab" text="Next Folder Tab" acceleratorName="Control-Tab"/>
 	<ActionDefault name="prevtab" text="Previous Folder Tab" acceleratorName="Control-Shift-Tab"/>
 	<!--ActionDefault name="dialogtouched" validate="no" defaultView="no" /-->
+	<ActionDefault name="dumpenv" text="Dump Env" image="fa-cloud-download" comment="Dump Env to env.txt" defaultView="no" contextMenu="yes" />
 
 	<ActionDefault name="exit"      text="Exit"     image="exit"  acceleratorName="x"/>
 

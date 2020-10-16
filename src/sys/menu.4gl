@@ -27,6 +27,8 @@ MAIN
   WHENEVER ANY ERROR CALL g2_lib.g2_error
   CALL ui.Interface.setText(C_PRGDESC)
 
+	RUN "env | sort > /tmp/njmdemo_"||fgl_getPID()||".env"
+
   CLOSE WINDOW SCREEN
 
   IF g2_lib.m_mdi = "M" THEN

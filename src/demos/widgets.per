@@ -375,7 +375,7 @@ BUTTON sbut0 : chgstyle0, TEXT="Default";
 BUTTON sbut1 : chgstyle1, TEXT="Style1";
 BUTTON sbut2 : chgstyle2, TEXT="Style2";
 BUTTON sbut3 : chgstyle3, TEXT="Style3";
-LABEL l000 : nedit, JUSTIFY=RIGHT, STYLE="njm", TEXT="Edit Field:";
+LABEL l000 : nedit, JUSTIFY=RIGHT, STYLE="njm", TEXT=%"Edit Field:";
 LABEL l001 : bedit, JUSTIFY=RIGHT, STYLE="njm", TEXT="ButtonEdit:";
 LABEL l01a : cmplt, JUSTIFY=RIGHT, STYLE="njm", TEXT="Completer:";
 LABEL l002 : tedit, JUSTIFY=RIGHT, STYLE="njm", TEXT="TextEdit:";
@@ -410,7 +410,7 @@ BUTTON k1 : crt,TEXT="Key", IMAGE="key";
 BUTTON b : bar, text="Bar Chart";
 BUTTON p : pie, text="Pie Chart";
 
-EDIT f000 = FORMONLY.norm, SCROLL, TITLE="Title:", COMMENT="Enter error to see an error.", PLACEHOLDER="Normal entry";
+f000 = FORMONLY.norm, SCROLL, COMMENT="Enter error to see an error.", PLACEHOLDER="Normal entry";
 -- BUTTONEDIT f001 = FORMONLY.normbe,image="circle", ACTION=lookup;
 BUTTONEDIT f001 = FORMONLY.normbe,ACTION=lookup, PLACEHOLDER="hit here for lookup ->";
 EDIT f01a = FORMONLY.completr,COMPLETER, PLACEHOLDER="Auto Complete - image names";

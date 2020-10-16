@@ -919,10 +919,9 @@ FUNCTION init_combo2(cb)
   DEFINE y, x SMALLINT
 
   LET y = YEAR(CURRENT)
-  CALL cb.addItem(NULL, NULL)
   FOR x = y TO y - 80 STEP -1
     --FOR x = y-80 TO y
-    CALL cb.addItem(x, x)
+    CALL cb.addItem(x, "year:"||x)
   END FOR
 
 END FUNCTION

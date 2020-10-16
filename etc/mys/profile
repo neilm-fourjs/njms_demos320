@@ -1,0 +1,6 @@
+
+# MySQL
+dbi.default.driver = "dbmmys"
+
+dbi.database.njm_demo310.mys.config = "/etc/mysql/my.cnf"
+
