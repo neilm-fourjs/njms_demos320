@@ -12,7 +12,7 @@
 		<StyleAttribute name="fontFamily" value="Comic Sans MS" />
 	</Style>
 
-	<Style name=".grad1">
+	<!--Style name=".grad1">
 		<StyleAttribute name="backgroundColor"         value="#F2F2F9" />
 		<StyleAttribute name="backgroundGradientType"  value="linear|top|bottom" />
 		<StyleAttribute name="backgroundGradientColor" value="#B7B7CC" />
@@ -21,7 +21,7 @@
 		<StyleAttribute name="backgroundColor"         value="#F2F2F9" />
 		<StyleAttribute name="backgroundGradientType"  value="linear|bottom|top" />
 		<StyleAttribute name="backgroundGradientColor" value="#B7B7CC" />
-	</Style>
+	</Style-->
 
 	<Style name="Group::title">
 		<StyleAttribute name="fontSize" value="1.2em" />
