@@ -1,22 +1,29 @@
 # njms_demos320
-My Genero Demos updated for Genero 3.20 and legacy code removed.
+My Genero Demos updated for Genero 3.20 and most of the legacy code removed.
 
 The default user and log for the demo is:
+guest / guest
+or
 test@test.com / 12test
 
 
 The Demos:
+* Widgets - Genero Widgets and UI features
 * ipodTree - Tree demo
-* picFlow - picFlow GDC
-* widgets - Genero Widgets and UI features
+* PicFlow - picFlow GDC
+* Display Array demos
+* Multi cell select
+* Table List View  ( Browser / GDC UR only )
+* Stack Demo ( Browser / GDC UR only )
 
 
 The Web Component Demos:
-* wc_aircraft - Interactive Images - Aricraft catering
-* wc_d3charrt - Charting
-* wc_amCharting - Charting
 * wc_googleMaps - Google Maps
+* wc_amCharting - Charting
+* wc_d3charrt - Charting
+* wc_gauge - Gauges & Pie
 * wc_kite - Interactive Image - SVG Kite
+* wc_aircraft - Interactive Images - Aricraft catering
 * wc_music - Music player
 
 
@@ -29,6 +36,7 @@ The Application Framework:
 * Invoice printing
 * Web Ordering
 
+# Cloning and building
 
 *IMPORTANT* Make sure you use the --recursive flag when you clone this repo, eg: On Linux
 ```
@@ -36,6 +44,15 @@ $ git clone --recursive https://github.com/neilm-fourjs/njms_demos320.git
 $ cd njms_demos320
 $ make
 ```
+
+This demo uses imported git repos for common library code and GBC customizations
+* git submodule add https://github.com/neilm-fourjs/g2_lib.git g2_lib
+* git submodule add https://github.com/neilm-fourjs/gbc_mdi.git gbc_mdi
+* git submodule add https://github.com/neilm-fourjs/gbc_njm.git gbc_njm
+* git submodule add https://github.com/neilm-fourjs/gbc_clean.git gbc_clean
+
+If libraries change, you can do:
+* git submodule foreach git pull origin master
 
 
 When deployed as via the gas the application urls will be:
@@ -45,11 +62,22 @@ or
 http://<server>:6394/ua/r/<xcf>
 ```
 
-The xcf files are:
-* njmdemo - Main demo with login using default GBC
+# Running the deployed demos ( xcf files )
 
+GDC / Browser
+* njmdemo - Main demo with login, in the GDC it will use native rendering, in the browser it uses my gbc_clean custom GBC.
+* njmdemo_ur - Main demo with login, in the GDC it will use universal rendering using my gbc_clean custom GBC.
+* fontAwesome - A simple viewer for the fontAwesome glyphs.
+* materialDesignTest - This is a simple demo showing common widgets / containers, used for testing custom GBC builds.
 
-Databases:
+Just Browser
+* njm_demo_web - This demo was for POC, the aim was to show a completely different look-n-feel in the Browser
+* njmweb2 - This is a store demo with a responsive scroll grid and features a few customisations of the GBC
+
+# Databases
+
+Originally the demos using a database where written for Informix, but currently I mainly PostgreSQL
+
 * Informix
 * PostgreSQL
 * Maria DB
@@ -112,14 +140,4 @@ Query OK, 1 row affected (0.00 sec)
 mysql> GRANT ALL PRIVILEGES ON njm_demo310.* TO 'dbuser'@'%' WITH GRANT OPTION;
 Query OK, 1 row affected (0.00 sec)
 ```
-
-
-This demo uses imported git repos for common library code and GBC customizations
-* git submodule add https://github.com/neilm-fourjs/g2_lib.git g2_lib
-* git submodule add https://github.com/neilm-fourjs/gbc_mdi.git gbc_mdi
-* git submodule add https://github.com/neilm-fourjs/gbc_njm.git gbc_njm
-* git submodule add https://github.com/neilm-fourjs/gbc_clean.git gbc_clean
-
-If libraries change do:
-* git submodule foreach git pull origin master
 

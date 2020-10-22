@@ -114,8 +114,8 @@
 	<Style name="Window.main2">
 		<StyleAttribute name="windowType" value="normal" />
 		<StyleAttribute name="toolBarPosition" value="top" />
-		<StyleAttribute name="actionPanelPosition" value="bottom" />
-		<StyleAttribute name="ringMenuPosition" value="botom" />
+		<StyleAttribute name="actionPanelPosition" value="none" />
+		<StyleAttribute name="ringMenuPosition" value="none" />
 	</Style>
 	<Style name="Window.main2_gbc">
 		<StyleAttribute name="windowType" value="normal" />
