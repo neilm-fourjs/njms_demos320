@@ -265,6 +265,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
   DEFINE print_date, order_date DATE
   DEFINE rpt_timestamp DATETIME HOUR TO SECOND
   DEFINE line_num SMALLINT
+	DEFINE l_cur CHAR(1)
   DEFINE tax_0, tax_1, tax_2, tax_3 DECIMAL(10, 2)
 
   ORDER EXTERNAL BY r_ordHead.order_number
@@ -272,7 +273,8 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
   FORMAT
     FIRST PAGE HEADER
       LET print_date = TODAY
-      PRINT print_date, rpt_user, m_logo
+			LET l_cur = "£"
+      PRINT print_date, rpt_user, m_logo, l_cur
       --DISPLAY "First Page Header"
 
     BEFORE GROUP OF r_ordHead.order_number
