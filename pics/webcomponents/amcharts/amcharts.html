@@ -18,6 +18,7 @@
 			onICHostReady = function(version) {
 
 				if ( version != 1.0 ) {
+					document.getElementById("data2").innerHTML="<b>API: "+version+" WC ver: 6</b>";
 					alert('Invalid API version');
 					return;
 				}
@@ -27,6 +28,9 @@
 
 				gICAPI.onProperty = function(props) {
 					myProps = eval("(" + props + ")");
+					console.log(props);
+					console.log(myProps.title);
+					//alert("Test 5");
 				}
 
 				gICAPI.onData = function( data ) {
@@ -75,16 +79,16 @@
 				// value
 				var valueAxis = new AmCharts.ValueAxis();
 				valueAxis.axisColor = "#DADAA";
-				valueAxis.title = myProps.title;
+				valueAxis.title = "Test"; //myProps.title;
 				valueAxis.gridAlpha = 0.1;
 				chart.addValueAxis(valueAxis);
 
 				// GRAPH
 				var graph = new AmCharts.AmGraph();
-				graph.title = myProps.title;
+				graph.title = "Test"; //myProps.title;
 				graph.valueField = "value";
 				graph.type = "column";
-				graph.balloonText = myProps.title + " in [[category]]:[[value]]";
+				graph.balloonText = "Sales in [[category]]:[[value]]";
 				graph.lineAlpha = 0;
 				//graph.fillColors = "#bf1c25";
 				graph.fillAlphas = .7;
@@ -102,7 +106,7 @@
 	<body class="grad">
 		<h1>AmChart Demo</h1>
 		<div id="chartdiv" class="graph" style="width: 800px;	height: 600px;"></div>
-		<!--div id="data2"></div-->
+		<div id="data2">debug area</div>
 	</body>
 
 </html>

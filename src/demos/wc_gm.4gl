@@ -40,6 +40,7 @@ MAIN
     ON ACTION mapclicked
       LET in_data = wc_gm
       CALL util.JSONObject.parse(in_data).toFGL(l_latlng_rec) -- turn json string into fgl rec
+
     ON ACTION about
 			CALL g2_about.g2_about(m_appInfo)
   END INPUT

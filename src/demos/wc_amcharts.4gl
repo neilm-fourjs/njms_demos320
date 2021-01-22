@@ -28,15 +28,6 @@ MAIN
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_lib.g2_init(ARG_VAL(1), "default")
 
-  DISPLAY "RT PATH:", fgl_getenv("PATH")
-  CALL ui.Interface.frontCall("standard", "getenv", "PATH", l_data)
-  DISPLAY "FE PATH:", l_data
-  IF os.Path.pathSeparator() = ":" THEN
-    DISPLAY "RT LD_LIBRARY_PATH:", fgl_getenv("LD_LIBRARY_PATH")
-    CALL ui.Interface.frontCall("standard", "getenv", "LD_LIBRARY_PATH", l_data)
-    DISPLAY "FE LD_LIBRARY_PATH:", l_data
-  END IF
-
   OPEN FORM f FROM "wc_amcharts"
   DISPLAY FORM f
 
