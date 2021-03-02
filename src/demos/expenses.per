@@ -1,0 +1,80 @@
+
+TOOLBAR
+	ITEM close ( TEXT="Quit", IMAGE="fa-power-off")
+	ITEM insert ( TEXT="Insert", IMAGE="fa-long-arrow-right" )
+	ITEM append ( TEXT="Append", IMAGE="fa-plus" )
+	ITEM delete ( TEXT="Delete", IMAGE="fa-minus" )
+END -- TB
+
+
+LAYOUT (TEXT="Expenses", STYLE="main2")
+VBOX
+TABLE ( STYLE="headcenter" )
+{
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
+                              [t003|t004   |t005   |t006   |t007   |t008   |t009   |t010   |t011   |t012   ]  [t014   |t015   ]
+}
+END -- TABLE
+GROUP (TEXT="Vat Analysis")
+TABLE ( STYLE="headcenter" )
+{
+[v001|v002   |v003   ]
+[v001|v002   |v003   ]
+[v001|v002   |v003   ]
+[v001|v002   |v003   ]
+[v001|v002   |v003   ]
+     [tv02   |tv03   ]
+}
+END -- TABLE
+END -- GROUP
+END -- VBOX
+
+ATTRIBUTES
+
+DATEEDIT a001 = FORMONLY.dte, TITLE="Date", NOT NULL, REQUIRED;
+a002 = FORMONLY.desc, TITLE="Description", NOT NULL, REQUIRED;
+a003 = FORMONLY.dept, TITLE="Dept", UPSHIFT;
+a004 = FORMONLY.milage, TITLE="Petrol\nMilage";
+a005 = FORMONLY.stationery, TITLE="Stationery";
+a006 = FORMONLY.travel, TITLE="Travel\nFares";
+a007 = FORMONLY.hotels, TITLE="Hotels\nSubsistence";
+a008 = FORMONLY.entertain, TITLE="Entertaining";
+a009 = FORMONLY.tel_net, TITLE="Telephone\nIntenet";
+a010 = FORMONLY.cloud, TITLE="Cloud\nServices";
+a011 = FORMONLY.other, TITLE="Other";
+a012 = FORMONLY.net, TITLE="Nett", NOENTRY;
+a = FORMONLY.vat_code, TITLE="Vat\nCode", NOT NULL, REQUIRED;
+a014 = FORMONLY.vat, TITLE="VAT\nAmount", NOENTRY;
+a015 = FORMONLY.gross, TITLE="Gross", NOENTRY;
+
+AGGREGATE t003 = FORMONLY.t3,AGGREGATETEXT="Totals:";
+AGGREGATE t004 = FORMONLY.t4;
+AGGREGATE t005 = FORMONLY.t5;
+AGGREGATE t006 = FORMONLY.t6;
+AGGREGATE t007 = FORMONLY.t7;
+AGGREGATE t008 = FORMONLY.t8;
+AGGREGATE t009 = FORMONLY.t9;
+AGGREGATE t010 = FORMONLY.t10;
+AGGREGATE t011 = FORMONLY.t11;
+AGGREGATE t012 = FORMONLY.t12;
+AGGREGATE t014 = FORMONLY.t14;
+AGGREGATE t015 = FORMONLY.t15;
+
+v001 = FORMONLY.l_vc, TITLE="Code";
+v002 = FORMONLY.l_nt, TITLE="Net";
+v003 = FORMONLY.l_va, TITLE="Vat";
+AGGREGATE tv02 = FORMONLY.tv2,AGGREGATETEXT="Totals:";
+AGGREGATE tv03 = FORMONLY.tv3;
+
+INSTRUCTIONS
+SCREEN RECORD scr_arr ( FORMONLY.dte THRU FORMONLY.gross )
+SCREEN RECORD vat_arr ( FORMONLY.l_vc THRU FORMONLY.l_va )

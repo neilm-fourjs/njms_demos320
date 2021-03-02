@@ -23,6 +23,10 @@
 		<StyleAttribute name="backgroundGradientColor" value="#B7B7CC" />
 	</Style-->
 
+	<Style name="Table.headcenter">
+		<StyleAttribute name="headerAlignment" value="center" />
+	</Style>
+
 	<Style name="Group::title">
 		<StyleAttribute name="fontSize" value="1.2em" />
 		<StyleAttribute name="fontWeight" value="bold" />

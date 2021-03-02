@@ -28,7 +28,7 @@ CONSTANT C_PRGDESC = "Dynamic Maintenance Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
-CONSTANT C_FIELDS_PER_PAGE = 10
+CONSTANT C_FIELDS_PER_PAGE = 12
 DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
 DEFINE m_appInfo g2_appInfo.appInfo

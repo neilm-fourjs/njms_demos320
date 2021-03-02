@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Project defaultApplication="-1954675472" gstVersion="31409" version="3.3">
+<Project defaultApplication="1554019048" gstVersion="31409" version="3.3">
   <Settings>
     <DynamicProperties version="2">
       <DynamicProperty description="Accent color (Android 5.0 and later)" initialValue="#9575CD" isDefaultInherited="false" isHidden="false" label="Accent color" name="gma-accent-color" readOnly="false" type="COLOR"/>
@@ -126,7 +126,7 @@
       <Application binaryName="dm_stock" commandLineArguments="S 1" dependencies="-1557891896,-310428106,-1090563702,1136561508_14000,631779877" id="476951290" label="dm_stock">
         <File filePath="src/app/dm_stock.4gl"/>
       </Application>
-      <Application binaryName="dynMaint" commandLineArguments="S 1 njm_demo310 customer customer_code" dependencies="1986,-1090563702,-1557891896,-310428106,1136561508_14000,631779877" id="1873655788" label="dynMaint">
+      <Application binaryName="dynMaint" commandLineArguments="S 1 njm_demo310 stock stock_code" dependencies="1986,-1090563702,-1557891896,-310428106,1136561508_14000,631779877" id="1873655788" label="dynMaint">
         <File filePath="src/gl_dynMaint/dynMaint.4gl"/>
       </Application>
       <Library binaryName="lib_dynMaint" dependencies="1136561508_14000" id="631779877" label="lib_dynMaint">
@@ -251,10 +251,14 @@
       </Library>
     </Group>
     <Group id="-101414127" label="Demos UI" language="Genero">
-      <Application binaryName="dispArr" dependencies="-310428106,-400184264,1136561508_14000" id="62326091" label="dispArr">
+      <Application binaryName="dispArr" commandLineArguments="S 1 A" dependencies="-310428106,-400184264,1136561508_14000" id="62326091" label="dispArr">
         <File filePath="src/demos/disp_arr.4gl"/>
         <File filePath="src/demos/disp_arr.per"/>
         <File filePath="src/demos/fglfind.4gl"/>
+      </Application>
+      <Application binaryName="expenses" id="-544615500" label="expenses">
+        <File filePath="src/demos/expenses.4gl"/>
+        <File filePath="src/demos/expenses.per"/>
       </Application>
       <Application binaryName="ipodTree" dependencies="-310428106,1136561508_14000" id="-217822240" label="ipodTree">
         <File filePath="src/demos/ipod_big_cover.per"/>
