@@ -43,7 +43,7 @@ FUNCTION insert_system_data()
 	INSERT INTO sys_user_roles VALUES(1, 10, "Y")
 
 	LET m_mkey = 1
-	CALL addMenu("main", "", "T", "NJM's Genero Menu", "", "")
+	CALL addMenu("main", "", "T", "Main Menu", "", "")
 	CALL addMenu("main", "", "M", "Demo Programs", "demo", "")
 	CALL addMenu("main", "", "M", "Web Component Demos", "wcdemo", "")
 	CALL addMenu("main", "", "M", "Wizard - Dialog Demos", "wizard", "")

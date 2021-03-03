@@ -46,6 +46,11 @@ MAIN
 			BEFORE ROW
 				LET x = arr_curr()
 
+			ON ACTION clone
+				CALL m_arr.insertElement(x)
+				LET m_arr[x].* = m_arr[x+1].*
+				CALL DIALOG.setCurrentRow("scr_arr",x+1)
+
 			BEFORE INSERT
 				LET x = arr_curr()
 				DISPLAY "X: ",x

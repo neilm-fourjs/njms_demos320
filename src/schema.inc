@@ -2,3 +2,4 @@
 
 # Schema for compilation
 SCHEMA njm_demo310
+&define DBNAME "njm_demo310"

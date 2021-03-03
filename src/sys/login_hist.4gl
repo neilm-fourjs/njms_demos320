@@ -11,10 +11,10 @@ IMPORT FGL new_acct
 &include "schema.inc"
 &include "app.inc"
 
-CONSTANT C_PRGDESC = "NJM's Demos Login History"
+CONSTANT C_PRGDESC = "Login History"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGVER = "3.2"
-CONSTANT C_PRGICON = "njm_demo_icon"
+CONSTANT C_PRGICON = "demo_icon"
 CONSTANT C_SPLASH = "logo_dark"
 
 DEFINE m_appInfo g2_appInfo.appInfo

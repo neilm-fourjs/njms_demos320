@@ -1,6 +1,6 @@
 IMPORT util -- only used to show JSON conversion.
 IMPORT FGL fgldialog
-SCHEMA njm_demo310
+&include "schema.inc"
 MAIN
 	DEFINE l_rec DYNAMIC ARRAY OF RECORD LIKE stock.*
 	DEFINE i INTEGER = 0
@@ -9,7 +9,7 @@ MAIN
 	DISPLAY FORM f
 -- Connent to database
 	TRY
-		DATABASE njm_demo310
+		DATABASE DBNAME
 	CATCH
 		CALL fgldialog.fgl_winMessage("Error",SQLERRMESSAGE,"exclamation")
 		EXIT PROGRAM

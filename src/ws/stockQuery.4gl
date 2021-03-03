@@ -6,7 +6,7 @@ IMPORT FGL g2_db
 IMPORT FGL g2_sql
 IMPORT FGL g2_ws
 
-SCHEMA njm_demo310
+&include "schema.inc"
 
 CONSTANT c_stockItemsPerPage = 15
 

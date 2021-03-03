@@ -115,9 +115,16 @@
 	<Style name="Table.disparr">
 		<StyleAttribute name="summaryLineAlwaysAtBottom" value="no" />
 	</Style>
+	<Style name="Table.nocurrent">
+		<StyleAttribute name="highlightCurrentRow" value="no" />
+	</Style>
   <Style name="Table.disparr:odd">
-    <StyleAttribute name="backgroundColor" value="#D5FFD5"/>
+    <StyleAttribute name="backgroundColor" value="#dff0f7"/>
   </Style>
+  <Style name="Table.disparr:summaryLine">
+    <StyleAttribute name="backgroundColor" value="#abd8eb"/>
+  </Style>
+
 
 	<Style name="Window">
 		<StyleAttribute name="windowType" value="normal" />
