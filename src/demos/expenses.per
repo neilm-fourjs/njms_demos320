@@ -12,17 +12,17 @@ LAYOUT (TEXT="Expenses", STYLE="main2")
 VBOX
 TABLE ( STYLE="headcenter disparr" )
 {
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-[a001      |a002              |a003|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014   |a015   ]
-                              [t003|t004   |t005   |t006   |t007   |t008   |t009   |t010   |t011   |t012   ]  [t014   |t015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+[a001     |a002           |a03|a004   |a005   |a006   |a007   |a008   |a009   |a010   |a011   |a012   |a |a014 |a015   ]
+                              [t004   |t005   |t006   |t007   |t008   |t009   |t010   |t011   |t012   ]  [t014 |t015   ]
 }
 END -- TABLE
 GROUP (TEXT="Vat Analysis")
@@ -43,7 +43,7 @@ ATTRIBUTES
 
 DATEEDIT a001 = FORMONLY.dte, TITLE="Date", NOT NULL, REQUIRED;
 a002 = FORMONLY.desc, TITLE="Description", NOT NULL, REQUIRED;
-a003 = FORMONLY.dept, TITLE="Dept", UPSHIFT;
+a03 = FORMONLY.dept, TITLE="Dept", UPSHIFT;
 a004 = FORMONLY.milage, TITLE="Petrol\nMilage";
 a005 = FORMONLY.stationery, TITLE="Stationery";
 a006 = FORMONLY.travel, TITLE="Travel\nFares";
@@ -57,8 +57,7 @@ a = FORMONLY.vat_code, TITLE="Vat\nCode", NOT NULL, REQUIRED;
 a014 = FORMONLY.vat, TITLE="VAT\nAmount", NOENTRY;
 a015 = FORMONLY.gross, TITLE="Gross", NOENTRY;
 
-AGGREGATE t003 = FORMONLY.t3,AGGREGATETEXT="Totals:";
-AGGREGATE t004 = FORMONLY.t4;
+AGGREGATE t004 = FORMONLY.t4; --, AGGREGATETEXT="Totals:    ";
 AGGREGATE t005 = FORMONLY.t5;
 AGGREGATE t006 = FORMONLY.t6;
 AGGREGATE t007 = FORMONLY.t7;
