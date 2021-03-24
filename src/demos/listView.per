@@ -5,7 +5,12 @@ TOOLBAR
 END -- TB
 
 LAYOUT (TEXT="List View Demo" , STYLE="main2_gbc", MINWIDTH=90, MINHEIGHT=25)
-HBOX (SPLITTER, STYLE="splitView")
+VBOX (
+ SPLITTER,
+ STYLE="splitView"
+ {ORIENTATION@MEDIUM = HORIZONTAL,
+ ORIENTATION@LARGE  = HORIZONTAL}
+)
 TABLE (STYLE="listview")
 {
 [a001                                    ][a002                      ]

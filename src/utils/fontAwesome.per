@@ -1,8 +1,12 @@
 
 LAYOUT  (TEXT="Font Awesome Viewer", STYLE="main2", IMAGE="fab-font-awesome-flag" )
-VBOX
-HBOX ( SPLITTER )
-VBOX
+VBOX -- 1
+VBOX ( SPLITTER,
+ ORIENTATION@MEDIUM = HORIZONTAL,
+ ORIENTATION@LARGE  = HORIZONTAL
+)  -- 2
+
+VBOX -- 3
 GRID
 {
 [lfil:l_filter                  :clearfilter]
@@ -20,18 +24,14 @@ TABLE
 [i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
 [i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
 [i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
-[i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
-[i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
-[i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
-[i01  |i02  |i03  |i04  |i05  |i06  |i07  |i08  |i09  |i10  ]
 }
 END -- TABLE
-END -- VBOX
+END -- VBOX 3
 GRID
 {
-[quit :copy             :about ]
-[flab:font_name             ]
-<G clab                         >
+[quit :copy           :about ]
+[flab:font_name              ]
+<G clab                       >
  [nlab:img_name              ]
  [ii:img                     ]
     [                        ]
@@ -42,8 +42,8 @@ GRID
     [                        ]
     [                        ]
     [                        ]
-<                               >
-<G row                          >
+<                             >
+<G row                        >
   1[x01               |v01 ]
   2[x02               |v02 ]
   3[x03               |v03 ]
@@ -56,13 +56,13 @@ GRID
  10[x10               |v10 ]
 }
 END -- GRID
-END -- HBOX
+END -- VBOX 2
 GRID
 {
 [a001                                                        ]
 }
 END -- GRID
-END -- VBOX
+END -- VBOX 1
 
 ATTRIBUTES
 --IMAGE f : f IMAGE="fab-font-awesome-flag", STYLE="noborder";
@@ -93,7 +93,7 @@ LABEL font_name = FORMONLY.font_name, SIZEPOLICY=FIXED, STYLE="em14";
 IMAGE ii = FORMONLY.img2, STYLE="noborder", SIZEPOLICY=DYNAMIC;
 IMAGE img = FORMONLY.img, STRETCH=BOTH, AUTOSCALE, {HEIGHT=150 PIXELS, WIDTH=150 PIXELS,} STYLE="noborder";
 
-GROUP row : row, TEXT=%"On This Row:";
+GROUP row : row, TEXT=%"On This Row:", HIDDEN@SMALL;
 LABEL x01 = FORMONLY.i01, SIZEPOLICY=FIXED;
 LABEL x02 = FORMONLY.i02, SIZEPOLICY=FIXED;
 LABEL x03 = FORMONLY.i03, SIZEPOLICY=FIXED;

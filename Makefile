@@ -1,5 +1,6 @@
 
-export GENVER=320
+export GENVER=400
+#export GENVER=320
 export BIN=njm_app_bin
 
 export PROJBASE=$(PWD)
@@ -17,7 +18,7 @@ export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
 export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.$(RENDERER)
-export FGLLDPATH=../g2_lib/bin$(GENVER):$(GREDIR)/lib
+export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
 
 export LANG=en_GB.utf8
 
