@@ -57,7 +57,6 @@ rewind=FontAwesome.ttf:f04a
 gorev=FontAwesome.ttf:f04a
 smiley=FontAwesome.ttf:f118
 pen=FontAwesome.ttf:f040
-cup=FontAwesome.ttf:f0f4
 cut=FontAwesome.ttf:f0c4
 copy=FontAwesome.ttf:f0c5
 copy2=FontAwesome.ttf:f0c5

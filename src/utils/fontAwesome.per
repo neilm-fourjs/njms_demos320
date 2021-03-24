@@ -1,4 +1,10 @@
 
+ACTION DEFAULTS
+	ACTION quit (TEXT=%"Quit", IMAGE="quit")
+	ACTION about (TEXT=%"About", IMAGE="about")
+	ACTION filter (TEXT=%"Filter", IMAGE="filter_alt")
+	ACTION copy (TEXT=%"Copy Current Icon Name", IMAGE="copy")
+END -- AD
 LAYOUT  (TEXT="Font Awesome Viewer", STYLE="main2", IMAGE="fab-font-awesome-flag" )
 VBOX -- 1
 VBOX ( SPLITTER,
@@ -67,10 +73,10 @@ END -- VBOX 1
 ATTRIBUTES
 --IMAGE f : f IMAGE="fab-font-awesome-flag", STYLE="noborder";
 BUTTON quit : quit;
-BUTTON copy : copy,TEXT=%"Copy Current Icon Name", IMAGE="fa-copy";
+BUTTON copy : copy;
 BUTTON about : about;
 LABEL lfil : lfil, TEXT=%"Filter:";
-BUTTONEDIT l_filter = FORMONLY.l_filter, ACTION=applyfilter, IMAGE="fa-filter";
+BUTTONEDIT l_filter = FORMONLY.l_filter, ACTION=applyfilter, IMAGE="filter_alt";
 BUTTON clearfilter : clearfilter,TEXT=%"Clear Filter";
 LABEL a001 = FORMONLY.fglimagepath, SIZEPOLICY=DYNAMIC;
 IMAGE i01 = FORMONLY.a01,TITLE="1", HEIGHT=48 PIXELS, WIDTH=48 PIXELS, AUTOSCALE;

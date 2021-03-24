@@ -487,7 +487,7 @@
       </Application>
     </Group>
     <Group id="388215811" label="Utils">
-      <Application binaryName="fontAwesome" dependencies="-400184264,-310428106,1136561508_14000" environment="value:FGLIMAGEPATH=$(ProjectDir)/pics:$(ProjectDir)/pics/image2md.txt,value:FJS_GL_DBGLEV=-1" id="-531765990" label="fontAwesome">
+      <Application binaryName="fontAwesome" dependencies="-400184264,-310428106,1136561508_14000,-47144818_14000" environment="value:FGLIMAGEPATH=$(ProjectDir)/pics:$(ProjectDir)/pics/image2font2.txt,value:FJS_GL_DBGLEV=-1" id="-531765990" label="fontAwesome">
         <Configuration id="131319426" label="fontAwesome"/>
         <File filePath="src/utils/fontAwesome.4gl"/>
         <File filePath="src/utils/fontAwesome.per"/>
