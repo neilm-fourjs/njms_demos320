@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="ANSI_X3.4-1968"?>
 
 <StyleList>
+	<Style name="*">
+		<StyleAttribute name="defaultTTFColor" value="windowText" />
+	</Style>
 
 	<Style name="Window">
 		<StyleAttribute name="fontFamily" value="Century Gothic, Arial" />
@@ -87,6 +90,7 @@
     <StyleAttribute name="tableType" value="listView" />
   </Style>
 
+
 	<Style name="Table.wizard:focus">
 		<StyleAttribute name="backgroundColor" value="White" />
 	</Style>
@@ -119,10 +123,12 @@
 		<StyleAttribute name="highlightCurrentRow" value="no" />
 	</Style>
   <Style name="Table.disparr:odd">
-    <StyleAttribute name="backgroundColor" value="#dff0f7"/>
+    <!--StyleAttribute name="backgroundColor" value="#dff0f7"/-->
+		<StyleAttribute name="backgroundColor" value="systemAlternateBackground"/>
   </Style>
   <Style name="Table.disparr:summaryLine">
-    <StyleAttribute name="backgroundColor" value="#abd8eb"/>
+    <!--StyleAttribute name="backgroundColor" value="#abd8eb"/-->
+		<StyleAttribute name="fontWeight" value="bold" />
   </Style>
 
 
