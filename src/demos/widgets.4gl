@@ -302,7 +302,10 @@ MAIN
         LET datetimeedit = CURRENT
         DISPLAY BY NAME timeedit, datetimeedit
 
-      ON ACTION url
+      ON ACTION url1
+        CALL ui.interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
+
+      ON ACTION url2
         CALL ui.interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
 
 --      ON ACTION splash

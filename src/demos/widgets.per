@@ -129,7 +129,9 @@ GRID
 <G chgsty                         >
  [   :sbut0:sbut1:sbut2:sbut3:   ]
  [            :dteed2:           ]
- [          :url:url2:           ]
+ [lurl1        |url1             ]
+ [lurl2        |url2             ]
+ [lurl3        |url3             ]
 
 <G "Buttons"      ><G "Buttons"   >
  [win1           ]  [     :w:    ]
@@ -450,8 +452,12 @@ BUTTON but1 : f31, text="fld1";
 BUTTON but2 : f32, text="fld2";
 BUTTON but3 : f33, text="fld3";
 
-BUTTON url : url, TEXT="http://www.4js.com", STYLE="url";
-LABEL url2 : url2, TEXT="<A HREF=\"http://www.4js.com\">FourJs.com</A>", STYLE="html";
+LABEL lurl1: lurl1, TEXT="buttonLink:";
+BUTTON url1 : url1, TEXT="The FourJs Web site\nhttp://www.4js.com", STYLE="url";
+LABEL lurl2: lurl2, TEXT="commandLink:";
+BUTTON url2 : url2, TEXT="The FourJs Web site", STYLE="url2", COMMENT="http://www.4js.com";
+LABEL lurl3: lurl3, TEXT="HTML Label:";
+LABEL url3 : url3, TEXT="<A HREF=\"http://www.4js.com\">The FourJs Web Site</A>", STYLE="html";
 
 -- Arrays 
 arr1 = FORMONLY.arr1 TYPE CHAR ; --, OPTIONS="-nolist";

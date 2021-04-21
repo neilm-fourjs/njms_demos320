@@ -64,7 +64,7 @@ MAIN
 
 	OPEN FORM f FROM "fontAwesome"
 	DISPLAY FORM f
-
+	CALL ui.Window.getCurrent().setText(SFMT("Font Viewer - %1", ARG_VAL(2)))
 	DISPLAY "FGLIMAGEPATH:" || fgl_getEnv("FGLIMAGEPATH") TO fglimagepath
 	CALL load_arr()
 

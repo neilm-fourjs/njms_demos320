@@ -15,10 +15,10 @@ IMPORT FGL new_acct
 CONSTANT C_PRGVER = "3.2"
 CONSTANT C_PRGDESC = "Demos Menu System v3"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
-CONSTANT C_PRGICON = "logo_dark"
+CONSTANT C_PRGICON = "logo"
 
 CONSTANT C_TITLE = "'Genero' Demos"
-CONSTANT C_SPLASH = "logo_dark"
+CONSTANT C_SPLASH = "logo"
 
 MAIN
 
