@@ -2,7 +2,7 @@
 
 <StyleList>
 	<Style name="*">
-		<StyleAttribute name="defaultTTFColor" value="windowText" />
+		<StyleAttribute name="defaultTTFColor" value="buttonText" />
 	</Style>
 
 	<Style name="Window">
@@ -122,7 +122,7 @@
 	<Style name="Table.nocurrent">
 		<StyleAttribute name="highlightCurrentRow" value="no" />
 	</Style>
-  <Style name="Table.disparr:odd">
+  <Style name="Table.disparr:even">
     <!--StyleAttribute name="backgroundColor" value="#dff0f7"/-->
 		<StyleAttribute name="backgroundColor" value="systemAlternateBackground"/>
   </Style>

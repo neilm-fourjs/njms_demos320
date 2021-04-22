@@ -5,6 +5,9 @@
     <StyleAttribute name="backgroundColor" value="red"/>
     <StyleAttribute name="textColor" value="red"/>
   </Style-->
+  <Style name="*">
+     <StyleAttribute name="defaultTTFColor" value="buttonText" />
+  </Style>
 
   <Style name="Folder.accordion">
 		<StyleAttribute name="position"  value="accordion" />
@@ -34,9 +37,18 @@
     <StyleAttribute name="textFormat" value="html"/>
   </Style>
   <Style name='.url'>
+    <StyleAttribute name="textFormat" value="html"/>
+		<!-- StyleAttribute name="buttonType" value="link"/-->
     <StyleAttribute name="border" value="none"/>
     <StyleAttribute name="textColor" value="darkblue"/>
     <StyleAttribute name="textDecoration" value="underline"/>
+  </Style>
+  <Style name='.url2'>
+		<StyleAttribute name="buttonType" value="commandLink"/>
+    <StyleAttribute name="fontSize" value="1.2em"/>
+    <!-- StyleAttribute name="border" value="none"/>
+    <StyleAttribute name="textColor" value="darkblue"/>
+    <StyleAttribute name="textDecoration" value="underline"/-->
   </Style>
   <Style name='DateEdit.parttime'>
     <StyleAttribute name="buttonIcon" value="smiley"/>
@@ -118,11 +130,11 @@
 		<StyleAttribute name="fontSize" value="11pt"/>
   </Style>
 
-  <Style name='Table.tab1:odd'>
-    <StyleAttribute name='backgroundColor'           value='#D5FFD5'/>
-  </Style>
+  <!--Style name='Table.tab1:odd'>
+    <StyleAttribute name='backgroundColor' value='#D5FFD5'/>
+  </Style-->
   <Style name='Table.tab1:even'>
-    <StyleAttribute name='backgroundColor'           value='#FDFDFD'/>
+    <StyleAttribute name='backgroundColor' value='systemAlternateBackground'/>
   </Style>
 
   <Style name='.tabtitl'>

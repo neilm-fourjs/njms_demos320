@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ANSI_X3.4-1968"?>
 
 <StyleList>
-	<Style name="*">
+	<!--Style name="*">
 		<StyleAttribute name="defaultTTFColor" value="windowText" />
-	</Style>
+	</Style-->
 	<Style name="Table.headcenter">
 		<StyleAttribute name="headerAlignment" value="center" />
 	</Style>
