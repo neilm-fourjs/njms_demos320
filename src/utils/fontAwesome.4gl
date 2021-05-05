@@ -64,12 +64,23 @@ MAIN
 
 	OPEN FORM f FROM "fontAwesome"
 	DISPLAY FORM f
+	{MENU
+		ON ACTION quit EXIT MENU
+	END MENU}
+
 	CALL ui.Window.getCurrent().setText(SFMT("Font Viewer - %1", ARG_VAL(2)))
+
 	DISPLAY "FGLIMAGEPATH:" || fgl_getEnv("FGLIMAGEPATH") TO fglimagepath
+	MESSAGE "Loading arrays ..."
+	CALL ui.interface.refresh()
 	CALL load_arr()
+	DISPLAY "Before the dialog"
+	MESSAGE SFMT("Finished loading %1 icons", m_rec.getLength())
 
 	DIALOG ATTRIBUTE(UNBUFFERED)
 		INPUT BY NAME l_filter
+			BEFORE INPUT
+				DISPLAY "in BEFORE INPUT"
 			ON ACTION applyfilter ATTRIBUTES(ACCELERATOR = 'RETURN')
 				CALL load_arr3(l_filter)
 		END INPUT
@@ -99,6 +110,7 @@ MAIN
 				CALL dsp_img(m_rec2[arr_curr()].i10, m_rec3[arr_curr()].v10, m_rec4[arr_curr()].f10)
 
 			BEFORE ROW
+				DISPLAY "in BEFORE ROW 1"
 				DISPLAY DIALOG.getCurrentItem() TO img_name
 				DISPLAY BY NAME m_rec2[arr_curr()].i01
 				DISPLAY BY NAME m_rec2[arr_curr()].i02
@@ -121,10 +133,12 @@ MAIN
 				DISPLAY BY NAME m_rec3[arr_curr()].v08
 				DISPLAY BY NAME m_rec3[arr_curr()].v09
 				DISPLAY BY NAME m_rec3[arr_curr()].v10
-
+				DISPLAY "in BEFORE ROW 2"
 		END DISPLAY
 		BEFORE DIALOG
+			DISPLAY "In BEFORE DIALOG 1"
 			CALL dsp_img(m_rec2[arr_curr()].i01, m_rec3[arr_curr()].v01, m_rec4[arr_curr()].f01)
+			DISPLAY "In BEFORE DIALOG 2"
 
 		ON ACTION clearfilter
 			LET l_filter = NULL
