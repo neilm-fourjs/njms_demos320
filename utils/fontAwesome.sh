@@ -1,5 +1,14 @@
 #!/bin/bash
-cd ../njm_app_bin
+
+GENVER=${GENVER:-400}
+DIR=../njm_app_bin$GENVER
+
+if [ ! -e $DIR ]; then
+	DIR=../njm_app_bin
+fi
+
+echo DIR=$DIR
+cd $DIR
 #export FGLPROFILE=../etc/profile.ur
 export FGLRESOURCEPATH=../etc
 export FGLIMAGEPATH=$FGLDIR/lib/image2font.txt:$FGLDIR/lib

@@ -193,7 +193,7 @@
           <File filePath="pics/webcomponents/colour/colour.js"/>
         </VirtualFolder>
         <File filePath="src/app_web/prodmnt.4gl"/>
-        <File filePath="src/app_web/prodmnt.per"/>
+        <File filePath="src/app_web/prodmnt.4fd"/>
       </Application>
       <Application binaryName="prods" dependencies="-1155424042,-310428106,1986,1136561508_14000,1136561508_-2003847556" id="-2006546962" label="prods">
         <File filePath="src/app_web/prodlist.per"/>
