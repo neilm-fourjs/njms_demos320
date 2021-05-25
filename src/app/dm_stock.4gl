@@ -104,11 +104,13 @@ FUNCTION init_cb(l_cb ui.ComboBox)
 END FUNCTION
 --------------------------------------------------------------------------------
 -- Callback function: called from the dynamic input code as a 'before input'.
+-- @param l_new is this a new record or updating an existing record.
 FUNCTION my_before_inp(l_new BOOLEAN, l_d ui.Dialog)
 	DISPLAY "BEFORE INPUT : ", IIF(l_new, " Insert", " Update")
 END FUNCTION
 --------------------------------------------------------------------------------
 -- Callback function: called from the dynamic input code as an 'after input'.
+-- @param l_new is this a new record or updating an existing record.
 FUNCTION my_after_inp(l_new BOOLEAN, l_d ui.Dialog) RETURNS BOOLEAN
 	DEFINE l_stk RECORD LIKE stock.*
 	DISPLAY "AFTER INPUT : ", IIF(l_new, " Insert", " Update")
