@@ -98,7 +98,7 @@ FUNCTION glm_constrct()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION glm_inpt(l_new BOOLEAN)
-	DEFINE x SMALLINT
+	DEFINE x       SMALLINT
 	DEFINE l_event STRING
 	CALL ui.Dialog.setDefaultUnbuffered(TRUE)
 	LET m_dialog = ui.Dialog.createInputByName(glm_sql.m_fields)
@@ -123,7 +123,9 @@ FUNCTION glm_inpt(l_new BOOLEAN)
 	LET int_flag = FALSE
 	WHILE TRUE
 		LET l_event = m_dialog.nextEvent()
-		IF l_event MATCHES "AFTER FIELD *" THEN LET l_event = "AFTER FIELD" END IF
+		IF l_event MATCHES "AFTER FIELD *" THEN
+			LET l_event = "AFTER FIELD"
+		END IF
 		CASE l_event
 			WHEN "BEFORE INPUT"
 				IF m_before_inp_func IS NOT NULL THEN
@@ -162,9 +164,9 @@ END FUNCTION
 FUNCTION glm_validateField()
 	DEFINE l_fld, l_val STRING
 	LET l_fld = m_dialog.getCurrentItem()
-	LET l_val = m_dialog.getFieldValue( l_fld )
-	DISPLAY SFMT("Validate %1 Value: %2", l_fld, NVL(l_val,"NULL") )
-
+	LET l_val = m_dialog.getFieldValue(l_fld)
+	DISPLAY SFMT("Validate Field: %1 Value: %2", l_fld, NVL(l_val, "NULL"))
+--to do play some kind of generic field validation rules here
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION glm_updateJsonRec()

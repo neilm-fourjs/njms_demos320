@@ -95,7 +95,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=sqt,value:RENDERER=nat,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
+  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
     <Group id="1931904086" label="API">
       <Library binaryName="njm_cust_db" dependencies="1986" id="-1358259824" label="njm_cust_db">
         <File filePath="src/api/njm_cust_db.4gl"/>
@@ -156,7 +156,7 @@
         <File filePath="src/app/ordent.per"/>
         <File filePath="src/app/ordent2.per"/>
       </Application>
-      <Application binaryName="printInvoices" commandLineArguments="S 1 2 ordent-1 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
+      <Application binaryName="printInvoices" commandLineArguments="S 1 2 ordent-2 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
         <VirtualFolder label="Reports">
           <File filePath="etc/ordent-1.4rp"/>
           <File filePath="etc/ordent-2.4rp"/>
@@ -395,6 +395,7 @@
       <Application binaryName="wc_richtext" dependencies="-310428106,1136561508_14000" id="-132093204" label="wc_richtext">
         <File filePath="src/demos/wc_richtext.4gl"/>
         <File filePath="src/demos/wc_richtext.per"/>
+        <File filePath="src/demos/wc_richtext_d.per"/>
       </Application>
     </Group>
     <ExtProject filePath="g2_lib/g2_lib.4pw" id="1136561508"/>
