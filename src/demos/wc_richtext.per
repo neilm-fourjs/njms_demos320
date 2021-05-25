@@ -6,7 +6,7 @@ ACTION DEFAULTS
 	ACTION clear (TEXT=%"Clear", IMAGE="fa-eraser")
 	ACTION savetext (TEXT=%"Save Text", IMAGE="fa-save")
 	ACTION loadText (TEXT=%"Load Text", IMAGE="fa-file-text-o")
-
+	ACTION dialogtest (TEXT=%"Dialog Test", IMAGE="fa-bug", ACCELERATOR=F12)
 	ACTION set_focus_to_fn (TEXT=%"Focus FileName", IMAGE="fa-mouse-pointer")
 	ACTION set_focus_to_test (TEXT=%"Focus Test", IMAGE="fa-mouse-pointer")
 	ACTION set_focus_to_wc (TEXT=%"Focus RichText", IMAGE="fa-mouse-pointer")
@@ -23,10 +23,11 @@ TOOLBAR
 	ITEM set_focus_to_fn
 	ITEM set_focus_to_test
 	ITEM set_focus_to_wc
+	ITEM dialogtest
 	ITEM about
 END -- TB
 
-LAYOUT (TEXT=%"WC Richtext Demo",MINWIDTH=80,MINHEIGHT=20, STYLE="main2")
+LAYOUT (TEXT=%"WC Richtext Demo", MINWIDTH=80,MINHEIGHT=20, STYLE="main2")
 GRID
 {
 [l001:f001          :    :l002:a1       ]
@@ -54,14 +55,19 @@ a1=FORMONLY.fld2, SCROLL;
 WEBCOMPONENT rt = FORMONLY.richtext,
 COMPONENTTYPE = "fglrichtext",
 PROPERTIES = (
+TOOLBAR = "aligncenter|alignjustify|alignleft|alignright|bold|bullist|color|fontselect|fontsizeselect|formatselect|indent|italic|linespacing|numlist|outdent|redo|removeformat|strikethrough|underline|undo"
+{
+
 toolbar = "bold|italic|underline|fontsizeselect|undo|redo|color|image|emoji",
 spellcheck = "browser",
 autoflush = "autosave",
-autoflush_interval = 30
+autoflush_interval = 3
+}
 ),
   SIZEPOLICY = FIXED,
   SCROLLBARS = NONE,
   STRETCH = BOTH;
+
 
 LABEL info = FORMONLY.info;
 END
