@@ -1,8 +1,6 @@
 #+ Web Order Entry Demo - by N.J.Martin neilm@4js.com
 #+
-IMPORT FGL g2_lib
-IMPORT FGL g2_about
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 
 IMPORT FGL oe_lib
 IMPORT FGL oeweb_lib
@@ -27,10 +25,10 @@ MAIN
   DEFINE l_form ui.Form
   DEFINE l_cat SMALLINT
 
-  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "weboe")
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.g2_init(ARG_VAL(1), "weboe")
 
-  WHENEVER ANY ERROR CALL g2_lib.g2_error
+  WHENEVER ANY ERROR CALL g2_core.g2_error
   CALL m_db.g2_connect(NULL)
 
   CALL ui.Interface.setText(C_PRGDESC)
@@ -63,7 +61,7 @@ MAIN
     CALL build_grids()
     LET l_cat = dynDiag()
   END WHILE
-  CALL g2_lib.g2_exitProgram(0, "Program Finished")
+  CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION build_grids()

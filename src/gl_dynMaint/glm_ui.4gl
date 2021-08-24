@@ -1,8 +1,5 @@
 IMPORT util
-IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
-IMPORT FGL g2_lookup
+IMPORT FGL g2_lib.*
 
 IMPORT FGL glm_sql
 IMPORT FGL glm_mkForm

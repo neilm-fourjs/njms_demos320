@@ -9,10 +9,7 @@
 -- 4: Primary Key name
 -- 5: Allowed actions: Y/N > Find / Update / Insert / Delete / Sample / List  -- eg: YNNNNN = enquiry only.
 
-IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 IMPORT FGL app_lib
 
 IMPORT FGL glm_mkForm
@@ -35,7 +32,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "default")
+	CALL g2_core.g2_init(ARG_VAL(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
 -- Connect to DB
@@ -50,12 +47,12 @@ MAIN
 			m_dbname, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
 			glm_sql.m_fields, "main2")
 	CALL ui.window.getCurrent().setText(C_PRGDESC)
-	CALL g2_lib.g2_loadToolBar("dynmaint")
-	CALL g2_lib.g2_loadTopMenu("dynmaint")
+	CALL g2_core.g2_loadToolBar("dynmaint")
+	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- start UI
 	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
 -- All Done
-	CALL g2_lib.g2_exitProgram(0, %"Program Finished")
+	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION init_args()
@@ -66,16 +63,16 @@ FUNCTION init_args()
 	LET glm_sql.m_key_nam = arg_val(5)
 	LET m_allowedActions = arg_val(6)
 	IF m_dbname IS NULL THEN
-		CALL g2_lib.g2_errPopup(SFMT(%"Invalid Database Name '%1'!", m_dbname))
-		CALL g2_lib.g2_exitProgram(1, %"invalid Database")
+		CALL g2_core.g2_errPopup(SFMT(%"Invalid Database Name '%1'!", m_dbname))
+		CALL g2_core.g2_exitProgram(1, %"invalid Database")
 	END IF
 	IF glm_sql.m_tab IS NULL THEN
-		CALL g2_lib.g2_errPopup(SFMT(%"Invalid Table '%1'!", glm_sql.m_tab))
-		CALL g2_lib.g2_exitProgram(1, %"invalid table")
+		CALL g2_core.g2_errPopup(SFMT(%"Invalid Table '%1'!", glm_sql.m_tab))
+		CALL g2_core.g2_exitProgram(1, %"invalid table")
 	END IF
 	IF glm_sql.m_key_nam IS NULL THEN
-		CALL g2_lib.g2_errPopup(SFMT(%"Invalid Key Name '%1'!", glm_sql.m_key_nam))
-		CALL g2_lib.g2_exitProgram(1, %"invalid key name")
+		CALL g2_core.g2_errPopup(SFMT(%"Invalid Key Name '%1'!", glm_sql.m_key_nam))
+		CALL g2_core.g2_exitProgram(1, %"invalid key name")
 	END IF
 	IF m_allowedActions IS NULL THEN
 		LET m_allowedActions = "YYYYYY"
