@@ -1,6 +1,6 @@
 IMPORT com
 IMPORT util
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_logging
 IMPORT FGL g2_db
 IMPORT FGL g2_sql
@@ -17,9 +17,9 @@ PUBLIC DEFINE g2_log g2_logging.logger
 PUBLIC FUNCTION init()
   DEFINE l_db g2_db.dbInfo
   CALL g2_log.init(NULL, NULL, "log", "TRUE")
-  LET g2_lib.m_isWS = TRUE
-  WHENEVER ANY ERROR CALL g2_lib.g2_error
-  LET g2_ws.m_server = g2_lib.g2_getHostname()
+  LET g2_core.m_isWS = TRUE
+  WHENEVER ANY ERROR CALL g2_core.g2_error
+  LET g2_ws.m_server = g2_core.g2_getHostname()
   CALL l_db.g2_connect(NULL)
 --  RUN "env | sort > /tmp/gas.env"
   CALL g2_log.logIt("Service Initialized.")
@@ -29,7 +29,13 @@ END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- WEB SERVICE FUNCTIONS
 ----------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+-- get version of service 
+PUBLIC FUNCTION getVersion()
+    ATTRIBUTES(WSGet, WSPath = "/getVersion/", WSDescription = "Get Version of Service")
+    RETURNS STRING
+  RETURN service_reply(0, "Service Version")
+END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- get a stock listing
 PUBLIC FUNCTION listStock(

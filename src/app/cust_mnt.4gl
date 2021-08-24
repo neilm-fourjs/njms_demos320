@@ -1,6 +1,6 @@
 -- Customer Maintenance
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 
@@ -49,8 +49,8 @@ DEFINE m_allowedActions CHAR(6) --Y/N for Find / List / Update / Insert / Delete
 DEFINE m_db g2_db.dbInfo
 MAIN
 
-	CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "default")
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.g2_init(ARG_VAL(1), "default")
 
 	LET m_user_key       = ARG_VAL(2)
 	LET m_allowedActions = ARG_VAL(3)
@@ -58,8 +58,8 @@ MAIN
 
 	OPEN FORM frm FROM "cust_mnt"
 	DISPLAY FORM frm
-	CALL g2_lib.g2_loadToolBar("dynmaint")
-	CALL g2_lib.g2_loadTopMenu("dynmaint")
+	CALL g2_core.g2_loadToolBar("dynmaint")
+	CALL g2_core.g2_loadTopMenu("dynmaint")
 
 	CALL m_db.g2_connect(NULL)
 
@@ -142,9 +142,9 @@ MAIN
 			CALL showRow(m_recs.getLength())
 			CALL app_lib.setActions(m_row, m_recs.getLength(), m_allowedActions)
 		ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
 	END MENU
-	CALL g2_lib.g2_exitProgram(0, %"Program Finished")
+	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION query() RETURNS BOOLEAN
@@ -280,7 +280,7 @@ FUNCTION delete() RETURNS BOOLEAN
 		RETURN FALSE
 	END IF
 
-	IF g2_lib.g2_winQuestion(%"Confirm", %"Are you sure you want to delete this customer?", "No", "Yes|No", "question")
+	IF g2_core.g2_winQuestion(%"Confirm", %"Are you sure you want to delete this customer?", "No", "Yes|No", "question")
 			= "Yes" THEN
 		LET l_stmt = "DELETE FROM " || TABNAMEQ || " WHERE " || KEYFLDQ || " = ?"
 		PREPARE pre_del FROM l_stmt
@@ -320,7 +320,7 @@ FUNCTION update() RETURNS BOOLEAN
 		RETURN FALSE
 	END IF
 
-	IF g2_lib.g2_winQuestion(%"Confirm", %"Update this customer?", "No", "Yes|No", "question") = "Yes" THEN
+	IF g2_core.g2_winQuestion(%"Confirm", %"Update this customer?", "No", "Yes|No", "question") = "Yes" THEN
 		RETURN FALSE
 	END IF
 
@@ -392,7 +392,7 @@ FUNCTION insert(l_ad_only BOOLEAN) RETURNS BOOLEAN
 		IF NOT g2_db.g2_checkRec(FALSE, m_rec.KEYFLD, l_stmt) THEN
 			RETURN FALSE
 		END IF
-		IF g2_lib.g2_winQuestion(%"Confirm", %"Insert new customer?", "No", "Yes|No", "question") = "No" THEN
+		IF g2_core.g2_winQuestion(%"Confirm", %"Insert new customer?", "No", "Yes|No", "question") = "No" THEN
 			RETURN FALSE
 		END IF
 	END IF

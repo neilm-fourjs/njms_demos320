@@ -1,7 +1,7 @@
 IMPORT util
 IMPORT os
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 
 CONSTANT C_PRGVER = "3.1"
@@ -29,8 +29,8 @@ DEFINE m_conts DYNAMIC ARRAY OF t_contact
 DEFINE m_contList DYNAMIC ARRAY OF t_contactList
 MAIN
 
-  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   CALL load_contacts()
 
@@ -97,15 +97,15 @@ FUNCTION disp_contacts()
 			DISPLAY l_img TO himg
 			LET l_info = SFMT("Image path '%1'", l_img)
 		ON ACTION show_info ATTRIBUTES( ROWBOUND, TEXT="Show", IMAGE="fa-info" )
-			CALL g2_lib.g2_winMessage("Imagel",l_info,"information")
+			CALL g2_core.g2_winMessage("Imagel",l_info,"information")
 		ON UPDATE
-			CALL g2_lib.g2_winMessage("Imagel","Update not support yet!","information")
+			CALL g2_core.g2_winMessage("Imagel","Update not support yet!","information")
 		ON ACTION close
 			EXIT DISPLAY
 		ON ACTION quit
 			EXIT DISPLAY
 		ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
 	END DISPLAY
 
 END FUNCTION

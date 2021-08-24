@@ -1,6 +1,6 @@
 #+ User Maintenance Demo - by N.J.Martin neilm@4js.com
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 IMPORT FGL g2_secure
@@ -34,17 +34,17 @@ MAIN
   DEFINE dnd ui.DragDrop
   DEFINE l_rules STRING
 
-  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
-  WHENEVER ANY ERROR CALL g2_lib.g2_error
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  WHENEVER ANY ERROR CALL g2_core.g2_error
 
   LET m_this_user_key = arg_val(2)
 
   LET m_saveUser = FALSE
   OPEN FORM um FROM "user_mnt"
   DISPLAY FORM um
-	CALL g2_lib.g2_loadToolBar( "dynmaint" )
-	CALL g2_lib.g2_loadTopMenu( "dynmaint" )
+	CALL g2_core.g2_loadToolBar( "dynmaint" )
+	CALL g2_core.g2_loadTopMenu( "dynmaint" )
 
   CALL m_db.g2_connect(NULL)
 
@@ -79,7 +79,7 @@ MAIN
     DISPLAY ARRAY m_fullname TO u_arr.*
       BEFORE DISPLAY
         IF m_save THEN
-          IF g2_lib.g2_winQuestion("Confirm", "Save these changes?", "No", "Yes|No", "question")
+          IF g2_core.g2_winQuestion("Confirm", "Save these changes?", "No", "Yes|No", "question")
                   = "Yes"
               THEN
             CALL saveRoles_user()
@@ -117,7 +117,7 @@ MAIN
 
     DISPLAY ARRAY m_uroles TO ur_arr.*
       ON ACTION dblclick
-        IF g2_lib.g2_winQuestion(
+        IF g2_core.g2_winQuestion(
                     "Confirm", "Toggle activate state for users role?", "No", "Yes|No", "question")
                 = "Yes"
             THEN
@@ -139,7 +139,7 @@ MAIN
     END DISPLAY
     DISPLAY ARRAY m_roles TO r_arr.*
       ON ACTION dblclick
-        IF g2_lib.g2_winQuestion(
+        IF g2_core.g2_winQuestion(
                     "Confirm", "Toggle activate state for this role?", "No", "Yes|No", "question")
                 = "Yes"
             THEN
@@ -232,9 +232,9 @@ MAIN
     ON ACTION close
       EXIT DIALOG
     ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
   END DIALOG
-  CALL g2_lib.g2_exitProgram(0, "Program Finished")
+  CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION removeRoles_user(d)
@@ -282,7 +282,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION checkSave()
   IF m_save THEN
-    IF g2_lib.g2_winQuestion("Confirm", "Save these changes?", "No", "Yes|No", "question") = "Yes"
+    IF g2_core.g2_winQuestion("Confirm", "Save these changes?", "No", "Yes|No", "question") = "Yes"
         THEN
       IF m_saveUser THEN
         CALL saveUser()
@@ -343,7 +343,7 @@ FUNCTION del_user(x)
   IF m_user[x].user_key IS NULL THEN
     RETURN
   END IF
-  IF g2_lib.g2_winQuestion(
+  IF g2_core.g2_winQuestion(
               "Confirm", "Are you sure you want to delete this user?", "No", "Yes|No", "question")
           = "Yes"
       THEN
@@ -360,7 +360,7 @@ FUNCTION user_rpt()
 
 	LET l_rpt.pageWidth = 132
 	IF NOT l_rpt.init("users", TRUE, "SVG", TRUE) THEN
-		CALL g2_lib.g2_winMessage("Error","Failed to start report","exclamation")
+		CALL g2_core.g2_winMessage("Error","Failed to start report","exclamation")
 		RETURN
 	END IF
 

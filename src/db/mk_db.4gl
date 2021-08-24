@@ -1,4 +1,4 @@
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_db
 IMPORT FGL mk_db_lib
 IMPORT FGL mk_db_sys_data
@@ -27,7 +27,7 @@ MAIN
   CALL l_db.g2_connect(NULL)
   CALL mkdb_progress(SFMT(% "Connected to %1 db '%2' okay", l_db.type, l_db.name))
 
-  IF g2_lib.g2_winQuestion(
+  IF g2_core.g2_winQuestion(
               "Confirm",
               "This will delete and recreate all the database tables!\n\nAre you sure you want to do this?",
               "No",
@@ -60,7 +60,7 @@ MAIN
     CALL mk_db_app_data.insert_app_data()
   END IF
 
-  CALL g2_lib.g2_winMessage("Info", SFMT("mk_db program finished Arg:%1", l_arg), "information")
+  CALL g2_core.g2_winMessage("Info", SFMT("mk_db program finished Arg:%1", l_arg), "information")
 
 END MAIN
 --------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 IMPORT os
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
 IMPORT FGL lib_login
@@ -25,7 +25,7 @@ DEFINE m_useUR BOOLEAN
 --------------------------------------------------------------------------------
 FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 	DEFINE l_form         ui.Form
-	WHENEVER ANY ERROR CALL g2_lib.g2_error
+	WHENEVER ANY ERROR CALL g2_core.g2_error
 	OPEN WINDOW w_menu WITH FORM "menu"
 	LET l_form  = ui.Window.getCurrent().getForm()
 	LET m_prf   = "FGLPROFILE=" || fgl_getEnv("FGLPROFILE")
@@ -45,7 +45,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 	LET m_curMenu          = 1
 	LET m_menus[m_curMenu] = "main"
 	IF NOT populate_menu(m_menus[m_curMenu]) THEN -- should not happen!
-		CALL g2_lib.g2_exitProgram(0, "'main' menu not found!")
+		CALL g2_core.g2_exitProgram(0, "'main' menu not found!")
 	END IF
 
 	DISPLAY l_appInfo.userName TO userName
@@ -138,13 +138,13 @@ FUNCTION process_menu_item(x   SMALLINT)
 			CALL progArgs(m_menu[x].m_item) RETURNING l_prog, l_args
 			LET l_cmd = SFMT("set %1 && fglrun %2 %3 %4", m_prf, l_prog, m_args, l_args)
 			IF NOT os.path.exists(l_prog) THEN
-				CALL g2_lib.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", l_prog))
+				CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", l_prog))
 			END IF
 			CALL run_withoutWaiting(l_cmd)
 
 		WHEN "S" -- Run a simple 42r - no args
 			IF NOT os.path.exists(m_menu[x].m_item) THEN
-				CALL g2_lib.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", m_menu[x].m_item))
+				CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", m_menu[x].m_item))
 			END IF
 			LET l_cmd = SFMT("fglrun %1", m_menu[x].m_item)
 			CALL run_withoutWaiting(l_cmd)
@@ -241,7 +241,7 @@ END FUNCTION
 FUNCTION quit() RETURNS BOOLEAN
 	IF ARG_VAL(1) = "MDI" THEN
 		IF ui.Interface.getChildCount() > 0 THEN
-			CALL g2_lib.g2_warnPopup(%"Must close child windows first!")
+			CALL g2_core.g2_warnPopup(%"Must close child windows first!")
 			RETURN FALSE
 		END IF
 	END IF
@@ -249,7 +249,7 @@ FUNCTION quit() RETURNS BOOLEAN
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION run_withoutWaiting(l_cmd STRING)
-	CALL g2_lib.g2_log.logit("RUN: " || NVL(l_cmd, "NULL!"))
+	CALL g2_core.g2_log.logit("RUN: " || NVL(l_cmd, "NULL!"))
 	RUN l_cmd WITHOUT WAITING
 END FUNCTION
 --------------------------------------------------------------------------------

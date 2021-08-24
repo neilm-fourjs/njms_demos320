@@ -2,7 +2,7 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 
 CONSTANT C_PRGDESC = "Material Design Test"
@@ -41,8 +41,8 @@ MAIN
 	END RECORD
 	DEFINE x SMALLINT
 
-	CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "matDesTest")
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.g2_init(ARG_VAL(1), "matDesTest")
 --  CALL ui.Interface.setImage("fa-bug")
 	FOR X = 1 TO 15
 		LET l_arr[x].col1 = "Row " || x
@@ -81,10 +81,10 @@ MAIN
 								DIALOG.getCurrentRow("arr2"), l_listView.getLength())
 						TO tab2info
 			ON UPDATE
-				CALL g2_lib.g2_winMessage(
+				CALL g2_core.g2_winMessage(
 						"Update", "Update not available!", "exclamation")
 			ON DELETE
-				CALL g2_lib.g2_winMessage(
+				CALL g2_core.g2_winMessage(
 						"Delete", "Delete not available!", "exclamation")
 		END DISPLAY
 		DISPLAY ARRAY l_listView TO arr3.*
@@ -102,7 +102,7 @@ MAIN
 		ON ACTION win
 			CALL win()
 		ON ACTION win_mess
-			CALL g2_lib.g2_winMessage("Info", "Testing", "information")
+			CALL g2_core.g2_winMessage("Info", "Testing", "information")
 		ON ACTION arr2
 			CALL DIALOG.nextField("lvcol1")
 		ON ACTION arr3
@@ -128,7 +128,7 @@ MAIN
 		ON ACTION inactive
 			CALL dummy()
 		ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
 		ON ACTION actiona
 			ERROR "Control-A"
 		ON ACTION actionb

@@ -1,4 +1,4 @@
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_db
 IMPORT FGL combos
 
@@ -38,7 +38,7 @@ MAIN
   DEFINE l_search STRING
   DEFINE l_where STRING
 
-  CALL g2_lib.g2_init(ARG_VAL(1), NULL)
+  CALL g2_core.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
   CALL combos.dummy() -- required to make the linker not exclude the combos library!
 
@@ -65,7 +65,7 @@ MAIN
         LET m_scrArr[arr_curr()].currrow = ""
       ON ACTION SELECT
         RUN "fglrun quotemnt.42r "
-            || g2_lib.m_mdi
+            || g2_core.m_mdi
             || " "
             || m_arr[arr_curr()].quote_number WITHOUT WAITING
     END DISPLAY
@@ -82,10 +82,10 @@ MAIN
       END IF
     ON ACTION add
       LET l_rec.quote_number = 0
-      RUN "fglrun quotemnt.42r " || g2_lib.m_mdi || " " || l_rec.quote_number WITHOUT WAITING
+      RUN "fglrun quotemnt.42r " || g2_core.m_mdi || " " || l_rec.quote_number WITHOUT WAITING
   END DIALOG
 
-  CALL g2_lib.g2_exitProgram(0, "Finished")
+  CALL g2_core.g2_exitProgram(0, "Finished")
 END MAIN
 ----------------------------------------------------------------------------------------------------
 FUNCTION getData(l_where STRING, l_orderBy STRING)

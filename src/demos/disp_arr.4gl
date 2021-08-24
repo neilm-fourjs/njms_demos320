@@ -7,7 +7,7 @@
 #+ 5) IIF used for message.
 
 IMPORT util -- used for rand function for testdata
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 
 CONSTANT C_PRGVER  = "3.1"
@@ -27,8 +27,8 @@ END RECORD
 
 MAIN
 
-	CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "default")
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.g2_init(ARG_VAL(1), "default")
 	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3", ARG_VAL(1), ARG_VAL(2), ARG_VAL(3))
 	CALL ui.Interface.setText(C_PRGDESC)
 
@@ -92,13 +92,13 @@ FUNCTION disp_arr1()
 		ON UPDATE
 			CALL editRow(TRUE)
 		ON DELETE
-			IF g2_lib.g2_winQuestion("Confirm", "Delete this row?\n" || m_arr[arr_curr()].desc, "No", "Yes|No", "questions")
+			IF g2_core.g2_winQuestion("Confirm", "Delete this row?\n" || m_arr[arr_curr()].desc, "No", "Yes|No", "questions")
 					= "No" THEN
 				LET int_flag = TRUE
 			END IF
 
 		ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
 -- Default actions to leave the statement
 		ON ACTION close
 			EXIT DISPLAY
@@ -145,7 +145,7 @@ FUNCTION disp_arr2()
 		ON UPDATE
 			CALL editRow(TRUE)
 		ON DELETE
-			IF g2_lib.g2_winQuestion("Confirm", "Delete this row?\n" || m_arr[arr_curr()].desc, "No", "Yes|No", "questions")
+			IF g2_core.g2_winQuestion("Confirm", "Delete this row?\n" || m_arr[arr_curr()].desc, "No", "Yes|No", "questions")
 					= "No" THEN
 				LET int_flag = TRUE
 			END IF

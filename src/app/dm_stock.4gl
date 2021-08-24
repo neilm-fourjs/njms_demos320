@@ -4,7 +4,7 @@
 
 IMPORT util
 -- Core libraries
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 IMPORT FGL app_lib
@@ -28,8 +28,8 @@ DEFINE m_allowedActions CHAR(6)
 DEFINE m_db             g2_db.dbInfo
 MAIN
 
-	CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "default")
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.g2_init(ARG_VAL(1), "default")
 
 	LET m_allowedActions = "YYYYYY"
 -- Connect to DB
@@ -46,15 +46,15 @@ MAIN
 			m_dbname, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE, glm_sql.m_fields,
 			"main2") -- C_FIELDS_PER_PAGE fields by folder page
 	CALL ui.window.getCurrent().setText(C_PRGDESC)
-	CALL g2_lib.g2_loadToolBar("dynmaint")
-	CALL g2_lib.g2_loadTopMenu("dynmaint")
+	CALL g2_core.g2_loadToolBar("dynmaint")
+	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- Setup Callback functions
 	LET glm_ui.m_before_inp_func = FUNCTION my_before_inp
 	LET glm_ui.m_after_inp_func = FUNCTION my_after_inp
 -- start UI
 	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
 -- All Done
-	CALL g2_lib.g2_exitProgram(0, %"Program Finished")
+	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 -- Initialize the form by setting the defaults and comboboxes.

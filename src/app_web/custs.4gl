@@ -1,5 +1,5 @@
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_db
 IMPORT FGL g2_grw
 IMPORT FGL combos
@@ -21,7 +21,7 @@ MAIN
   DEFINE l_search STRING
   DEFINE l_where STRING
 
-  CALL g2_lib.g2_init(ARG_VAL(1), NULL)
+  CALL g2_core.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
   CALL combos.dummy()
 
@@ -43,7 +43,7 @@ MAIN
     END INPUT
     DISPLAY ARRAY m_scrArr TO list.*
       ON ACTION SELECT
-        RUN "fglrun custmnt.42r " || g2_lib.m_mdi || " " || m_arr[arr_curr()].customer_code WITHOUT WAITING
+        RUN "fglrun custmnt.42r " || g2_core.m_mdi || " " || m_arr[arr_curr()].customer_code WITHOUT WAITING
     END DISPLAY
     ON ACTION refresh
       CALL getData(NULL, "customer_code")
@@ -53,11 +53,11 @@ MAIN
       EXIT DIALOG
     ON ACTION add
       LET l_rec.customer_code = "new"
-      RUN "fglrun custmnt.42r " || g2_lib.m_mdi || " " || l_rec.customer_code WITHOUT WAITING
+      RUN "fglrun custmnt.42r " || g2_core.m_mdi || " " || l_rec.customer_code WITHOUT WAITING
 		ON ACTION rpt
 			CALL rpt_func1()
   END DIALOG
-  CALL g2_lib.g2_exitProgram(0, "Finished")
+  CALL g2_core.g2_exitProgram(0, "Finished")
 END MAIN
 ----------------------------------------------------------------------------------------------------
 FUNCTION getData(l_where STRING, l_orderBy STRING )
@@ -85,7 +85,7 @@ FUNCTION rpt_func1()
 	DEFINE x, l_max INTEGER
 	LET l_rpt.pageWidth = 132
 	IF NOT l_rpt.init( "custlist1", TRUE, "ASK", TRUE ) THEN
-		CALL g2_lib.g2_winMessage("Error","Report Initialization failed!","exclamation")
+		CALL g2_core.g2_winMessage("Error","Report Initialization failed!","exclamation")
 		RETURN
 	END IF
 

@@ -1,4 +1,4 @@
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_db
 IMPORT FGL combos
 
@@ -8,7 +8,7 @@ MAIN
   DEFINE l_db g2_db.dbInfo
   DEFINE l_rec RECORD LIKE quotes.*
 
-  CALL g2_lib.g2_init(ARG_VAL(1), NULL)
+  CALL g2_core.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
 
   CALL combos.dummy()
@@ -20,13 +20,13 @@ MAIN
   IF l_rec.quote_number != 0 THEN
     SELECT * INTO l_rec.* FROM quotes WHERE quote_number = l_rec.quote_number
     IF STATUS = NOTFOUND THEN
-      CALL g2_lib.g2_winMessage(
+      CALL g2_core.g2_winMessage(
           "Error", SFMT("quotes item '%1' not found!", l_rec.quote_number), "exclamation")
       EXIT PROGRAM
     END IF
   END IF
   CALL showDets(l_rec.*)
-  CALL g2_lib.g2_exitProgram(0, "Finished")
+  CALL g2_core.g2_exitProgram(0, "Finished")
 END MAIN
 ----------------------------------------------------------------------------------------------------
 FUNCTION showDets(l_rec RECORD LIKE quotes.*)

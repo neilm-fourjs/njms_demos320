@@ -4,6 +4,11 @@
 	<!--Style name="*">
 		<StyleAttribute name="defaultTTFColor" value="windowText" />
 	</Style-->
+
+	<Style name="UserInterface">
+		<StyleAttribute name="browserMultiPage" value="yes" />
+	</Style>
+
 	<Style name="Table.headcenter">
 		<StyleAttribute name="headerAlignment" value="center" />
 	</Style>

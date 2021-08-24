@@ -1,4 +1,4 @@
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_db
 IMPORT FGL g2_sql
 IMPORT FGL g2_ui
@@ -18,7 +18,7 @@ MAIN
 	DEFINE l_keyField STRING = "customer_code"
 	DEFINE l_new BOOLEAN = FALSE
 
-  CALL g2_lib.g2_init(ARG_VAL(1), NULL)
+  CALL g2_core.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
   CALL combos.dummy()
 
@@ -34,7 +34,7 @@ MAIN
 		CALL m_sql.g2_SQLinit(l_table,"*",l_keyField, SFMT("%1 = '%2'",l_keyField,l_key))
 		CALL m_Sql.g2_SQLgetRow(1,TRUE)
     IF m_sql.rows_count = 0 THEN
-      CALL g2_lib.g2_winMessage("Error", SFMT("Customer '%1' not found!", l_key), "exclamation")
+      CALL g2_core.g2_winMessage("Error", SFMT("Customer '%1' not found!", l_key), "exclamation")
       EXIT PROGRAM
     END IF
 		CALL m_sql.g2_SQLrec2Json()
@@ -48,7 +48,7 @@ MAIN
 	LET m_ui.before_inp_func = FUNCTION before_input
 	LET m_ui.after_fld_func = FUNCTION after_field
 	CALL m_ui.g2_UIinput(l_new, m_sql, "save", FALSE)
-  CALL g2_lib.g2_exitProgram(0, "Finished")
+  CALL g2_core.g2_exitProgram(0, "Finished")
 END MAIN
 ----------------------------------------------------------------------------------------------------
 FUNCTION init_input( l_new BOOLEAN, l_d ui.Dialog ) RETURNS ()

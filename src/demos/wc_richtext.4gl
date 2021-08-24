@@ -1,5 +1,5 @@
 IMPORT os
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 CONSTANT C_PRGVER = "3.1"
@@ -21,7 +21,7 @@ MAIN
   DEFINE l_ret SMALLINT
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   LET m_rec.fileName = "text.html"
   LET m_rec.richtext = C_DEF
@@ -103,7 +103,7 @@ MAIN
       EXIT PROGRAM
   END INPUT
 	CLOSE WINDOW w0
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION loadText(l_fileName STRING) RETURNS STRING

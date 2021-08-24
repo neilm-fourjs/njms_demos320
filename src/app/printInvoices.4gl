@@ -12,7 +12,7 @@
 
 IMPORT os
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 IMPORT FGL g2_grw
@@ -42,8 +42,8 @@ MAIN
 	DEFINE l_args, l_dev STRING
 	DEFINE x SMALLINT
 
-  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
 	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
   CALL m_db.g2_connect(NULL)
@@ -76,8 +76,8 @@ MAIN
   DISPLAY CURRENT,": l_ordNo:", l_ordno, ":", m_fullname
 
   IF l_ordno IS NULL THEN
-    CALL g2_lib.g2_errPopup(% "No valid order passed!")
-    CALL g2_lib.g2_exitProgram(1, "No valid order passed")
+    CALL g2_core.g2_errPopup(% "No valid order passed!")
+    CALL g2_core.g2_exitProgram(1, "No valid order passed")
   END IF
   LET l_stmt = "SELECT * FROM ord_head "
   IF l_ordno IS NOT NULL AND l_ordno > 0 THEN
@@ -117,7 +117,7 @@ MAIN
   FOREACH cur INTO g_ordHead.*
     IF NOT l_rptStart THEN
       IF m_rpt.handle IS NULL THEN
-        CALL g2_lib.g2_exitProgram(1, "Failed to start report")
+        CALL g2_core.g2_exitProgram(1, "Failed to start report")
       END IF
 			DISPLAY CURRENT,":Printing, please wait..."
       CALL g2_aui.g2_winInfo(1,% "Printing, please wait...",NULL)
@@ -201,7 +201,7 @@ MAIN
     CALL g2_aui.g2_winInfo(3,NULL,NULL)
   END IF
 
-  CALL g2_lib.g2_exitProgram(0, "Program Finished")
+  CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION printInv()
@@ -267,7 +267,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
   DEFINE line_num SMALLINT
 	DEFINE l_cur CHAR(1)
 	DEFINE l_bool BOOLEAN
-  DEFINE tax_0, tax_1, tax_2, tax_3 DECIMAL(10, 2)
+  DEFINE tax_0, tax_1, tax_2, tax_3, l_order_tot DECIMAL(10, 2)
 
   ORDER EXTERNAL BY r_ordHead.order_number
 
@@ -288,6 +288,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
       LET tax_1 = 0
       LET tax_2 = 0
       LET tax_3 = 0
+			LET l_order_tot = 0
       PRINT r_ordhead.*, order_date
 
     BEFORE GROUP OF r_detailLine.pack_flag
@@ -320,8 +321,9 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
           r_detailLine.barcode,
           " img:",
           r_detailLine.img_url}
+			LET l_order_tot =  l_order_tot + r_detailLine.gross_value
       PRINT r_detailline.*
       PRINT tax_0, tax_1, tax_2, tax_3
-      PRINT rpt_timestamp, line_num
+      PRINT rpt_timestamp, line_num, l_order_tot
 
 END REPORT

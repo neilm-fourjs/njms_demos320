@@ -9,7 +9,7 @@
 #+ 4 = Order No to enquire on / R = Random(for benchmark only)
 
 IMPORT util
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_db
 IMPORT FGL g2_about
 IMPORT FGL g2_lookup
@@ -29,9 +29,9 @@ MAIN
   DEFINE l_email STRING
   DEFINE l_key INTEGER
 
-  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init( ARG_VAL(1), "default")
-  WHENEVER ANY ERROR CALL g2_lib.g2_error
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.g2_init( ARG_VAL(1), "default")
+  WHENEVER ANY ERROR CALL g2_core.g2_error
   CALL ui.Interface.setText(C_PRGDESC)
 
   CALL m_db.g2_connect(NULL)
@@ -84,14 +84,14 @@ MAIN
       ON ACTION help
         CALL showHelp(1)
 			ON ACTION about
-				CALL g2_about.g2_about(g2_lib.m_appInfo)
+				CALL g2_about.g2_about(g2_core.m_appInfo)
       ON ACTION close
         EXIT MENU
       ON ACTION quit
         EXIT MENU
     END MENU
   END IF
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 #+ Create a new order
@@ -115,7 +115,7 @@ FUNCTION new()
         CALL dispHead()
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
   END INPUT
   IF int_flag THEN
     MESSAGE % "Order Cancelled."
@@ -230,7 +230,7 @@ FUNCTION new()
       END IF
 
     BEFORE DELETE
-      IF  g2_lib.g2_winQuestion(
+      IF  g2_core.g2_winQuestion(
                   % "Confirm",
                   % "Are you sure you want to remove this line?",
                   % "No",
@@ -261,14 +261,14 @@ FUNCTION new()
 
     AFTER INPUT
       IF NOT int_flag THEN
-        IF  g2_lib.g2_winQuestion(
+        IF  g2_core.g2_winQuestion(
                     % "Accept", % "Accept this order?", % "Yes", % "Yes|No", "question")
                 = "No"
             THEN
           CONTINUE INPUT
         END IF
       ELSE
-        IF  g2_lib.g2_winQuestion(% "Cancel", % "Cancel this order?", % "No", % "Yes|No", "question")
+        IF  g2_core.g2_winQuestion(% "Cancel", % "Cancel this order?", % "No", % "Yes|No", "question")
                 = "No"
             THEN
           LET int_flag = FALSE
@@ -276,7 +276,7 @@ FUNCTION new()
         END IF
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
   END INPUT
   IF int_flag THEN
     ROLLBACK WORK -- Rollback and end transaction.
@@ -331,7 +331,7 @@ FUNCTION updateStockLevel(l_pcode LIKE stock.stock_code, l_qty INT) RETURNS BOOL
         WHERE stock_code = l_pcode
   CATCH
     DISPLAY "Status:", STATUS, ":", SQLERRMESSAGE
-    CALL  g2_lib.g2_errPopup(
+    CALL  g2_core.g2_errPopup(
         % "Unable to allocate stock!\nMaybe try again in a few minutes\nOr try a smaller quantity.")
     RETURN FALSE
   END TRY
@@ -414,7 +414,7 @@ FUNCTION enquire()
             EXIT INPUT
           END IF
 				ON ACTION about
-					CALL g2_about.g2_about(g2_lib.m_appInfo)
+					CALL g2_about.g2_about(g2_core.m_appInfo)
       END INPUT
     END IF
     IF int_flag THEN
@@ -423,13 +423,13 @@ FUNCTION enquire()
     END IF
     SELECT * INTO g_ordHead.* FROM ord_head WHERE order_number = g_ordHead.order_number
     IF STATUS = NOTFOUND THEN
-      CALL  g2_lib.g2_errPopup(% "Order not found.")
+      CALL  g2_core.g2_errPopup(% "Order not found.")
       CONTINUE WHILE
     END IF
 
     SELECT * INTO g_cust.* FROM customer WHERE customer_code = g_ordHead.customer_code
     IF STATUS = NOTFOUND THEN
-      CALL  g2_lib.g2_errPopup(% "customer not found\nCode=" || g_ordHead.customer_code)
+      CALL  g2_core.g2_errPopup(% "customer not found\nCode=" || g_ordHead.customer_code)
     END IF
     CALL dispHead()
 
@@ -529,7 +529,7 @@ FUNCTION enquire()
         EXIT DISPLAY
         --ON KEY (F12) DISPLAY "F12" LET int_flag = TRUE EXIT DISPLAY
 			ON ACTION about
-				CALL g2_about.g2_about(g2_lib.m_appInfo)
+				CALL g2_about.g2_about(g2_core.m_appInfo)
     END DISPLAY
 
     IF benchmark OR int_flag THEN

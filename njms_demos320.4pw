@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Project defaultApplication="1554019048" gstVersion="31409" version="3.3">
+<Project defaultApplication="1663756762" gstVersion="31409" version="3.3">
   <Settings>
     <DynamicProperties version="2">
       <DynamicProperty description="Accent color (Android 5.0 and later)" initialValue="#9575CD" isDefaultInherited="false" isHidden="false" label="Accent color" name="gma-accent-color" readOnly="false" type="COLOR"/>
@@ -95,7 +95,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=ur,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
+  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
     <Group id="1931904086" label="API">
       <Library binaryName="njm_cust_db" dependencies="1986" id="-1358259824" label="njm_cust_db">
         <File filePath="src/api/njm_cust_db.4gl"/>
@@ -119,7 +119,7 @@
         <File filePath="src/app/app_lib.4gl"/>
         <File filePath="src/app/combos.4gl"/>
       </Library>
-      <Application binaryName="cust_mnt" commandLineArguments="S 1" dependencies="-400184264,1986,-1090563702,-310428106,1136561508_14000" id="-1273407208" label="cust_mnt">
+      <Application binaryName="cust_mnt" commandLineArguments="S 1" compilerOptions="" dependencies="-400184264,1986,-1090563702,-310428106,1136561508_14000" id="-1273407208" label="cust_mnt">
         <File filePath="src/app/cust_mnt.4fd"/>
         <File filePath="src/app/cust_mnt.4gl"/>
       </Application>
@@ -156,13 +156,15 @@
         <File filePath="src/app/ordent.per"/>
         <File filePath="src/app/ordent2.per"/>
       </Application>
-      <Application binaryName="printInvoices" commandLineArguments="S 1 2 ordent-2 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
+      <Application binaryName="printInvoices" commandLineArguments="S 1 0 ordent-7 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
         <VirtualFolder label="Reports">
           <File filePath="etc/ordent-1.4rp"/>
           <File filePath="etc/ordent-2.4rp"/>
           <File filePath="etc/ordent-3.4rp"/>
           <File filePath="etc/ordent-4.4rp"/>
           <File filePath="etc/ordent-5.4rp"/>
+          <File filePath="etc/ordent-6.4rp"/>
+          <File filePath="etc/ordent-7.4rp"/>
           <File filePath="etc/ordent.4rp"/>
           <File filePath="etc/picklist.4rp"/>
         </VirtualFolder>
@@ -534,6 +536,7 @@
     <Package binaryName="ws_demos320_pgs" dependencies="-1861949473,367791215,1211226226" id="-2138345710" label="ws_demos320_pgs" platform="Genero Application Server">
       <DynamicProperty name="packageId" value="myapp"/>
       <DynamicProperty name="packageLabel" value="MyApp"/>
+      <Directory includedFiles="g2_*.42?" label="Bin_lib" sourceDirectory="$(ProjectDir)/njm_app_bin"/>
       <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/ws_bin320"/>
       <Directory includedFiles="profile" label="Config" sourceDirectory="$(ProjectDir)/etc/pgs"/>
       <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/gas_ws"/>

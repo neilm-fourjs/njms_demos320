@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="31403" version="6.00">
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="31409" version="6.00">
     <report:Settings RWPageWidth="a4length" RWPageLength="a4width" RWLeftMargin="0.5cm" RWTopMargin="1.0cm" RWRightMargin="0.5cm" RWBottomMargin="1.0cm">
         <report:FormatList>
             <report:Format-SVG/>
@@ -20,7 +20,7 @@
                                 <WORDBOX name="Report Title" x="0" y="max/2" anchorX="0" anchorY="0.5" alignment="baseline" fontSize="25" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" floatingBehavior="enclosed" text="Sales Invoice"/>
                                 <WORDBOX name="printed" x="0" y="675" width="50" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" text="Printed:"/>
                                 <rtl:input-variable name="print_date" type="FGLString" expectedLocation="expectedBefore"/>
-                                <WORDBOX name="info.print_date Value" x="0" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{print_date}}"/>
+                                <WORDBOX name="info.print_date Value" x="0" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{print_date.isNull()?&quot;&quot;:Date.fromString(print_date,&quot;dd/MM/yyyy&quot;).format(&quot;dd-mm-yyyy&quot;)}}"/>
                                 <WORDBOX name="printedBy" x="14" y="675" width="50" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" text="By:"/>
                                 <rtl:input-variable name="rpt_user" type="FGLString" expectedLocation="expectedBefore"/>
                                 <WORDBOX name="info.rpt_user Value" x="14" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{rpt_user}}"/>
@@ -62,6 +62,8 @@
                                         <WORDWRAPBOX name="r_ordhead.inv_address4 Value_6" x="20" y="80" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.inv_address4}}"/>
                                     </MINIPAGE>
                                 </LAYOUTNODE>
+                                <rtl:input-variable name="l_bool" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                                <WORDBOX name="l_bool Value1" class="grwNumericValue" x="14" y="585.781" anchorX="0" anchorY="1" floatingBehavior="enclosed" textAlignment="right" text="{{l_bool==1?&quot;True&quot;:&quot;False&quot;}}"/>
                             </MINIPAGE>
                             <MINIPAGE name="Detail Headings" width="min" length="max" fontSize="12" layoutDirection="leftToRight" swapX="false" floatingBehavior="enclosed">
                                 <WORDBOX name="Spacer" alignment="baseline" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" port="itemSeparator" text=" "/>

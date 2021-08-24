@@ -1,7 +1,7 @@
 -- Simple Google Maps Demo
 IMPORT util
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 CONSTANT C_PRGVER = "3.1"
@@ -17,7 +17,7 @@ MAIN
   END RECORD
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_gm"
   DISPLAY FORM f
@@ -44,7 +44,7 @@ MAIN
     ON ACTION about
 			CALL g2_about.g2_about(m_appInfo)
   END INPUT
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 -- Set a Property in the AUI

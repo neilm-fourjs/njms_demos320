@@ -1,7 +1,7 @@
 --https://www.amcharts.com/
 IMPORT util
 IMPORT os
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_calendar
@@ -26,7 +26,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_data STRING
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_amcharts"
   DISPLAY FORM f
@@ -90,7 +90,7 @@ MAIN
       CALL setGraphTitle("title", g2_calendar.month_fullName_int(12))
       LET l_data = getData(12)
   END DIALOG
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION setGraphTitle(l_prop, l_val)

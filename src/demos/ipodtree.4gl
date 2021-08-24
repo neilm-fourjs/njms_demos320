@@ -10,7 +10,7 @@
 IMPORT os
 IMPORT util
 IMPORT com
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_aui
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
@@ -109,7 +109,7 @@ MAIN
 	OPTIONS ON CLOSE APPLICATION CALL tidyup
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "ipodtree")
+	CALL g2_core.g2_init(ARG_VAL(1), "ipodtree")
 
 	CALL ui.Interface.setText(C_PRGDESC)
 
@@ -138,7 +138,7 @@ MAIN
 				LET l_file = "../ipodTree/etc/music.xml"
 			END IF
 			IF NOT os.path.exists(l_file) THEN
-				CALL g2_lib.g2_errPopup(
+				CALL g2_core.g2_errPopup(
 						% "'" || l_file || "' Doesn't Exist, try running again like this\nfglrun ipod.42r LOAD")
 				EXIT PROGRAM
 			END IF
@@ -152,7 +152,7 @@ MAIN
 	LET m_getAlbumArt = TRUE
 	CALL dispInfo()
 	CALL mainDialog()
-	CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+	CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION mainDialog()
@@ -319,7 +319,7 @@ FUNCTION openLibrary(file)
 	END IF
 
 	IF NOT os.path.exists(file) THEN
-		CALL g2_lib.g2_errPopup(% "'" || file || "' Doesn't Exist, can't do load")
+		CALL g2_core.g2_errPopup(% "'" || file || "' Doesn't Exist, can't do load")
 		RETURN
 	END IF
 
@@ -345,13 +345,13 @@ FUNCTION openXML(file)
 	DISPLAY CURRENT, ": Opening " || file || " ..."
 	LET xml_d = om.domDocument.createFromXMLFile(file)
 	IF xml_d IS NULL THEN
-		CALL g2_lib.g2_errPopup(
+		CALL g2_core.g2_errPopup(
 				% "Failed to open '" || file || "'!\nTry running like this: fglrun ipod.42r LOAD")
 		EXIT PROGRAM
 	END IF
 	LET xml_r = xml_d.getDocumentElement()
 	IF xml_r IS NULL THEN
-		CALL g2_lib.g2_errPopup(% "Failed to get root node!")
+		CALL g2_core.g2_errPopup(% "Failed to get root node!")
 		EXIT PROGRAM
 	END IF
 
@@ -937,7 +937,7 @@ END FUNCTION
 --
 FUNCTION getAlbumArtURL(l_alb STRING)
 	DEFINE l_album_id, l_img STRING
-	CALL g2_lib.g2_message("Getting album artwork...")
+	CALL g2_core.g2_message("Getting album artwork...")
 	LET m_album_art_cover = NULL
 	LET m_musicbrainz_url = NULL
 	DISPLAY "noimage" TO album_art
@@ -957,7 +957,7 @@ FUNCTION getAlbumArtURL(l_alb STRING)
 		RETURN "noimage"
 	END IF
 
-	CALL g2_lib.g2_message("Album art found: " || l_img)
+	CALL g2_core.g2_message("Album art found: " || l_img)
 	RETURN l_img
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -978,7 +978,7 @@ FUNCTION getArtworkURL(l_album_id STRING)
 	DEFINE c base.channel
 
 	LET l_url = 'http://coverartarchive.org/release/' || l_album_id.trim()
-	CALL g2_lib.g2_message(SFMT("Getting Album artwork for '%1' from: %2", l_album_id.trim(), l_url))
+	CALL g2_core.g2_message(SFMT("Getting Album artwork for '%1' from: %2", l_album_id.trim(), l_url))
 	DISPLAY SFMT("Getting Album artwork for '%1' from: %2", l_album_id.trim(), l_url)
 	-- redirection that happens causes a bug in gws library
 	-- failing back to wget
@@ -997,7 +997,7 @@ FUNCTION getArtworkURL(l_album_id STRING)
 
 	IF l_line IS NULL THEN
 		RUN "cat tmp.out"
-		CALL g2_lib.g2_message("Failed to get album art!")
+		CALL g2_core.g2_message("Failed to get album art!")
 		RETURN NULL
 	END IF
 
@@ -1066,7 +1066,7 @@ FUNCTION getAlbumID(l_alb STRING)
 	DISPLAY "Found ", l_result.count, " Albums ..."
 	IF l_result.count = 0 THEN
 		DISPLAY "Line:", l_line
-		CALL g2_lib.g2_message("Album not found!")
+		CALL g2_core.g2_message("Album not found!")
 		RETURN NULL
 	END IF
 
@@ -1096,7 +1096,7 @@ FUNCTION getAlbumID(l_alb STRING)
 	END FOR
 	DISPLAY "Album: ", NVL(l_id, "NULL"), " : ", l_title
 	LET m_musicbrainz_url = "https://musicbrainz.org/release/" || l_id
-	CALL g2_lib.g2_message(SFMT("Album %1 Found, id:%2", l_title, l_id))
+	CALL g2_core.g2_message(SFMT("Album %1 Found, id:%2", l_title, l_id))
 	RETURN l_id
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -1135,7 +1135,7 @@ FUNCTION getArtistID(l_art STRING)
 		RETURN NULL
 	END TRY
 	IF l_artist.count = 0 THEN
-		CALL g2_lib.g2_message("Artist not found!")
+		CALL g2_core.g2_message("Artist not found!")
 		RETURN NULL
 	END IF
 	CALL m_album_art_artist.clear()
@@ -1160,7 +1160,7 @@ FUNCTION getArtistID(l_art STRING)
 	LET l_name = m_album_art_artist[1].name
 	LET m_musicbrainz_url = "https://musicbrainz.org/artist/" || l_id
 	DISPLAY "Artist: ", NVL(l_id, "NULL"), " : ", l_name
-	CALL g2_lib.g2_message(SFMT("Artist %1 Found, id:%2", l_name, l_id))
+	CALL g2_core.g2_message(SFMT("Artist %1 Found, id:%2", l_name, l_id))
 	RETURN l_id
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -1233,7 +1233,7 @@ FUNCTION db_mk_tab()
 	TRY
 		CREATE TABLE ipod_genre(genre_key SERIAL, genre VARCHAR(40))
 	CATCH
-		CALL g2_lib.g2_errPopup(% "failed to create 'ipod_genre'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(% "failed to create 'ipod_genre'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Created Table 'ipod_genre'"
@@ -1242,7 +1242,7 @@ FUNCTION db_mk_tab()
 	TRY
 		CREATE TABLE ipod_artists(artist_key SERIAL, artist VARCHAR(50))
 	CATCH
-		CALL g2_lib.g2_errPopup(% "failed to create 'ipod_artists'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(% "failed to create 'ipod_artists'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Create Table 'ipod_artists'"
@@ -1252,7 +1252,7 @@ FUNCTION db_mk_tab()
 		CREATE TABLE ipod_albums(
 				album_key SERIAL, genre_key INTEGER, artist_key INTEGER, album VARCHAR(50), year CHAR(4))
 	CATCH
-		CALL g2_lib.g2_errPopup(% "failed to create 'ipod_albums'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(% "failed to create 'ipod_albums'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Create Table 'ipod_albums'"
@@ -1269,7 +1269,7 @@ FUNCTION db_mk_tab()
 				play_count SMALLINT,
 				rating SMALLINT)
 	CATCH
-		CALL g2_lib.g2_errPopup(% "failed to create 'ipod_tracks'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(% "failed to create 'ipod_tracks'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Create Table 'ipod_tracks'"

@@ -1,6 +1,6 @@
 
 
-IMPORT FGL g2_lib
+IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_db
@@ -18,7 +18,7 @@ MAIN
 	DEFINE l_stk RECORD LIKE stock.*
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   CALL m_db.g2_connect(NULL)
 
