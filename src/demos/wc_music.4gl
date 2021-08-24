@@ -1,9 +1,6 @@
 IMPORT util
 IMPORT os
-IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
-IMPORT FGL g2_aui
+IMPORT FGL g2_lib.*
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Music Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -32,7 +29,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_data STRING
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   LET m_base = fgl_getenv("MUSICDIR")
 
@@ -71,7 +68,7 @@ MAIN
       CALL g2_about.g2_about(m_appInfo)
   END DIALOG
 
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 #+ Change Song
@@ -181,18 +178,18 @@ FUNCTION get_music(l_useCache BOOLEAN)
 
   IF NOT os.path.exists(m_base) THEN
     ERROR SFMT("MUSICDIR '%1' Not Found!", m_base)
-    CALL g2_lib.g2_winMessage("Error", SFMT("MUSICDIR '%1' Not Found!", m_base), "exclamation")
+    CALL g2_core.g2_winMessage("Error", SFMT("MUSICDIR '%1' Not Found!", m_base), "exclamation")
     RETURN
   END IF
 
   LET l_cache = os.Path.join(m_base, "musiccache.json")
   DISPLAY "Getting Music from ", m_base, " Cache:", l_cache
   IF os.path.exists(l_cache) AND l_useCache THEN
-    IF g2_lib.m_mdi != "C" THEN
+    IF g2_core.m_mdi != "C" THEN
       CALL g2_aui.g2_winInfo(2, SFMT("Reading cache file %1", m_base), "")
     END IF
     CALL loadCache(l_cache)
-    IF g2_lib.m_mdi != "C" THEN
+    IF g2_core.m_mdi != "C" THEN
       CALL g2_aui.g2_winInfo(3, "", "")
     END IF
     RETURN

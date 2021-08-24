@@ -3,8 +3,7 @@
 
 IMPORT os
 IMPORT util
-IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER = "3.2"
 CONSTANT C_PRGDESC = "GBC Themes"
@@ -36,7 +35,7 @@ MAIN
   DEFINE l_appInfo g2_appInfo.appInfo
 
   CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
   CALL ui.Interface.setText(C_PRGDESC)
 
   OPEN FORM f FROM "gbc_theme"
@@ -54,7 +53,7 @@ FUNCTION open_main_json(l_jsonFile STRING) RETURNS BOOLEAN
   DEFINE x, y, z SMALLINT
 
   IF NOT os.path.exists(l_jsonFile) THEN
-    CALL g2_lib.g2_winMessage("Error", SFMT("%1 doesn't exist!", l_jsonFile), "exclamation")
+    CALL g2_core.g2_winMessage("Error", SFMT("%1 doesn't exist!", l_jsonFile), "exclamation")
     RETURN FALSE
   END IF
 

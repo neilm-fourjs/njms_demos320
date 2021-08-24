@@ -6,9 +6,7 @@
 
 IMPORT xml
 IMPORT os
-IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Kite Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -31,7 +29,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE wc_data, panel, colour STRING
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "wc_kite")
+  CALL g2_core.g2_init(ARG_VAL(1), "wc_kite")
 
 -- Try and find the kite folder
 	IF os.path.isDirectory("../pics/webcomponents/kite") THEN
@@ -90,7 +88,7 @@ MAIN
     ON ACTION CLOSE
       EXIT DIALOG
   END DIALOG
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 #+ serialize panels to a web component value
@@ -173,13 +171,13 @@ FUNCTION saveKite()
   TRY
     CALL dd.save(l_tmpFile)
   CATCH
-    CALL g2_lib.g2_errPopup(
+    CALL g2_core.g2_errPopup(
         SFMT(% "File Save Failed!\nStatus: %1 %2 Name:%3", STATUS, err_get(STATUS), l_tmpFile))
   END TRY
   TRY
     CALL fgl_putfile(l_tmpFile, l_fileName)
   CATCH
-    CALL g2_lib.g2_errPopup(SFMT(% "File Transfer Failed!\nStatus:%1 %2", STATUS, err_get(STATUS)))
+    CALL g2_core.g2_errPopup(SFMT(% "File Transfer Failed!\nStatus:%1 %2", STATUS, err_get(STATUS)))
   END TRY
   IF NOT os.Path.delete(l_tmpFile) THEN
     -- Failed to delete temp file !

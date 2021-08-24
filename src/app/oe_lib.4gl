@@ -4,7 +4,6 @@
 
 IMPORT FGL g2_lib.*
 
-&include "schema.inc"
 &include "ordent.inc"
 
 FUNCTION oe_cursors()

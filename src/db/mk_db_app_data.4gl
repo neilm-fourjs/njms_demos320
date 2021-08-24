@@ -2,8 +2,7 @@
 
 IMPORT util
 IMPORT os
-IMPORT FGL g2_lib
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
 &include "schema.inc"
 
@@ -119,7 +118,7 @@ FUNCTION insert_app_data()
 	CALL insStock("WW01-DES", NULL, "Combat Jacket - Desert", NULL, 59.99, "DD", NULL)
 	CALL insStock("WW01-JUN", NULL, "Combat Jacket - Jungle", NULL, 59.99, "DD", NULL)
 
-	CALL genStock(os.path.join(g2_lib.g2_getImagePath(),"products"), "??", FALSE)
+	CALL genStock(os.path.join(g2_core.g2_getImagePath(),"products"), "??", FALSE)
 	SELECT COUNT(*) INTO x FROM stock
 	CALL mk_db_lib.mkdb_progress(SFMT("Inserted %1 Stock Items.", x))
 

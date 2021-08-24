@@ -1,6 +1,7 @@
 IMPORT util
+
+IMPORT FGL g2_lib.*
 IMPORT FGL wc_fglsvgcalendar
-IMPORT FGL g2_calendar
 
 PUBLIC DEFINE rec RECORD
   curr_month SMALLINT,

@@ -1,7 +1,4 @@
-IMPORT FGL g2_lib
-IMPORT FGL g2_db
-IMPORT FGL g2_sql
-IMPORT FGL g2_ui
+IMPORT FGL g2_lib.*
 IMPORT FGL combos
 
 &include "schema.inc"
@@ -17,7 +14,7 @@ MAIN
 	DEFINE l_keyField STRING = "stock_code"
 	DEFINE l_new BOOLEAN = FALSE
 
-	CALL g2_lib.g2_init(ARG_VAL(1), NULL)
+	CALL g2_core.g2_init(ARG_VAL(1), NULL)
 	CALL l_db.g2_connect(NULL)
 	CALL combos.dummy()
 
@@ -36,7 +33,7 @@ MAIN
 				l_table, "*", l_keyField, SFMT("%1 = '%2'", l_keyField, l_key))
 		CALL m_Sql.g2_SQLgetRow(1, TRUE)
 		IF m_sql.rows_count = 0 THEN
-			CALL g2_lib.g2_winMessage(
+			CALL g2_core.g2_winMessage(
 					"Error", SFMT("Product '%1' not found!", l_key), "exclamation")
 			EXIT PROGRAM
 		END IF
@@ -49,7 +46,7 @@ MAIN
 	LET m_ui.init_inp_func = FUNCTION init_input
 	LET m_ui.onChange_func = FUNCTION onChange
 	CALL m_ui.g2_UIinput(l_new, m_sql, "save", FALSE)
-	CALL g2_lib.g2_exitProgram(0, "Finished")
+	CALL g2_core.g2_exitProgram(0, "Finished")
 END MAIN
 ----------------------------------------------------------------------------------------------------
 FUNCTION init_input(l_new BOOLEAN, l_d ui.Dialog) RETURNS()

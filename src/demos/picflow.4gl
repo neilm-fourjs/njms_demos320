@@ -1,8 +1,6 @@
 IMPORT os
 
-IMPORT FGL g2_lib
-IMPORT FGL g2_about
-IMPORT FGL g2_appInfo
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "picFlow Demo"
@@ -30,7 +28,7 @@ MAIN
 	DEFINE n om.domNode
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_lib.g2_init(ARG_VAL(1), "picflow")
+	CALL g2_core.g2_init(ARG_VAL(1), "picflow")
 
 	DISPLAY "FGLSERVER:", fgl_getenv("FGLSERVER")
 	DISPLAY "FGLIMAGEPATH:", fgl_getenv("FGLIMAGEPATH")
@@ -47,7 +45,7 @@ MAIN
 
 	DISPLAY "Image Found:", m_pics.getLength()
 	IF m_pics.getLength() = 0 THEN
-		CALL g2_lib.g2_winMessage("Error",SFMT("Not found any images in '%1'",m_base),"exclamation")
+		CALL g2_core.g2_winMessage("Error",SFMT("Not found any images in '%1'",m_base),"exclamation")
 		EXIT PROGRAM
 	END IF
 
@@ -105,7 +103,7 @@ MAIN
 		ON ACTION close
 			EXIT DIALOG
 	END DIALOG
-	CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+	CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION refresh(l_c STRING)
@@ -196,7 +194,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION checkBase(l_base STRING) RETURNS STRING
 	IF l_base IS NULL OR l_base.getLength() < 1 THEN
-		LET l_base = g2_lib.g2_getImagePath()
+		LET l_base = g2_core.g2_getImagePath()
 	END IF
 	RETURN l_base
 END FUNCTION

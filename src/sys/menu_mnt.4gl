@@ -1,8 +1,6 @@
 #+ Menu Maintenance Demo - by N.J.Martin neilm@4js.com
 
-IMPORT FGL g2_lib
-IMPORT FGL g2_about
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 
 IMPORT FGL app_lib
 &include "schema.inc"
@@ -48,10 +46,10 @@ DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE dnd ui.DragDrop
 
-  CALL g2_lib.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
-  WHENEVER ANY ERROR CALL g2_lib.g2_error
+  WHENEVER ANY ERROR CALL g2_core.g2_error
   LET m_user_key = arg_val(2)
   LET m_allowedActions = arg_val(3)
   LET m_allowedActions = (m_allowedActions CLIPPED), "YYYYY"
@@ -59,8 +57,8 @@ MAIN
 
   OPEN FORM frm FROM "menu_mnt"
   DISPLAY FORM frm
-	CALL g2_lib.g2_loadToolBar( "dynmaint" )
-	CALL g2_lib.g2_loadTopMenu( "dynmaint" )
+	CALL g2_core.g2_loadToolBar( "dynmaint" )
+	CALL g2_core.g2_loadTopMenu( "dynmaint" )
 
   CALL m_db.g2_connect(NULL)
 
@@ -84,7 +82,7 @@ MAIN
     DISPLAY ARRAY m_recs TO m_arr.*
       BEFORE DISPLAY
         IF m_save THEN
-          IF g2_lib.g2_winQuestion("Confirm", "Save these changes?", "No", "Yes|No", "question")
+          IF g2_core.g2_winQuestion("Confirm", "Save these changes?", "No", "Yes|No", "question")
                   = "Yes"
               THEN
             CALL saveRoles_menu()
@@ -103,7 +101,7 @@ MAIN
 
     DISPLAY ARRAY m_mroles TO mr_arr.*
       ON ACTION dblclick
-        IF g2_lib.g2_winQuestion(
+        IF g2_core.g2_winQuestion(
                     "Confirm", "Toggle activate state for users role?", "No", "Yes|No", "question")
                 = "Yes"
             THEN
@@ -200,9 +198,9 @@ MAIN
       CALL showRow(m_recs.getLength())
       CALL app_lib.setActions(m_row, m_recs.getLength(), m_allowedActions)
     ON ACTION about
-			CALL g2_about.g2_about(g2_lib.m_appInfo)
+			CALL g2_about.g2_about(g2_core.m_appInfo)
   END DIALOG
-  CALL g2_lib.g2_exitProgram(0, "Program Finished")
+  CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION query()
@@ -292,7 +290,7 @@ FUNCTION delete()
     RETURN FALSE
   END IF
 
-  IF g2_lib.g2_winQuestion(
+  IF g2_core.g2_winQuestion(
               "Confirm",
               "Are you sure you want to delete this menu item?",
               "No",
@@ -366,7 +364,7 @@ FUNCTION insert()
     RETURN FALSE
   END IF
 
-  IF g2_lib.g2_winQuestion("Confirm", "Insert new user?", "No", "Yes|No", "question") = "Yes" THEN
+  IF g2_core.g2_winQuestion("Confirm", "Insert new user?", "No", "Yes|No", "question") = "Yes" THEN
     LET l_stmt =g2_db.g2_genInsert(TABNAMEQ, base.typeInfo.create(m_rec), TRUE)
     TRY
       PREPARE pre_ins FROM l_stmt

@@ -1,7 +1,5 @@
 IMPORT os
-IMPORT FGL g2_lib
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Richtext Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -19,7 +17,7 @@ MAIN
   DEFINE l_tmp STRING
   DEFINE l_ret SMALLINT
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_lib.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(ARG_VAL(1), "default")
 
   LET l_tmp = "env | sort" -- > /tmp/env."||fgl_getPID()
   DISPLAY "RUN: " || l_tmp
@@ -104,7 +102,7 @@ MAIN
       EXIT PROGRAM
   END INPUT
 
-  CALL g2_lib.g2_exitProgram(0, % "Program Finished")
+  CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION loadText(l_fileName STRING) RETURNS STRING
