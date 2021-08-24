@@ -1,11 +1,10 @@
 # Core rest service program for njm_demo database access
 IMPORT com
-IMPORT FGL g2_debug
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 IMPORT FGL ws_lib
 IMPORT FGL njm_cust_ws
 
-&include "../../g2_lib/src/g2_debug.inc"
+&include "../../g2_lib/g2_lib/g2_debug.inc"
 
 MAIN
 --	DEFINE l_config config
