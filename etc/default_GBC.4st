@@ -4,6 +4,12 @@
 	<!--Style name="*">
 		<StyleAttribute name="defaultTTFColor" value="windowText" />
 	</Style-->
+	<Style name="Table.alt">
+		<StyleAttribute name="alternateRows" value="yes"/>
+	</Style>
+	<Style name="Table.hover">
+		<StyleAttribute name="rowHover" value="yes"/>
+	</Style>
 	<Style name="Table.headcenter">
 		<StyleAttribute name="headerAlignment" value="center" />
 	</Style>

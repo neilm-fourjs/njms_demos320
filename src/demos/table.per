@@ -1,9 +1,14 @@
 &include "schema.inc"
-LAYOUT (TEXT="Dispaly Array")
-TABLE
+
+TOOLBAR
+	ITEM accept
+	ITEM cancel
+END -- TB
+
+LAYOUT (TEXT="Dispaly Array", STYLE="main2")
+
+TABLE ( STYLE="alt hover", FLIPPED@SMALL )
 {
-[f001       |f002                             |f003         |f004  ]
-[f001       |f002                             |f003         |f004  ]
 [f001       |f002                             |f003         |f004  ]
 [f001       |f002                             |f003         |f004  ]
 [f001       |f002                             |f003         |f004  ]
@@ -21,7 +26,7 @@ TABLES
 stock
 
 ATTRIBUTES
-f001 = stock.stock_code, TITLE="Code";
+f001 = stock.stock_code, TITLE="Code", IMAGECOLUMN=img_url;
 PHANTOM stock.stock_cat;
 PHANTOM stock.pack_flag;
 PHANTOM stock.supp_code;
