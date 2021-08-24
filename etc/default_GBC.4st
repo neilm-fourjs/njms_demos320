@@ -4,18 +4,22 @@
 	<!--Style name="*">
 		<StyleAttribute name="defaultTTFColor" value="windowText" />
 	</Style-->
-	<Style name="Table.alt">
-		<StyleAttribute name="alternateRows" value="yes"/>
+	<Style name="Table.no_alt">
+		<StyleAttribute name="alternateRows" value="no"/>
 	</Style>
-	<Style name="Table.hover">
-		<StyleAttribute name="rowHover" value="yes"/>
+	<Style name="Table.no_hover">
+		<StyleAttribute name="rowHover" value="no"/>
+	</Style>
+	<Style name="Table.grid_v">
+		<StyleAttribute name="showGrid" value="vertical"/>
+	</Style>
+	<Style name="Table.grid_h">
+		<StyleAttribute name="showGrid" value="horizontal"/>
 	</Style>
 	<Style name="Table.headcenter">
 		<StyleAttribute name="headerAlignment" value="center" />
 	</Style>
-	<Style name="HBox.splitView">
-		<StyleAttribute name="splitViewRendering" value="yes" />
-	</Style>
+
 	<Style name="Form">
 		<StyleAttribute name="fontFamily" value="Century Gothic, Arial" />
 		<!-- StyleAttribute name="fontFamily" value="Courier New" /-->
