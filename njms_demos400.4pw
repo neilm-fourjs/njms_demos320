@@ -143,7 +143,7 @@
         <File filePath="README.md"/>
       </Library>
     </Group>
-    <Group environment="value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVERx=127.0.0.1,value:FJS_GL_DBGLEV=0,value:DBTYPE=ifx,value:RENDERER=ur,dir:GBCDISTPATH=/home/neilm/all/my_github/njms_demos400/gbc-current/dist/customization,value:GBCNAME=gbc,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=/home/neilm/all/my_github/njms_demos400/etc/$(DBTYPE)/profile:/home/neilm/all/my_github/njms_demos400/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=/home/neilm/all/my_github/njms_demos400/etc,value:FGLIMAGEPATH=../pics/fa5.txt:../pics:../pics/products,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=/home/neilm/all/my_github/njms_demos400/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos400" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin$(GENVER)">
+    <Group environment="value:SQLEXPLAIN=ON,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVERx=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=ifx,value:RENDERER=ur,dir:GBCDISTPATH=/home/neilm/all/my_github/njms_demos400/gbc-current/dist/customization,value:GBCNAME=gbc,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=/home/neilm/all/my_github/njms_demos400/etc/$(DBTYPE)/profile:/home/neilm/all/my_github/njms_demos400/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=/home/neilm/all/my_github/njms_demos400/etc,value:FGLIMAGEPATH=../pics/fa5.txt:../pics:../pics/products,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=/home/neilm/all/my_github/njms_demos400/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos400" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin$(GENVER)">
       <Group id="1931904086" label="API">
         <Library binaryName="njm_cust_db" dependencies="1986" id="-1358259824" label="njm_cust_db">
           <File filePath="src/api/njm_cust_db.4gl"/>
@@ -370,7 +370,7 @@
           <File filePath="src/demos/table.per"/>
         </Application>
         <Application binaryName="widgets" dependencies="-310428106,1136561508_14000,-47144818_14000" id="1663756762" label="widgets">
-          <Configuration id="2136099157" label="widgets"/>
+          <Configuration commandLineArguments="M" id="2136099157" label="widgets"/>
           <VirtualFolder label="etc">
             <File filePath="etc/widgets.4ad"/>
             <File filePath="etc/widgets.4sm"/>
