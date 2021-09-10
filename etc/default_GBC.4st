@@ -9,56 +9,7 @@
 		<StyleAttribute name="browserMultiPage" value="no" />
 	</Style-->
 
-	<Style name="ToolBar.alt">
-		<StyleAttribute name="aspect" value="iconAndText"/>
-		<StyleAttribute name="scaleIcon" value="128px"/>
-	</Style>
-	<Style name="Table.no_alt">
-		<StyleAttribute name="alternateRows" value="no"/>
-	</Style>
-	<Style name="Table.no_hover">
-		<StyleAttribute name="rowHover" value="no"/>
-	</Style>
-	<Style name="Table.grid_v">
-		<StyleAttribute name="showGrid" value="vertical"/>
-	</Style>
-	<Style name="Table.grid_h">
-		<StyleAttribute name="showGrid" value="horizontal"/>
-	</Style>
-	<Style name="Table.headcenter">
-		<StyleAttribute name="headerAlignment" value="center" />
-	</Style>
-
-	<Style name="Form">
-		<StyleAttribute name="fontFamily" value="Century Gothic, Arial" />
-		<!-- StyleAttribute name="fontFamily" value="Courier New" /-->
-		<StyleAttribute name="fontSize" value="1em" />
-	</Style>
-	<Style name="Group.collapsed" >
-		<StyleAttribute name="collapsible" value="yes" />
-		<StyleAttribute name="initiallyCollapsed" value="yes" />
-	</Style>
-	<Style name="Group.uncollapsed" >
-		<StyleAttribute name="collapsible" value="yes" />
-		<StyleAttribute name="initiallyCollapsed" value="no" />
-	</Style>
-  <Style name="Folder.accordion">
-		<StyleAttribute name="position"  value="accordion" />
-  </Style>
-  <Style name="Table.listview">
-		<StyleAttribute name="tableType"  value="listView" />
-  </Style>
-
-	<Style name=".comic">
-		<StyleAttribute name="fontFamily" value="Comic Sans MS" />
-	</Style>
-
-	<Style name="Group::title">
-		<StyleAttribute name="fontSize" value="1.2em" />
-		<StyleAttribute name="fontWeight" value="bold" />
-		<StyleAttribute name="textColor" value="blue" />
-	</Style>
-
+<!-- General -->
 	<Style name=".hidden">
 		<StyleAttribute name="border" value="none" />
 		<StyleAttribute name="fontSize" value="1pt" />
@@ -67,18 +18,6 @@
 		<StyleAttribute name="fontSize" value="1.6em" />
 		<StyleAttribute name="fontWeight" value="bold" />
 		<StyleAttribute name="position" value="center" />
-	</Style>
-	<Style name=".hugh">
-		<StyleAttribute name="fontSize" value="24pt" />
-	</Style>
-	<Style name=".em16">
-		<StyleAttribute name="fontSize" value="1.6em" />
-	</Style>
-	<Style name=".em14">
-		<StyleAttribute name="fontSize" value="1.4em" />
-	</Style>
-	<Style name=".em12">
-		<StyleAttribute name="fontSize" value="1.2em" />
 	</Style>
 	<Style name=".bg_white">
 		<StyleAttribute name="backgroundColor" value="white" />
@@ -98,11 +37,89 @@
 	<Style name=".noborder">
 		<StyleAttribute name="border" value="none" />
 	</Style>
+	<Style name=".test:active">
+		<StyleAttribute name="backgroundColor" value="Azure" />
+	</Style>
+	<Style name=".test:active:focus">
+		<StyleAttribute name="backgroundColor" value="GhostWhite" />
+	</Style>
 
+<!-- Fonts -->
+	<Style name=".Roboto">
+		<StyleAttribute name="fontFamily" value="Roboto" />
+	</Style>
+	<Style name=".Arial">
+		<StyleAttribute name="fontFamily" value="Arial" />
+	</Style>
+	<Style name=".comic">
+		<StyleAttribute name="fontFamily" value="Comic Sans MS" />
+	</Style>
+	<Style name=".Courier">
+		<StyleAttribute name="fontFamily" value="Courier New" />
+	</Style>
+	<Style name=".Gothic">
+		<StyleAttribute name="fontFamily" value="Century Gothic" />
+	</Style>
+	<Style name=".hugh">
+		<StyleAttribute name="fontSize" value="24pt" />
+	</Style>
+	<Style name=".em16">
+		<StyleAttribute name="fontSize" value="1.6em" />
+	</Style>
+	<Style name=".em14">
+		<StyleAttribute name="fontSize" value="1.4em" />
+	</Style>
+	<Style name=".em12">
+		<StyleAttribute name="fontSize" value="1.2em" />
+	</Style>
+
+<!--  -->
+	<Style name="ToolBar.alt">
+		<StyleAttribute name="aspect" value="iconAndText"/>
+		<StyleAttribute name="scaleIcon" value="128px"/>
+	</Style>
+
+	<Style name="Group.collapsed" >
+		<StyleAttribute name="collapsible" value="yes" />
+		<StyleAttribute name="initiallyCollapsed" value="yes" />
+	</Style>
+	<Style name="Group.uncollapsed" >
+		<StyleAttribute name="collapsible" value="yes" />
+		<StyleAttribute name="initiallyCollapsed" value="no" />
+	</Style>
+	<Style name="Group::title">
+		<StyleAttribute name="fontSize" value="1.2em" />
+		<StyleAttribute name="fontWeight" value="bold" />
+		<StyleAttribute name="textColor" value="blue" />
+	</Style>
+
+  <Style name="Folder.accordion">
+		<StyleAttribute name="position"  value="accordion" />
+  </Style>
+
+
+<!-- Tables -->
 	<Style name="Table">
 		<StyleAttribute name="headerAlignment" value="auto" />
 	</Style>
-
+	<Style name="Table.no_alt">
+		<StyleAttribute name="alternateRows" value="no"/>
+	</Style>
+	<Style name="Table.no_hover">
+		<StyleAttribute name="rowHover" value="no"/>
+	</Style>
+	<Style name="Table.grid_v">
+		<StyleAttribute name="showGrid" value="vertical"/>
+	</Style>
+	<Style name="Table.grid_h">
+		<StyleAttribute name="showGrid" value="horizontal"/>
+	</Style>
+	<Style name="Table.headcenter">
+		<StyleAttribute name="headerAlignment" value="center" />
+	</Style>
+  <Style name="Table.listview">
+		<StyleAttribute name="tableType"  value="listView" />
+  </Style>
 	<Style name="Table.menu">
 		<StyleAttribute name="headerHidden" value="yes" />
 		<StyleAttribute name="highlightCurrentRow" value="no" />
@@ -111,7 +128,6 @@
 	<Style name="Table.disparr">
 		<StyleAttribute name="summaryLineAlwaysAtBottom" value="no" />
 	</Style>
-
 	<Style name="Table.nocurrent">
 		<StyleAttribute name="highlightCurrentRow" value="no" />
 	</Style>
@@ -122,10 +138,11 @@
     <StyleAttribute name="backgroundColor" value="#abd8eb"/>
   </Style>
 
+<!-- Windows -->
+
 	<Style name="Window.blue">
 		<StyleAttribute name="defaultTTFColor" value="darkblue" />
 	</Style>
-
 	<Style name="Window.centered">
 		<StyleAttribute name="windowType" value="normal" />
 		<StyleAttribute name="toolBarPosition" value="top" />

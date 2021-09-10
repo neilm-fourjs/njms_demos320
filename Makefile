@@ -1,7 +1,7 @@
 
 export GENVER=400
 #export GENVER=320
-export BIN=njm_app_bin
+export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
 export DBTYPE=pgs
@@ -33,7 +33,7 @@ all: $(TARGETS)
 $(BIN)/g2_lib.42x:
 	cd g2_lib && gsmake g2_lib.4pw
 
-$(BIN)/menu.42r: $(BIN)/g2_lib.42x
+$(BIN)/menu.42r: 
 	gsmake $(APP)$(GENVER).4pw
 
 gars: $(BIN)/menu.42r
