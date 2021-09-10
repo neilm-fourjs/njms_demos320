@@ -5,11 +5,26 @@
 		<StyleAttribute name="defaultTTFColor" value="windowText" />
 	</Style-->
 
-	<!-->Style name="UserInterface">
-		<StyleAttribute name="browserMultiPage" value="no" />
-	</Style-->
+	<Style name="UserInterface">
+		<StyleAttribute name="desktopMultiWindow" value="no" /><!-- MDI only -->
+		<StyleAttribute name="browserMultiPage" value="yes" /><!-- MDI only -->
+		<StyleAttribute name="applicationListVisible" value="no" />
+		<StyleAttribute name="windowListVisible" value="no" />
+	</Style>
 
 <!-- General -->
+	<Style name=".navArrows">
+		<StyleAttribute name="navigationArrows" value="yes" />
+		<StyleAttribute name="navigationDots" value="no" />
+	</Style>
+	<Style name=".navDots">
+		<StyleAttribute name="navigationArrows" value="no" />
+		<StyleAttribute name="navigationDots" value="yes" />
+	</Style>
+	<Style name=".noNavDots">
+		<StyleAttribute name="navigationDots" value="no" />
+	</Style>
+
 	<Style name=".hidden">
 		<StyleAttribute name="border" value="none" />
 		<StyleAttribute name="fontSize" value="1pt" />

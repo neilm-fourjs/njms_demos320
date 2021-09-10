@@ -171,7 +171,11 @@ FUNCTION insStock(
 		l_tc CHAR(1)
 
 	DEFINE l_ps, l_al, l_fr INTEGER --physical/allocated/free
-
+	IF l_img IS NULL THEN
+		LET l_img = os.path.join("products",downshift(l_sc CLIPPED))
+	ELSE
+		LET l_img = os.path.join("products",downshift(l_img CLIPPED))
+	END IF
 	LET l_tc = "1"
 	IF l_cat IS NULL THEN
 		IF l_sc[1, 2] = "FR" THEN
@@ -244,9 +248,7 @@ FUNCTION insStock(
 	LET l_fr = l_ps - l_al
 	LET l_cst = (l_pr * 0.75)
 --  DISPLAY l_sc, "-", l_bc, "-", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
-	IF l_img IS NULL THEN
-		LET l_img = downshift(l_sc CLIPPED)
-	END IF
+
 	INSERT INTO stock
 			VALUES(l_sc, l_cat, l_pack, l_sup, l_bc, l_ds, l_col, l_pr, l_cst, l_tc, l_dc, l_ps, l_al, l_fr, "",
 					l_img)

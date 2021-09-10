@@ -63,6 +63,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("demo", "main", "F", "Display Array Demo 2", "dispArr.42r B", "")
 	CALL addMenu("demo", "main", "F", "Input Array Expenses Demo", "expenses.42r", "")
 	CALL addMenu("demo", "main", "F", "Multi Cell Select", "multi_cell_sel.42r", "")
+	CALL addMenu("demo", "main", "F", "Simple Table", "table.42r", "")
 	CALL addMenu("demo", "main", "F", "Table - List View - GBC / AwesomeUR Only", "listView.42r", "")
 	CALL addMenu("demo", "main", "F", "Stack Demo - GBC / UR Only!", "stackDemo.42r", "")
 

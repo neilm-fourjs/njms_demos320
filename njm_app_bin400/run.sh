@@ -1,4 +1,5 @@
 
+export FJS_GL_DBGLEV=2
 export FGLIMAGEPATH=../pics/fa5.txt:../pics:../pics/products
 export FGLRESOURCEPATH=../etc
 
