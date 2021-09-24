@@ -40,9 +40,9 @@ MAIN
 	DEFINE x SMALLINT
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_core.g2_init(base.Application.getArgument(1), "default")
 
-	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
+	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getenv("GREOUTPUTDIR")
   CALL m_db.g2_connect(NULL)
 	FOR x  = 1 TO base.Application.getArgumentCount()
 		LET l_args = l_args.append(x||":"||base.Application.getArgument(x)||" ")
@@ -219,10 +219,10 @@ FUNCTION chk_libs(libs, ext)
   DEFINE st base.StringTokenizer
   DEFINE x, y, found SMALLINT
 
-  LET pth = fgl_getEnv("FGLLDPATH")
+  LET pth = fgl_getenv("FGLLDPATH")
   DISPLAY "FGLLDPATH:", pth
   DISPLAY "ProgramDir:", base.Application.getProgramDir()
-  DISPLAY "PWD:", os.path.pwd()
+  DISPLAY "PWD:", os.Path.pwd()
 
   LET st = base.StringTokenizer.create(pth, ":")
   WHILE st.hasMoreTokens()
@@ -235,7 +235,7 @@ FUNCTION chk_libs(libs, ext)
   FOR x = 1 TO libns.getLength()
     LET found = FALSE
     FOR y = 1 TO dirs.getLength()
-      LET lib = dirs[y] || os.path.separator() || libns[x]
+      LET lib = dirs[y] || os.Path.separator() || libns[x]
       --DISPLAY "Looking for ",lib
       IF os.Path.exists(lib) THEN
         DISPLAY "Found:", lib
@@ -258,7 +258,7 @@ END FUNCTION
 REPORT rpt(rpt_user, r_ordHead, r_detailLine)
   DEFINE rpt_user STRING
   DEFINE r_ordhead RECORD LIKE ord_head.*
-  DEFINE r_detailline t_detailline
+  DEFINE r_detailline t_detailLine
   DEFINE print_date, order_date DATE
   DEFINE rpt_timestamp DATETIME HOUR TO SECOND
   DEFINE line_num SMALLINT
