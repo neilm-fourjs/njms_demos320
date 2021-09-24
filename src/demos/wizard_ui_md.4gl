@@ -2,17 +2,17 @@ GLOBALS "wizard_glob.inc"
 FUNCTION wizard_ui_md()
   DIALOG ATTRIBUTE(UNBUFFERED)
 
-    INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS) -- Combobox
+    INPUT BY NAME currTable ATTRIBUTE(WITHOUT DEFAULTS) -- Combobox
       ON CHANGE currtable
-        CALL on_change_currtable()
+        CALL on_change_currTable()
     END INPUT
 
-    DISPLAY ARRAY lfields TO l.*  -- Left field list
+    DISPLAY ARRAY lFields TO l.*  -- Left field list
       ON ACTION right
         CALL right(DIALOG)
     END DISPLAY
 
-    DISPLAY ARRAY rfields TO r.*  -- Right selected field list
+    DISPLAY ARRAY rFields TO r.*  -- Right selected field list
       ON ACTION left
         CALL left(DIALOG)
     END DISPLAY

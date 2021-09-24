@@ -1,6 +1,6 @@
 
 IMPORT FGL g2_lib.*
-&include "schema.inc"
+&include "../schema.inc"
 
 PUBLIC DEFINE m_user RECORD LIKE sys_users.*
 

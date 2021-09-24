@@ -12,6 +12,10 @@
 		<StyleAttribute name="windowListVisible" value="no" />
 	</Style>
 
+  <Style name="Folder">
+      <StyleAttribute name="lateRendering" value="yes" />
+  </Style>
+
 <!-- General -->
 	<Style name=".navArrows">
 		<StyleAttribute name="navigationArrows" value="yes" />

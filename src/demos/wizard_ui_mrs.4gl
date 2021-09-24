@@ -1,17 +1,17 @@
 GLOBALS "wizard_glob.inc"
 FUNCTION wizard_ui_mrs()
   DIALOG ATTRIBUTE(UNBUFFERED)
-    INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS)
+    INPUT BY NAME currTable ATTRIBUTE(WITHOUT DEFAULTS)
       ON CHANGE currtable
-        CALL on_change_currtable()
+        CALL on_change_currTable()
     END INPUT
-    DISPLAY ARRAY lfields TO l.*
+    DISPLAY ARRAY lFields TO l.*
       ON ACTION right
         CALL right(DIALOG)
       ON ACTION allright
         CALL allright()
     END DISPLAY
-    DISPLAY ARRAY rfields TO r.*
+    DISPLAY ARRAY rFields TO r.*
       ON ACTION left
         CALL left(DIALOG)
       ON ACTION allleft

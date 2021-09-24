@@ -2,7 +2,7 @@
 IMPORT FGL g2_lib.*
 IMPORT FGL lib_login
 
-&include "schema.inc"
+&include "../schema.inc"
 --------------------------------------------------------------------------------
 #+ Create a new account.
 FUNCTION new_acct(l_email STRING, l_family STRING, l_given STRING, l_photo STRING) RETURNS STRING

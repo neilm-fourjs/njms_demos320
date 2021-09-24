@@ -6,7 +6,7 @@ IMPORT FGL lib_login
 IMPORT FGL menuLib
 IMPORT FGL new_acct
 
-&include "schema.inc"
+&include "../schema.inc"
 &include "app.inc"
 
 CONSTANT C_PRGVER = "3.2"

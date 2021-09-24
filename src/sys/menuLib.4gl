@@ -2,7 +2,7 @@ IMPORT os
 IMPORT FGL g2_lib.*
 IMPORT FGL lib_login
 
-&include "schema.inc"
+&include "../schema.inc"
 
 PUBLIC DEFINE m_curMenu SMALLINT
 PUBLIC DEFINE m_args STRING

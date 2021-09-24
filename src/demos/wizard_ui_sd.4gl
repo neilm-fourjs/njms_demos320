@@ -6,9 +6,9 @@ FUNCTION wizard_ui_sd(l_state STRING)
     CASE l_state
       WHEN "combo"
         LET l_state = "left"
-        INPUT BY NAME currtable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED) -- Combobox
+        INPUT BY NAME currTable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED) -- Combobox
           ON CHANGE currtable
-            CALL on_change_currtable()
+            CALL on_change_currTable()
           ON ACTION goleft
             LET l_state = "left"
             EXIT INPUT
