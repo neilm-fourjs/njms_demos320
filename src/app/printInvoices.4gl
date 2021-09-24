@@ -257,8 +257,8 @@ END FUNCTION
 #+ @param r_detailLine Array of detail line records.
 REPORT rpt(rpt_user, r_ordHead, r_detailLine)
   DEFINE rpt_user STRING
-  DEFINE r_ordhead RECORD LIKE ord_head.*
-  DEFINE r_detailline t_detailLine
+  DEFINE r_ordHead RECORD LIKE ord_head.*
+  DEFINE r_detailLine t_detailLine
   DEFINE print_date, order_date DATE
   DEFINE rpt_timestamp DATETIME HOUR TO SECOND
   DEFINE line_num SMALLINT
@@ -282,7 +282,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
       LET tax_1 = 0
       LET tax_2 = 0
       LET tax_3 = 0
-      PRINT r_ordhead.*, order_date
+      PRINT r_ordHead.*, order_date
 
     BEFORE GROUP OF r_detailLine.pack_flag
       --DISPLAY "Pack:",r_detailLine.pack_flag
@@ -301,12 +301,12 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
         LET tax_3 = tax_3 + r_detailLine.tax_value
       END IF
       IF r_detailLine.barcode IS NULL THEN
-        LET r_detailLine.barcode = r_detailline.stock_code
+        LET r_detailLine.barcode = r_detailLine.stock_code
       END IF
       LET line_num = line_num + 1
       LET rpt_timestamp = CURRENT
-      IF NOT os.Path.exists("../pics/products/" || (r_detailline.img_url CLIPPED) || ".jpg") THEN
-        LET r_detailline.img_url = "noimage"
+      IF NOT os.Path.exists("../pics/products/" || (r_detailLine.img_url CLIPPED) || ".jpg") THEN
+        LET r_detailLine.img_url = "noimage"
       END IF
 {      DISPLAY "DEBUG: ON EVERY ROW:",
           r_detailLine.stock_code,
@@ -314,7 +314,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
           r_detailLine.barcode,
           " img:",
           r_detailLine.img_url}
-      PRINT r_detailline.*
+      PRINT r_detailLine.*
       PRINT tax_0, tax_1, tax_2, tax_3
       PRINT rpt_timestamp, line_num
 

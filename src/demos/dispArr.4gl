@@ -31,7 +31,7 @@ MAIN
 	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3", ARG_VAL(1), ARG_VAL(2), ARG_VAL(3))
 	CALL ui.Interface.setText(C_PRGDESC)
 
-	OPEN FORM f FROM "disp_arr"
+	OPEN FORM f FROM "dispArr"
 	DISPLAY FORM f
 
 	CALL poparr()

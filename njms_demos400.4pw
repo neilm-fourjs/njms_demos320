@@ -277,14 +277,14 @@
           <File filePath="etc/njm_demo310.4db"/>
           <File filePath="src/schema.inc"/>
         </Library>
-        <Application binaryName="mk_db" dependencies="1986,-1463189462,726830537,-1090563702,-310428106,1136561508_14000" id="1521876251" label="mk_db">
+        <Application binaryName="mk_db" dependencies="1986,-1463189462,726830537,-1090563702,-310428106,1136561508_14000,-47144818_14000" id="1521876251" label="mk_db">
           <Configuration commandLineArguments="ALL" id="-2108752074" label="mk_db"/>
           <File filePath="src/db/mk_db.4gl"/>
           <File filePath="src/db/mk_db.per"/>
           <File filePath="src/db/mk_db_sys_data.4gl"/>
           <File filePath="src/db/mk_db_sys_ifx.4gl"/>
         </Application>
-        <Library binaryName="mk_db_lib" dependencies="-400184264,1986,-310428106,1136561508_14000" id="726830537" label="mk_db_lib">
+        <Library binaryName="mk_db_lib" dependencies="-400184264,1986,-310428106,1136561508_14000,-47144818_14000" id="726830537" label="mk_db_lib">
           <File filePath="src/db/mk_db_app_data.4gl"/>
           <File filePath="src/db/mk_db_app_ifx.4gl"/>
           <File filePath="src/db/mk_db_lib.4gl"/>
@@ -318,20 +318,20 @@
           <File filePath="src/demos/wizard_md.per"/>
         </Library>
       </Group>
-      <Group id="-101414127" label="Demos UI" language="Genero">
-        <Application binaryName="dispArr" dependencies="-310428106,-400184264,1136561508_14000" id="62326091" label="dispArr">
-          <Configuration binaryName="dispArr 1" commandLineArguments="S 1 A" id="-878104318" label="dispArr 1"/>
-          <Configuration binaryName="dispArr 2" commandLineArguments="S 2 A" id="252150957" label="dispArr 2"/>
-          <File filePath="src/demos/disp_arr.4gl"/>
-          <File filePath="src/demos/disp_arr.per"/>
+      <Group id="-101414127" label="Demos UI" language="Genero (no link)">
+        <Application binaryName="dispArr" dependencies="-310428106,-400184264,1136561508_14000,-47144818_14000" id="62326091" label="dispArr">
+          <Configuration binaryName="dispArr" commandLineArguments="S 1 A" id="-878104318" label="dispArr 1"/>
+          <Configuration binaryName="dispArr" commandLineArguments="S 2 A" id="252150957" label="dispArr 2"/>
+          <File filePath="src/demos/dispArr.4gl"/>
+          <File filePath="src/demos/dispArr.per"/>
           <File filePath="src/demos/fglfind.4gl"/>
         </Application>
-        <Application binaryName="expenses" id="-544615500" label="expenses">
+        <Application binaryName="expenses" dependencies="-47144818_14000" id="-544615500" label="expenses">
           <Configuration id="-602258307" label="expenses"/>
           <File filePath="src/demos/expenses.4gl"/>
           <File filePath="src/demos/expenses.per"/>
         </Application>
-        <Application binaryName="ipodTree" dependencies="-310428106,1136561508_14000" id="-217822240" label="ipodTree">
+        <Application binaryName="ipodTree" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-217822240" label="ipodTree">
           <Configuration id="1446480833" label="ipodTree"/>
           <File filePath="src/demos/ipod_big_cover.per"/>
           <File filePath="src/demos/ipod_sax.4gl"/>
@@ -339,12 +339,12 @@
           <File filePath="etc/ipodtree.4st"/>
           <File filePath="src/demos/ipodtree.per"/>
         </Application>
-        <Application binaryName="listView" dependencies="-310428106,1136561508_14000" id="1211711094" label="listView">
+        <Application binaryName="listView" dependencies="-310428106,1136561508_14000,-47144818_14000" id="1211711094" label="listView">
           <Configuration binaryName="listView" id="-1926354934" label="listView"/>
           <File filePath="src/demos/listView.4gl"/>
           <File filePath="src/demos/listView.per"/>
         </Application>
-        <Application binaryName="multi_cell_sel" dependencies="-310428106,1136561508_14000" id="1197855432" label="multi_cell_sel">
+        <Application binaryName="multi_cell_sel" dependencies="-310428106,1136561508_14000,-47144818_14000" id="1197855432" label="multi_cell_sel">
           <Configuration id="-454326606" label="multi_cell_sel"/>
           <File filePath="src/demos/multi_cell_sel.4gl"/>
           <File filePath="src/demos/multi_cell_sel.per"/>
@@ -389,7 +389,7 @@
         </Application>
       </Group>
       <Group id="1028282104" label="Demos WC">
-        <Application binaryName="wc_aircraft" dependencies="-310428106,1136561508_14000" id="252530810" label="wc_aircraft">
+        <Application binaryName="wc_aircraft" dependencies="-310428106,1136561508_14000,-47144818_14000" id="252530810" label="wc_aircraft">
           <Configuration id="1118944228" label="wc_aircraft"/>
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/aircraft/aircraft.css"/>
@@ -400,7 +400,7 @@
           <File filePath="src/demos/wc_aircraft.per"/>
           <File filePath="src/demos/wc_aircraft_ud.per"/>
         </Application>
-        <Application binaryName="wc_amCharts" dependencies="-310428106,1136561508_14000" id="-1954675472" label="wc_amCharts">
+        <Application binaryName="wc_amCharts" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-1954675472" label="wc_amCharts">
           <Configuration id="-1751508665" label="wc_amCharts"/>
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/amcharts/amcharts.html"/>
@@ -409,7 +409,7 @@
           <File filePath="src/demos/wc_amcharts.4gl"/>
           <File filePath="src/demos/wc_amcharts.per"/>
         </Application>
-        <Library binaryName="wc_calendar" dependencies="-310428106,1136561508_14000" id="789344678" label="wc_calendar">
+        <Library binaryName="wc_calendar" dependencies="-310428106,1136561508_14000,-47144818_14000" id="789344678" label="wc_calendar" language="Genero (no link)">
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/fglsvgcanvas_cal/fglsvgcanvas_cal.html"/>
           </VirtualFolder>
@@ -417,12 +417,12 @@
           <File filePath="src/demos/wc_calendar.per"/>
           <File filePath="src/demos/wc_fglsvgcalendar.4gl"/>
         </Library>
-        <Application binaryName="wc_calendar_demo" dependencies="789344678,-400184264,-310428106,1136561508_14000" id="1022451972" label="wc_calendar_demo">
+        <Application binaryName="wc_calendar_demo" dependencies="789344678,-400184264,-310428106,1136561508_14000,-47144818_14000" id="1022451972" label="wc_calendar_demo" language="Genero">
           <Configuration id="2050195615" label="wc_calendar_demo"/>
           <File filePath="src/demos/wc_calendar_demo.4gl"/>
           <File filePath="src/demos/wc_calendar_demo.per"/>
         </Application>
-        <Application binaryName="wc_d3Charts" dependencies="-400184264,2068081444,-310428106,1136561508_14000" id="-1072068994" label="wc_d3Charts">
+        <Application binaryName="wc_d3Charts" dependencies="-400184264,2068081444,-310428106,1136561508_14000,-47144818_14000" id="-1072068994" label="wc_d3Charts">
           <Configuration id="-466421478" label="wc_d3Charts"/>
           <File filePath="src/demos/wc_d3Charts.4gl"/>
           <File filePath="src/demos/wc_d3Charts.per"/>
@@ -436,7 +436,7 @@
           <File filePath="src/demos/wc_d3ChartsLib.4gl"/>
           <File filePath="src/demos/wc_d3ChartsLib.per"/>
         </Library>
-        <Application binaryName="wc_gauge" dependencies="1136561508_14000" id="1287057631" label="wc_gauge">
+        <Application binaryName="wc_gauge" dependencies="1136561508_14000,-47144818_14000" id="1287057631" label="wc_gauge">
           <Configuration id="-1205841725" label="wc_gauge"/>
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/gauge/gauge.css"/>
@@ -448,7 +448,7 @@
           <File filePath="src/demos/wc_gauge.4gl"/>
           <File filePath="src/demos/wc_gauge.per"/>
         </Application>
-        <Application binaryName="wc_googleMaps" dependencies="-310428106,1136561508_14000" id="-2121135278" label="wc_googleMaps">
+        <Application binaryName="wc_googleMaps" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-2121135278" label="wc_googleMaps">
           <Configuration id="845246069" label="wc_googleMaps"/>
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/gm/gm.html"/>
@@ -457,7 +457,7 @@
           <File filePath="src/demos/wc_gm.4gl"/>
           <File filePath="src/demos/wc_gm.per"/>
         </Application>
-        <Application binaryName="wc_kite" dependencies="-310428106,1136561508_14000" id="-2014604027" label="wc_kite">
+        <Application binaryName="wc_kite" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-2014604027" label="wc_kite">
           <Configuration commandLineArguments="S 1" id="456062863" label="wc_kite"/>
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/kite/kite.html"/>
@@ -468,7 +468,7 @@
           <File filePath="etc/wc_kite.4st"/>
           <File filePath="src/demos/wc_kite.per"/>
         </Application>
-        <Application binaryName="wc_music" dependencies="-310428106,1136561508_14000" id="1103957492" label="wc_music">
+        <Application binaryName="wc_music" dependencies="-310428106,1136561508_14000,-47144818_14000" id="1103957492" label="wc_music">
           <Configuration id="1695974187" label="wc_music"/>
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/music/main.js"/>
@@ -479,7 +479,7 @@
           <File filePath="src/demos/wc_music.4gl"/>
           <File filePath="src/demos/wc_music.per"/>
         </Application>
-        <Application binaryName="wc_richtext" dependencies="-310428106,1136561508_14000" id="-132093204" label="wc_richtext">
+        <Application binaryName="wc_richtext" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-132093204" label="wc_richtext">
           <Configuration id="-1382542066" label="wc_richtext"/>
           <File filePath="src/demos/wc_richtext.4gl"/>
           <File filePath="src/demos/wc_richtext.per"/>
