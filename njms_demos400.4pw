@@ -335,9 +335,9 @@
           <Configuration id="1446480833" label="ipodTree"/>
           <File filePath="src/demos/ipod_big_cover.per"/>
           <File filePath="src/demos/ipod_sax.4gl"/>
-          <File filePath="src/demos/ipodtree.4gl"/>
-          <File filePath="etc/ipodtree.4st"/>
-          <File filePath="src/demos/ipodtree.per"/>
+          <File filePath="src/demos/ipodTree.4gl"/>
+          <File filePath="etc/ipodTree.4st"/>
+          <File filePath="src/demos/ipodTree.per"/>
         </Application>
         <Application binaryName="listView" dependencies="-310428106,1136561508_14000,-47144818_14000" id="1211711094" label="listView">
           <Configuration binaryName="listView" id="-1926354934" label="listView"/>
@@ -349,8 +349,8 @@
           <File filePath="src/demos/multi_cell_sel.4gl"/>
           <File filePath="src/demos/multi_cell_sel.per"/>
         </Application>
-        <Application binaryName="picFlow" dependencies="-310428106,1136561508_14000" id="-183914303" label="picFlow">
-          <Configuration commandLineArguments="S 1 ../pics" id="1623856969" label="picFlow"/>
+        <Application binaryName="picFlow" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-183914303" label="picFlow">
+          <Configuration binaryName="picflow" commandLineArguments="S 1 ../pics" id="1623856969" label="picFlow"/>
           <File filePath="src/demos/picflow.4gl"/>
           <File filePath="etc/picflow.4st"/>
           <File filePath="src/demos/picflow.per"/>

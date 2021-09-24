@@ -1,3 +1,4 @@
+IMPORT FGL fgldialog
 --------------------------------------------------------------------------------
 -- Program to view a file using a DISPLAY ARRAY
 
