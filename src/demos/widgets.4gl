@@ -96,12 +96,12 @@ MAIN
   DEFINE f ui.Form
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "widgets")
+  CALL g2_core.g2_init(base.Application.getArgument(1), "widgets")
 
   GL_DBGMSG(2, "init_genero, done.")
   WHENEVER ANY ERROR CALL g2_core.g2_error
 
-  LET m_dbname = fgl_getEnv("DBNAME")
+  LET m_dbname = fgl_getenv("DBNAME")
 
   CLOSE WINDOW SCREEN
   GL_DBGMSG(2, "done - Close window screen.")
@@ -122,12 +122,12 @@ MAIN
   GL_DBGMSG(4, "before - open window.")
   OPEN WINDOW widgets WITH FORM "widgets"
   GL_DBGMSG(4, "after - open window.")
-  CALL ui.interface.setImage(C_PRGICON)
+  CALL ui.Interface.setImage(C_PRGICON)
   CALL hide_item("Page", "arrays", 1)
   CALL hide_item("Page", "canvas", 1)
   CALL hide_item("Page", "colours", 1)
---	CALL ui.interface.refresh()
---	GL_DBGMSG(4,"after - ui.interface.refresh.")
+--	CALL ui.Interface.refresh()
+--	GL_DBGMSG(4,"after - ui.Interface.refresh.")
 
   LET lins = FALSE
   LET scal = 100
@@ -238,7 +238,7 @@ MAIN
         CALL onidle()
 
       COMMAND "dumpxml"
-        CALL f_n.writeXML("form.xml")
+        CALL f_n.writeXml("form.xml")
 
       COMMAND "winst1"
         CALL disp_newwin("normal", "Normal")
@@ -299,10 +299,10 @@ MAIN
         DISPLAY BY NAME timeedit, datetimeedit
 
       ON ACTION url1
-        CALL ui.interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
+        CALL ui.Interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
 
       ON ACTION url2
-        CALL ui.interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
+        CALL ui.Interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
 
 --      ON ACTION splash
 --        CALL gl_splash.gl_splash(4)
@@ -360,17 +360,17 @@ MAIN
         RUN "fglrun editfile help.txt RH"
 --				CALL show_src("src", "help.txt", "")
 --				MESSAGE "Help!"
---				CALL g2_core.g2_winmessage("Help", "No Help Available", "info")
+--				CALL g2_core.g2_winMessage("Help", "No Help Available", "info")
 
       COMMAND KEY(F2)
-        CALL g2_core.g2_winmessage("Information", "This is Information", "info")
+        CALL g2_core.g2_winMessage("Information", "This is Information", "info")
       ON ACTION error
         CALL g2_core.g2_errPopup(% "This is an Error")
       ON ACTION error2
         CALL g2_core.g2_errPopup(% "This is another Error")
       COMMAND KEY(F19)
         LET m_answer =
-            g2_core.g2_winquestion(
+            g2_core.g2_winQuestion(
                 "My Question",
                 "Did you really mean to ask this?",
                 "Yes",
@@ -470,15 +470,15 @@ MAIN
     CASE func
       WHEN "0"
         CALL chg_styles("widgets")
-        CALL ui.interface.setImage(C_PRGICON)
+        CALL ui.Interface.setImage(C_PRGICON)
         CONTINUE WHILE
       WHEN "1"
         CALL chg_styles("widgets1")
-        CALL ui.interface.setImage(C_PRGICON)
+        CALL ui.Interface.setImage(C_PRGICON)
         CONTINUE WHILE
       WHEN "2"
         CALL chg_styles("widgets2")
-        CALL ui.interface.setImage(C_PRGICON)
+        CALL ui.Interface.setImage(C_PRGICON)
         CONTINUE WHILE
       WHEN "3"
         CALL chg_styles("widgets3")
@@ -534,13 +534,13 @@ FUNCTION do1()
 
     ON ACTION isTouched
       IF DIALOG.getFieldTouched("formonly.norm") THEN
-        CALL g2_core.g2_winmessage("Touched?", "norm was touched!", "information")
+        CALL g2_core.g2_winMessage("Touched?", "norm was touched!", "information")
       ELSE
-        CALL g2_core.g2_winmessage("Touched?", "norm remains untouched.", "information")
+        CALL g2_core.g2_winMessage("Touched?", "norm remains untouched.", "information")
       END IF
 
     ON ACTION help
-      CALL g2_core.g2_winmessage("Help", "No Help Available", "info")
+      CALL g2_core.g2_winMessage("Help", "No Help Available", "info")
 
     BEFORE INPUT
       DISPLAY "---------- BEFORE INPUT"
@@ -575,7 +575,7 @@ FUNCTION do1()
       DISPLAY 1 TO progress
 
     AFTER FIELD norm
-      DISPLAY "LastKey:", fgl_lastKey()
+      DISPLAY "LastKey:", fgl_lastkey()
       IF DOWNSHIFT(norm) = "error" THEN
         ERROR "You entered error!"
       END IF
@@ -592,13 +592,13 @@ FUNCTION do1()
       DISPLAY 2 TO progress
 
     AFTER FIELD normbe
-      DISPLAY "LastKey:", fgl_lastKey()
+      DISPLAY "LastKey:", fgl_lastkey()
 
     BEFORE FIELD wordw
       DISPLAY 3 TO progress
 
     AFTER FIELD wordw
-      DISPLAY "LastKey:", fgl_lastKey()
+      DISPLAY "LastKey:", fgl_lastkey()
 
     BEFORE FIELD dec
       DISPLAY 4 TO progress
@@ -643,7 +643,7 @@ FUNCTION do1()
       DISPLAY 11 TO progress
 
     ON KEY(F17)
-      CALL g2_core.g2_winmessage("Information", "This is Information", "info")
+      CALL g2_core.g2_winMessage("Information", "This is Information", "info")
     ON KEY(F18)
       CALL g2_core.g2_errPopup(% "This is an Error")
   END INPUT
@@ -659,9 +659,9 @@ FUNCTION do2()
   CALL set_count(arrmax)
   INPUT ARRAY oldarr WITHOUT DEFAULTS FROM oldarr.* --ATTRIBUTE( DELETE ROW=FALSE )
     BEFORE ROW, INSERT
-      MESSAGE "Current Row", arr_curr(), " of ", arr_count(), " LastKey:", fgl_lastKey()
+      MESSAGE "Current Row", arr_curr(), " of ", arr_count(), " LastKey:", fgl_lastkey()
     ON ACTION help
-      CALL g2_core.g2_winmessage("Help", "No Help Available", "info")
+      CALL g2_core.g2_winMessage("Help", "No Help Available", "info")
 
     AFTER FIELD arr1
       DISPLAY oldarr[1].arr1 TO oldarr[1].arr1 ATTRIBUTE(RED)
@@ -678,9 +678,9 @@ FUNCTION do2()
 
   INPUT ARRAY oldarr WITHOUT DEFAULTS FROM arr2.*
     BEFORE ROW, INSERT
-      MESSAGE "Current Row", arr_curr(), " of ", arr_count(), " LastKey:", fgl_lastKey()
+      MESSAGE "Current Row", arr_curr(), " of ", arr_count(), " LastKey:", fgl_lastkey()
     ON ACTION help
-      CALL g2_core.g2_winmessage("Help", "No Help Available", "info")
+      CALL g2_core.g2_winMessage("Help", "No Help Available", "info")
 
     ON KEY(F31)
       CALL sort(1, 2)
@@ -695,13 +695,13 @@ FUNCTION do2()
 
   INPUT ARRAY arr WITHOUT DEFAULTS FROM newarr.*
     BEFORE ROW, INSERT
-      MESSAGE "Current Row", arr_curr(), " of ", arr_count(), " LastKey:", fgl_lastKey()
+      MESSAGE "Current Row", arr_curr(), " of ", arr_count(), " LastKey:", fgl_lastkey()
     BEFORE DELETE
       DISPLAY "Before Delete."
     AFTER DELETE
       DISPLAY "After Delete."
     ON ACTION help
-      CALL g2_core.g2_winmessage("Help", "No Help Available", "info")
+      CALL g2_core.g2_winMessage("Help", "No Help Available", "info")
 
     AFTER FIELD tabc1
       DISPLAY arr[1].tabc1 TO newarr[1].tabc1 ATTRIBUTE(RED)
@@ -880,7 +880,7 @@ FUNCTION lookup1(d_i)
         ERROR "be row", arr_curr()
     END DISPLAY
 --			BEFORE DISPLAY
---				CALL ui.interface.refresh()
+--				CALL ui.Interface.refresh()
 --				EXIT DISPLAY
 --			ON IDLE 1
 --				EXIT DISPLAY
@@ -1190,8 +1190,8 @@ FUNCTION onidle()
 --FIXME
   OPEN WINDOW onidle WITH 1 ROWS, 1 COLUMNS
 
-  LET uiwin = ui.Window.GetCurrent()
-  LET win = uiwin.GetNode()
+  LET uiwin = ui.Window.getCurrent()
+  LET win = uiwin.getNode()
   CALL win.setAttribute("style", "naked")
 
   LET f = uiwin.createForm("IdleTime")
@@ -1267,34 +1267,34 @@ FUNCTION dyntab()
     fld3 CHAR(10)
   END RECORD
 
-  LET win = ui.Window.GetCurrent()
-  LET n = win.GetNode()
+  LET win = ui.Window.getCurrent()
+  LET n = win.getNode()
   LET nl = n.selectByPath("//Group[@name='dyntab']")
   IF nl.getLength() > 0 THEN
     LET vb = nl.item(1)
     DISPLAY vb.getTagName()
-    LET t = vb.CreateChild("Table")
+    LET t = vb.createChild("Table")
     CALL t.setAttribute("tabName", "dyntab")
     CALL t.setAttribute("height", "5")
     CALL t.setAttribute("pageSize", "10")
     CALL t.setAttribute("size", "10")
 
-    LET tc = t.CreateChild("TableColumn")
+    LET tc = t.createChild("TableColumn")
     CALL tc.setAttribute("colName", "fld1")
     CALL tc.setAttribute("text", "Col1")
-    LET tce = tc.CreateChild("Edit")
+    LET tce = tc.createChild("Edit")
     CALL tce.setAttribute("width", 5)
 
-    LET tc = t.CreateChild("TableColumn")
+    LET tc = t.createChild("TableColumn")
     CALL tc.setAttribute("colName", "fld2")
     CALL tc.setAttribute("text", "Col2")
-    LET tce = tc.CreateChild("Edit")
+    LET tce = tc.createChild("Edit")
     CALL tce.setAttribute("width", 5)
 
-    LET tc = t.CreateChild("TableColumn")
+    LET tc = t.createChild("TableColumn")
     CALL tc.setAttribute("colName", "fld3")
     CALL tc.setAttribute("text", "Col3")
-    LET tce = tc.CreateChild("Edit")
+    LET tce = tc.createChild("Edit")
     CALL tce.setAttribute("width", 5)
   ELSE
     DISPLAY "No page found."
@@ -1347,7 +1347,7 @@ FUNCTION Init_Forms(frm)
   DEFINE nl om.NodeList
 
   DISPLAY "init_form:"
-  LET winn = frm.GetNode()
+  LET winn = frm.getNode()
 
   LET nl = winn.selectByPath("//Label[@name='slab1']")
   IF nl.getLength() > 0 THEN
@@ -1441,7 +1441,7 @@ FUNCTION disp_form()
 
   MESSAGE "Looking for Google logo..."
   GL_DBGMSG(2, "Looking for Google logo...")
-  CALL ui.interface.refresh()
+  CALL ui.Interface.refresh()
 
 --	SLEEP 1
   DISPLAY "http://www.google.co.uk/intl/en_uk/images/logo.gif" TO google
@@ -1517,7 +1517,7 @@ FUNCTION fix_path()
   DEFINE pth STRING
   DEFINE st base.StringTokenizer
 
-  LET n = ui.interface.getRootNode()
+  LET n = ui.Interface.getRootNode()
   LET nl = n.selectByPath("//Style[@name='.styles']/StyleAttribute")
 
   IF nl.getLength() > 0 THEN
@@ -1717,7 +1717,7 @@ FUNCTION chg_flds()
   DEFINE x SMALLINT
   DEFINE nam STRING
 
-  LET win = ui.Window.GetCurrent()
+  LET win = ui.Window.getCurrent()
   LET frm = win.getForm()
   LET frm_n = frm.getNode()
 
@@ -1741,7 +1741,7 @@ FUNCTION delay()
   LET y = 0
   FOR x = 1 TO 10000
 &ifndef genero13x
-    LET y = y + util.math.rand(1000)
+    LET y = y + util.Math.rand(1000)
 &else
   LET y = y + 300 -- ?
 &endif
@@ -1760,7 +1760,7 @@ FUNCTION webkit()
   LET url = "http://www.4js.com/online_documentation/fjs-fgl-2.20.02-manual-html/"
   DISPLAY BY NAME url
   DISPLAY url TO browser
-  CALL ui.interface.refresh()
+  CALL ui.Interface.refresh()
   WHILE NOT int_flag
     INPUT BY NAME url ATTRIBUTE(WITHOUT DEFAULTS, UNBUFFERED)
       ON ACTION exit
@@ -1816,10 +1816,10 @@ FUNCTION load_new_imgarr()
     fld2 STRING
   END RECORD
   DEFINE x SMALLINT
-  LET c = base.channel.create()
-  CALL c.openFile(fgl_getEnv("FGLDIR") || "/lib/image2font.txt", "r")
+  LET c = base.Channel.create()
+  CALL c.openFile(fgl_getenv("FGLDIR") || "/lib/image2font.txt", "r")
   CALL c.setDelimiter("=")
-  WHILE NOT c.isEOF()
+  WHILE NOT c.isEof()
     IF c.read([l_rec.*]) THEN
       --	DISPLAY "load_new_imgarr:",l_rec.fld1," Font:",l_rec.fld2
       IF l_rec.fld2 IS NOT NULL THEN

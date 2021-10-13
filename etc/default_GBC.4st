@@ -6,7 +6,7 @@
 	</Style-->
 
 	<Style name="UserInterface">
-		<StyleAttribute name="desktopMultiWindow" value="no" /><!-- MDI only -->
+		<StyleAttribute name="desktopMultiWindow" value="no" /><!-- MDI only ? -->
 		<StyleAttribute name="browserMultiPage" value="yes" /><!-- MDI only -->
 		<StyleAttribute name="applicationListVisible" value="no" />
 		<StyleAttribute name="windowListVisible" value="no" />
