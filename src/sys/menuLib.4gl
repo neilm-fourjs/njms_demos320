@@ -136,17 +136,29 @@ FUNCTION process_menu_item(x   SMALLINT)
 
 		WHEN "F" -- Run a standard 42r - with defaults args
 			CALL progArgs(m_menu[x].m_item) RETURNING l_prog, l_args
-			LET l_cmd = SFMT("set %1 && fglrun %2 %3 %4", m_prf, l_prog, m_args, l_args)
-			IF NOT os.path.exists(l_prog) THEN
-				CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", l_prog))
+			IF NOT os.path.exists(l_prog||".42r") THEN
+				IF NOT os.path.exists(l_prog||".42m") THEN
+					CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", l_prog))
+				ELSE
+					LET l_prog = l_prog.append(".42m")
+				END IF
+			ELSE
+				LET l_prog = l_prog.append(".42r")
 			END IF
+			LET l_cmd = SFMT("set %1 && fglrun %2 %3 %4", m_prf, l_prog, m_args, l_args)
 			CALL run_withoutWaiting(l_cmd)
 
 		WHEN "S" -- Run a simple 42r - no args
-			IF NOT os.path.exists(m_menu[x].m_item) THEN
-				CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", m_menu[x].m_item))
-			END IF
 			LET l_cmd = SFMT("fglrun %1", m_menu[x].m_item)
+			IF NOT os.path.exists(m_menu[x].m_item||".42r") THEN
+				IF NOT os.path.exists(m_menu[x].m_item||".42m") THEN
+					CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", m_menu[x].m_item))
+				ELSE
+				 	LET l_cmd = l_cmd.append(".42m")
+				END IF
+			ELSE
+				 LET l_cmd = l_cmd.append(".42r")
+			END IF
 			CALL run_withoutWaiting(l_cmd)
 
 		WHEN "P"

@@ -58,111 +58,111 @@ FUNCTION insert_system_data()
 	CALL addMenu("desktop", "main", "M", "Order Entry", "oe", "")
 
 	CALL addMenu("demo", "main", "T", "UI Demo Programs", "", "")
-	CALL addMenu("demo", "main", "F", "Widgets Demo", "widgets.42r", "")
-	CALL addMenu("demo", "main", "F", "ipodTree Demo", "ipodTree.42r", "")
-	CALL addMenu("demo", "main", "F", "picFlow Demo", "picFlow.42r", "")
-	CALL addMenu("demo", "main", "F", "Display Array Demo 1", "dispArr.42r A", "")
-	CALL addMenu("demo", "main", "F", "Display Array Demo 2", "dispArr.42r B", "")
-	CALL addMenu("demo", "main", "F", "Input Array Expenses Demo", "expenses.42r", "")
-	CALL addMenu("demo", "main", "F", "Multi Cell Select", "multi_cell_sel.42r", "")
-	CALL addMenu("demo", "main", "F", "Table - List View - GBC / AwesomeUR Only", "listView.42r", "")
-	CALL addMenu("demo", "main", "F", "Stack Demo - GBC / UR Only!", "stackDemo.42r", "")
+	CALL addMenu("demo", "main", "F", "Widgets Demo", "widgets", "")
+	CALL addMenu("demo", "main", "F", "ipodTree Demo", "ipodTree", "")
+	CALL addMenu("demo", "main", "F", "picFlow Demo", "picFlow", "")
+	CALL addMenu("demo", "main", "F", "Display Array Demo 1", "dispArr A", "")
+	CALL addMenu("demo", "main", "F", "Display Array Demo 2", "dispArr B", "")
+	CALL addMenu("demo", "main", "F", "Input Array Expenses Demo", "expenses", "")
+	CALL addMenu("demo", "main", "F", "Multi Cell Select", "multi_cell_sel", "")
+	CALL addMenu("demo", "main", "F", "Table - List View - GBC / AwesomeUR Only", "listView", "")
+	CALL addMenu("demo", "main", "F", "Stack Demo - GBC / UR Only!", "stackDemo", "")
 
 	CALL addMenu("wizard", "demo", "T", "Wizard - Dialog Demos", "", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard SD", "wizard1_sd.42r", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard MD", "wizard2_md.42r", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard MRS", "wizard3_mrs.42r", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard DnD", "wizard4_dnd.42r", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard SD", "wizard1_sd", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard MD", "wizard2_md", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard MRS", "wizard3_mrs", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard DnD", "wizard4_dnd", "")
 
 	CALL addMenu("wcdemo", "demo", "T", "Web Component Demos", "", "")
-	CALL addMenu("wcdemo", "demo", "F", "GoogleMaps", "wc_googleMaps.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "AmCharts", "wc_amCharts.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "D3Charts", "wc_d3Charts.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "Gauge / Pie", "wc_gauge.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "Kite Colourizer", "wc_kite.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "Aircraft", "wc_aircraft.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "Remote Music Player", "wc_music.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "Calendar", "wc_calendar_demo.42r", "")
-	CALL addMenu("wcdemo", "demo", "F", "Richtext", "wc_richtext.42r", "")
+	CALL addMenu("wcdemo", "demo", "F", "GoogleMaps", "wc_googleMaps", "")
+	CALL addMenu("wcdemo", "demo", "F", "AmCharts", "wc_amCharts", "")
+	CALL addMenu("wcdemo", "demo", "F", "D3Charts", "wc_d3Charts", "")
+	CALL addMenu("wcdemo", "demo", "F", "Gauge / Pie", "wc_gauge", "")
+	CALL addMenu("wcdemo", "demo", "F", "Kite Colourizer", "wc_kite", "")
+	CALL addMenu("wcdemo", "demo", "F", "Aircraft", "wc_aircraft", "")
+	CALL addMenu("wcdemo", "demo", "F", "Remote Music Player", "wc_music", "")
+	CALL addMenu("wcdemo", "demo", "F", "Calendar", "wc_calendar_demo", "")
+	CALL addMenu("wcdemo", "demo", "F", "Richtext", "wc_richtext", "")
 
 	CALL addMenu("webapp", "main", "T", "Web Application Demos", "", "")
-	CALL addMenu("webapp", "main", "F", "Customers", "custs.42r", "")
-	CALL addMenu("webapp", "main", "F", "Products", "prods.42r", "")
-	CALL addMenu("webapp", "main", "F", "Quotes", "quotes.42r", "")
+	CALL addMenu("webapp", "main", "F", "Customers", "custs", "")
+	CALL addMenu("webapp", "main", "F", "Products", "prods", "")
+	CALL addMenu("webapp", "main", "F", "Quotes", "quotes", "")
 
 	CALL addMenu("sys", "main", "T", "System Maintenance", "", "")
-	CALL addMenu("sys", "main", "F", "User/Role Maintenance", "user_mnt.42r", "")
-	CALL addMenu("sys", "main", "F", "Menu/Role Maintenance", "menu_mnt.42r", "")
-	CALL addMenu("sys", "main", "F", "View Login History", "login_hist.42r", "")
+	CALL addMenu("sys", "main", "F", "User/Role Maintenance", "user_mnt", "")
+	CALL addMenu("sys", "main", "F", "Menu/Role Maintenance", "menu_mnt", "")
+	CALL addMenu("sys", "main", "F", "View Login History", "login_hist", "")
 
 	CALL addMenu("enq", "main", "T", "Enquiry Programs", "", "")
-	CALL addMenu("enq", "main", "F", "Customer Enquiry", "cust_mnt.42r YYNNNN", "")
+	CALL addMenu("enq", "main", "F", "Customer Enquiry", "cust_mnt YYNNNN", "")
 	CALL addMenu(
 			"enq",
 			"main",
 			"F",
 			"Stock Enquiry (dynMaint)",
-			"dynMaint.42r " || l_db || " stock stock_code YYNNNN",
+			"dynMaint " || l_db || " stock stock_code YYNNNN",
 			"")
 	CALL addMenu(
 			"enq",
 			"main",
 			"F",
 			"Supplier Enquiry (dynMaint)",
-			"dynMaint.42r " || l_db || " supplier supp_code YYNNNN",
+			"dynMaint " || l_db || " supplier supp_code YYNNNN",
 			"")
 
 	CALL addMenu("mnt", "main", "T", "Maintenance Programs", "", "")
-	CALL addMenu("mnt", "main", "F", "Customer Maintenance", "cust_mnt.42r", "")
-	CALL addMenu("mnt", "main", "F", "Stock Maintenance", "dm_stock.42r", "")
+	CALL addMenu("mnt", "main", "F", "Customer Maintenance", "cust_mnt", "")
+	CALL addMenu("mnt", "main", "F", "Stock Maintenance", "dm_stock", "")
 	CALL addMenu(
 			"mnt",
 			"main",
 			"F",
 			"Stock Cat Maintenance",
-			"dynMaint.42r " || l_db || " stock_cat catid",
+			"dynMaint " || l_db || " stock_cat catid",
 			"")
 	CALL addMenu(
 			"mnt",
 			"main",
 			"F",
 			"Supplier Maintenance",
-			"dynMaint.42r " || l_db || " supplier supp_code",
+			"dynMaint " || l_db || " supplier supp_code",
 			"")
 	CALL addMenu(
 			"mnt",
 			"main",
 			"F",
 			"Colours Maintenance",
-			"dynMaint.42r " || l_db || " colours colour_key",
+			"dynMaint " || l_db || " colours colour_key",
 			"")
 	CALL addMenu(
 			"mnt",
 			"main",
 			"F",
 			"Countries Maintenance",
-			"dynMaint.42r " || l_db || " countries country_code",
+			"dynMaint " || l_db || " countries country_code",
 			"")
 
 	CALL addMenu("oe", "main", "T", "Order Entry", "", "")
-	CALL addMenu("oe", "main", "F", "Order Entry", "orderEntry.42r ", "")
-	CALL addMenu("oe", "main", "F", "Web Order Entry #1", "webOE.42r ", "")
-	CALL addMenu("oe", "main", "F", "Web Order Entry #2", "webOE2.42r ", "")
+	CALL addMenu("oe", "main", "F", "Order Entry", "orderEntry ", "")
+	CALL addMenu("oe", "main", "F", "Web Order Entry #1", "webOE ", "")
+	CALL addMenu("oe", "main", "F", "Web Order Entry #2", "webOE2 ", "")
 	CALL addMenu("oe", "main", "M", "Invoicing Reports", "oeprn", "")
 	CALL addMenu("oeprn", "oe", "T", "Invoicing Reports", "", "")
 	CALL addMenu(
-			"oeprn", "oe", "F", "Print Invoices ASK", "printInvoices.42r 0 ordent ASK preview", "")
+			"oeprn", "oe", "F", "Print Invoices ASK", "printInvoices 0 ordent ASK preview", "")
 	CALL addMenu(
-			"oeprn", "oe", "F", "Print Invoices PDF", "printInvoices.42r 0 ordent PDF preview", "")
-	CALL addMenu("oeprn", "oe", "F", "Print Picking Notes", "printInvoices.42r picklist", "")
+			"oeprn", "oe", "F", "Print Invoices PDF", "printInvoices 0 ordent PDF preview", "")
+	CALL addMenu("oeprn", "oe", "F", "Print Picking Notes", "printInvoices picklist", "")
 
 	CALL addMenu("util", "main", "T", "Utilities", "", "")
-	CALL addMenu("util", "main", "F", "Material Design Test", "materialDesignTest.42r", "")
+	CALL addMenu("util", "main", "F", "Material Design Test", "materialDesignTest", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: FontAwesome", "../utils/fontAwesome.sh def", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: FontAwesome 5", "../utils/fontAwesome.sh fa5", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: Material Design Icons", "../utils/fontAwesome.sh mdi", "")
-	CALL addMenu("util", "main", "S", "GRE Test 4RP", "gre_test4rp.42r", "")
-	CALL addMenu("util", "main", "S", "Reset Database", "mk_db.42r", "")
+	CALL addMenu("util", "main", "S", "GRE Test 4RP", "gre_test4rp", "")
+	CALL addMenu("util", "main", "S", "Reset Database", "mk_db", "")
 	CALL mkdb_progress("Done.")
 
 END FUNCTION
