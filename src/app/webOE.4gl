@@ -26,7 +26,7 @@ MAIN
   DEFINE l_cat SMALLINT
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "weboe")
+  CALL g2_init.g2_init(ARG_VAL(1), "weboe")
 
   WHENEVER ANY ERROR CALL g2_core.g2_error
   CALL m_db.g2_connect(NULL)

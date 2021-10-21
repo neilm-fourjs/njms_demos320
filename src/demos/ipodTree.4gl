@@ -106,7 +106,7 @@ MAIN
 	OPTIONS ON CLOSE APPLICATION CALL tidyup
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "ipodTree")
+	CALL g2_init.g2_init(ARG_VAL(1), "ipodTree")
 
 	CALL ui.Interface.setText(C_PRGDESC)
 

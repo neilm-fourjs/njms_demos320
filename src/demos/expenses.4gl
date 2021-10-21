@@ -33,7 +33,7 @@ MAIN
 	DEFINE x SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 
 	CALL add(0, "Rackspace", "C", 0, 0, 0, 0, 0, 0, 95.79, 0, 38)
 	CALL add(0, "Google Main", "C", 0, 0, 0, 0, 0, 18.31, 18.31, 0, 38)

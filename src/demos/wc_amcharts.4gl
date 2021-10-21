@@ -23,7 +23,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_data STRING
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_amcharts"
   DISPLAY FORM f

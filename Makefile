@@ -60,6 +60,7 @@ clean:
 	find . -name \*.42? -delete
 	find . -name \*.zip -delete
 	find . -name \*.gar -delete
+	find . -name \*.4pdb -delete
 
 undeploy: 
 	cd distbin && gasadmin gar -f $(GASCFG) --disable-archive $(ARCH) | true

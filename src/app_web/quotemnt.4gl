@@ -8,7 +8,7 @@ MAIN
   DEFINE l_db g2_db.dbInfo
   DEFINE l_rec RECORD LIKE quotes.*
 
-  CALL g2_core.g2_init(ARG_VAL(1), NULL)
+  CALL g2_init.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
 
   CALL combos.dummy()

@@ -15,7 +15,7 @@ PUBLIC FUNCTION init()
   CALL g2_log.init(NULL, NULL, "log", "TRUE")
   LET g2_core.m_isWS = TRUE
   WHENEVER ANY ERROR CALL g2_core.g2_error
-  LET g2_ws.m_server = g2_core.g2_getHostname()
+  LET g2_ws.m_server = g2_util.g2_getHostname()
   CALL l_db.g2_connect(NULL)
 --  RUN "env | sort > /tmp/gas.env"
   CALL g2_log.logIt("Service Initialized.")

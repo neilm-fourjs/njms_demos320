@@ -21,7 +21,7 @@ MAIN
   DEFINE l_debug BOOLEAN
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 	DISPLAY "FGLIMAGEPATH:", fgl_getEnv("FGLIMAGEPATH")
 -- Is the WC debug feature enabled?
   CALL ui.Interface.frontCall("standard", "getenv", ["QTWEBENGINE_REMOTE_DEBUGGING"], l_debug)

@@ -32,7 +32,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
 -- Connect to DB

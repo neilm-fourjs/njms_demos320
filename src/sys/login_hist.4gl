@@ -19,7 +19,7 @@ MAIN
   DEFINE l_db g2_db.dbInfo
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init( ARG_VAL(1), "default")
+	CALL g2_init.g2_init( ARG_VAL(1), "default")
   CALL ui.Interface.setText(C_PRGDESC)
 
   OPEN FORM login_hist FROM "login_hist"

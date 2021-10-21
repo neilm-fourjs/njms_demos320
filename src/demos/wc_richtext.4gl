@@ -16,8 +16,9 @@ MAIN
   END RECORD
   DEFINE l_tmp STRING
   DEFINE l_ret SMALLINT
+
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   LET l_tmp = "env | sort" -- > /tmp/env."||fgl_getPID()
   DISPLAY "RUN: " || l_tmp

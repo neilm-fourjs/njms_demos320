@@ -28,7 +28,7 @@ MAIN
 	DEFINE l_key   INTEGER
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	CALL ui.Interface.setText(C_PRGDESC)
 

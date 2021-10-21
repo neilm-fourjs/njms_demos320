@@ -29,7 +29,7 @@ DEFINE m_contList DYNAMIC ARRAY OF t_contactList
 MAIN
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   CALL load_contacts()
 
