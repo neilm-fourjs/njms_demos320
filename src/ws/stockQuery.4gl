@@ -1,14 +1,7 @@
 IMPORT com
 IMPORT util
-<<<<<<< HEAD
+
 IMPORT FGL g2_lib.*
-=======
-IMPORT FGL g2_core
-IMPORT FGL g2_logging
-IMPORT FGL g2_db
-IMPORT FGL g2_sql
-IMPORT FGL g2_ws
->>>>>>> origin/master
 
 &include "schema.inc"
 
