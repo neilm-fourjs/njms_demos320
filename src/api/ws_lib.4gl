@@ -1,7 +1,7 @@
 
-IMPORT FGL g2_debug
+IMPORT FGL g2_lib.*
 
-&include "../../g2_lib/src/g2_debug.inc"
+&include "../../g2_lib/g2_lib/g2_debug.inc"
 
 DEFINE m_host STRING
 

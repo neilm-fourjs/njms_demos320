@@ -9,10 +9,7 @@
 -- 4: Primary Key name
 -- 5: Allowed actions: Y/N > Find / Update / Insert / Delete / Sample / List  -- eg: YNNNNN = enquiry only.
 
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 IMPORT FGL app_lib
 
 IMPORT FGL glm_mkForm
@@ -35,7 +32,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 DEFINE m_db g2_db.dbInfo
 MAIN
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
 -- Connect to DB

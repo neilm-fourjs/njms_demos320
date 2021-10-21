@@ -6,9 +6,7 @@
 
 IMPORT xml
 IMPORT os
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Kite Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -31,7 +29,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE wc_data, panel, colour STRING
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "wc_kite")
+  CALL g2_init.g2_init(ARG_VAL(1), "wc_kite")
 
 -- Try and find the kite folder
 	IF os.path.isDirectory("../pics/webcomponents/kite") THEN

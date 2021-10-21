@@ -1,9 +1,7 @@
 # A simple WC demo for https://www.highcharts.com/demo/gauge-solid
 
 IMPORT util
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC Test Demo"
@@ -17,7 +15,7 @@ MAIN
 	DEFINE l_wc_pie STRING
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 
 -- Is the WC debug feature enabled?
 	CALL ui.Interface.frontCall("standard", "getenv", ["QTWEBENGINE_REMOTE_DEBUGGING"], l_debug)

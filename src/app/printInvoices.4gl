@@ -12,11 +12,8 @@
 
 IMPORT os
 
-IMPORT FGL g2_core
-IMPORT FGL g2_about
-IMPORT FGL g2_db
-IMPORT FGL g2_grw
-IMPORT FGL g2_aui
+IMPORT FGL g2_lib.*
+
 IMPORT FGL app_lib
 
 &include "app.inc"
@@ -43,9 +40,9 @@ MAIN
 	DEFINE x SMALLINT
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
-	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
+	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getenv("GREOUTPUTDIR")
   CALL m_db.g2_connect(NULL)
 	FOR x  = 1 TO base.Application.getArgumentCount()
 		LET l_args = l_args.append(x||":"||base.Application.getArgument(x)||" ")
@@ -222,10 +219,10 @@ FUNCTION chk_libs(libs, ext)
   DEFINE st base.StringTokenizer
   DEFINE x, y, found SMALLINT
 
-  LET pth = fgl_getEnv("FGLLDPATH")
+  LET pth = fgl_getenv("FGLLDPATH")
   DISPLAY "FGLLDPATH:", pth
   DISPLAY "ProgramDir:", base.Application.getProgramDir()
-  DISPLAY "PWD:", os.path.pwd()
+  DISPLAY "PWD:", os.Path.pwd()
 
   LET st = base.StringTokenizer.create(pth, ":")
   WHILE st.hasMoreTokens()
@@ -238,7 +235,7 @@ FUNCTION chk_libs(libs, ext)
   FOR x = 1 TO libns.getLength()
     LET found = FALSE
     FOR y = 1 TO dirs.getLength()
-      LET lib = dirs[y] || os.path.separator() || libns[x]
+      LET lib = dirs[y] || os.Path.separator() || libns[x]
       --DISPLAY "Looking for ",lib
       IF os.Path.exists(lib) THEN
         DISPLAY "Found:", lib
@@ -260,24 +257,21 @@ END FUNCTION
 #+ @param r_detailLine Array of detail line records.
 REPORT rpt(rpt_user, r_ordHead, r_detailLine)
   DEFINE rpt_user STRING
-  DEFINE r_ordhead RECORD LIKE ord_head.*
-  DEFINE r_detailline t_detailline
+  DEFINE r_ordHead RECORD LIKE ord_head.*
+  DEFINE r_detailLine t_detailLine
   DEFINE print_date, order_date DATE
   DEFINE rpt_timestamp DATETIME HOUR TO SECOND
   DEFINE line_num SMALLINT
 	DEFINE l_cur CHAR(1)
-	DEFINE l_bool BOOLEAN
-  DEFINE tax_0, tax_1, tax_2, tax_3, l_order_tot DECIMAL(10, 2)
+  DEFINE tax_0, tax_1, tax_2, tax_3 DECIMAL(10, 2)
 
   ORDER EXTERNAL BY r_ordHead.order_number
 
   FORMAT
     FIRST PAGE HEADER
       LET print_date = TODAY
-			LET print_date = NULL
-			LET l_bool = TRUE
 			LET l_cur = "£"
-      PRINT print_date, rpt_user, m_logo, l_cur, l_bool
+      PRINT print_date, rpt_user, m_logo, l_cur
       --DISPLAY "First Page Header"
 
     BEFORE GROUP OF r_ordHead.order_number
@@ -288,8 +282,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
       LET tax_1 = 0
       LET tax_2 = 0
       LET tax_3 = 0
-			LET l_order_tot = 0
-      PRINT r_ordhead.*, order_date
+      PRINT r_ordHead.*, order_date
 
     BEFORE GROUP OF r_detailLine.pack_flag
       --DISPLAY "Pack:",r_detailLine.pack_flag
@@ -308,12 +301,12 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
         LET tax_3 = tax_3 + r_detailLine.tax_value
       END IF
       IF r_detailLine.barcode IS NULL THEN
-        LET r_detailLine.barcode = r_detailline.stock_code
+        LET r_detailLine.barcode = r_detailLine.stock_code
       END IF
       LET line_num = line_num + 1
       LET rpt_timestamp = CURRENT
-      IF NOT os.Path.exists("../pics/products/" || (r_detailline.img_url CLIPPED) || ".jpg") THEN
-        LET r_detailline.img_url = "noimage"
+      IF NOT os.Path.exists("../pics/products/" || (r_detailLine.img_url CLIPPED) || ".jpg") THEN
+        LET r_detailLine.img_url = "noimage"
       END IF
 {      DISPLAY "DEBUG: ON EVERY ROW:",
           r_detailLine.stock_code,
@@ -321,9 +314,8 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
           r_detailLine.barcode,
           " img:",
           r_detailLine.img_url}
-			LET l_order_tot =  l_order_tot + r_detailLine.gross_value
-      PRINT r_detailline.*
+      PRINT r_detailLine.*
       PRINT tax_0, tax_1, tax_2, tax_3
-      PRINT rpt_timestamp, line_num, l_order_tot
+      PRINT rpt_timestamp, line_num
 
 END REPORT

@@ -10,10 +10,7 @@
 IMPORT os
 IMPORT util
 IMPORT com
-IMPORT FGL g2_core
-IMPORT FGL g2_aui
-IMPORT FGL g2_about
-IMPORT FGL g2_appInfo
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "TreeView Demo"
@@ -109,11 +106,11 @@ MAIN
 	OPTIONS ON CLOSE APPLICATION CALL tidyup
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "ipodtree")
+	CALL g2_init.g2_init(ARG_VAL(1), "ipodTree")
 
 	CALL ui.Interface.setText(C_PRGDESC)
 
-	OPEN FORM win FROM "ipodtree"
+	OPEN FORM win FROM "ipodTree"
 	DISPLAY FORM win
 	CALL ui.window.getCurrent().setText("Loading, please wait ...")
 	CALL ui.interface.refresh()

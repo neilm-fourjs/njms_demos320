@@ -3,8 +3,8 @@
 
 IMPORT os
 IMPORT util
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
+
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER = "3.2"
 CONSTANT C_PRGDESC = "GBC Themes"
@@ -36,7 +36,7 @@ MAIN
   DEFINE l_appInfo g2_appInfo.appInfo
 
   CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
   CALL ui.Interface.setText(C_PRGDESC)
 
   OPEN FORM f FROM "gbc_theme"

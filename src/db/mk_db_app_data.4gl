@@ -2,8 +2,7 @@
 
 IMPORT util
 IMPORT os
-IMPORT FGL g2_core
-IMPORT FGL g2_db
+IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
 &include "schema.inc"
 
@@ -119,7 +118,7 @@ FUNCTION insert_app_data()
 	CALL insStock("WW01-DES", NULL, "Combat Jacket - Desert", NULL, 59.99, "DD", NULL)
 	CALL insStock("WW01-JUN", NULL, "Combat Jacket - Jungle", NULL, 59.99, "DD", NULL)
 
-	CALL genStock(os.path.join(g2_core.g2_getImagePath(),"products"), "??", FALSE)
+	CALL genStock(os.Path.join(g2_core.g2_getImagePath(),"products"), "??", FALSE)
 	SELECT COUNT(*) INTO x FROM stock
 	CALL mk_db_lib.mkdb_progress(SFMT("Inserted %1 Stock Items.", x))
 
@@ -172,7 +171,11 @@ FUNCTION insStock(
 		l_tc CHAR(1)
 
 	DEFINE l_ps, l_al, l_fr INTEGER --physical/allocated/free
-
+	IF l_img IS NULL THEN
+		LET l_img = os.Path.join("products",downshift(l_sc CLIPPED))
+	ELSE
+		LET l_img = os.Path.join("products",downshift(l_img CLIPPED))
+	END IF
 	LET l_tc = "1"
 	IF l_cat IS NULL THEN
 		IF l_sc[1, 2] = "FR" THEN
@@ -245,9 +248,7 @@ FUNCTION insStock(
 	LET l_fr = l_ps - l_al
 	LET l_cst = (l_pr * 0.75)
 --  DISPLAY l_sc, "-", l_bc, "-", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
-	IF l_img IS NULL THEN
-		LET l_img = downshift(l_sc CLIPPED)
-	END IF
+
 	INSERT INTO stock
 			VALUES(l_sc, l_cat, l_pack, l_sup, l_bc, l_ds, l_col, l_pr, l_cst, l_tc, l_dc, l_ps, l_al, l_fr, "",
 					l_img)
@@ -566,9 +567,9 @@ FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
 			IF l_path IS NULL THEN
 				EXIT WHILE
 			END IF
-			LET l_dir = os.path.baseName(l_base)
-			--DISPLAY "Path:",l_path," Dir:", os.path.isDirectory(os.path.join(l_base,l_path))
-			IF os.path.isDirectory(os.path.join(l_base, l_path)) THEN
+			LET l_dir = os.Path.baseName(l_base)
+			--DISPLAY "Path:",l_path," Dir:", os.Path.isDirectory(os.Path.join(l_base,l_path))
+			IF os.Path.isDirectory(os.Path.join(l_base, l_path)) THEN
 				IF l_path != "." AND l_path != ".." THEN
 					CASE l_path
 						WHEN "supplies"
@@ -585,19 +586,19 @@ FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
 							LET l_cat = "??"
 					END CASE
 --          DISPLAY "DIR --    Path:", l_path, " Cat:", l_cat
-					CALL genStock(os.path.join(l_base, l_path), l_cat, TRUE)
+					CALL genStock(os.Path.join(l_base, l_path), l_cat, TRUE)
 				END IF
 				CONTINUE WHILE
 			ELSE
 				IF l_process THEN
-					LET l_ext = os.path.extension(l_path)
+					LET l_ext = os.Path.extension(l_path)
 					IF l_ext IS NULL OR (l_ext != "jpg" AND l_ext != "png") THEN
 						CONTINUE WHILE
 					END IF
-					LET l_nam = os.path.rootName(l_path)
+					LET l_nam = os.Path.rootName(l_path)
 					LET l_desc = tidy_name(l_nam)
 					--DISPLAY "Path:", l_path, " Cat:", l_cat, " Name:", l_nam, " Ext:", l_ext
-					CALL insStock(NULL, NULL, l_desc, l_cat, 0, "CC", os.path.join(l_dir, l_nam))
+					CALL insStock(NULL, NULL, l_desc, l_cat, 0, "CC", os.Path.join(l_dir, l_nam))
 				END IF
 			END IF
 		END WHILE

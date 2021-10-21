@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="ANSI_X3.4-1968"?>
 <StyleList>
+
+  <Style name="Folder">
+      <StyleAttribute name="lateRendering" value="yes" />
+  </Style>
+
 	<Style name="Folder.accordion">
 		<StyleAttribute name="position"	value="accordion" />
 	</Style>

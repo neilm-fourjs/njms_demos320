@@ -7,8 +7,7 @@
 #+ 5) IIF used for message.
 
 IMPORT util -- used for rand function for testdata
-IMPORT FGL g2_core
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "Display Array Demo"
@@ -28,11 +27,11 @@ END RECORD
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3", ARG_VAL(1), ARG_VAL(2), ARG_VAL(3))
 	CALL ui.Interface.setText(C_PRGDESC)
 
-	OPEN FORM f FROM "disp_arr"
+	OPEN FORM f FROM "dispArr"
 	DISPLAY FORM f
 
 	CALL poparr()

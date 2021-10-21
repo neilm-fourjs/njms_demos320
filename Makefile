@@ -1,12 +1,12 @@
 
-#export GENVER=400
-export GENVER=320
-export BIN=njm_app_bin
+export GENVER=400
+#export GENVER=320
+export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
 export DBTYPE=pgs
 export GBC=gbc-clean2
-export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
+export GBCPROJDIR=/opt/fourjs/gbc-current
 export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
 export GASCFG=$(FGLASDIR)/etc/as.xcf
@@ -33,7 +33,7 @@ all: $(TARGETS)
 $(BIN)/g2_lib.42x:
 	cd g2_lib && gsmake g2_lib.4pw
 
-$(BIN)/menu.42r: $(BIN)/g2_lib.42x
+$(BIN)/menu.42r: 
 	gsmake $(APP)$(GENVER).4pw
 
 gars: $(BIN)/menu.42r
@@ -60,6 +60,7 @@ clean:
 	find . -name \*.42? -delete
 	find . -name \*.zip -delete
 	find . -name \*.gar -delete
+	find . -name \*.4pdb -delete
 
 undeploy: 
 	cd distbin && gasadmin gar -f $(GASCFG) --disable-archive $(ARCH) | true

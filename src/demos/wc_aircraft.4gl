@@ -1,7 +1,5 @@
 IMPORT os
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGVER = "3.2"
@@ -27,7 +25,7 @@ MAIN
   DEFINE l_wc, l_data STRING
 	DEFINE l_f ui.Form
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_aircraft"
   DISPLAY FORM f

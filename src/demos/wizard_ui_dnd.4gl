@@ -3,11 +3,11 @@ DEFINE drag_source STRING
 DEFINE dnd ui.DragDrop
 FUNCTION wizard_ui_dnd()
   DIALOG ATTRIBUTE(UNBUFFERED)
-    INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS)
+    INPUT BY NAME currTable ATTRIBUTE(WITHOUT DEFAULTS)
       ON CHANGE currtable
-        CALL on_change_currtable()
+        CALL on_change_currTable()
     END INPUT
-    DISPLAY ARRAY lfields TO l.*
+    DISPLAY ARRAY lFields TO l.*
       ON ACTION right
         CALL right(DIALOG)
       ON ACTION allright
@@ -21,7 +21,7 @@ FUNCTION wizard_ui_dnd()
       ON DRAG_FINISHED(dnd)
         INITIALIZE drag_source TO NULL
     END DISPLAY
-    DISPLAY ARRAY rfields TO r.*
+    DISPLAY ARRAY rFields TO r.*
       ON ACTION left
         CALL left(DIALOG)
       ON ACTION allleft

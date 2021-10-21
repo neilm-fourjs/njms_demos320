@@ -2,8 +2,7 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
-IMPORT FGL g2_core
-IMPORT FGL g2_about
+IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -42,7 +41,7 @@ MAIN
 	DEFINE x SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "matDesTest")
+	CALL g2_init.g2_init(ARG_VAL(1), "matDesTest")
 --  CALL ui.Interface.setImage("fa-bug")
 	FOR X = 1 TO 15
 		LET l_arr[x].col1 = "Row " || x

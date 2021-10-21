@@ -4,6 +4,7 @@ IMPORT FGL fgldialog
 MAIN
 	DEFINE l_rec DYNAMIC ARRAY OF RECORD LIKE stock.*
 	DEFINE i INTEGER = 0
+	CALL ui.Interface.loadStyles("default_GBC")
 -- Open and display form to the default 'screen' window.
 	OPEN FORM f FROM "table"
 	DISPLAY FORM f

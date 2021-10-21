@@ -2,10 +2,7 @@
 --TODO: need to add a warning for no internet or make it work wihtout!
 
 IMPORT util
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
-IMPORT FGL g2_calendar
+IMPORT FGL g2_lib.*
 IMPORT FGL wc_d3ChartsLib
 
 CONSTANT C_PRGVER = "3.1"
@@ -24,7 +21,7 @@ MAIN
   DEFINE l_debug BOOLEAN
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 	DISPLAY "FGLIMAGEPATH:", fgl_getEnv("FGLIMAGEPATH")
 -- Is the WC debug feature enabled?
   CALL ui.Interface.frontCall("standard", "getenv", ["QTWEBENGINE_REMOTE_DEBUGGING"], l_debug)

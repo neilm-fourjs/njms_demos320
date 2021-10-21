@@ -1,4 +1,4 @@
-IMPORT FGL g2_aui
+IMPORT FGL g2_lib.*
 
 DEFINE attr_name STRING
 

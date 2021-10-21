@@ -1,3 +1,4 @@
+IMPORT FGL fgldialog
 --------------------------------------------------------------------------------
 -- Program to view a file using a DISPLAY ARRAY
 
@@ -18,10 +19,10 @@ MAIN
     DISPLAY "No args!"
     EXIT PROGRAM
   END IF
-  LET m_filename = base.application.getArgument(1)
-  LET fnd = base.application.getArgument(2)
+  LET m_filename = base.Application.getArgument(1)
+  LET fnd = base.Application.getArgument(2)
 
-  LET chl = base.channel.create()
+  LET chl = base.Channel.create()
 
   TRY
     CALL chl.openFile(m_filename, "r")
@@ -46,7 +47,7 @@ MAIN
 --		 ELSE
       LET cols[lne_cnt] = "darkblue"
 --		 END IF
-      IF line.substring(1, 2) = "--" THEN
+      IF line.subString(1, 2) = "--" THEN
         LET cols[lne_cnt] = "green"
       END IF
       IF fnd IS NOT NULL AND strstr(line, fnd) THEN
@@ -95,12 +96,12 @@ FUNCTION do_form()
   LET titl = "File: " || m_filename.trim() || "  Lines: " || (text.getLength() USING "<<,<<<,<<<")
 
   CURRENT WINDOW IS SCREEN
-  LET win = ui.Window.GetCurrent()
+  LET win = ui.Window.getCurrent()
   LET winnode = win.getNode()
   CALL winnode.setAttribute("style", "naked")
   CALL winnode.setAttribute("width", x)
   CALL winnode.setAttribute("height", y)
-  LET frm_obj = win.CreateForm("EditFile")
+  LET frm_obj = win.createForm("EditFile")
   LET frm = frm_obj.getNode()
 --	CALL frm.setAttribute("text","File: "||m_filename.trim())
   CALL winnode.setAttribute("text", titl)
@@ -148,7 +149,7 @@ FUNCTION strstr(str, fnd)
 
   LET y = fnd.getLength() - 1
   FOR x = 1 TO (str.getLength() - y)
-    IF str.substring(x, x + y) = fnd THEN
+    IF str.subString(x, x + y) = fnd THEN
       RETURN TRUE
     END IF
   END FOR

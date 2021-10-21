@@ -1,5 +1,6 @@
 
-IMPORT FGL g2_core
+IMPORT FGL g2_lib.*
+
 IMPORT FGL oe_lib
 &include "app.inc"
 &include "ordent.inc"
@@ -87,10 +88,11 @@ END FUNCTION
 #+ @returns none
 FUNCTION build_cats(l_form ui.Form)
   DEFINE n om.DomNode
-  DEFINE x, len SMALLINT
+  DEFINE x, len, h SMALLINT
   DEFINE l_grid_cats om.DomNode
   LET l_grid_cats = l_form.findNode("Group", "cats")
   DISPLAY "Build cats"
+	LET h = 2
   LET len = 5
   FOR x = 1 TO m_stock_cats.getLength()
     IF length(m_stock_cats[x].desc) > len THEN
@@ -103,10 +105,10 @@ FUNCTION build_cats(l_form ui.Form)
     CALL n.setAttribute("text", "  " || m_stock_cats[x].desc CLIPPED || "  ")
     CALL n.setAttribute("image", "products/cat_" || downshift(m_stock_cats[x].id) CLIPPED)
     CALL n.setAttribute("sizePolicy", "fixed")
-    CALL n.setAttribute("gridWidth", len)
-    CALL n.setAttribute("width", len)
-    CALL n.setAttribute("gridHeight", "1")
-    CALL n.setAttribute("posY", x + 1)
+    CALL n.setAttribute("gridWidth", len+6)
+    CALL n.setAttribute("width", len+6)
+    CALL n.setAttribute("gridHeight", h)
+    CALL n.setAttribute("posY", x * h)
     CALL n.setAttribute("posX", "1")
     CALL n.setAttribute("style", "bigbutt")
   END FOR
@@ -121,7 +123,7 @@ FUNCTION getItems(sc)
   CALL m_items.clear()
   LET rec = 1
   FOREACH stkcur USING sc INTO l_stk.*
-    LET img = "products/" || (l_stk.img_url CLIPPED)
+    LET img = l_stk.img_url CLIPPED
     LET m_items[m_items.getLength() + 1].stock_code1 = l_stk.stock_code
     LET m_items[m_items.getLength()].img1 = img.trim()
     LET m_items[m_items.getLength()].desc1 = mkDesc(l_stk.*)

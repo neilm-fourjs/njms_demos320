@@ -1,10 +1,6 @@
 #+ User Maintenance Demo - by N.J.Martin neilm@4js.com
 
-IMPORT FGL g2_core
-IMPORT FGL g2_about
-IMPORT FGL g2_db
-IMPORT FGL g2_secure
-IMPORT FGL g2_grw
+IMPORT FGL g2_lib.*
 
 IMPORT FGL app_lib
 
@@ -35,7 +31,7 @@ MAIN
   DEFINE l_rules STRING
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
   WHENEVER ANY ERROR CALL g2_core.g2_error
 
   LET m_this_user_key = arg_val(2)

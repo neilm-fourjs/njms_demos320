@@ -1,7 +1,5 @@
 
-IMPORT FGL g2_core
-IMPORT FGL g2_db
-IMPORT FGL g2_grw
+IMPORT FGL g2_lib.*
 IMPORT FGL combos
 
 &include "schema.inc"
@@ -21,7 +19,7 @@ MAIN
   DEFINE l_search STRING
   DEFINE l_where STRING
 
-  CALL g2_core.g2_init(ARG_VAL(1), NULL)
+  CALL g2_init.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
   CALL combos.dummy()
 

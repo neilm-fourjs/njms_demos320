@@ -1,5 +1,6 @@
-IMPORT FGL g2_core
-&include "schema.inc"
+
+IMPORT FGL g2_lib.*
+&include "../schema.inc"
 
 PUBLIC DEFINE m_user RECORD LIKE sys_users.*
 
@@ -13,8 +14,8 @@ FUNCTION getUser(l_key LIKE sys_users.user_key, l_email LIKE sys_users.email) RE
   IF l_email IS NOT NULL THEN
     SELECT * INTO m_user.* FROM sys_users WHERE email = l_email
     IF STATUS = NOTFOUND THEN
-      CALL g2_core.g2_errPopup(SFMT(%"Invalid User Email '%1'!", l_email))
-      CALL g2_core.g2_exitProgram(1, SFMT(%"Invalid User Email '%1'!", l_email))
+      CALL g2_core.g2_errPopup(SFMT(% "Invalid User Email '%1'!", l_email))
+      CALL g2_core.g2_exitProgram(1, SFMT("Invalid User Email '%1'!", l_email))
     ELSE
       RETURN
     END IF
@@ -24,13 +25,13 @@ FUNCTION getUser(l_key LIKE sys_users.user_key, l_email LIKE sys_users.email) RE
     LET l_key = arg_val(2)
   END IF
   IF l_key IS NULL OR l_key = 0 THEN
-    CALL g2_core.g2_exitProgram(1, %"Invalid User Id passed")
+    CALL g2_core.g2_exitProgram(1, "Invalid User Id passed")
   END IF
 
   SELECT * INTO m_user.* FROM sys_users WHERE user_key = l_key
   IF STATUS = NOTFOUND THEN
-    CALL g2_core.g2_errPopup(SFMT(%"Invalid User Key '%1'!", l_key))
-    CALL g2_core.g2_exitProgram(1, SFMT(%"Invalid User Key '%1'!", l_key))
+    CALL g2_core.g2_errPopup(SFMT(% "Invalid User Key '%1'!", l_key))
+    CALL g2_core.g2_exitProgram(1, SFMT("Invalid User Key '%1'!", l_key))
   END IF
 END FUNCTION
 --------------------------------------------------------------------------------
