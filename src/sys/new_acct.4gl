@@ -1,5 +1,6 @@
 
 IMPORT FGL g2_lib.*
+
 IMPORT FGL lib_login
 
 &include "../schema.inc"

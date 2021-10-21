@@ -3,6 +3,7 @@
 
 IMPORT os
 IMPORT util
+
 IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER = "3.2"

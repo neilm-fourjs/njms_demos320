@@ -95,7 +95,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=sqt,value:RENDERER=ur,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE):$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
+  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
     <Group id="1931904086" label="API">
       <Library binaryName="njm_cust_db" dependencies="1986" id="-1358259824" label="njm_cust_db">
         <File filePath="src/api/njm_cust_db.4gl"/>
@@ -113,20 +113,20 @@
         <File filePath="gas_deploy/njm.xcf"/>
       </Library>
     </Group>
-    <Group id="1174162370" label="Business Apps" language="Genero">
+    <Group compilerOptions="-Dgen320" id="1174162370" label="Business Apps" language="Genero">
       <Library binaryName="App_Lib" dependencies="1986,-310428106,1136561508_14000" id="-1090563702" label="App_Lib">
         <File filePath="src/app/app.inc"/>
         <File filePath="src/app/app_lib.4gl"/>
         <File filePath="src/app/combos.4gl"/>
       </Library>
-      <Application binaryName="cust_mnt" commandLineArguments="S 1" dependencies="-400184264,1986,-1090563702,-310428106,1136561508_14000" id="-1273407208" label="cust_mnt">
+      <Application binaryName="cust_mnt" commandLineArguments="S 1" compilerOptions="" dependencies="-400184264,1986,-1090563702,-310428106,1136561508_14000" id="-1273407208" label="cust_mnt">
         <File filePath="src/app/cust_mnt.4fd"/>
         <File filePath="src/app/cust_mnt.4gl"/>
       </Application>
       <Application binaryName="dm_stock" commandLineArguments="S 1" dependencies="-1557891896,-310428106,-1090563702,1136561508_14000,631779877" id="476951290" label="dm_stock">
         <File filePath="src/app/dm_stock.4gl"/>
       </Application>
-      <Application binaryName="dynMaint" commandLineArguments="S 1 njm_demo310 stock stock_code" dependencies="1986,-1090563702,-1557891896,-310428106,1136561508_14000,631779877" id="1873655788" label="dynMaint">
+      <Application binaryName="dynMaint" commandLineArguments="S 1 njm_demo310 customer customer_code" dependencies="1986,-1090563702,-1557891896,-310428106,1136561508_14000,631779877" id="1873655788" label="dynMaint">
         <File filePath="src/gl_dynMaint/dynMaint.4gl"/>
       </Application>
       <Library binaryName="lib_dynMaint" dependencies="1136561508_14000" id="631779877" label="lib_dynMaint">
@@ -156,13 +156,15 @@
         <File filePath="src/app/ordent.per"/>
         <File filePath="src/app/ordent2.per"/>
       </Application>
-      <Application binaryName="printInvoices" commandLineArguments="S 1 2 ordent-1 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
+      <Application binaryName="printInvoices" commandLineArguments="S 1 0 ordent-7 ASK preview" compilerOptions="--build-rdd" dependencies="1986,-272766546,-1155424042,-1090563702,-310428106,1136561508_14000,1136561508_-2003847556" id="-1350833088" label="printInvoices">
         <VirtualFolder label="Reports">
           <File filePath="etc/ordent-1.4rp"/>
           <File filePath="etc/ordent-2.4rp"/>
           <File filePath="etc/ordent-3.4rp"/>
           <File filePath="etc/ordent-4.4rp"/>
           <File filePath="etc/ordent-5.4rp"/>
+          <File filePath="etc/ordent-6.4rp"/>
+          <File filePath="etc/ordent-7.4rp"/>
           <File filePath="etc/ordent.4rp"/>
           <File filePath="etc/picklist.4rp"/>
         </VirtualFolder>
@@ -193,7 +195,7 @@
           <File filePath="pics/webcomponents/colour/colour.js"/>
         </VirtualFolder>
         <File filePath="src/app_web/prodmnt.4gl"/>
-        <File filePath="src/app_web/prodmnt.per"/>
+        <File filePath="src/app_web/prodmnt.4fd"/>
       </Application>
       <Application binaryName="prods" dependencies="-1155424042,-310428106,1986,1136561508_14000,1136561508_-2003847556" id="-2006546962" label="prods">
         <File filePath="src/app_web/prodlist.per"/>
@@ -395,6 +397,7 @@
       <Application binaryName="wc_richtext" dependencies="-310428106,1136561508_14000" id="-132093204" label="wc_richtext">
         <File filePath="src/demos/wc_richtext.4gl"/>
         <File filePath="src/demos/wc_richtext.per"/>
+        <File filePath="src/demos/wc_richtext_d.per"/>
       </Application>
     </Group>
     <ExtProject filePath="g2_lib/g2_lib.4pw" id="1136561508"/>
@@ -533,6 +536,7 @@
     <Package binaryName="ws_demos320_pgs" dependencies="-1861949473,367791215,1211226226" id="-2138345710" label="ws_demos320_pgs" platform="Genero Application Server">
       <DynamicProperty name="packageId" value="myapp"/>
       <DynamicProperty name="packageLabel" value="MyApp"/>
+      <Directory includedFiles="g2_*.42?" label="Bin_lib" sourceDirectory="$(ProjectDir)/njm_app_bin"/>
       <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/ws_bin320"/>
       <Directory includedFiles="profile" label="Config" sourceDirectory="$(ProjectDir)/etc/pgs"/>
       <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/gas_ws"/>

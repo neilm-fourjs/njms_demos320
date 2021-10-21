@@ -1,6 +1,14 @@
 IMPORT com
 IMPORT util
+<<<<<<< HEAD
 IMPORT FGL g2_lib.*
+=======
+IMPORT FGL g2_core
+IMPORT FGL g2_logging
+IMPORT FGL g2_db
+IMPORT FGL g2_sql
+IMPORT FGL g2_ws
+>>>>>>> origin/master
 
 &include "schema.inc"
 
@@ -25,7 +33,13 @@ END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- WEB SERVICE FUNCTIONS
 ----------------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------------------
+-- get version of service 
+PUBLIC FUNCTION getVersion()
+    ATTRIBUTES(WSGet, WSPath = "/getVersion/", WSDescription = "Get Version of Service")
+    RETURNS STRING
+  RETURN service_reply(0, "Service Version")
+END FUNCTION
 ----------------------------------------------------------------------------------------------------
 -- get a stock listing
 PUBLIC FUNCTION listStock(
