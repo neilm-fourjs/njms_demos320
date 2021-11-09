@@ -2,6 +2,7 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
+
 IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGDESC = "FontAwesome Viewer"

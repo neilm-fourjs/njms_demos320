@@ -20,7 +20,7 @@
                                 <WORDBOX name="Report Title" x="0" y="max/2" anchorX="0" anchorY="0.5" alignment="baseline" fontSize="25" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" floatingBehavior="enclosed" text="Sales Invoice"/>
                                 <WORDBOX name="printed" x="0" y="675" width="50" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" text="Printed:"/>
                                 <rtl:input-variable name="print_date" type="FGLString" expectedLocation="expectedBefore"/>
-                                <WORDBOX name="info.print_date Value" x="0" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{print_date}}"/>
+                                <DATEFORMATBOX name="info.print_date Value1" x="0" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" value="{{Date.fromString(print_date,&quot;dd/MM/yyyy&quot;)}}"/>
                                 <WORDBOX name="printedBy" x="14" y="675" width="50" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" text="By:"/>
                                 <rtl:input-variable name="rpt_user" type="FGLString" expectedLocation="expectedBefore"/>
                                 <WORDBOX name="info.rpt_user Value" x="14" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{rpt_user}}"/>
