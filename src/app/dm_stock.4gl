@@ -24,6 +24,7 @@ CONSTANT C_FIELDS_PER_PAGE = 14
 DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
 DEFINE m_db g2_db.dbInfo
+DEFINE m_init_cb t_init_cb
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -59,12 +60,11 @@ END MAIN
 -- Initialize the form by setting the defaults and comboboxes.
 FUNCTION custom_form_init()
 --TODO: fix this
-	DEFINE f_init_cb t_init_cb
-	LET f_init_cb = FUNCTION init_cb
-	CALL glm_mkForm.setComboBox("stock_cat", f_init_cb)
-	CALL glm_mkForm.setComboBox("supp_code", f_init_cb)
-	CALL glm_mkForm.setComboBox("disc_code", f_init_cb)
-	CALL glm_mkForm.setComboBox("colour_code", f_init_cb)
+	LET m_init_cb = FUNCTION init_cb
+	CALL glm_mkForm.setComboBox("stock_cat", m_init_cb)
+	CALL glm_mkForm.setComboBox("supp_code", m_init_cb)
+	CALL glm_mkForm.setComboBox("disc_code", m_init_cb)
+	CALL glm_mkForm.setComboBox("colour_code", m_init_cb)
 	CALL glm_mkForm.setWidgetProps("pack_flag", "CheckBox", "P", "", "")
 	CALL glm_mkForm.setWidgetProps("long_desc", "TextEdit", "2", "40", "both")
 	CALL glm_mkForm.hideField("cost")

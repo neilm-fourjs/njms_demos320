@@ -14,7 +14,8 @@ MAIN
   LET m_lang = fgl_getenv("LANG")
   DISPLAY m_lang TO lang
   LET m_selected_date = TODAY
-  CALL wc_calendar.init(m_selected_date, FUNCTION set_date, m_lang) -- Start
+	LET wc_calendar.m_setDateCallBack =  FUNCTION set_date
+  CALL wc_calendar.init(m_selected_date, m_lang) -- Start
   DIALOG ATTRIBUTES(UNBUFFERED)
 
     INPUT BY NAME m_selected_date ATTRIBUTES(WITHOUT DEFAULTS, NAME = "sel_date")

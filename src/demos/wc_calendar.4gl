@@ -10,8 +10,10 @@ PUBLIC DEFINE rec RECORD
 END RECORD
 
 PUBLIC TYPE t_cb_set_date FUNCTION(l_dte DATE)
+PUBLIC DEFINE m_setDateCallBack t_cb_set_date
 PUBLIC DEFINE selected_date DATE
 PUBLIC DEFINE dag_textar DICTIONARY OF STRING
+
 
 PRIVATE DEFINE cb_sdate t_cb_set_date
 PRIVATE DEFINE
@@ -27,14 +29,14 @@ PRIVATE DEFINE m_lang CHAR(2)
 #+ @param l_date The start date
 #+ @param l_setDateCallBack Function for the callback
 #+ @oaram l_lang EN or IS
-FUNCTION init(l_date DATE, l_setDateCallBack t_cb_set_date, l_lang CHAR(2)) -- Start
+FUNCTION init(l_date DATE, l_lang CHAR(2)) -- Start
 
   IF l_date IS NULL THEN
     LET l_date = TODAY
   END IF
 
   LET m_lang = upshift(NVL(l_lang, "EN"))
-  LET cb_sdate = l_setDateCallBack
+  LET cb_sdate = m_setDateCallBack
   LET wc_fglsvgcalendar.m_isHoliday = FUNCTION isHoliday -- call back for holiday tests
   CALL wc_fglsvgcalendar.initialize()
   LET cid = wc_fglsvgcalendar.create("formonly.calendar")

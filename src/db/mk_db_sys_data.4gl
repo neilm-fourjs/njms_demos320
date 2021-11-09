@@ -155,7 +155,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("oeprn", "oe", "F", "Print Picking Notes", "printInvoices picklist", "")
 
 	CALL addMenu("util", "main", "T", "Utilities", "", "")
-	CALL addMenu("util", "main", "F", "Material Design Test", "materialDesignTest", "")
+	CALL addMenu("util", "main", "F", "Material Design Test", "matDesTest", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: FontAwesome", "../utils/fontAwesome.sh def", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: FontAwesome 5", "../utils/fontAwesome.sh fa5", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: Material Design Icons", "../utils/fontAwesome.sh mdi", "")

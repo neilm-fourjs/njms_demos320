@@ -6,7 +6,7 @@ export BIN=njm_app_bin$(GENVER)
 export PROJBASE=$(PWD)
 export DBTYPE=pgs
 export GBC=gbc-clean2
-export GBCPROJDIR=/opt/fourjs/gbc-current
+export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
 export GASCFG=$(FGLASDIR)/etc/as.xcf
@@ -24,9 +24,9 @@ export LANG=en_GB.utf8
 
 TARGETS=\
 	gars\
-	gbc_clean/distbin/gbc-clean.zip\
-	gbc_njm/distbin/gbc-njm.zip\
-	gbc_mdi/distbin/gbc-mdi.zip
+#	gbc_clean/distbin/gbc-clean.zip\
+#	gbc_njm/distbin/gbc-njm.zip\
+#	gbc_mdi/distbin/gbc-mdi.zip
 
 all: $(TARGETS)
 

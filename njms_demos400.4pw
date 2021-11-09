@@ -520,8 +520,8 @@
           <Configuration id="-173169532" label="icon_2_image2font"/>
           <File filePath="src/utils/icons_2_image2font.4gl"/>
         </Application>
-        <Application binaryName="materialDesignTest" dependencies="-400184264,528729868,-310428106,1136561508_14000" id="1848127715" label="materialDesignTest">
-          <Configuration id="-1362361183" label="materialDesignTest"/>
+        <Application binaryName="matDesTest" dependencies="-400184264,528729868,-310428106,1136561508_14000" id="1848127715" label="matDesTest">
+          <Configuration id="-1362361183" label="matDesTest"/>
           <File filePath="src/utils/matDesTest.4gl"/>
           <File filePath="etc/matDesTest.4st"/>
           <File filePath="src/utils/matDesTest.per"/>
