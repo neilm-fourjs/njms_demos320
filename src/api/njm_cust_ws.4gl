@@ -17,7 +17,7 @@ PUBLIC FUNCTION list(l_token STRING ATTRIBUTE(WSParam)) ATTRIBUTES(
   ELSE
    	LET m_customers.message = "Invalid Token."
   END IF
-  RETURN m_customers.*
+  RETURN m_customers
 END FUNCTION
 --------------------------------------------------------------------------------
 #+ GET <server>/ws/r/njm/customers/get/<l_key>/<token>
@@ -33,5 +33,5 @@ PUBLIC FUNCTION get(l_key STRING ATTRIBUTE(WSParam), l_token STRING ATTRIBUTE(WS
   ELSE
    	LET m_customers.message = "Invalid Token."
   END IF
-  RETURN m_customers.*
+  RETURN m_customers
 END FUNCTION
