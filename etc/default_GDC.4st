@@ -137,9 +137,9 @@
 
 <!-- Windows -->
 
-	<Style name="Window">
+	<!--Style name="Window">
 		<StyleAttribute name="fontFamily" value="Century Gothic, Arial" />
-	</Style>
+	</Style-->
 	<Style name="Window.blue">
 		<StyleAttribute name="defaultTTFColor" value="darkblue" />
 	</Style>
