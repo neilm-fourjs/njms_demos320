@@ -5,11 +5,10 @@
 		<StyleAttribute name="defaultTTFColor" value="buttonText" />
 	</Style>
 
-	<Style name="Window">
-		<StyleAttribute name="fontFamily" value="Century Gothic, Arial" />
-		<!-- StyleAttribute name="fontFamily" value="Courier New" /-->
+	<!--Style name="Window">
+		<StyleAttribute name="fontFamily" value="Century Gothic, Arial" />->
 		<StyleAttribute name="fontSize" value="1em" />
-	</Style>
+	</Style-->
 
 	<Style name=".comic">
 		<StyleAttribute name="fontFamily" value="Comic Sans MS" />
@@ -91,12 +90,12 @@
   </Style>
 
 
-	<Style name="Table.wizard:focus">
+	<!--Style name="Table.wizard:focus">
 		<StyleAttribute name="backgroundColor" value="White" />
 	</Style>
 	<Style name="Table.wizard:active">
 		<StyleAttribute name="backgroundColor" value="Azure" />
-	</Style>
+	</Style-->
 
 	<Style name=".Arial">
 		<StyleAttribute name="fontFamily" value=" Arial" />

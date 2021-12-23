@@ -1,3 +1,4 @@
+IMPORT FGL wizard_common
 GLOBALS "wizard_glob.inc"
 DEFINE drag_source STRING
 DEFINE dnd ui.DragDrop

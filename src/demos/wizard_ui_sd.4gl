@@ -1,3 +1,4 @@
+IMPORT FGL wizard_common
 GLOBALS "wizard_glob.inc"
 FUNCTION wizard_ui_sd(l_state STRING)
   CALL upd_left()
@@ -9,6 +10,7 @@ FUNCTION wizard_ui_sd(l_state STRING)
         INPUT BY NAME currtable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED) -- Combobox
           ON CHANGE currtable
             CALL on_change_currtable()
+						CALL upd_left()
           ON ACTION goleft
             LET l_state = "left"
             EXIT INPUT

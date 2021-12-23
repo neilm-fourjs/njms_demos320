@@ -1,3 +1,4 @@
+IMPORT FGL wizard_common
 GLOBALS "wizard_glob.inc"
 FUNCTION wizard_ui_mrs()
   DIALOG ATTRIBUTE(UNBUFFERED)

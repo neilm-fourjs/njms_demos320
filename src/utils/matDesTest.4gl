@@ -7,7 +7,7 @@ IMPORT FGL g2_about
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
-CONSTANT C_PRGVER = "3.2"
+CONSTANT C_PRGVER = "3.3"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG = "smiley"
 
@@ -43,6 +43,7 @@ MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_core.g2_init(ARG_VAL(1), "matDesTest")
+	CALL ui.Interface.setText(SFMT("%1 - %2",C_PRGDESC, C_PRGVER))
 --  CALL ui.Interface.setImage("fa-bug")
 	FOR X = 1 TO 15
 		LET l_arr[x].col1 = "Row " || x
