@@ -27,15 +27,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 	OPEN WINDOW w_menu WITH FORM "menu"
 	LET l_form  = ui.Window.getCurrent().getForm()
 	LET m_prf   = "FGLPROFILE=" || fgl_getEnv("FGLPROFILE")
-	LET m_useUR = FALSE
-	IF m_prf.getIndexOf(".ur", 1) > 1 THEN
-		LET m_useUR = TRUE
-		CALL l_form.setElementImage("renderer_toggle", "fa-toggle-on")
-	END IF
-	IF NOT m_isGDC OR m_prf.getIndexOf("profile.", 1) = 0 THEN -- not got .nat or .ur on FGLPROFILE!
-		CALL l_form.setElementHidden("renderer_toggle", TRUE)
-		CALL l_form.setElementHidden("l_renderer", TRUE)
-	END IF
+	LET m_useUR = TRUE
 
 	DISPLAY l_logo TO logo
 	CALL ui.Interface.setText(l_appInfo.progDesc)
@@ -80,16 +72,6 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 				IF quit() THEN
 					LET int_flag = TRUE
 					EXIT DISPLAY
-				END IF
-
-			ON ACTION renderer_toggle
-				LET m_useUR = NOT m_useUR
-				IF m_useUR THEN
-					CALL swap_nat_ur("ur")
-					CALL l_form.setElementImage("renderer_toggle", "fa-toggle-on")
-				ELSE
-					CALL swap_nat_ur("nat")
-					CALL l_form.setElementImage("renderer_toggle", "fa-toggle-off")
 				END IF
 
 			ON ACTION back
