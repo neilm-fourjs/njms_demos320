@@ -1,0 +1,44 @@
+LAYOUT (TEXT="Image Gallery")
+VBOX
+GRID
+{
+[gt            |f1        |sz   |f2       |f3   ]
+[sl            |f5           ]
+[cu            |f4   ]
+}
+END -- GRID
+GRID
+{
+[wc1                              ]
+[                                 ]
+[                                 ]
+[                                 ]
+[                                 ]
+[                                 ]
+[                                 ]
+[                                 ]
+}
+END -- GRID
+END -- VBOX
+ATTRIBUTES
+LABEL gt : gt, TEXT="Gallery Type:", JUSTIFY=RIGHT;
+LABEL sz : sz, TEXT="Size:", JUSTIFY=RIGHT;
+LABEL sl : sl, TEXT="Selection:", JUSTIFY=RIGHT;
+LABEL cu : cu, TEXT="Current:",JUSTIFY=RIGHT;
+COMBOBOX f1 = FORMONLY.gallery_type, NOT NULL,
+         INITIALIZER=display_type_init;
+COMBOBOX f2 = FORMONLY.gallery_size, NOT NULL,
+         INITIALIZER=display_size_init;
+COMBOBOX f3 = FORMONLY.aspect_ratio, NOT NULL,
+         INITIALIZER=aspect_ratio_init;
+EDIT f4 = FORMONLY.current;
+CHECKBOX f5 = FORMONLY.multi_sel, NOT NULL,
+         TEXT="MultiSel",
+         VALUECHECKED=TRUE, VALUEUNCHECKED=FALSE;
+
+WEBCOMPONENT wc1 = FORMONLY.gallery_wc,
+         COMPONENTTYPE = "fglgallery",
+         PROPERTIES=(selection="image_selection"),
+         SIZEPOLICY = FIXED,
+         STRETCH = BOTH;
+END

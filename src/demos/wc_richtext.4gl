@@ -20,17 +20,12 @@ MAIN
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
-  LET l_tmp = "env | sort" -- > /tmp/env."||fgl_getPID()
-  DISPLAY "RUN: " || l_tmp
-  RUN l_tmp
-
   LET l_rec.fileName = "text.html"
 
   LET l_rec.richtext = C_DEF
   LET l_rec.info = "Default Text"
 
   OPTIONS INPUT WRAP, FIELD ORDER FORM
-
   OPEN FORM f1 FROM "wc_richtext"
   DISPLAY FORM f1
 

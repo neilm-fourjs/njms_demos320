@@ -82,6 +82,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("wcdemo", "demo", "F", "Remote Music Player", "wc_music", "")
 	CALL addMenu("wcdemo", "demo", "F", "Calendar", "wc_calendar_demo", "")
 	CALL addMenu("wcdemo", "demo", "F", "Richtext", "wc_richtext", "")
+	CALL addMenu("wcdemo", "demo", "F", "Gallery", "wc_gallery", "")
 
 	CALL addMenu("webapp", "main", "T", "Web Application Demos", "", "")
 	CALL addMenu("webapp", "main", "F", "Customers", "custs", "")
