@@ -18,4 +18,4 @@ fi
 if [ "$1" == "mdi" ]; then
 	export FGLIMAGEPATH=../pics/image2font2.txt:../pics
 fi
-fglrun fontAwesome.42r S $1
+fglrun fontAwesome S $1

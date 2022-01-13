@@ -28,6 +28,9 @@
 	<Style name=".noNavDots">
 		<StyleAttribute name="navigationDots" value="no" />
 	</Style>
+	<Style name=".green">
+		<StyleAttribute name="backgroundColor" value="green" />
+	</Style>
 
 	<Style name=".hidden">
 		<StyleAttribute name="border" value="none" />
@@ -156,7 +159,9 @@
   <Style name="Table.disparr:summaryLine">
     <StyleAttribute name="backgroundColor" value="#abd8eb"/>
   </Style>
-
+	<Style name="Table.noheading">
+		<StyleAttribute name="headerHidden" value="yes" />
+	</Style>
 <!-- Windows -->
 
 	<Style name="Window.blue">
