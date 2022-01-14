@@ -8,11 +8,13 @@
 
 IMPORT util
 
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_db
 IMPORT FGL g2_aui
 IMPORT FGL g2_lookup
+IMPORT FGL g2_debug
 IMPORT FGL widgets_charts
 IMPORT FGL widgets_clock
 
@@ -100,7 +102,7 @@ MAIN
   DEFINE f ui.Form
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "widgets")
+  CALL g2_init.g2_init(ARG_VAL(1), "widgets")
 
   GL_DBGMSG(2, "init_genero, done.")
   WHENEVER ANY ERROR CALL g2_core.g2_error

@@ -1,4 +1,6 @@
+
 IMPORT FGL g2_core
+IMPORT FGL g2_init
 IMPORT FGL g2_db
 IMPORT FGL g2_sql
 IMPORT FGL g2_ui
@@ -18,7 +20,7 @@ MAIN
 	DEFINE l_keyField STRING = "customer_code"
 	DEFINE l_new BOOLEAN = FALSE
 
-  CALL g2_core.g2_init(ARG_VAL(1), NULL)
+  CALL g2_init.g2_init(ARG_VAL(1), NULL)
   CALL l_db.g2_connect(NULL)
   CALL combos.dummy()
 

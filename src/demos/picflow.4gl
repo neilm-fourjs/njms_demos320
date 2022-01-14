@@ -1,5 +1,6 @@
 IMPORT os
 
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
@@ -30,7 +31,7 @@ MAIN
 	DEFINE n om.domNode
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "picflow")
+	CALL g2_init.g2_init(ARG_VAL(1), "picflow")
 
 	DISPLAY "FGLSERVER:", fgl_getenv("FGLSERVER")
 	DISPLAY "FGLIMAGEPATH:", fgl_getenv("FGLIMAGEPATH")

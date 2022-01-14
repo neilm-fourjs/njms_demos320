@@ -1,5 +1,8 @@
+
 IMPORT util
 IMPORT os
+
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
@@ -32,7 +35,7 @@ DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_data STRING
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   LET m_base = fgl_getenv("MUSICDIR")
 

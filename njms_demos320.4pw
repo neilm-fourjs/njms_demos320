@@ -229,20 +229,7 @@
       </Library>
     </Group>
     <Group id="1989900296" label="Demos MD Wizard">
-      <Application binaryName="wizard1_sd" dependencies="-1757926610" id="1486280688" label="wizard1_sd">
-        <File filePath="src/demos/wizard_main_sd.4gl"/>
-        <File filePath="src/demos/wizard_sd.per"/>
-        <File filePath="src/demos/wizard_ui_sd.4gl"/>
-      </Application>
-      <Application binaryName="wizard2_md" dependencies="-1757926610" id="-1964806629" label="wizard2_md">
-        <File filePath="src/demos/wizard_main_md.4gl"/>
-        <File filePath="src/demos/wizard_ui_md.4gl"/>
-      </Application>
-      <Application binaryName="wizard3_mrs" dependencies="-1757926610" id="1320948536" label="wizard3_mrs">
-        <File filePath="src/demos/wizard_main_mrs.4gl"/>
-        <File filePath="src/demos/wizard_ui_mrs.4gl"/>
-      </Application>
-      <Application binaryName="wizard4_dnd" dependencies="-1757926610" id="985734158" label="wizard4_dnd">
+      <Application binaryName="wizard_dnd" dependencies="-1757926610" id="985734158" label="wizard_dnd">
         <File filePath="src/demos/wizard_main_dnd.4gl"/>
         <File filePath="src/demos/wizard_ui_dnd.4gl"/>
       </Application>
@@ -251,6 +238,19 @@
         <File filePath="src/demos/wizard_glob.inc"/>
         <File filePath="src/demos/wizard_md.per"/>
       </Library>
+      <Application binaryName="wizard_md" dependencies="-1757926610" id="-1964806629" label="wizard_md">
+        <File filePath="src/demos/wizard_main_md.4gl"/>
+        <File filePath="src/demos/wizard_ui_md.4gl"/>
+      </Application>
+      <Application binaryName="wizard_mrs" dependencies="-1757926610" id="1320948536" label="wizard_mrs">
+        <File filePath="src/demos/wizard_main_mrs.4gl"/>
+        <File filePath="src/demos/wizard_ui_mrs.4gl"/>
+      </Application>
+      <Application binaryName="wizard_sd" dependencies="-1757926610" id="1486280688" label="wizard_sd">
+        <File filePath="src/demos/wizard_main_sd.4gl"/>
+        <File filePath="src/demos/wizard_sd.per"/>
+        <File filePath="src/demos/wizard_ui_sd.4gl"/>
+      </Application>
     </Group>
     <Group id="-101414127" label="Demos UI" language="Genero">
       <Application binaryName="dispArr" commandLineArguments="S 1 A" dependencies="-310428106,-400184264,1136561508_14000" id="62326091" label="dispArr">

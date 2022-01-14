@@ -2,6 +2,8 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
+
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_about
 
@@ -60,7 +62,7 @@ MAIN
 	DEFINE l_filter STRING
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_core.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 
 	OPEN FORM f FROM "fontAwesome"
 	DISPLAY FORM f

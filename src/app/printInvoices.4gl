@@ -12,6 +12,7 @@
 
 IMPORT os
 
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_db
@@ -43,7 +44,7 @@ MAIN
 	DEFINE x SMALLINT
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_core.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(ARG_VAL(1), "default")
 
 	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getEnv("GREOUTPUTDIR")
   CALL m_db.g2_connect(NULL)

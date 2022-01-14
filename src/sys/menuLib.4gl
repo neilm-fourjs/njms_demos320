@@ -1,7 +1,10 @@
 IMPORT os
+
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
+IMPORT FGL g2_logging
 IMPORT FGL lib_login
 
 &include "schema.inc"
@@ -261,7 +264,7 @@ FUNCTION quit() RETURNS BOOLEAN
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION run_withoutWaiting(l_cmd STRING)
-	CALL g2_core.g2_log.logit("RUN: " || NVL(l_cmd, "NULL!"))
+	CALL g2_init.g2_log.logit("RUN: " || NVL(l_cmd, "NULL!"))
 	RUN l_cmd WITHOUT WAITING
 END FUNCTION
 --------------------------------------------------------------------------------

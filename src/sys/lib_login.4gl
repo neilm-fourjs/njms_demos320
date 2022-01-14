@@ -4,15 +4,18 @@
 
 IMPORT os
 IMPORT util
+
+IMPORT FGL g2_init
 IMPORT FGL g2_core
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 IMPORT FGL g2_secure
+IMPORT FGL g2_logging
+IMPORT FGL g2_debug
 &include "g2_debug.inc"
 &include "schema.inc"
 &include "app.inc"
 &include "OpenIdLogin.inc"
-
 
 -- Callback function for creating a new account.
 TYPE f_new_account
@@ -57,7 +60,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
     LET l_allow_new = FALSE
   END IF
   LET INT_FLAG = FALSE
-  CALL g2_core.g2_log.logIt("Allow New:" || l_allow_new || " Ver:" || l_ver)
+  CALL g2_init.g2_log.logIt("Allow New:" || l_allow_new || " Ver:" || l_ver)
   OPTIONS INPUT NO WRAP
 
   OPEN WINDOW login WITH FORM "login"
@@ -77,7 +80,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
     LET l_theme = l_cur_theme
   END IF
   LET l_login = fgl_getenv("OPENID_email")
-  CALL g2_core.g2_log.logIt("before input for login")
+  CALL g2_init.g2_log.logIt("before input for login")
   INPUT BY NAME l_login, l_pass, l_theme ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
     BEFORE INPUT
       LET f = DIALOG.getForm()
@@ -158,7 +161,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
     END IF
   END IF
 
-  CALL g2_core.g2_log.logIt("after input for login:" || l_login)
+  CALL g2_init.g2_log.logIt("after input for login:" || l_login)
   CALL fgl_setenv("APPUSER", l_login)
   CALL l_appInfo.setUserName(l_login)
   RETURN l_login
@@ -196,7 +199,7 @@ PRIVATE FUNCTION validate_login(
 -- does account exist?
   SELECT * INTO l_acc.* FROM sys_users WHERE email = l_login
   IF STATUS = NOTFOUND THEN
-    CALL g2_core.g2_log.logIt("No account for:" || l_login)
+    CALL g2_init.g2_log.logIt("No account for:" || l_login)
     CALL audit_login(l_login, "A")
     RETURN FALSE
   END IF
@@ -221,7 +224,7 @@ PRIVATE FUNCTION validate_login(
 -- Has the password expired?
   IF l_acc.pass_expire IS NOT NULL AND l_acc.pass_expire > DATE("01/01/1990") THEN
     IF l_acc.pass_expire <= TODAY THEN
-      CALL g2_core.g2_log.logIt("Password has expired:" || l_acc.pass_expire)
+      CALL g2_init.g2_log.logIt("Password has expired:" || l_acc.pass_expire)
       CALL g2_core.g2_errPopup(% "Your password has expired!\nYou will need to create a new one!")
       LET l_acc.forcepwchg = "Y"
     END IF
@@ -268,7 +271,7 @@ PRIVATE FUNCTION forgotten(l_login LIKE sys_users.email)
     RETURN
   END IF
 
-  CALL g2_core.g2_log.logIt("Password regenerated for:" || l_login)
+  CALL g2_init.g2_log.logIt("Password regenerated for:" || l_login)
 
   LET l_acc.pass_expire = TODAY + 2
   LET l_acc.login_pass = g2_secure.g2_genPassword()
@@ -297,12 +300,12 @@ PRIVATE FUNCTION forgotten(l_login LIKE sys_users.email)
           || "\" \""
           || NVL(l_body, "NULLBODY")
           || "\" 2> "
-          || os.path.join(g2_core.g2_log.getLogDir(), "sendemail.err")
+          || os.path.join(g2_init.g2_log.getLogDir(), "sendemail.err")
   --DISPLAY "CMD:",NVL(l_cmd,"NULL")
   ERROR "Sending Email, please wait ..."
   CALL ui.interface.refresh()
   RUN l_cmd RETURNING l_ret
-  CALL g2_core.g2_log.logIt("Sendmail return:" || NVL(l_ret, "NULL"))
+  CALL g2_init.g2_log.logIt("Sendmail return:" || NVL(l_ret, "NULL"))
   IF l_ret = 0 THEN -- email send okay
     UPDATE sys_users
         SET (salt, pass_hash, forcepwchg, pass_expire)
