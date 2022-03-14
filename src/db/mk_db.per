@@ -1,24 +1,41 @@
 
-LAYOUT (TEXT="MK DB", STYLE="dialog")
+LAYOUT (TEXT="MK DB", STYLE="main2")
+VBOX
 GRID
 {
-[stat                                                                          ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
-[                                                                              ]
+[info                                                                                                          ]
 }
 END -- GRID
+TABLE ( STYLE="menu" )
+{
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+[stat                                                                                                          ]
+}
+END -- TABLE
+GRID
+{
+[done]
+}
+END -- GRID
+END -- VBOX
 
 ATTRIBUTES
-TEXTEDIT stat = FORMONLY.m_stat, STRETCH=BOTH;
+LABEL info = FORMONLY.info;
+stat = FORMONLY.stat, SCROLL;
+BUTTON done : done, TEXT=%"Done";
+INSTRUCTIONS
+SCREEN RECORD stat [16] ( FORMONLY.stat )

@@ -35,6 +35,8 @@
 	<Style name=".hidden">
 		<StyleAttribute name="border" value="none" />
 		<StyleAttribute name="fontSize" value="1pt" />
+		<StyleAttribute name="textColor" value="transparent" />
+		<StyleAttribute name="backgroundColor" value="transparent" />
 	</Style>
 	<Style name=".heading">
 		<StyleAttribute name="fontSize" value="1.6em" />

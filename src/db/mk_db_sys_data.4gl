@@ -9,10 +9,7 @@ CONSTANT C_DEF_USER_PASSWD = "T3st.T3st"
 DEFINE m_mkey, m_ukey, m_rkey INTEGER
 DEFINE m_file STRING
 --------------------------------------------------------------------------------
-FUNCTION insert_system_data()
-	DEFINE l_db STRING
-
-	LET l_db = fgl_getenv("DBNAME")
+FUNCTION insert_system_data(l_db STRING)
 
 	CALL mkdb_progress("Loading system users / menus ...")
 
@@ -58,7 +55,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("demo", "main", "T", "UI Demo Programs", "", "")
 	CALL addMenu("demo", "main", "F", "Widgets Demo", "widgets", "")
 	CALL addMenu("demo", "main", "F", "ipodTree Demo", "ipodTree", "")
---	CALL addMenu("demo", "main", "F", "picFlow Demo", "picFlow", "")
+	--CALL addMenu("demo", "main", "F", "picFlow Demo", "picFlow", "")
 	CALL addMenu("demo", "main", "F", "Display Array Demo 1", "dispArr A", "")
 	CALL addMenu("demo", "main", "F", "Display Array Demo 2", "dispArr B", "")
 	CALL addMenu("demo", "main", "F", "Input Array Expenses Demo", "expenses", "")

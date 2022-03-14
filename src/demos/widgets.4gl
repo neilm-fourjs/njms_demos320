@@ -88,7 +88,6 @@ DEFINE g_frm ui.Form
 DEFINE cnt SMALLINT
 DEFINE scal SMALLINT
 DEFINE f_n om.domNode
-DEFINE m_dbname VARCHAR(20)
 DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE tmp STRING
@@ -100,8 +99,6 @@ MAIN
 
   GL_DBGMSG(2, "init_genero, done.")
   WHENEVER ANY ERROR CALL g2_core.g2_error
-
-  LET m_dbname = fgl_getenv("DBNAME")
 
   CLOSE WINDOW SCREEN
   GL_DBGMSG(2, "done - Close window screen.")
@@ -312,8 +309,8 @@ MAIN
 
       ON ACTION gl_lookup
         IF NOT db_opened THEN
-          CALL m_db.g2_connect(m_dbname)
-          MESSAGE "DB Open:", m_dbname
+          CALL m_db.g2_connect(NULL)
+          MESSAGE "DB Open:", m_db.name
           LET db_opened = TRUE
         END IF
 

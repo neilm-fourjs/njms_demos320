@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="31409" version="6.00">
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40003" version="7.00">
     <report:Settings RWPageWidth="a4length" RWPageLength="a4width" RWLeftMargin="0.5cm" RWTopMargin="1.0cm" RWRightMargin="0.5cm" RWBottomMargin="1.0cm">
         <report:FormatList>
             <report:Format-SVG/>
@@ -25,57 +25,55 @@
                                 <rtl:input-variable name="rpt_user" type="FGLString" expectedLocation="expectedBefore"/>
                                 <WORDBOX name="info.rpt_user Value" x="14" y="730" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{rpt_user}}"/>
                                 <WORDBOX name="inv_cap" x="40.0846" y="41.8726" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Invoice No:"/>
-                                <rtl:input-variable name="r_ordhead.order_number" type="FGLNumeric" expectedLocation="expectedHere"/>
-                                <DECIMALFORMATBOX name="r_ordhead.order_number Value" x="40" y="112" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" format="--------#" value="{{r_ordhead.order_number}}"/>
+                                <rtl:input-variable name="r_ordHead.order_number" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="r_ordHead.order_number Value" x="40" y="112" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" format="--------#" value="{{r_ordHead.order_number}}"/>
                                 <WORDBOX name="ref_cap" x="40" y="430" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Reference:"/>
-                                <rtl:input-variable name="r_ordhead.order_ref" type="FGLString" expectedLocation="expectedHere"/>
-                                <WORDWRAPBOX name="r_ordhead.order_ref Value" x="40.0846" y="506.937" width="249.142" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.order_ref}}"/>
-                                <WORDBOX name="r_ordhead.company_name Caption" x="58" y="40" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Customer:"/>
-                                <rtl:input-variable name="r_ordhead.customer_code" type="FGLString" expectedLocation="expectedHere"/>
-                                <rtl:input-variable name="r_ordhead.customer_name" type="FGLString" expectedLocation="expectedHere"/>
-                                <WORDBOX name="customer_code Value" x="58" y="112" width="290" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.customer_code+&quot; &quot;+r_ordhead.customer_name}}"/>
-                                <WORDBOX name="r_ordhead.order_datetime Caption" x="58" y="430" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Order Date:"/>
-                                <rtl:input-variable name="r_ordhead.order_datetime" type="FGLString" expectedLocation="expectedHere"/>
-                                <WORDBOX name="r_ordhead.order_datetime Value" x="58.3436" y="506.937" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.order_datetime}}"/>
+                                <rtl:input-variable name="r_ordHead.order_ref" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDWRAPBOX name="r_ordHead.order_ref Value" x="40.0846" y="506.937" width="249.142" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.order_ref}}"/>
+                                <WORDBOX name="r_ordHead.company_name Caption" x="58" y="40" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Customer:"/>
+                                <rtl:input-variable name="r_ordHead.customer_code" type="FGLString" expectedLocation="expectedHere"/>
+                                <rtl:input-variable name="r_ordHead.customer_name" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="customer_code Value" x="58" y="112" width="290" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.customer_code+&quot; &quot;+r_ordHead.customer_name}}"/>
+                                <WORDBOX name="r_ordHead.order_datetime Caption" x="58" y="430" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Order Date:"/>
+                                <rtl:input-variable name="r_ordHead.order_datetime" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="r_ordHead.order_datetime Value" x="58.3436" y="506.937" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.order_datetime}}"/>
                                 <LAYOUTNODE name="Addresses" x="80" y="max*.05" width="105" length="max*.9" layoutDirection="leftToRight" floatingBehavior="enclosed">
                                     <MINIPAGE name="Del" width="max/2.1" length="max" alignment="near" roundedCorners="true" borderWidth="1" borderStyle="solid">
                                         <WORDBOX name="del Caption" x="0" y="0" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Deliever To:"/>
-                                        <rtl:input-variable name="r_ordhead.del_address1" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.del_address1 Value" x="20" y="20" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.del_address1}}"/>
-                                        <rtl:input-variable name="r_ordhead.del_address2" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.del_address2 Value_1" x="20" y="40" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.del_address2}}"/>
-                                        <rtl:input-variable name="r_ordhead.del_address3" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.del_address3 Value_1" x="20" y="60" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.del_address3}}"/>
-                                        <rtl:input-variable name="r_ordhead.del_address4" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.del_address4 Value_2" x="20" y="80" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.del_address4}}"/>
+                                        <rtl:input-variable name="r_ordHead.del_address1" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.del_address1 Value" x="20" y="20" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.del_address1}}"/>
+                                        <rtl:input-variable name="r_ordHead.del_address2" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.del_address2 Value_1" x="20" y="40" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.del_address2}}"/>
+                                        <rtl:input-variable name="r_ordHead.del_address3" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.del_address3 Value_1" x="20" y="60" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.del_address3}}"/>
+                                        <rtl:input-variable name="r_ordHead.del_address4" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.del_address4 Value_2" x="20" y="80" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.del_address4}}"/>
                                     </MINIPAGE>
                                     <MINIPAGE name="MiniPage11" width="max*.05" length="max"/>
                                     <MINIPAGE name="Inv" width="max/2.1" length="max" alignment="near" roundedCorners="true" borderWidth="1" borderStyle="solid">
                                         <WORDBOX name="inv Caption" x="0" y="0" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="Invoice To:"/>
-                                        <rtl:input-variable name="r_ordhead.inv_address1" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.inv_address1 Value_3" x="20" y="20" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.inv_address1}}"/>
-                                        <rtl:input-variable name="r_ordhead.inv_address2" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.inv_address2 Value_4" x="20" y="40" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.inv_address2}}"/>
-                                        <rtl:input-variable name="r_ordhead.inv_address3" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.inv_address3 Value_5" x="20" y="60" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.inv_address3}}"/>
-                                        <rtl:input-variable name="r_ordhead.inv_address4" type="FGLString" expectedLocation="expectedHere"/>
-                                        <WORDWRAPBOX name="r_ordhead.inv_address4 Value_6" x="20" y="80" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.inv_address4}}"/>
+                                        <rtl:input-variable name="r_ordHead.inv_address1" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.inv_address1 Value_3" x="20" y="20" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.inv_address1}}"/>
+                                        <rtl:input-variable name="r_ordHead.inv_address2" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.inv_address2 Value_4" x="20" y="40" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.inv_address2}}"/>
+                                        <rtl:input-variable name="r_ordHead.inv_address3" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.inv_address3 Value_5" x="20" y="60" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.inv_address3}}"/>
+                                        <rtl:input-variable name="r_ordHead.inv_address4" type="FGLString" expectedLocation="expectedHere"/>
+                                        <WORDWRAPBOX name="r_ordHead.inv_address4 Value_6" x="20" y="80" width="255.78" length="16.4594" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordHead.inv_address4}}"/>
                                     </MINIPAGE>
                                 </LAYOUTNODE>
-                                <rtl:input-variable name="l_bool" type="FGLNumeric" expectedLocation="expectedBefore"/>
-                                <WORDBOX name="l_bool Value1" class="grwNumericValue" x="14" y="585.781" anchorX="0" anchorY="1" floatingBehavior="enclosed" textAlignment="right" text="{{l_bool==1?&quot;True&quot;:&quot;False&quot;}}"/>
                             </MINIPAGE>
                             <MINIPAGE name="Detail Headings" width="min" length="max" fontSize="12" layoutDirection="leftToRight" swapX="false" floatingBehavior="enclosed">
                                 <WORDBOX name="Spacer" alignment="baseline" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" port="itemSeparator" text=" "/>
-                                <WORDBOX name="r_detailline.product_code Caption" width="width(&quot;M&quot;)*8" alignment="baseline" floatingBehavior="enclosed" text="Product"/>
-                                <WORDBOX name="r_detailline.description Caption" width="width(&quot;M&quot;)*30" alignment="baseline" floatingBehavior="enclosed" text="Description"/>
-                                <WORDBOX name="r_detailline.price Caption" width="width(&quot;000,000.00&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" text="Price"/>
-                                <rtl:input-variable name="r_detailline.quantity" type="FGLNumeric" expectedLocation="expectedAhead"/>
-                                <WORDBOX name="r_detailline.quantity Caption" width="{max(width(&quot;{r_detailline.quantity.caption}&quot;),width(&quot;-0000000000&quot;))}" alignment="far" floatingBehavior="enclosed" textAlignment="right" text="Qty"/>
-                                <WORDBOX name="r_detailline.disc_percent Caption" width="width(&quot;000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" text="Disc%"/>
-                                <WORDBOX name="r_detailline.disc_value Caption" width="width(&quot;000,000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" text="Disc Val"/>
-                                <rtl:input-variable name="r_detailline.nett_value" type="FGLNumeric" expectedLocation="expectedAhead"/>
-                                <WORDBOX name="r_detailline.total Caption" width="{max(width(&quot;{r_detailline.nett_value.caption}&quot;),width(&quot;000,000,000.00&quot;))}" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" text="Nett Total"/>
+                                <WORDBOX name="r_detailLine.product_code Caption" width="width(&quot;M&quot;)*8" alignment="baseline" floatingBehavior="enclosed" text="Product"/>
+                                <WORDBOX name="r_detailLine.description Caption" width="width(&quot;M&quot;)*30" alignment="baseline" floatingBehavior="enclosed" text="Description"/>
+                                <WORDBOX name="r_detailLine.price Caption" width="width(&quot;000,000.00&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" text="Price"/>
+                                <rtl:input-variable name="r_detailLine.quantity" type="FGLNumeric" expectedLocation="expectedAhead"/>
+                                <WORDBOX name="r_detailLine.quantity Caption" width="{max(width(&quot;{r_detailLine.quantity.caption}&quot;),width(&quot;-0000000000&quot;))}" alignment="far" floatingBehavior="enclosed" textAlignment="right" text="Qty"/>
+                                <WORDBOX name="r_detailLine.disc_percent Caption" width="width(&quot;000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" text="Disc%"/>
+                                <WORDBOX name="r_detailLine.disc_value Caption" width="width(&quot;000,000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" text="Disc Val"/>
+                                <rtl:input-variable name="r_detailLine.nett_value" type="FGLNumeric" expectedLocation="expectedAhead"/>
+                                <WORDBOX name="r_detailLine.total Caption" width="{max(width(&quot;{r_detailLine.nett_value.caption}&quot;),width(&quot;000,000,000.00&quot;))}" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" text="Nett Total"/>
                             </MINIPAGE>
                             <MINIPAGE name="Separator" width="1" length="max" alignment="near" bgColor="#000000" layoutDirection="leftToRight" swapX="false" floatingBehavior="enclosed"/>
                         </LAYOUTNODE>
@@ -88,20 +86,20 @@
                             <rtl:match name="OnEveryRow" nameConstraint="OnEveryRow" minOccurs="0" maxOccurs="unbounded">
                                 <MINIPAGE name="Detail Lines" width="min" length="max" fontSize="12" layoutDirection="leftToRight" swapX="false">
                                     <WORDBOX name="Spacer_1" alignment="baseline" layoutDirection="topToBottom" swapX="false" baselineType="leftleft" port="itemSeparator" text=" "/>
-                                    <rtl:input-variable name="r_detailline.stock_code" type="FGLString" expectedLocation="expectedHere"/>
-                                    <WORDBOX name="stock_code Value" width="width(&quot;M&quot;)*8" alignment="baseline" floatingBehavior="enclosed" text="{{r_detailline.stock_code}}"/>
-                                    <rtl:input-variable name="r_detailline.description" type="FGLString" expectedLocation="expectedHere"/>
-                                    <WORDBOX name="r_detailline.description Value" width="width(&quot;M&quot;)*30" alignment="baseline" floatingBehavior="enclosed" text="{{r_detailline.description}}"/>
-                                    <rtl:input-variable name="r_detailline.price" type="FGLNumeric" expectedLocation="expectedHere"/>
-                                    <DECIMALFORMATBOX name="r_detailline.price Value" width="width(&quot;000,000.00&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailline.price}}"/>
-                                    <rtl:input-variable name="r_detailline.quantity" type="FGLNumeric" expectedLocation="expectedHere"/>
-                                    <DECIMALFORMATBOX name="r_detailline.quantity Value" width="width(&quot;-0000000000&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" format="--------#" value="{{r_detailline.quantity}}"/>
-                                    <rtl:input-variable name="r_detailline.disc_percent" type="FGLNumeric" expectedLocation="expectedHere"/>
-                                    <DECIMALFORMATBOX name="r_detailline.disc_percent Value" width="width(&quot;000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailline.disc_percent}}"/>
-                                    <rtl:input-variable name="r_detailline.disc_value" type="FGLNumeric" expectedLocation="expectedHere"/>
-                                    <DECIMALFORMATBOX name="r_detailline.disc_value Value" width="width(&quot;000,000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailline.disc_value}}"/>
-                                    <rtl:input-variable name="r_detailline.nett_value" type="FGLNumeric" expectedLocation="expectedHere"/>
-                                    <DECIMALFORMATBOX name="r_detailline.total Value" width="width(&quot;000,000,000.00&quot;)" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailline.nett_value}}"/>
+                                    <rtl:input-variable name="r_detailLine.stock_code" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDBOX name="stock_code Value" width="width(&quot;M&quot;)*8" alignment="baseline" floatingBehavior="enclosed" text="{{r_detailLine.stock_code}}"/>
+                                    <rtl:input-variable name="r_detailLine.description" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDBOX name="r_detailLine.description Value" width="width(&quot;M&quot;)*30" alignment="baseline" floatingBehavior="enclosed" text="{{r_detailLine.description}}"/>
+                                    <rtl:input-variable name="r_detailLine.price" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailLine.price Value" width="width(&quot;000,000.00&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailLine.price}}"/>
+                                    <rtl:input-variable name="r_detailLine.quantity" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailLine.quantity Value" width="width(&quot;-0000000000&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" format="--------#" value="{{r_detailLine.quantity}}"/>
+                                    <rtl:input-variable name="r_detailLine.disc_percent" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailLine.disc_percent Value" width="width(&quot;000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailLine.disc_percent}}"/>
+                                    <rtl:input-variable name="r_detailLine.disc_value" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailLine.disc_value Value" width="width(&quot;000,000.00&quot;)" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailLine.disc_value}}"/>
+                                    <rtl:input-variable name="r_detailLine.nett_value" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailLine.total Value" width="width(&quot;000,000,000.00&quot;)" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_detailLine.nett_value}}"/>
                                 </MINIPAGE>
                             </rtl:match>
                         </rtl:match>
@@ -111,13 +109,13 @@
                             <WORDBOX name="tot1" width="width(&quot;M&quot;)*8" alignment="baseline" floatingBehavior="enclosed" textAlignment="right"/>
                             <WORDBOX name="tot6" width="width(&quot;M&quot;)*30" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" text="Totals:"/>
                             <WORDBOX name="tot1_1" width="width(&quot;000,000.00&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right"/>
-                            <rtl:input-variable name="r_ordhead.total_qty" type="FGLNumeric" expectedLocation="expectedBefore"/>
-                            <DECIMALFORMATBOX name="r_ordhead.total_qty Value" width="width(&quot;-0000000000&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" format="--------#" value="{{r_ordhead.total_qty}}"/>
+                            <rtl:input-variable name="r_ordHead.total_qty" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                            <DECIMALFORMATBOX name="r_ordHead.total_qty Value" width="width(&quot;-0000000000&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right" format="--------#" value="{{r_ordHead.total_qty}}"/>
                             <WORDBOX name="tot1_2" width="width(&quot;000.00&quot;)" alignment="baseline" floatingBehavior="enclosed" textAlignment="right"/>
-                            <rtl:input-variable name="r_ordhead.total_disc" type="FGLNumeric" expectedLocation="expectedBefore"/>
-                            <DECIMALFORMATBOX name="r_ordhead.total_disc Value" width="width(&quot;000,000.00&quot;)" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_ordhead.total_disc}}"/>
-                            <rtl:input-variable name="r_ordhead.total_nett" type="FGLNumeric" expectedLocation="expectedBefore"/>
-                            <DECIMALFORMATBOX name="r_ordhead.total_nett Value" width="width(&quot;000,000,000.00&quot;)" alignment="near" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_ordhead.total_nett}}"/>
+                            <rtl:input-variable name="r_ordHead.total_disc" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                            <DECIMALFORMATBOX name="r_ordHead.total_disc Value" width="width(&quot;000,000.00&quot;)" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_ordHead.total_disc}}"/>
+                            <rtl:input-variable name="r_ordHead.total_nett" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                            <DECIMALFORMATBOX name="r_ordHead.total_nett Value" width="width(&quot;000,000,000.00&quot;)" alignment="near" floatingBehavior="enclosed" textAlignment="right" format="###,###,##&amp;.&amp;&amp;" value="{{r_ordHead.total_nett}}"/>
                         </MINIPAGE>
                     </MINIPAGE>
                 </rtl:match>
