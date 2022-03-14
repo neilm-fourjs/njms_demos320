@@ -5,7 +5,7 @@ PUBLIC DEFINE m_stat DYNAMIC ARRAY OF STRING
 FUNCTION mkdb_progress(l_mess STRING)
 	DEFINE x SMALLINT
 	LET x = m_stat.getLength() + 1
-  LET l_mess = CURRENT, ":", NVL(l_mess, "NULL!")
+  LET l_mess = CURRENT, ": ", NVL(l_mess, "NULL!")
   LET m_stat[x] = l_mess
   DISPLAY l_mess
   DISPLAY ARRAY m_stat TO stat.*
