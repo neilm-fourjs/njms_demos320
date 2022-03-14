@@ -22,7 +22,7 @@ FUNCTION mkdb_showProgress()
 			CALL DIALOG.setCurrentRow("stat", m_stat.getLength())
 		ON ACTION close
 			EXIT DISPLAY
-		ON ACTION done ATTRIBUTES(TEXT = "Done")
+		ON ACTION done
 			EXIT DISPLAY
 	END DISPLAY
 END FUNCTION

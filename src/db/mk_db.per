@@ -1,5 +1,5 @@
 
-LAYOUT (TEXT="MK DB", STYLE="dialog")
+LAYOUT (TEXT="MK DB", STYLE="main2")
 VBOX
 GRID
 {
@@ -26,11 +26,16 @@ TABLE ( STYLE="menu" )
 [stat                                                                                                          ]
 }
 END -- TABLE
+GRID
+{
+[done]
+}
+END -- GRID
 END -- VBOX
 
 ATTRIBUTES
 LABEL info = FORMONLY.info;
 stat = FORMONLY.stat, SCROLL;
-
+BUTTON done : done, TEXT=%"Done";
 INSTRUCTIONS
 SCREEN RECORD stat [16] ( FORMONLY.stat )
