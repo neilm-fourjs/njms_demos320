@@ -1,17 +1,30 @@
 IMPORT os
 DEFINE m_dataPath STRING
-PUBLIC DEFINE m_stat STRING
+PUBLIC DEFINE m_stat DYNAMIC ARRAY OF STRING
 --------------------------------------------------------------------------------
 FUNCTION mkdb_progress(l_mess STRING)
+	DEFINE x SMALLINT
+	LET x = m_stat.getLength() + 1
   LET l_mess = CURRENT, ":", NVL(l_mess, "NULL!")
-  LET m_stat = m_stat.append(l_mess || "\n")
+  LET m_stat[x] = l_mess
   DISPLAY l_mess
-  INPUT BY NAME m_stat WITHOUT DEFAULTS
-		BEFORE INPUT
-			CALL fgl_dialog_setcursor(l_mess.getLength())
-			EXIT INPUT
-	END INPUT
+  DISPLAY ARRAY m_stat TO stat.*
+		BEFORE DISPLAY
+			CALL DIALOG.setCurrentRow("stat", x)
+			EXIT DISPLAY
+	END DISPLAY
   CALL ui.Interface.refresh()
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION mkdb_showProgress()
+  DISPLAY ARRAY m_stat TO stat.* ATTRIBUTE(ACCEPT=FALSE, CANCEL=FALSE)
+		BEFORE DISPLAY
+			CALL DIALOG.setCurrentRow("stat", m_stat.getLength())
+		ON ACTION close
+			EXIT DISPLAY
+		ON ACTION done ATTRIBUTES(TEXT = "Done")
+			EXIT DISPLAY
+	END DISPLAY
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION mkdb_chkFile(l_file STRING) RETURNS STRING

@@ -15,6 +15,7 @@ MAIN
 	DEFINE l_db  g2_db.dbInfo
 	DEFINE x     SMALLINT
 
+	CALL ui.Interface.loadStyles(SFMT("default_%1", ui.Interface.getFrontEndName()))
 	OPEN FORM f FROM "mk_db"
 	DISPLAY FORM f
 
@@ -26,7 +27,7 @@ MAIN
 
 	LET l_db.create_db = TRUE
 	CALL l_db.g2_connect(NULL)
-	CALL mkdb_progress(SFMT(%"Connected to %1 db '%2' okay", l_db.type, l_db.name))
+	DISPLAY SFMT(%"Connected to %1 db '%2' okay", l_db.type, l_db.name) TO info
 	CALL mkdb_progress(SFMT(%"Source: %1 Drv:%2 Dir:%3 Con:%4", l_db.source, l_db.driver, l_db.dir, l_db.connection))
 
 	LET x                      = 0
@@ -57,34 +58,29 @@ MAIN
 	IF g2_core.g2_winQuestion(
 					"Confirm", "This will delete and recreate all the database tables!\n\nAre you sure you want to do this?",
 					"No", "Yes|No", "question")
-			!= "Yes" THEN
-		EXIT PROGRAM
-	END IF
+			= "Yes" THEN
 
-	IF l_arg = "DROP" THEN
-		CALL drop_sys()
-		CALL drop_app()
-	END IF
+		IF l_arg = "DROP" THEN
+			CALL drop_sys()
+			CALL drop_app()
+		END IF
 
-	IF l_arg = "SYS" OR l_arg = "ALL" THEN
-		CALL drop_sys()
-		CALL mk_db_sys_ifx.ifx_create_system_tables()
-		CALL mk_db_sys_data.insert_system_data(l_db.name)
-	END IF
+		IF l_arg = "SYS" OR l_arg = "ALL" THEN
+			CALL drop_sys()
+			CALL mk_db_sys_ifx.ifx_create_system_tables()
+			CALL mk_db_sys_data.insert_system_data(l_db.name)
+		END IF
 
-	IF l_arg = "APP" OR l_arg = "ALL" THEN
-		CALL drop_app()
-		CALL mk_db_app_ifx.ifx_create_app_tables(l_db)
-		CALL mk_db_app_data.insert_app_data()
+		IF l_arg = "APP" OR l_arg = "ALL" THEN
+			CALL drop_app()
+			CALL mk_db_app_ifx.ifx_create_app_tables(l_db)
+			CALL mk_db_app_data.insert_app_data()
+		END IF
 	END IF
 
 	CALL mkdb_progress(SFMT("mk_db program finished Arg:%1", l_arg))
-	MENU
-		ON ACTION close
-			EXIT MENU
-		ON ACTION done ATTRIBUTES(TEXT="Done")
-			EXIT MENU
-	END MENU
+	CALL mkdb_showProgress()
+
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION mkdb_checkTabs()
