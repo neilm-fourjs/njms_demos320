@@ -123,8 +123,8 @@ MAIN
 	LET l_file = "iTunes Music Library.xml"
 	LET workFromDB = FALSE
 
-	--CALL gldb_connect(NULL)
-	--LET workFromDB = TRUE
+--CALL gldb_connect(NULL)
+--LET workFromDB = TRUE
 
 -- This options loads the original iTunes .xml file using a SAX Handler.
 -- This creates a much similer xml file called songs.xml

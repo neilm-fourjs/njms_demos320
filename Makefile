@@ -12,7 +12,7 @@ export ARCH=$(APP)$(GENVER)_$(DBTYPE)
 export GASCFG=$(FGLASDIR)/etc/as.xcf
 export MUSICDIR=~/Music
 
-export RENDERER=ur
+export RENDERER=nat
 
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt

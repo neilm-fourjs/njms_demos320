@@ -11,10 +11,7 @@ CONSTANT C_DEF_USER_PASSWD = "T3st.T3st"
 DEFINE m_mkey, m_ukey, m_rkey INTEGER
 DEFINE m_file STRING
 --------------------------------------------------------------------------------
-FUNCTION insert_system_data()
-	DEFINE l_db STRING
-
-	LET l_db = fgl_getenv("DBNAME")
+FUNCTION insert_system_data(l_db STRING)
 
 	CALL mkdb_progress("Loading system users / menus ...")
 

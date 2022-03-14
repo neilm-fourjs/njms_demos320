@@ -95,7 +95,7 @@
       <File filePath="README.md"/>
     </Library>
   </Group>
-  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=nat,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
+  <Group environment="value:PATHSEP=:,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=3,value:DBTYPE=pgs,value:RENDERER=ur,dir:GBCDISTPATH=$(ProjectDir)/gbc-current/dist/customization,value:GBCNAME=gbc-clean,dir:FGLGBCDIR=$(GBCDISTPATH)/$(GBCNAME),file:FGLPROFILE=$(FGLPROFILE)$(PATHSEP)$(ProjectDir)/etc/$(DBTYPE)/profile$(PATHSEP)$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics$(PATHSEP)../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo310" id="1812115377" label="njms_demos320" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin">
     <Group id="1931904086" label="API">
       <Library binaryName="njm_cust_db" dependencies="1986" id="-1358259824" label="njm_cust_db">
         <File filePath="src/api/njm_cust_db.4gl"/>
@@ -219,6 +219,7 @@
       <Application binaryName="mk_db" commandLineArguments="ALL" dependencies="1986,-1463189462,726830537,-1090563702,-310428106,1136561508_14000" id="1521876251" label="mk_db">
         <File filePath="src/db/mk_db.4gl"/>
         <File filePath="src/db/mk_db.per"/>
+        <File filePath="src/db/mk_db_connection.per"/>
         <File filePath="src/db/mk_db_sys_data.4gl"/>
         <File filePath="src/db/mk_db_sys_ifx.4gl"/>
       </Application>
@@ -289,7 +290,7 @@
         <File filePath="src/demos/stackDemo.4gl"/>
         <File filePath="src/demos/stackDemo.per"/>
       </Application>
-      <Application binaryName="table" dependencies="1986" id="-1838355315" label="table">
+      <Application binaryName="table" dependencies="1986,1136561508_14000" id="-1838355315" label="table" language="Genero">
         <File filePath="src/demos/table.4gl"/>
         <File filePath="src/demos/table.per"/>
       </Application>

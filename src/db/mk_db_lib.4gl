@@ -6,7 +6,11 @@ FUNCTION mkdb_progress(l_mess STRING)
   LET l_mess = CURRENT, ":", NVL(l_mess, "NULL!")
   LET m_stat = m_stat.append(l_mess || "\n")
   DISPLAY l_mess
-  DISPLAY BY NAME m_stat
+  INPUT BY NAME m_stat WITHOUT DEFAULTS
+		BEFORE INPUT
+			CALL fgl_dialog_setcursor(l_mess.getLength())
+			EXIT INPUT
+	END INPUT
   CALL ui.Interface.refresh()
 END FUNCTION
 --------------------------------------------------------------------------------

@@ -126,6 +126,7 @@ MAIN
 			CALL pg(DIALOG.getForm(), 0)
 		ON ACTION pg50
 			CALL pg(DIALOG.getForm(), (PG_MAX / 2))
+		ON ACTION sleep SLEEP 5
 		ON ACTION showform
 			CALL showForm()
 		ON ACTION inactive
