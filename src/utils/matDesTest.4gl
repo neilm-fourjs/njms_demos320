@@ -2,13 +2,14 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
+IMPORT FGL fgldialog
 IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
-CONSTANT C_PRGVER = "3.2"
+CONSTANT C_PRGVER  = "3.2"
 CONSTANT C_PRGICON = "logo_dark"
-CONSTANT C_IMG = "smiley"
+CONSTANT C_IMG     = "smiley"
 
 CONSTANT PG_MAX = 1000
 
@@ -16,82 +17,76 @@ DEFINE m_forms DYNAMIC ARRAY OF STRING
 
 MAIN
 	DEFINE l_rec RECORD
-		fld1 CHAR(10),
-		fld2 DATE,
-		fld3 STRING,
-		fld4 STRING,
-		fld5 STRING,
-		fld6 STRING,
-		fld7 STRING,
-		fld8 STRING,
-		okay BOOLEAN,
+		fld1    CHAR(10),
+		fld2    DATE,
+		fld3    STRING,
+		fld4    STRING,
+		fld5    STRING,
+		fld6    STRING,
+		fld7    STRING,
+		fld8    STRING,
+		okay    BOOLEAN,
 		notokay BOOLEAN,
-		nul BOOLEAN
+		nul     BOOLEAN
 	END RECORD
 	DEFINE l_arr DYNAMIC ARRAY OF RECORD
 		col1 STRING,
 		col2 SMALLINT,
-		img STRING
+		img  STRING
 	END RECORD
-	DEFINE l_listview DYNAMIC ARRAY OF RECORD
+	DEFINE l_listView DYNAMIC ARRAY OF RECORD
 		col1 STRING,
 		col2 STRING,
-		img STRING
+		img  STRING
 	END RECORD
 	DEFINE x SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "matDesTest")
-	CALL ui.Interface.setText(SFMT("%1 - %2",C_PRGDESC, C_PRGVER))
+	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
+	CALL ui.Interface.setText(SFMT("%1 - %2", C_PRGDESC, C_PRGVER))
 --  CALL ui.Interface.setImage("fa-bug")
-	FOR X = 1 TO 15
-		LET l_arr[x].col1 = "Row " || x
-		LET l_arr[x].col2 = x
-		LET l_arr[x].img = C_IMG
+	FOR x = 1 TO 15
+		LET l_arr[x].col1      = "Row " || x
+		LET l_arr[x].col2      = x
+		LET l_arr[x].img       = C_IMG
 		LET l_listView[x].col1 = "This is row " || x
 		LET l_listView[x].col2 = "this is a like an information line"
-		LET l_listView[x].img = C_IMG
+		LET l_listView[x].img  = C_IMG
 	END FOR
-	LET l_rec.fld1 = "Active"
-	LET l_rec.fld2 = TODAY
-	LET l_rec.fld3 = "Red"
-	LET l_rec.fld4 = "Inactive"
-	LET l_rec.fld5 = "Active"
-	LET l_rec.fld6 = "Inactive"
-	LET l_rec.fld7 = "Active"
-	LET l_rec.fld8 = "Inactive"
-	LET l_rec.okay = TRUE
+	LET l_rec.fld1    = "Active"
+	LET l_rec.fld2    = TODAY
+	LET l_rec.fld3    = "Red"
+	LET l_rec.fld4    = "Inactive"
+	LET l_rec.fld5    = "Active"
+	LET l_rec.fld6    = "Inactive"
+	LET l_rec.fld7    = "Active"
+	LET l_rec.fld8    = "Inactive"
+	LET l_rec.okay    = TRUE
 	LET l_rec.notokay = FALSE
-	LET l_rec.nul = NULL
+	LET l_rec.nul     = NULL
 
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
 
-	DISPLAY fgl_getEnv("FGLIMAGEPATH") TO imgpath
+	DISPLAY fgl_getenv("FGLIMAGEPATH") TO imgpath
 	DISPLAY getAUIAttrVal("StyleList", "fileName") TO stylefile
 
-	DIALOG ATTRIBUTE(UNBUFFERED,FIELD ORDER FORM)
+	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
 		INPUT BY NAME l_rec.* ATTRIBUTES(WITHOUT DEFAULTS)
 		END INPUT
 		DISPLAY ARRAY l_arr TO arr1.* --ATTRIBUTES(ACCEPT=FALSE)
 		END DISPLAY
 		DISPLAY ARRAY l_listView TO arr2.*
 			BEFORE ROW
-				DISPLAY SFMT("On row %1 of %2",
-								DIALOG.getCurrentRow("arr2"), l_listView.getLength())
-						TO tab2info
+				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr2"), l_listView.getLength()) TO tab2info
 			ON UPDATE
-				CALL g2_core.g2_winMessage(
-						"Update", "Update not available!", "exclamation")
+				CALL g2_core.g2_winMessage("Update", "Update not available!", "exclamation")
 			ON DELETE
-				CALL g2_core.g2_winMessage(
-						"Delete", "Delete not available!", "exclamation")
+				CALL g2_core.g2_winMessage("Delete", "Delete not available!", "exclamation")
 		END DISPLAY
 		DISPLAY ARRAY l_listView TO arr3.*
 			BEFORE ROW
-				DISPLAY SFMT("On row %1 of %2",
-								DIALOG.getCurrentRow("arr3"), l_listView.getLength())
-						TO tab3info
+				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr3"), l_listView.getLength()) TO tab3info
 		END DISPLAY
 		COMMAND "bomb"
 			ERROR "Bang!"
@@ -108,22 +103,21 @@ MAIN
 		ON ACTION arr3
 			CALL DIALOG.nextField("a3col1")
 		ON ACTION wintitle
-			CALL fgl_setTitle("My Window Title")
+			CALL fgl_settitle("My Window Title")
 		ON ACTION dyntext
 			CALL gbc_replaceHTML("dyntext", "Dynamic Text:" || CURRENT)
 		ON ACTION darklogo
-			CALL gbc_replaceHTML(
-					"logocell", "<img src='./resources/img/logo_dark.png'/>")
+			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_dark.png'/>")
 		ON ACTION lightlogo
-			CALL gbc_replaceHTML(
-					"logocell", "<img src='./resources/img/logo_light.png'/>")
+			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_light.png'/>")
 		ON ACTION uitext
 			CALL ui.Interface.setText("My UI Text")
 		ON ACTION pg
 			CALL pg(DIALOG.getForm(), 0)
 		ON ACTION pg50
 			CALL pg(DIALOG.getForm(), (PG_MAX / 2))
-		ON ACTION sleep SLEEP 5
+		ON ACTION sleep
+			SLEEP 5
 		ON ACTION showform
 			CALL showForm()
 		ON ACTION inactive
@@ -207,7 +201,9 @@ MAIN
 		ON ACTION f12
 			ERROR "F12"
 		ON ACTION fc_ismob
-			CALL fgl_winMessage("Mobile?", IIF(gbc_isMobile(),"App Running on Mobile device!","App not running on Mobile device"),"information")
+			CALL fgldialog.fgl_winMessage(
+					"Mobile?", IIF(gbc_isMobile(), "App Running on Mobile device!", "App not running on Mobile device"),
+					"information")
 		ON ACTION close
 			EXIT DIALOG
 		ON ACTION quit
@@ -238,7 +234,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 -- ProgressBar tests
 FUNCTION pg(l_f ui.Form, l_just_set INTEGER)
-	DEFINE x SMALLINT
+	DEFINE x    SMALLINT
 	DEFINE l_dn om.DomNode
 	LET l_dn = l_f.findNode("FormField", "formonly.pg")
 	LET l_dn = l_dn.getFirstChild()
@@ -257,18 +253,21 @@ END FUNCTION
 -- GBC ONLY - isMobile
 FUNCTION gbc_isMobile() RETURNS BOOLEAN
 	DEFINE l_bool BOOLEAN = FALSE
-	IF ui.interface.getFrontEndName() MATCHES "GM?" THEN RETURN TRUE END IF
-	IF ui.interface.getFrontEndName() = "GDC" THEN RETURN FALSE END IF
-	CALL ui.Interface.frontCall(	"mymodule", "isMobile", [], l_bool)
+	IF ui.Interface.getFrontEndName() MATCHES "GM?" THEN
+		RETURN TRUE
+	END IF
+	IF ui.Interface.getFrontEndName() = "GDC" THEN
+		RETURN FALSE
+	END IF
+	CALL ui.Interface.frontCall("mymodule", "isMobile", [], l_bool)
 	RETURN l_bool
 END FUNCTION
 --------------------------------------------------------------------------------
 -- GBC ONLY - Dynamically replace HTML code
 FUNCTION gbc_replaceHTML(l_obj STRING, l_txt STRING)
 	DEFINE l_ret STRING
-	IF ui.interface.getFrontEndName() = "GBC" THEN
-		CALL ui.Interface.frontCall(
-				"mymodule", "replace_html", [l_obj, l_txt], l_ret)
+	IF ui.Interface.getFrontEndName() = "GBC" THEN
+		CALL ui.Interface.frontCall("mymodule", "replace_html", [l_obj, l_txt], l_ret)
 	ELSE
 		CALL g2_winMessage("Error", "GBC Test only!", "exclamation")
 	END IF
@@ -278,7 +277,7 @@ END FUNCTION
 -- Show a list .42f files in a Window and allow them to be viewed
 FUNCTION showForm()
 	DEFINE l_path, l_file STRING
-	DEFINE l_handle INTEGER
+	DEFINE l_handle       INTEGER
 	IF m_forms.getLength() = 0 THEN
 		LET l_path = os.Path.pwd()
 		CALL os.Path.dirSort("name", 1)
@@ -288,7 +287,7 @@ FUNCTION showForm()
 			IF l_file IS NULL THEN
 				EXIT WHILE
 			END IF
-			IF os.path.extension(l_file) = "42f" THEN
+			IF os.Path.extension(l_file) = "42f" THEN
 				LET m_forms[m_forms.getLength() + 1] = l_file
 			END IF
 		END WHILE
@@ -333,7 +332,7 @@ END FUNCTION
 -- A value of aui node
 FUNCTION getAUIAttrVal(l_nodeName STRING, l_attName STRING) RETURNS STRING
 	DEFINE l_ret STRING
-	DEFINE l_nl om.NodeList
+	DEFINE l_nl  om.NodeList
 	LET l_nl = ui.Interface.getRootNode().selectByTagName(l_nodeName)
 	IF l_nl.getLength() = 0 THEN
 		RETURN NULL

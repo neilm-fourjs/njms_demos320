@@ -16,7 +16,6 @@ CONSTANT C_SPLASH = "logo_dark"
 
 DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
-  DEFINE l_db g2_db.dbInfo
 
   CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init( ARG_VAL(1), "default")
@@ -25,7 +24,7 @@ MAIN
   OPEN FORM login_hist FROM "login_hist"
   DISPLAY FORM login_hist
 
-  CALL l_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   CALL login_hist()
 

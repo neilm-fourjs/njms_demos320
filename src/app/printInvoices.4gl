@@ -25,7 +25,6 @@ CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
 CONSTANT m_logo = "../pics/logo_dark.png"
-DEFINE m_db g2_db.dbInfo
 DEFINE m_rpt g2_grw.greRpt
 MAIN
   DEFINE l_row SMALLINT
@@ -43,7 +42,7 @@ MAIN
   CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	DISPLAY CURRENT,": GREOUTPUTDIR:",fgl_getenv("GREOUTPUTDIR")
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 	FOR x  = 1 TO base.Application.getArgumentCount()
 		LET l_args = l_args.append(x||":"||base.Application.getArgument(x)||" ")
 		CASE x 

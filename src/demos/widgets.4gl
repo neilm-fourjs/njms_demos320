@@ -88,7 +88,6 @@ DEFINE g_frm ui.Form
 DEFINE cnt SMALLINT
 DEFINE scal SMALLINT
 DEFINE f_n om.domNode
-DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE tmp STRING
   DEFINE stat SMALLINT
@@ -309,8 +308,8 @@ MAIN
 
       ON ACTION gl_lookup
         IF NOT db_opened THEN
-          CALL m_db.g2_connect(NULL)
-          MESSAGE "DB Open:", m_db.name
+          CALL g2_db.m_db.g2_connect(NULL)
+          MESSAGE "DB Open:", g2_db.m_db.name
           LET db_opened = TRUE
         END IF
 

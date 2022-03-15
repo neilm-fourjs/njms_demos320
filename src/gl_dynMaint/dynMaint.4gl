@@ -29,14 +29,13 @@ CONSTANT C_FIELDS_PER_PAGE = 12
 DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
 DEFINE m_appInfo g2_appInfo.appInfo
-DEFINE m_db g2_db.dbInfo
 MAIN
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
 -- Connect to DB
-	CALL m_db.g2_connect(m_dbname)
+	CALL g2_db.m_db.g2_connect(m_dbname)
 -- Setup SQL
 	LET glm_sql.m_key_fld = 0
 	LET glm_sql.m_row_cur = 0
@@ -44,7 +43,7 @@ MAIN
 	CALL glm_sql.glm_mkSQL("*", "1=2") -- not fetching any data.
 -- Create Form
 	CALL glm_mkForm.init_form(
-			m_dbname, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
+			g2_db.m_db.name, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
 			glm_sql.m_fields, "main2")
 	CALL ui.window.getCurrent().setText(C_PRGDESC)
 	CALL g2_core.g2_loadToolBar("dynmaint")

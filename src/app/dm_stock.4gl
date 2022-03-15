@@ -21,9 +21,7 @@ CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
 CONSTANT C_FIELDS_PER_PAGE = 14
-DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
-DEFINE m_db g2_db.dbInfo
 DEFINE m_init_cb t_init_cb
 MAIN
 
@@ -32,7 +30,7 @@ MAIN
 
 	LET m_allowedActions = "YYYYYY"
 -- Connect to DB
-	CALL m_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 -- Setup the SQL
 	LET glm_sql.m_tab = "stock"
 	LET glm_sql.m_key_nam = "stock_code"
@@ -42,7 +40,7 @@ MAIN
 	CALL glm_sql.glm_mkSQL("*", "1=2") -- not fetching any data.
 -- Generate the form
 	CALL glm_mkForm.init_form(
-			m_dbname, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
+			g2_db.m_db.name, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
 			glm_sql.m_fields, "main2") -- C_FIELDS_PER_PAGE fields by folder page
 	CALL ui.window.getCurrent().setText(C_PRGDESC)
 	CALL g2_core.g2_loadToolBar("dynmaint")

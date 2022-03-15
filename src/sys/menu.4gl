@@ -41,7 +41,6 @@ END MAIN
 --------------------------------------------------------------------------------
 -- Connect to the database to do the login process
 FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
-  DEFINE l_db g2_db.dbInfo
 	DEFINE l_user STRING
 	DEFINE l_user_id INTEGER
 
@@ -49,7 +48,7 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
     CALL g2_core.g2_splash(0, C_SPLASH, 243, 53) -- open splash
   END IF
 
-  CALL l_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   IF g2_core.m_mdi = "S" THEN
 		DISPLAY CURRENT," SLEEP 2"

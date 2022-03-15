@@ -2,7 +2,6 @@ IMPORT util -- only used to show JSON conversion.
 IMPORT FGL g2_lib.*
 IMPORT FGL fgldialog
 &include "schema.inc"
-DEFINE m_db g2_db.dbinfo
 MAIN
 	DEFINE l_rec DYNAMIC ARRAY OF RECORD LIKE stock.*
 	DEFINE i INTEGER = 0
@@ -11,7 +10,7 @@ MAIN
 	OPEN FORM f FROM "table"
 	DISPLAY FORM f
 -- Connent to database
-	CALL m_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 -- Get the data
 	DECLARE stk_cur CURSOR FOR SELECT * FROM stock
 	FOREACH stk_cur INTO l_rec[ i := i + 1 ].*

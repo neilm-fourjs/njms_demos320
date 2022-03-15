@@ -17,7 +17,6 @@ DEFINE m_fields DYNAMIC ARRAY OF RECORD
   name STRING,
   type STRING
 END RECORD
-DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE l_win ui.Window
   DEFINE l_form ui.Form
@@ -27,7 +26,7 @@ MAIN
   CALL g2_init.g2_init(ARG_VAL(1), "weboe")
 
   WHENEVER ANY ERROR CALL g2_core.g2_error
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   CALL ui.Interface.setText(C_PRGDESC)
 

@@ -43,7 +43,6 @@ DEFINE m_wher STRING
 DEFINE m_user_key LIKE sys_users.user_key
 DEFINE m_allowedActions CHAR(6) --Y/N for Find / List / Update / Insert / Delete / Sample
 -- NNYNNN = Only update allowed.
-DEFINE m_db g2_db.dbInfo
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -58,7 +57,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar( "dynmaint" )
 	CALL g2_core.g2_loadTopMenu( "dynmaint" )
 
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   TRY
     DECLARE fetch_row CURSOR FOR SELECT * FROM TABNAME, TABNAME2 WHERE KEYFLD = ? AND JOIN1

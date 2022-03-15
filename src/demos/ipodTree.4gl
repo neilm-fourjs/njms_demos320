@@ -315,13 +315,13 @@ FUNCTION openLibrary(file)
 		RETURN
 	END IF
 
-	IF NOT os.path.exists(file) THEN
+	IF NOT os.Path.exists(file) THEN
 		CALL g2_core.g2_errPopup(% "'" || file || "' Doesn't Exist, can't do load")
 		RETURN
 	END IF
 
-	CALL ui.window.getCurrent().setText("Loading, please wait ...")
-	CALL ui.interface.refresh()
+	CALL ui.Window.getCurrent().setText("Loading, please wait ...")
+	CALL ui.Interface.refresh()
 
 	LET f = om.SaxDocumentHandler.createForName("ipod_sax")
 	CALL f.readXmlFile(file)
@@ -340,7 +340,7 @@ FUNCTION openXML(file)
 	DEFINE file STRING
 
 	DISPLAY CURRENT, ": Opening " || file || " ..."
-	LET xml_d = om.domDocument.createFromXMLFile(file)
+	LET xml_d = om.DomDocument.createFromXmlFile(file)
 	IF xml_d IS NULL THEN
 		CALL g2_core.g2_errPopup(
 				% "Failed to open '" || file || "'!\nTry running like this: fglrun ipod.42r LOAD")
@@ -412,22 +412,22 @@ FUNCTION al_searchARR(what)
 	DISPLAY sel_tracks_a.getLength() TO nooftracks
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION t_searchDB(what)
-	DEFINE what STRING
+FUNCTION t_searchDB(l_what)
+	DEFINE l_what STRING
 
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION ar_searchDB(what)
-	DEFINE what STRING
+FUNCTION ar_searchDB(l_what)
+	DEFINE l_what STRING
 
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION al_searchDB(what)
-	DEFINE what STRING
+FUNCTION al_searchDB(l_what)
+	DEFINE l_what STRING
 
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
@@ -446,7 +446,7 @@ FUNCTION loadMusic()
 	DISPLAY CURRENT, ": Loading from XML into array ..."
 	LET nl = xml_r.selectByTagName("Genre")
 	LET g = 0
-	FOR x = 1 TO nl.getlength()
+	FOR x = 1 TO nl.getLength()
 		LET xml_g = nl.item(x)
 		LET g = g + 1
 		LET genre_a[g].genre = xml_g.getAttribute("name")
@@ -474,7 +474,7 @@ FUNCTION loadMusic()
 	END FOR
 
 	LET nl = xml_r.selectByTagName("Track")
-	FOR x = 1 TO nl.getlength()
+	FOR x = 1 TO nl.getLength()
 		LET xml_tr = nl.item(x)
 		LET tracks_a[x].dur = xml_tr.getAttribute("dur")
 		LET tracks_a[x].genre_key = xml_tr.getAttribute("genre_key")
@@ -579,8 +579,8 @@ FUNCTION loadSongs()
 
 	DISPLAY CURRENT, ": Building Sub Arrays & music.xml ..."
 
-	LET xml_d = om.domdocument.create("Music")
-	LET xml_r = xml_d.getdocumentelement()
+	LET xml_d = om.DomDocument.create("Music")
+	LET xml_r = xml_d.getDocumentElement()
 	CALL g2_aui.g2_progBar(3, 0, "")
 	CALL g2_aui.g2_progBar(1, 100, "Processing XML - Phase 2 of 3")
 	LET pavg = 0
@@ -628,12 +628,12 @@ FUNCTION loadSongs()
 			LET album_a[album_a.getLength()].genre = song_a[x].genre
 			LET album_a[album_a.getLength()].album_key = alk
 			LET album_a[album_a.getLength()].artist_key = ark
-			LET nl = xml_g.selectbypath("//Artist[@artist_key='" || ark || "']")
-			IF nl.getlength() > 0 THEN
+			LET nl = xml_g.selectByPath("//Artist[@artist_key='" || ark || "']")
+			IF nl.getLength() > 0 THEN
 				LET xml_ar = nl.item(1)
 			ELSE
-				LET nl = xml_r.selectbypath("//Artist[@artist_key='" || ark || "']")
-				IF nl.getlength() > 0 THEN
+				LET nl = xml_r.selectByPath("//Artist[@artist_key='" || ark || "']")
+				IF nl.getLength() > 0 THEN
 					LET xml_ar = xml_g.createChild("Artist")
 					CALL xml_ar.setAttribute("name", album_a[album_a.getLength()].artist)
 					CALL xml_ar.setAttribute("artist_key", ark)
@@ -669,7 +669,7 @@ FUNCTION loadSongs()
 		LET tracks_a[tracks_a.getLength()].play_count = song_a[x].play_count
 		LET tracks_a[tracks_a.getLength()].rating = song_a[x].rating
 	END FOR
-	CALL xml_r.writeXML("music.xml")
+	CALL xml_r.writeXml("music.xml")
 	CALL g2_aui.g2_progBar(3, 0, "")
 	CALL buildTree()
 
@@ -758,7 +758,7 @@ FUNCTION showBranch(g, ar, al, tf)
 	DEFINE id1, id2, id3 CHAR(5)
 	DEFINE d ui.Dialog
 
-	LET d = ui.dialog.getCurrent()
+	LET d = ui.Dialog.getCurrent()
 
 	LET id1 = (g USING "&&&&&")
 	LET id2 = (ar USING "&&&&&")
@@ -846,7 +846,7 @@ FUNCTION dispRowDetails(g, art, alb)
 	IF id IS NOT NULL THEN
 		FOR x = 1 TO tree_a.getLength()
 			IF tree_a[x].id = id THEN
-				LET d = ui.dialog.getCurrent()
+				LET d = ui.Dialog.getCurrent()
 				CALL d.setCurrentRow("tree", x)
 				DISPLAY "Found Tree node! : ", x
 				EXIT FOR
@@ -979,13 +979,13 @@ FUNCTION getArtworkURL(l_album_id STRING)
 	DISPLAY SFMT("Getting Album artwork for '%1' from: %2", l_album_id.trim(), l_url)
 	-- redirection that happens causes a bug in gws library
 	-- failing back to wget
-	IF os.path.pathSeparator() = ":" THEN -- Linux / Mac
+	IF os.Path.pathSeparator() = ":" THEN -- Linux / Mac
 		LET l_line = "unset LD_LIBRARY_PATH && wget -o tmp.out -O - " || l_url
 	ELSE -- DOS
 		LET l_line = "wget.exe -o tmp.out -O - " || l_url
 	END IF
 	DISPLAY "Opening Pipe for: ", l_line
-	LET c = base.channel.create()
+	LET c = base.Channel.create()
 	CALL c.openPipe(l_line, "r")
 	LET l_line = c.readLine()
 	CALL c.close()
@@ -1279,7 +1279,7 @@ FUNCTION db_load_tab()
 
 	DISPLAY CURRENT, ":Loading " || genre_a.getLength() || " Genre ..."
 	MESSAGE "Loading " || genre_a.getLength() || " Genre ..."
-	CALL ui.interface.refresh()
+	CALL ui.Interface.refresh()
 	BEGIN WORK
 	FOR x = 1 TO genre_a.getLength()
 		LET vc = genre_a[x].genre
@@ -1291,7 +1291,7 @@ FUNCTION db_load_tab()
 
 	DISPLAY CURRENT, ":Loading " || artist_a.getLength() || " Artists ..."
 	MESSAGE "Loading " || artist_a.getLength() || " Artists ..."
-	CALL ui.interface.refresh()
+	CALL ui.Interface.refresh()
 	DECLARE art_put_cur CURSOR FOR INSERT INTO ipod_artists VALUES(0, ?)
 	BEGIN WORK
 	OPEN art_put_cur
@@ -1307,7 +1307,7 @@ FUNCTION db_load_tab()
 
 	DISPLAY CURRENT, ":Loading " || album_a.getLength() || " Albums ..."
 	MESSAGE "Loading " || album_a.getLength() || " Albums ..."
-	CALL ui.interface.refresh()
+	CALL ui.Interface.refresh()
 	DECLARE alb_put_cur CURSOR FOR INSERT INTO ipod_albums VALUES(0, ?, ?, ?, ?)
 	BEGIN WORK
 	OPEN alb_put_cur
@@ -1337,7 +1337,7 @@ FUNCTION db_load_tab()
 
 	DISPLAY CURRENT, ":Loading " || song_a.getLength() || " Tracks ..."
 	MESSAGE "Loading " || song_a.getLength() || " Tracks ..."
-	CALL ui.interface.refresh()
+	CALL ui.Interface.refresh()
 	DECLARE sng_put_cur CURSOR FOR INSERT INTO ipod_tracks VALUES(0, ?, ?, ?, ?, ?, ?, ?)
 	BEGIN WORK
 	OPEN sng_put_cur
@@ -1450,7 +1450,7 @@ FUNCTION erro()
 	IF STATUS != 0 THEN
 		DISPLAY STATUS, ":", SQLERRMESSAGE
 	END IF
-	DISPLAY base.application.getstacktrace()
+	DISPLAY base.Application.getStackTrace()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION tidyup()

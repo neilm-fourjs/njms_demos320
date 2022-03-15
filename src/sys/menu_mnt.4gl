@@ -42,7 +42,6 @@ DEFINE m_drag_source STRING
 DEFINE m_menu_key LIKE sys_menus.menu_key
 DEFINE m_save BOOLEAN
 DEFINE m_user_key INTEGER
-DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE dnd ui.DragDrop
 
@@ -60,7 +59,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar( "dynmaint" )
 	CALL g2_core.g2_loadTopMenu( "dynmaint" )
 
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   IF NOT app_lib.checkUserRoles(m_user_key, "System Admin", TRUE) THEN
     EXIT PROGRAM

@@ -22,7 +22,6 @@ CONSTANT C_PRGDESC = "Order Entry Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
-DEFINE m_db g2_db.dbInfo
 MAIN
 	DEFINE l_email STRING
 	DEFINE l_key   INTEGER
@@ -32,7 +31,7 @@ MAIN
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	CALL ui.Interface.setText(C_PRGDESC)
 
-	CALL m_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 
 	IF UPSHIFT(ui.Interface.getFrontEndName()) = "GBC" THEN
 		CALL ui.Interface.FrontCall("session", "getvar", base.application.getProgramName() || "_login", l_email)
