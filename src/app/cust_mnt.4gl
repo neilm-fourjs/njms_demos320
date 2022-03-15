@@ -138,7 +138,7 @@ MAIN
       CALL showRow(m_recs.getLength())
       CALL app_lib.setActions(m_row, m_recs.getLength(), m_allowedActions)
     ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
   END MENU
   CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN

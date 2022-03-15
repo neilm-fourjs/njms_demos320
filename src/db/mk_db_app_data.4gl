@@ -118,7 +118,7 @@ FUNCTION insert_app_data()
 	CALL insStock("WW01-DES", NULL, "Combat Jacket - Desert", NULL, 59.99, "DD", NULL)
 	CALL insStock("WW01-JUN", NULL, "Combat Jacket - Jungle", NULL, 59.99, "DD", NULL)
 
-	CALL genStock(os.path.join(g2_core.g2_getImagePath(),"products"), "??", FALSE)
+	CALL genStock(os.Path.join(g2_core.g2_getImagePath(),"products"), "??", FALSE)
 	SELECT COUNT(*) INTO x FROM stock
 	CALL mk_db_lib.mkdb_progress(SFMT("Inserted %1 Stock Items.", x))
 
@@ -234,11 +234,11 @@ FUNCTION insStock(
 		SELECT MAX(allocated_stock) INTO l_al FROM pack_items p, stock s
 				WHERE pack_code = l_sc AND p.stock_code = s.stock_code
 	ELSE
-		LET l_ps = util.math.rand(200)
-		LET l_al = util.math.rand(50)
+		LET l_ps = util.Math.rand(200)
+		LET l_al = util.Math.rand(50)
 	END IF
 	IF l_pr = 0 THEN
-		LET l_pr = util.math.rand(10) + (100 / util.math.rand(10))
+		LET l_pr = util.Math.rand(10) + (100 / util.Math.rand(10))
 	END IF
 	LET l_ps = l_ps + 50
 	LET l_fr = l_ps - l_al
@@ -305,7 +305,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION discCode()
 	DEFINE l_dc CHAR(2)
-	CASE util.math.rand(5)
+	CASE util.Math.rand(5)
 		WHEN 1
 			LET l_dc = "AA"
 		WHEN 2
@@ -384,14 +384,14 @@ FUNCTION genOrders()
 
 	CALL mk_db_lib.mkdb_progress("Generating " || MAX_ORDERS || " Orders")
 	FOR x = 1 TO MAX_ORDERS
-		LET c = util.math.rand(cst.getLength())
+		LET c = util.Math.rand(cst.getLength())
 		IF c = 0 OR c > cst.getLength() THEN
 			LET c = cst.getLength()
 		END IF
 		LET dte = TODAY - 1825
-		LET dte = dte + util.math.rand(1825)
+		LET dte = dte + util.Math.rand(1825)
 		CALL orderHead(cst[c] CLIPPED, dte)
-		LET l = util.math.rand(MAX_LINES + 1)
+		LET l = util.Math.rand(MAX_LINES + 1)
 		CALL dets.clear()
 		IF l >= stk.getLength() THEN
 			LET l = stk.getLength() - 4
@@ -400,13 +400,13 @@ FUNCTION genOrders()
 			LET l = 2
 		END IF -- min number of order lines
 		FOR y = 1 TO l
-			LET q = util.math.rand(MAX_QTY)
+			LET q = util.Math.rand(MAX_QTY)
 			IF q = 0 OR q > MAX_QTY THEN
 				LET q = 5
 			END IF
 			--DISPLAY "Details Line:",y," of",l," qty:",q," stklen:",stk.getLength()
 			WHILE TRUE -- loop till we find a stock item that hasn't already be used.
-				LET s = util.math.rand(stk.getLength())
+				LET s = util.Math.rand(stk.getLength())
 				IF s = 0 OR s > stk.getLength() THEN
 					CONTINUE WHILE
 				END IF
@@ -565,9 +565,9 @@ FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
 			IF l_path IS NULL THEN
 				EXIT WHILE
 			END IF
-			LET l_dir = os.path.baseName(l_base)
-			--DISPLAY "Path:",l_path," Dir:", os.path.isDirectory(os.path.join(l_base,l_path))
-			IF os.path.isDirectory(os.path.join(l_base, l_path)) THEN
+			LET l_dir = os.Path.baseName(l_base)
+			--DISPLAY "Path:",l_path," Dir:", os.Path.isDirectory(os.Path.join(l_base,l_path))
+			IF os.Path.isDirectory(os.Path.join(l_base, l_path)) THEN
 				IF l_path != "." AND l_path != ".." THEN
 					CASE l_path
 						WHEN "supplies"
@@ -584,19 +584,19 @@ FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
 							LET l_cat = "??"
 					END CASE
 --          DISPLAY "DIR --    Path:", l_path, " Cat:", l_cat
-					CALL genStock(os.path.join(l_base, l_path), l_cat, TRUE)
+					CALL genStock(os.Path.join(l_base, l_path), l_cat, TRUE)
 				END IF
 				CONTINUE WHILE
 			ELSE
 				IF l_process THEN
-					LET l_ext = os.path.extension(l_path)
+					LET l_ext = os.Path.extension(l_path)
 					IF l_ext IS NULL OR (l_ext != "jpg" AND l_ext != "png") THEN
 						CONTINUE WHILE
 					END IF
-					LET l_nam = os.path.rootName(l_path)
+					LET l_nam = os.Path.rootName(l_path)
 					LET l_desc = tidy_name(l_nam)
 					--DISPLAY "Path:", l_path, " Cat:", l_cat, " Name:", l_nam, " Ext:", l_ext
-					CALL insStock(NULL, NULL, l_desc, l_cat, 0, "CC", os.path.join(l_dir, l_nam))
+					CALL insStock(NULL, NULL, l_desc, l_cat, 0, "CC", os.Path.join(l_dir, l_nam))
 				END IF
 			END IF
 		END WHILE
@@ -680,13 +680,13 @@ FUNCTION genQuotes()
 	FOR x = 1 TO MAX_ORDERS
 		INITIALIZE l_quote.* TO NULL
 		LET l_quote.revision = 1
-		LET c = util.math.rand(l_cst.getLength())
+		LET c = util.Math.rand(l_cst.getLength())
 		IF c = 0 OR c > l_cst.getLength() THEN
 			LET c = l_cst.getLength()
 		END IF
 		LET l_dte = TODAY - 182
-		LET l_dte = l_dte + util.math.rand(182)
-		CASE util.math.rand(5)
+		LET l_dte = l_dte + util.Math.rand(182)
+		CASE util.Math.rand(5)
 			WHEN 1
 				LET l_quote.status = "W"
 			WHEN 2
@@ -697,19 +697,19 @@ FUNCTION genQuotes()
 		END CASE
 		LET l_quote.quote_number = 0
 		LET l_quote.quote_ref = "GenQ" || (x USING "&&&")
-		LET l_quote.raised_by = util.math.rand(l_users - 1) + 1
+		LET l_quote.raised_by = util.Math.rand(l_users - 1) + 1
 		LET l_quote.customer_code = l_cst[c]
 		LET l_quote.expiration_date = l_dte + 60
-		LET l_quote.account_manager = util.math.rand(l_users - 1) + 1
+		LET l_quote.account_manager = util.Math.rand(l_users - 1) + 1
 		IF l_quote.status = "W" THEN
-			LET l_quote.ordered_date = l_dte + util.math.rand(30)
+			LET l_quote.ordered_date = l_dte + util.Math.rand(30)
 		END IF
 		LET l_quote.quote_date = l_dte
 		LET l_quote.description = "Generate " || x
 		LET l_quote.project = "Test"
 		LET l_quote.quote_total = 0
 
-		LET l = util.math.rand(MAX_LINES + 1)
+		LET l = util.Math.rand(MAX_LINES + 1)
 		CALL l_dets.clear()
 		IF l >= l_stk.getLength() THEN
 			LET l = l_stk.getLength() - 1
@@ -718,13 +718,13 @@ FUNCTION genQuotes()
 			LET l = 2
 		END IF -- Min lines
 		FOR y = 1 TO l
-			LET q = util.math.rand(MAX_QTY)
+			LET q = util.Math.rand(MAX_QTY)
 			IF q = 0 OR q > MAX_QTY THEN
 				LET q = 5
 			END IF
 			--DISPLAY "Details Line:",y," of",l," qty:",q," stklen:",stk.getLength()
 			WHILE TRUE -- loop till we find a stock item that hasn't already be used.
-				LET s = util.math.rand(l_stk.getLength())
+				LET s = util.Math.rand(l_stk.getLength())
 				IF s = 0 OR s > l_stk.getLength() THEN
 					CONTINUE WHILE
 				END IF
@@ -747,9 +747,9 @@ FUNCTION genQuotes()
 			LET l_quote_det.discount = 0
 			LET l_quote_det.quantity = l_dets[y].qt
 			LET l_quote_det.stock_code = l_dets[y].sc
-			LET l_quote_det.colour_key = util.math.rand(l_colrs - 1) + 1
-			LET l_quote_det.colour_surcharge = util.math.rand(5) / 2
-			LET l_quote_det.unit_surcharge = util.math.rand(5) / 2
+			LET l_quote_det.colour_key = util.Math.rand(l_colrs - 1) + 1
+			LET l_quote_det.colour_surcharge = util.Math.rand(5) / 2
+			LET l_quote_det.unit_surcharge = util.Math.rand(5) / 2
 			SELECT price INTO l_quote_det.unit_rrp FROM stock WHERE stock_code = l_quote_det.stock_code
 			LET l_quote_det.unit_net = l_quote_det.unit_rrp
 {

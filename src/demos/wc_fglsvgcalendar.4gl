@@ -1150,7 +1150,7 @@ PRIVATE FUNCTION wc_setProp(id SMALLINT, l_prop STRING, l_val STRING)
   IF x > 0 THEN
     LET l_n_p = l_nl.item(x)
   ELSE
-    LET l_n_p = l_n_pd.createChild(l_tagname)
+    LET l_n_p = l_n_pd.createChild(l_tagName)
     CALL l_n_p.setAttribute("name", l_prop)
   END IF
   CALL l_n_p.setAttribute("value", l_val)

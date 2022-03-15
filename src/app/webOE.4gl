@@ -264,7 +264,7 @@ FUNCTION dynDiag() RETURNS SMALLINT
       WHEN "ON ACTION gotoco"
         CALL gotoco()
       WHEN "ON ACTION about"
-				CALL g2_about.g2_about(m_appInfo)
+				CALL g2_about.g2_about()
     END CASE
   END WHILE
   IF int_flag THEN

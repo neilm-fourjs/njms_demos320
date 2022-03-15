@@ -9,7 +9,7 @@ MAIN
   DEFINE x, y INTEGER
   DEFINE l_jo, l_jo2 util.JSONObject
   DEFINE l_ja util.JSONArray
-  DEFINE c base.channel
+  DEFINE c base.Channel
   DEFINE l_got_solid BOOLEAN
 
   LET l_file = "icons.json"
@@ -24,7 +24,7 @@ MAIN
 
   LET l_jo = util.JSONObject.parse(l_text)
 
-  LET c = base.channel.create()
+  LET c = base.Channel.create()
   CALL c.openFile("fa5.txt", "w")
 
   CALL addFourJSImages(c)
@@ -95,13 +95,13 @@ MAIN
 
 END MAIN
 --------------------------------------------------------------------------------
-FUNCTION addFourJSImages(c base.channel)
-  DEFINE c1 base.channel
+FUNCTION addFourJSImages(c base.Channel)
+  DEFINE c1 base.Channel
   DEFINE l_file, l_line STRING
   LET l_file = fgl_getenv("FGLDIR")
-  LET l_file = os.path.join(l_file, "lib")
-  LET l_file = os.path.join(l_file, "image2font.txt")
-  LET c1 = base.channel.create()
+  LET l_file = os.Path.join(l_file, "lib")
+  LET l_file = os.Path.join(l_file, "image2font.txt")
+  LET c1 = base.Channel.create()
   CALL c1.openFile(l_file, "r")
   CALL c.writeLine(c1.readLine())
   WHILE NOT c1.isEof()

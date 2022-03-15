@@ -36,13 +36,13 @@ MAIN
   DEFINE l_appInfo g2_appInfo.appInfo
 
   CALL l_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_init.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(base.Application.getArgument(1), "default")
   CALL ui.Interface.setText(C_PRGDESC)
 
   OPEN FORM f FROM "gbc_theme"
   DISPLAY FORM f
 
---	IF NOT open_main_json( os.path.join( fgl_getEnv("GBCPROJDIR"), "src/theme/definitions/main-definition.json" ) ) THEN
+--	IF NOT open_main_json( os.Path.join( fgl_getEnv("GBCPROJDIR"), "src/theme/definitions/main-definition.json" ) ) THEN
   IF NOT open_main_json("../etc/main-definition.json") THEN
     EXIT PROGRAM
   END IF
@@ -53,7 +53,7 @@ FUNCTION open_main_json(l_jsonFile STRING) RETURNS BOOLEAN
   DEFINE l_jsonData STRING
   DEFINE x, y, z SMALLINT
 
-  IF NOT os.path.exists(l_jsonFile) THEN
+  IF NOT os.Path.exists(l_jsonFile) THEN
     CALL g2_core.g2_winMessage("Error", SFMT("%1 doesn't exist!", l_jsonFile), "exclamation")
     RETURN FALSE
   END IF

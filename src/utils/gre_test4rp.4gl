@@ -8,6 +8,7 @@
 -- Arg4:	 l_targetName : File name for output if not using preview option. Setting this will default to not preview!
 
 IMPORT os
+IMPORT FGL greruntime
 DEFINE m_fontdir, m_greserver, m_greserverPort, m_fglserver STRING
 DEFINE m_start DATETIME HOUR TO SECOND
 DEFINE m_gresrv BOOLEAN
@@ -32,7 +33,7 @@ MAIN
   IF m_filePath.getLength() < 1 THEN
     LET m_filePath = "./customer_files/"
   END IF
-  DISPLAY "PWD:", os.path.pwd()
+  DISPLAY "PWD:", os.Path.pwd()
   DISPLAY "ProgramDir:", base.Application.getProgramDir(), " Ver:", l_ver
   DISPLAY "FGLLDPATH:", fgl_getenv("FGLLDPATH")
   DISPLAY "PATH:", fgl_getenv("PATH")
@@ -59,10 +60,10 @@ MAIN
   LET m_fglserver = fgl_getenv("FGLSERVER")
   LET l_inFile = fgl_report_findResourcePath("test.4rp") -- test for grelib
 
-  LET l_inFile = arg_val(1)
-  LET l_4rp = arg_val(2)
-  LET l_device = arg_val(3)
-  LET l_targetName = arg_val(4)
+  LET l_inFile = base.Application.getArgument(1)
+  LET l_4rp = base.Application.getArgument(2)
+  LET l_device = base.Application.getArgument(3)
+  LET l_targetName = base.Application.getArgument(4)
   LET l_preview = TRUE
   IF l_targetName.getLength() > 1 THEN
     LET l_preview = FALSE
@@ -74,10 +75,10 @@ MAIN
   LET l_merge_cells = TRUE
   LET l_singleSheet = TRUE
 
-  LET l_inFile = os.path.rootname(l_inFile)
-  LET l_inFile = os.path.basename(l_inFile)
-  LET l_4rp = os.path.rootname(l_4rp)
-  LET l_4rp = os.path.basename(l_4rp)
+  LET l_inFile = os.Path.rootName(l_inFile)
+  LET l_inFile = os.Path.baseName(l_inFile)
+  LET l_4rp = os.Path.rootName(l_4rp)
+  LET l_4rp = os.Path.baseName(l_4rp)
 
   IF m_fglserver.getLength() > 1 THEN
 
@@ -122,7 +123,7 @@ MAIN
 
       LET m_start = CURRENT
       DISPLAY "Started:", m_start
-      IF NOT os.path.exists(l_xmlFile) THEN
+      IF NOT os.Path.exists(l_xmlFile) THEN
         CALL fgl_winMessage(
             "Error", SFMT("XML File not found '%1'\n%2-%3", l_xmlFile), "exclamation")
       END IF
@@ -255,10 +256,10 @@ FUNCTION browse(l_what, l_cur)
   DEFINE h INTEGER
   DEFINE l_result DYNAMIC ARRAY OF STRING
 
-  CALL os.Path.dirsort("name", 1)
-  LET h = os.Path.diropen(m_filePath)
+  CALL os.Path.dirSort("name", 1)
+  LET h = os.Path.dirOpen(m_filePath)
   WHILE h > 0
-    LET child = os.Path.dirnext(h)
+    LET child = os.Path.dirNext(h)
     IF child IS NULL THEN
       EXIT WHILE
     END IF
@@ -269,7 +270,7 @@ FUNCTION browse(l_what, l_cur)
       LET l_result[l_result.getLength() + 1] = os.Path.rootname(child)
     END IF
   END WHILE
-  CALL os.Path.dirclose(h)
+  CALL os.Path.dirClose(h)
 
   IF l_result.getLength() = 0 THEN
     CALL fgl_winMessage("Error", "No matching files found!", "exclamation")

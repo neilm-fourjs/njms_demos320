@@ -227,7 +227,7 @@ MAIN
     ON ACTION close
       EXIT DIALOG
     ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
   END DIALOG
   CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN
