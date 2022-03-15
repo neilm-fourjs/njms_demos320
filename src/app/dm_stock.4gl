@@ -50,7 +50,7 @@ MAIN
 --	LET glm_ui.m_inpt_func = FUNCTION my_input
 	LET glm_ui.m_after_inp_func = FUNCTION my_after_inp
 -- start UI
-	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
+	CALL glm_ui.glm_menu(m_allowedActions)
 -- All Done
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN

@@ -1,4 +1,5 @@
 IMPORT util
+IMPORT FGL fgldraw
 
 DEFINE tim CHAR(8)
 DEFINE dsp CHAR(2)
@@ -14,8 +15,8 @@ DEFINE ret INTEGER
 -- Draw a clock using Canvas
 FUNCTION clock2(l_aniyn BOOLEAN)
 
-  CALL drawselect("canv")
-  CALL drawlinewidth(2)
+  CALL drawSelect("canv")
+  CALL drawLineWidth(2)
 
   IF l_aniyn THEN
     CALL clock_face()
@@ -29,13 +30,13 @@ FUNCTION clock2(l_aniyn BOOLEAN)
 --	CALL ui.interface.refresh()
 
 -- DRAW A PALE BLUE RECTANGLE
-  CALL drawfillcolor("#C6DEF4")
-  CALL drawrectangle(51, 1, 900, 1000) RETURNING ret
+  CALL drawFillColor("#C6DEF4")
+  CALL drawRectangle(51, 1, 900, 1000) RETURNING ret
   DISPLAY "Y" TO chk2
 --	CALL ui.interface.refresh()
 --	DRAW AN OVAL
-  CALL drawfillcolor("#093B73")
-  CALL drawoval(51, 1, 900, 1000) RETURNING ret
+  CALL drawFillColor("#093B73")
+  CALL drawOval(51, 1, 900, 1000) RETURNING ret
   DISPLAY "Y" TO chk3
 --	CALL ui.interface.refresh()
 
@@ -56,7 +57,7 @@ FUNCTION cls()
   DISPLAY "N" TO chk6
 
   LET win = ui.Window.getCurrent()
-  LET c = win.findnode("Canvas", "canv")
+  LET c = win.findNode("Canvas", "canv")
   IF c IS NOT NULL THEN
     LET s = c.getFirstChild()
     WHILE s IS NOT NULL
@@ -65,8 +66,8 @@ FUNCTION cls()
     END WHILE
   END IF
 
-  CALL drawfillcolor("black")
-  CALL drawrectangle(1, 1, 1000, 1000) RETURNING ret
+  CALL drawFillColor("black")
+  CALL drawRectangle(1, 1, 1000, 1000) RETURNING ret
 
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -76,12 +77,12 @@ FUNCTION time(l_seconds INTEGER)
   LET pi = 3.14159265358
   LET scrw = 33
 
-  CALL drawanchor("n")
-  CALL drawlinewidth(2)
+  CALL drawAnchor("n")
+  CALL drawLineWidth(2)
 
   -- DRAW A SMALLER YELLOW CIRCLE
-  CALL drawfillcolor("#CFB57D")
-  CALL drawcircle(941, 61, 880) RETURNING w
+  CALL drawFillColor("#CFB57D")
+  CALL drawCircle(941, 61, 880) RETURNING w
   DISPLAY "Y" TO chk4
 --	CALL ui.interface.refresh()
 
@@ -91,25 +92,25 @@ FUNCTION time(l_seconds INTEGER)
   FOR a = 30 TO 360 STEP 30
     LET h = h + 1
     LET d = (pi / 180) * a
-    LET y = r * (util.math.sin(d))
-    LET x = r * (util.math.cos(d))
+    LET y = r * (util.Math.sin(d))
+    LET x = r * (util.Math.cos(d))
     LET dsp = h
-    CALL drawfillcolor("black")
-    CALL drawtext(520 + x, 500 + y, dsp) RETURNING w
+    CALL drawFillColor("black")
+    CALL drawText(520 + x, 500 + y, dsp) RETURNING w
   END FOR
   DISPLAY "Y" TO chk5
 --	SLEEP 1
 --	CALL ui.interface.refresh()
   -- DRAW INNER WHITE CIRCLE
-  CALL drawfillcolor("#F5F8E4")
-  CALL drawcircle(851, 151, 700) RETURNING w
+  CALL drawFillColor("#F5F8E4")
+  CALL drawCircle(851, 151, 700) RETURNING w
 
   -- LOOP FOR seconds DRAWING THE CENTRAL WRITE FACE AND HANDS
   LET l_seconds = 1 -- Stopped the loop
   FOR l_loop = 1 TO l_seconds
     CALL clock_face()
     DISPLAY "Y" TO chk6
-    CALL ui.interface.refresh()
+    CALL ui.Interface.refresh()
 --		SLEEP 1
   END FOR
 
@@ -126,7 +127,7 @@ FUNCTION clock_face()
 
 -- Remove Hands
   LET win = ui.Window.getCurrent()
-  LET c = win.findnode("Canvas", "canv")
+  LET c = win.findNode("Canvas", "canv")
   LET ll = c.selectByPath("//CanvasLine")
   FOR x = 1 TO ll.getLength()
     LET n = ll.item(x)
@@ -142,30 +143,30 @@ FUNCTION clock_face()
   LET a = (360 / 12) * h
   LET a = a + ((30 / 60) * m)
   LET d = (pi / 180) * a
-  LET y = r * (util.math.sin(d))
-  LET x = r * (util.math.cos(d))
-  CALL drawlinewidth(4)
-  CALL drawfillcolor("red")
-  CALL drawline(501, 501, x, y) RETURNING w
+  LET y = r * (util.Math.sin(d))
+  LET x = r * (util.Math.cos(d))
+  CALL drawLineWidth(4)
+  CALL drawFillColor("red")
+  CALL drawLine(501, 501, x, y) RETURNING w
 
   -- CALCULATE THE XY OF MINUTE HAND AND DRAW IT
   LET r = 350
   LET a = (360 / 60) * m
   LET d = (pi / 180) * a
-  LET y = r * (util.math.sin(d))
-  LET x = r * (util.math.cos(d))
-  CALL drawfillcolor("blue")
-  CALL drawlinewidth(2)
-  CALL drawline(501, 501, x, y) RETURNING w
+  LET y = r * (util.Math.sin(d))
+  LET x = r * (util.Math.cos(d))
+  CALL drawLineWidth(2)
+  CALL drawFillColor("blue")
+  CALL drawLine(501, 501, x, y) RETURNING w
 
   -- CALCULATE THE XY OF SECOND HAND AND DRAW IT
   LET r = 350
   LET a = (360 / 60) * s
   LET d = (pi / 180) * a
-  LET y = r * (util.math.sin(d))
-  LET x = r * (util.math.cos(d))
-  CALL drawlinewidth(1)
-  CALL drawfillcolor("black")
-  CALL drawline(501, 501, x, y) RETURNING w
+  LET y = r * (util.Math.sin(d))
+  LET x = r * (util.Math.cos(d))
+  CALL drawLineWidth(1)
+  CALL drawFillColor("black")
+  CALL drawLine(501, 501, x, y) RETURNING w
 
 END FUNCTION

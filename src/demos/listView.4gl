@@ -29,7 +29,7 @@ DEFINE m_contList DYNAMIC ARRAY OF t_contactList
 MAIN
 
   CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-  CALL g2_init.g2_init(ARG_VAL(1), "default")
+  CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
   CALL load_contacts()
 
@@ -69,10 +69,10 @@ FUNCTION add_contact(l_name STRING, l_bio STRING)
   END IF
   CALL m_conts.appendElement()
 
-  LET l_img = os.path.join(C_IMGPATH, l_nam) || ".jpg"
+  LET l_img = os.Path.join(C_IMGPATH, l_nam) || ".jpg"
 --	DISPLAY "Img:",l_img," - ",os.path.join(getImagePath(),l_img)
-  IF NOT os.path.exists(os.path.join(getImagePath(), l_img)) THEN
-    LET l_img = os.path.join(C_IMGPATH, l_house)
+  IF NOT os.Path.exists(os.Path.join(getImagePath(), l_img)) THEN
+    LET l_img = os.Path.join(C_IMGPATH, l_house)
   END IF
 
   LET m_conts[m_conts.getLength()].cont_id = m_conts.getLength()
@@ -91,7 +91,7 @@ FUNCTION disp_contacts()
 	DEFINE l_info, l_img STRING
 	DISPLAY ARRAY m_contList TO arr.* ATTRIBUTES(ACCEPT = FALSE, CANCEL = FALSE)
 		BEFORE ROW
-			LET l_img = os.path.join(C_IMGPATH, m_conts[DIALOG.getCurrentRow("arr")].house)
+			LET l_img = os.Path.join(C_IMGPATH, m_conts[DIALOG.getCurrentRow("arr")].house)
 			DISPLAY BY NAME m_conts[DIALOG.getCurrentRow("arr")].*
 			DISPLAY l_img TO himg
 			LET l_info = SFMT("Image path '%1'", l_img)
@@ -104,7 +104,7 @@ FUNCTION disp_contacts()
 		ON ACTION quit
 			EXIT DISPLAY
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 	END DISPLAY
 
 END FUNCTION
@@ -112,10 +112,10 @@ END FUNCTION
 FUNCTION getImagePath()
   DEFINE l_path STRING
   DEFINE l_st base.StringTokenizer
-  LET l_st = base.StringTokenizer.create(fgl_getEnv("FGLIMAGEPATH"), os.path.pathSeparator())
+  LET l_st = base.StringTokenizer.create(fgl_getenv("FGLIMAGEPATH"), os.Path.pathSeparator())
   WHILE l_st.hasMoreTokens()
     LET l_path = l_st.nextToken()
-    IF os.path.isDirectory(l_path) THEN
+    IF os.Path.isDirectory(l_path) THEN
       RETURN l_path
     END IF
   END WHILE

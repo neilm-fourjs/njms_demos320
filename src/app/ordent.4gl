@@ -80,7 +80,7 @@ MAIN
 			ON ACTION help
 				CALL showHelp(1)
 			ON ACTION about
-				CALL g2_about.g2_about(g2_core.m_appInfo)
+				CALL g2_about.g2_about()
 			ON ACTION close
 				EXIT MENU
 			ON ACTION quit
@@ -111,7 +111,7 @@ FUNCTION new()
 				CALL dispHead()
 			END IF
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 	END INPUT
 	IF int_flag THEN
 		MESSAGE %"Order Cancelled."
@@ -247,7 +247,7 @@ FUNCTION new()
 				END IF
 			END IF
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 	END INPUT
 	IF int_flag THEN
 		ROLLBACK WORK -- Rollback and end transaction.
@@ -361,7 +361,7 @@ FUNCTION enquire()
 						EXIT INPUT
 					END IF
 				ON ACTION about
-					CALL g2_about.g2_about(g2_core.m_appInfo)
+					CALL g2_about.g2_about()
 			END INPUT
 		END IF
 		IF int_flag THEN
@@ -472,7 +472,7 @@ FUNCTION enquire()
 				EXIT DISPLAY
 				--ON KEY (F12) DISPLAY "F12" LET int_flag = TRUE EXIT DISPLAY
 			ON ACTION about
-				CALL g2_about.g2_about(g2_core.m_appInfo)
+				CALL g2_about.g2_about()
 		END DISPLAY
 
 		IF benchmark OR int_flag THEN

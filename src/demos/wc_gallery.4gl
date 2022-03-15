@@ -6,7 +6,6 @@ CONSTANT C_PRGVER  = "1.0"
 CONSTANT C_PRGDESC = "WC Gallery Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
-DEFINE m_appInfo g2_appInfo.appInfo
 
 DEFINE m_rec RECORD
 	gallery_type INTEGER,
@@ -38,7 +37,7 @@ MAIN
 	DEFINE l_tmp STRING
 	DEFINE l_ret SMALLINT
 
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "default")
 
 	DISPLAY "FGLSERVER:", fgl_getenv("FGLSERVER")
@@ -125,6 +124,9 @@ FUNCTION gallery()
 		ON ACTION clean ATTRIBUTES(TEXT = "Clean", IMAGE="fa-square-o")
 			CALL fglgallery.clean(id)
 			LET m_rec.current = NULL
+
+		ON ACTION about
+			CALL g2_about.g2_about()
 
 		ON ACTION quit
 			EXIT INPUT

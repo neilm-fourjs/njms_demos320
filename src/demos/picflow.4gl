@@ -22,19 +22,19 @@ DEFINE m_pics_info DYNAMIC ARRAY OF RECORD
 END RECORD
 DEFINE d, c INTEGER
 DEFINE m_base, path, html_start, html_end STRING
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
 	DEFINE frm ui.Form
 	DEFINE n om.domNode
 
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "picflow")
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_init.g2_init(base.Application.getArgument(1), "picflow")
 
 	DISPLAY "FGLSERVER:", fgl_getenv("FGLSERVER")
 	DISPLAY "FGLIMAGEPATH:", fgl_getenv("FGLIMAGEPATH")
-	DISPLAY "PWD:", os.path.pwd()
+	DISPLAY "PWD:", os.Path.pwd()
 
-	LET m_base = checkBase( ARG_VAL(3) )
+	LET m_base = checkBase( base.Application.getArgument(3) )
 	DISPLAY "Base:", m_base
 
 	OPEN FORM picf FROM "picflow"
@@ -98,7 +98,7 @@ MAIN
 				CALL refresh(c - 1)
 			END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 
 		ON ACTION close
 			EXIT DIALOG
@@ -116,7 +116,7 @@ FUNCTION refresh(l_c STRING)
 	DISPLAY c TO cur
 	DISPLAY m_pics.getLength() TO max
 	DISPLAY m_pics[c].pic TO img
-	IF os.path.exists(m_pics[c].pic) THEN
+	IF os.Path.exists(m_pics[c].pic) THEN
 		DISPLAY "Found:", m_pics[c].pic
 	ELSE
 		DISPLAY "Not Found:", m_pics[c].pic
@@ -128,7 +128,7 @@ FUNCTION refresh(l_c STRING)
 	DISPLAY m_pics_info[c].mod TO d5
 	DISPLAY m_pics_info[c].rwx TO d6
 
-	CALL ui.interface.refresh()
+	CALL ui.Interface.refresh()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION getImages(p_ext STRING, p_ext2 STRING)
@@ -143,14 +143,14 @@ FUNCTION getImages(p_ext STRING, p_ext2 STRING)
 				EXIT WHILE
 			END IF
 
-			IF os.path.isDirectory(path) THEN
+			IF os.Path.isDirectory(path) THEN
 				--DISPLAY "Dir:",path
 				CONTINUE WHILE
 			ELSE
 				--DISPLAY "Fil:",path
 			END IF
 
-			LET l_ext = os.path.extension(path)
+			LET l_ext = os.Path.extension(path)
 			IF l_ext IS NULL OR (p_ext != l_ext AND p_ext2 != l_ext) THEN
 				CONTINUE WHILE
 			END IF

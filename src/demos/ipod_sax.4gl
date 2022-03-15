@@ -15,7 +15,7 @@ FUNCTION startDocument()
 
 	DISPLAY CURRENT, ": SaxHandler - StartDocument"
 
-	LET xml_d = om.domDocument.create("Library")
+	LET xml_d = om.DomDocument.create("Library")
 	LET song_r = xml_d.createElement("SongList")
 
 	LET ignore_rest = FALSE
@@ -103,7 +103,7 @@ FUNCTION characters(chars)
 		LET attr_name = attr CLIPPED
 	ELSE
 		IF attr_name.trim() = "location" THEN
-			LET x = chars.getIndexOF(":", 10)
+			LET x = chars.getIndexOf(":", 10)
 			LET chars = fix_tokens(chars.subString(x - 1, chars.getLength()))
 
 			LET c = xml_d.createChars(chars.trim())

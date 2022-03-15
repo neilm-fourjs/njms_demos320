@@ -6,7 +6,7 @@ CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_DEF
     = '<p>This is a test 2<br/>Of <strong><u>RICHTEXT !!</u></strong><br/><strong style="color:#0066cc"><u>Something Blue</u></strong><br/></p>'
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
   DEFINE l_rec RECORD
     fileName STRING,
@@ -17,7 +17,7 @@ MAIN
   DEFINE l_tmp STRING
   DEFINE l_ret SMALLINT
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   LET l_rec.fileName = "text.html"
@@ -91,7 +91,7 @@ MAIN
     ON ACTION set_focus_to_wc
       NEXT FIELD richtext
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
     ON ACTION close
       EXIT PROGRAM
     ON ACTION quit

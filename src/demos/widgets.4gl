@@ -7,7 +7,7 @@
 -- todo: remove some legacy stuff.
 
 IMPORT util
-
+IMPORT FGL fgldraw
 IMPORT FGL g2_lib.*
 IMPORT FGL widgets_charts
 IMPORT FGL widgets_clock
@@ -304,7 +304,7 @@ MAIN
 --        CALL gl_splash.gl_splash(4)
 
 			ON ACTION about
-				CALL g2_about.g2_about(g2_core.m_appInfo)
+				CALL g2_about.g2_about()
 
       ON ACTION gl_lookup
         IF NOT db_opened THEN
@@ -1563,7 +1563,7 @@ FUNCTION chart_demo(key, typ)
   DEFINE f1, f2, f3, f4, f5, f6 INTEGER
   DEFINE l1, l2, l3, l4, l5, l6 CHAR(20)
 
-  CALL drawinit()
+  CALL drawInit()
   CALL drawselect("canv")
 
   LET f1 = 87
@@ -1656,32 +1656,32 @@ FUNCTION star(scal, lins)
       p5y USING "&&&"
 
   IF lins THEN
-    CALL drawfillcolor("white")
-    CALL drawlinewidth(2)
+    CALL drawFillColor("white")
+    CALL drawLineWidth(2)
 -- format is x,y,up,across ( NOTE up,access are relative to x,y )
-    CALL drawline(p1x, p1y, p2x - p1x, p2y - p1y) RETURNING ret
-    CALL drawline(p2x, p2y, p3x - p2x, p3y - p2y) RETURNING ret
-    CALL drawline(p3x, p3y, p4x - p3x, p4y - p3y) RETURNING ret
-    CALL drawline(p4x, p4y, p5x - p4x, p5y - p4y) RETURNING ret
-    CALL drawline(p5x, p5y, p1x - p5x, p1y - p5y) RETURNING ret
+    CALL drawLine(p1x, p1y, p2x - p1x, p2y - p1y) RETURNING ret
+    CALL drawLine(p2x, p2y, p3x - p2x, p3y - p2y) RETURNING ret
+    CALL drawLine(p3x, p3y, p4x - p3x, p4y - p3y) RETURNING ret
+    CALL drawLine(p4x, p4y, p5x - p4x, p5y - p4y) RETURNING ret
+    CALL drawLine(p5x, p5y, p1x - p5x, p1y - p5y) RETURNING ret
 
-    CALL drawfillcolor("yellow")
-    CALL drawlinewidth(1)
-    CALL drawline(p1x, p1y, p2x - p1x, p2y - p1y) RETURNING ret
-    CALL drawline(p2x, p2y, p3x - p2x, p3y - p2y) RETURNING ret
-    CALL drawline(p3x, p3y, p4x - p3x, p4y - p3y) RETURNING ret
-    CALL drawline(p4x, p4y, p5x - p4x, p5y - p4y) RETURNING ret
-    CALL drawline(p5x, p5y, p1x - p5x, p1y - p5y) RETURNING ret
+    CALL drawFillColor("yellow")
+    CALL drawLineWidth(1)
+    CALL drawLine(p1x, p1y, p2x - p1x, p2y - p1y) RETURNING ret
+    CALL drawLine(p2x, p2y, p3x - p2x, p3y - p2y) RETURNING ret
+    CALL drawLine(p3x, p3y, p4x - p3x, p4y - p3y) RETURNING ret
+    CALL drawLine(p4x, p4y, p5x - p4x, p5y - p4y) RETURNING ret
+    CALL drawLine(p5x, p5y, p1x - p5x, p1y - p5y) RETURNING ret
   END IF
 
-  CALL drawfillcolor("red")
+  CALL drawFillColor("red")
 -- x y	x y	x y	x y etc ( NOTE: point are NOT relative )
-  CALL drawpolygon(coors) RETURNING ret
+  CALL drawPolygon(coors) RETURNING ret
 
-  CALL drawfillcolor("white")
-  CALL drawrectangle(900, 20, 45, 100) RETURNING ret
+  CALL drawFillColor("white")
+  CALL drawRectangle(900, 20, 45, 100) RETURNING ret
   LET scalt = (scal / 50) USING "-&"
-  CALL drawtext(900, 60, scalt) RETURNING ret
+  CALL drawText(900, 60, scalt) RETURNING ret
 
 END FUNCTION
 --------------------------------------------------------------------------------

@@ -59,7 +59,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 				END IF
 
 			ON ACTION about
-				CALL g2_about.g2_about(l_appInfo)
+				CALL g2_about.g2_about()
 
 			ON ACTION logout
 				CALL lib_login.logout()

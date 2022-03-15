@@ -1,6 +1,6 @@
 #+ Simple Charting Demo
 #+ $Id: charts.4gl 181 2010-01-11 10:51:19Z  $
-
+IMPORT FGL fgldraw
 --------------------------------------------------------------------------------
 -- Draw pie chart of the passed data.
 FUNCTION pie_chart(key, y, x, w, h, f1, l1, f2, l2, f3, l3, f4, l4, f5, l5, f6, l6)
@@ -29,10 +29,10 @@ FUNCTION pie_chart(key, y, x, w, h, f1, l1, f2, l2, f3, l3, f4, l4, f5, l5, f6, 
 
   LET tot = af1 + af2 + af3 + af4 + af5 + af6
 
-  CALL drawfillcolor("white")
-  CALL drawrectangle(y, x, h, w) RETURNING ret
-  CALL drawlinewidth(1)
-  CALL drawanchor("left")
+  CALL drawFillColor("white")
+  CALL drawRectangle(y, x, h, w) RETURNING ret
+  CALL drawLineWidth(1)
+  CALL drawAnchor("left")
 
   LET y = y + offset
   LET x = x + offset
@@ -46,39 +46,39 @@ FUNCTION pie_chart(key, y, x, w, h, f1, l1, f2, l2, f3, l3, f4, l4, f5, l5, f6, 
         LET af = af1
         LET lb = l1
         LET h = 0
-        CALL drawfillcolor("red")
+        CALL drawFillColor("red")
       WHEN 2
         LET af = af2
         LET lb = l2
         LET h = af1
-        CALL drawfillcolor("blue")
+        CALL drawFillColor("blue")
       WHEN 3
         LET af = af3
         LET lb = l3
         LET h = h + af2
-        CALL drawfillcolor("green")
+        CALL drawFillColor("green")
       WHEN 4
         LET af = af4
         LET lb = l4
         LET h = h + af3
-        CALL drawfillcolor("cyan")
+        CALL drawFillColor("cyan")
       WHEN 5
         LET af = af5
         LET lb = l5
         LET h = h + af4
-        CALL drawfillcolor("magenta")
+        CALL drawFillColor("magenta")
       WHEN 6
         LET af = af6
         LET lb = l6
         LET h = h + af5
-        CALL drawfillcolor("yellow")
+        CALL drawFillColor("yellow")
     END CASE
 
     IF af > 0 THEN
-      CALL drawarc(y, x, w, h, af) RETURNING ret
+      CALL drawArc(y, x, w, h, af) RETURNING ret
       IF key > 0 THEN
-        CALL drawtext(keyh, keyoff, lb) RETURNING ret
-        CALL drawrectangle(keyh - 25, keyoff, 25, key - gap) RETURNING ret
+        CALL drawText(keyh, keyoff, lb) RETURNING ret
+        CALL drawRectangle(keyh - 25, keyoff, 25, key - gap) RETURNING ret
         LET keyh = keyh - 100
       END IF
     END IF
@@ -105,9 +105,9 @@ FUNCTION bar_chart(key, y, x, w, h, f1, l1, f2, l2, f3, l3, f4, l4, f5, l5, f6, 
   LET keyh = 900
   LET keyoff = (1000 - offset) - key
 
-  CALL drawfillcolor("white")
-  CALL drawrectangle(y, x, h, w) RETURNING ret
-  CALL drawlinewidth(1)
+  CALL drawFillColor("white")
+  CALL drawRectangle(y, x, h, w) RETURNING ret
+  CALL drawLineWidth(1)
 
   LET y = offset + 10
   LET x = offset + 10
@@ -140,41 +140,41 @@ FUNCTION bar_chart(key, y, x, w, h, f1, l1, f2, l2, f3, l3, f4, l4, f5, l5, f6, 
   LET af5 = (h / mx) * f5
   LET af6 = (h / mx) * f6
 
-  CALL drawanchor("left")
+  CALL drawAnchor("left")
 
   FOR cnt = 1 TO bars
     CASE cnt
       WHEN 1
         LET af = af1
         LET lb = l1
-        CALL drawfillcolor("red")
+        CALL drawFillColor("red")
       WHEN 2
         LET af = af2
         LET lb = l2
-        CALL drawfillcolor("blue")
+        CALL drawFillColor("blue")
       WHEN 3
         LET af = af3
         LET lb = l3
-        CALL drawfillcolor("green")
+        CALL drawFillColor("green")
       WHEN 4
         LET af = af4
         LET lb = l4
-        CALL drawfillcolor("cyan")
+        CALL drawFillColor("cyan")
       WHEN 5
         LET af = af5
         LET lb = l5
-        CALL drawfillcolor("magenta")
+        CALL drawFillColor("magenta")
       WHEN 6
         LET af = af6
         LET lb = l6
-        CALL drawfillcolor("yellow")
+        CALL drawFillColor("yellow")
     END CASE
 
     IF af > 0 THEN
-      CALL drawrectangle(y, x, y + af, w) RETURNING ret
+      CALL drawRectangle(y, x, y + af, w) RETURNING ret
       IF key > 0 THEN
-        CALL drawtext(keyh, keyoff, lb) RETURNING ret
-        CALL drawrectangle(keyh - 25, keyoff, 25, key - gap) RETURNING ret
+        CALL drawText(keyh, keyoff, lb) RETURNING ret
+        CALL drawRectangle(keyh - 25, keyoff, 25, key - gap) RETURNING ret
         LET keyh = keyh - 100
       END IF
       LET x = x + w + gap

@@ -28,9 +28,8 @@ CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_FIELDS_PER_PAGE = 12
 DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
-DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
@@ -49,7 +48,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- start UI
-	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
+	CALL glm_ui.glm_menu(m_allowedActions)
 -- All Done
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN

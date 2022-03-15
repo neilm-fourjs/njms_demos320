@@ -127,7 +127,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
         EXIT INPUT
       END IF
     ON ACTION about
-      CALL g2_about.g2_about(l_appInfo)
+      CALL g2_about.g2_about()
   END INPUT
   CLOSE WINDOW login
 

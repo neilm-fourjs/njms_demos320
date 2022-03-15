@@ -99,21 +99,21 @@ DEFINE m_album_art_cover STRING
 DEFINE m_musicbrainz_url STRING
 DEFINE m_mb STRING
 DEFINE m_artist, m_prev_artist, m_album, m_prev_album STRING
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
 	DEFINE l_file STRING
 
 	OPTIONS ON CLOSE APPLICATION CALL tidyup
 
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "ipodTree")
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_init.g2_init(base.Application.getArgument(1), "ipodTree")
 
 	CALL ui.Interface.setText(C_PRGDESC)
 
 	OPEN FORM win FROM "ipodTree"
 	DISPLAY FORM win
-	CALL ui.window.getCurrent().setText("Loading, please wait ...")
-	CALL ui.interface.refresh()
+	CALL ui.Window.getCurrent().setText("Loading, please wait ...")
+	CALL ui.Interface.refresh()
 
 	LET l_file = "iTunes Music Library.xml"
 	LET workFromDB = FALSE
@@ -131,10 +131,10 @@ MAIN
 			CALL db_read()
 		ELSE
 			LET l_file = "../etc/music.xml"
-			IF NOT os.path.exists(l_file) THEN
+			IF NOT os.Path.exists(l_file) THEN
 				LET l_file = "../ipodTree/etc/music.xml"
 			END IF
-			IF NOT os.path.exists(l_file) THEN
+			IF NOT os.Path.exists(l_file) THEN
 				CALL g2_core.g2_errPopup(
 						% "'" || l_file || "' Doesn't Exist, try running again like this\nfglrun ipod.42r LOAD")
 				EXIT PROGRAM
@@ -159,7 +159,7 @@ FUNCTION mainDialog()
 	LET m_prev_album = "."
 	DISPLAY CURRENT, ": Starting main dialog."
 	DISPLAY "noimage" TO album_art
-	CALL ui.window.getCurrent().setText("My Genero Music Tree Demo")
+	CALL ui.Window.getCurrent().setText("My Genero Music Tree Demo")
 
 	DIALOG ATTRIBUTES(UNBUFFERED)
 		DISPLAY ARRAY tree_a TO tree.*
@@ -259,7 +259,7 @@ FUNCTION mainDialog()
 		ON ACTION close
 			EXIT DIALOG
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 		ON ACTION quit
 			EXIT DIALOG
 
@@ -307,7 +307,7 @@ FUNCTION openLibrary(file)
 	DEFINE file STRING
 
 	IF file IS NULL THEN
-		CALL ui.interface.frontCall(
+		CALL ui.Interface.frontCall(
 				"standard", "openfile", ["", "iTunes Library", "*.xml", "Choose a Library"], file)
 	END IF
 	IF file IS NULL THEN
@@ -675,7 +675,7 @@ FUNCTION loadSongs()
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION sortsongs(s)
+FUNCTION sortSongs(s)
 	DEFINE s t_song
 	DEFINE x INTEGER
 

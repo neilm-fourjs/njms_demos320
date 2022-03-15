@@ -123,7 +123,7 @@ MAIN
 		ON ACTION inactive
 			CALL dummy()
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 		ON ACTION actiona
 			ERROR "Control-A"
 		ON ACTION actionb

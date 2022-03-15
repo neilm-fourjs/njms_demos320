@@ -7,7 +7,7 @@ CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "WC GoogleMaps Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
   DEFINE wc_gm, in_data STRING
   DEFINE l_latlng_rec RECORD
@@ -15,7 +15,7 @@ MAIN
     lng FLOAT
   END RECORD
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_gm"
@@ -41,7 +41,7 @@ MAIN
       CALL util.JSONObject.parse(in_data).toFGL(l_latlng_rec) -- turn json string into fgl rec
 
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
   END INPUT
   CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN

@@ -27,19 +27,19 @@ END RECORD
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
-	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3", ARG_VAL(1), ARG_VAL(2), ARG_VAL(3))
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
+	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3", base.Application.getArgument(1), base.Application.getArgument(2), base.Application.getArgument(3))
 	CALL ui.Interface.setText(C_PRGDESC)
 
 	OPEN FORM f FROM "dispArr"
 	DISPLAY FORM f
 
 	CALL poparr()
-	IF ARG_VAL(3) = "A" THEN
-		CALL ui.Window.getCurrent().setText( ui.window.getCurrent().getText()||" Multiple Row Sel 1")
+	IF base.Application.getArgument(3) = "A" THEN
+		CALL ui.Window.getCurrent().setText( ui.Window.getCurrent().getText()||" Multiple Row Sel 1")
 				CALL disp_arr1()
 	ELSE
-		CALL ui.Window.getCurrent().setText( ui.window.getCurrent().getText()||" Multiple Row Sel 2")
+		CALL ui.Window.getCurrent().setText( ui.Window.getCurrent().getText()||" Multiple Row Sel 2")
 				CALL disp_arr2()
 	END IF
 {
@@ -97,7 +97,7 @@ FUNCTION disp_arr1()
 			END IF
 
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 -- Default actions to leave the statement
 		ON ACTION close
 			EXIT DISPLAY
@@ -149,7 +149,7 @@ FUNCTION disp_arr2()
 				LET int_flag = TRUE
 			END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 
 -- Default actions to leave the statement
 		ON ACTION close
@@ -215,14 +215,14 @@ END FUNCTION
 FUNCTION poparr()
 	DEFINE l_chr CHAR(1)
 	DEFINE x     SMALLINT
-	CALL util.math.srand()
+	CALL util.Math.srand()
 	CALL m_arr.clear()
 	FOR x = 1 TO 12
-		LET l_chr         = ASCII (65 + util.math.rand(26))
+		LET l_chr         = ASCII (65 + util.Math.rand(26))
 		LET m_arr[x].desc = l_chr || downshift(l_chr) || " test data " || l_chr
 		LET m_arr[x].key  = m_arr.getLength()
-		LET m_arr[x].qty  = util.math.rand(10) + 1
-		LET m_arr[x].pri  = util.math.rand(10) + 1 + (util.math.rand(99) / 100)
+		LET m_arr[x].qty  = util.Math.rand(10) + 1
+		LET m_arr[x].pri  = util.Math.rand(10) + 1 + (util.Math.rand(99) / 100)
 		LET m_arr[x].tot  = (m_arr[x].pri * m_arr[x].qty)
 		LET m_arr[x].chkd = "fa-square-o"
 		LET m_arr[x].seld = "fa-square-o"
