@@ -34,7 +34,7 @@ MAIN
 
   IF do_dbconnect_and_login() THEN
     CALL g2_gdcUpdate.g2_gdcUpate()
-    CALL menuLib.do_menu(C_SPLASH, m_appInfo)
+    CALL menuLib.do_menu(C_SPLASH)
   END IF
   CALL g2_core.g2_exitProgram(0, % "Program Finished")
 END MAIN
@@ -63,7 +63,7 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
   IF ARG_VAL(1) = "test@test.com" THEN
     LET l_user = ARG_VAL(1)
   ELSE
-    LET l_user = lib_login.login(C_TITLE, C_PRGVER, g2_core.m_appInfo)
+    LET l_user = lib_login.login(C_TITLE, C_PRGVER)
   END IF
   IF l_user = "Cancelled" THEN
     RETURN FALSE
