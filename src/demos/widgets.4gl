@@ -94,7 +94,6 @@ DEFINE g_frm ui.Form
 DEFINE cnt SMALLINT
 DEFINE scal SMALLINT
 DEFINE f_n om.domNode
-DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE tmp STRING
   DEFINE stat SMALLINT
@@ -311,11 +310,11 @@ MAIN
 --        CALL gl_splash.gl_splash(4)
 
 			ON ACTION about
-				CALL g2_about.g2_about(g2_core.m_appInfo)
+				CALL g2_about.g2_about()
 
       ON ACTION gl_lookup
         IF NOT db_opened THEN
-          CALL m_db.g2_connect(NULL)
+          CALL g2_db.m_db.g2_connect(NULL)
           LET db_opened = TRUE
         END IF
 

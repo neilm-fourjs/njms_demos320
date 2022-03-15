@@ -25,10 +25,9 @@ DEFINE m_data2 DYNAMIC ARRAY OF RECORD
   vals INTEGER
 END RECORD
 
-DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_data STRING
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_amcharts"
@@ -52,7 +51,7 @@ MAIN
     ON ACTION close
       EXIT DIALOG
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
     ON ACTION quit
       EXIT DIALOG
     ON ACTION act1

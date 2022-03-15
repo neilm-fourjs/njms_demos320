@@ -26,7 +26,6 @@ CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_FIELDS_PER_PAGE = 14
 DEFINE m_dbname         STRING
 DEFINE m_allowedActions CHAR(6)
-DEFINE m_db             g2_db.dbInfo
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -34,7 +33,7 @@ MAIN
 
 	LET m_allowedActions = "YYYYYY"
 -- Connect to DB
-	CALL m_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 -- Setup the SQL
 	LET glm_sql.m_tab       = "stock"
 	LET glm_sql.m_key_nam   = "stock_code"
@@ -53,7 +52,7 @@ MAIN
 	LET glm_ui.m_before_inp_func = FUNCTION my_before_inp
 	LET glm_ui.m_after_inp_func = FUNCTION my_after_inp
 -- start UI
-	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
+	CALL glm_ui.glm_menu(m_allowedActions)
 -- All Done
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN

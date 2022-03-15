@@ -147,7 +147,7 @@ MAIN
 			CALL load_arr3(l_filter)
 			NEXT FIELD l_filter
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 		ON ACTION quit
 			EXIT DIALOG
 		ON ACTION close

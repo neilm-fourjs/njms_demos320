@@ -25,12 +25,12 @@ DEFINE m_pics_info DYNAMIC ARRAY OF RECORD
 END RECORD
 DEFINE d, c INTEGER
 DEFINE m_base, path, html_start, html_end STRING
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
 	DEFINE frm ui.Form
 	DEFINE n om.domNode
 
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "picflow")
 
 	DISPLAY "FGLSERVER:", fgl_getenv("FGLSERVER")
@@ -101,7 +101,7 @@ MAIN
 				CALL refresh(c - 1)
 			END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 
 		ON ACTION close
 			EXIT DIALOG

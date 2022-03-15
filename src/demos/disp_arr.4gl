@@ -100,7 +100,7 @@ FUNCTION disp_arr1()
 			END IF
 
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 -- Default actions to leave the statement
 		ON ACTION close
 			EXIT DISPLAY
@@ -152,7 +152,7 @@ FUNCTION disp_arr2()
 				LET int_flag = TRUE
 			END IF
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 
 -- Default actions to leave the statement
 		ON ACTION close

@@ -25,11 +25,11 @@ DEFINE m_tray DYNAMIC ARRAY OF STRING
 DEFINE m_galley, m_pos STRING
 DEFINE m_drag_source STRING
 DEFINE m_dnd ui.DragDrop
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
   DEFINE l_wc, l_data STRING
 	DEFINE l_f ui.Form
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   OPEN FORM f FROM "wc_aircraft"
@@ -68,7 +68,7 @@ MAIN
       CALL showPanel(l_f, "panela", 1)
 
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 
     ON ACTION quit
       EXIT DIALOG

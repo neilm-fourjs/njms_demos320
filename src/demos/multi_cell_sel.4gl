@@ -27,10 +27,10 @@ DEFINE m_col_matrix DYNAMIC ARRAY OF t_matrix4 -- colours & checkbox
 DEFINE m_attr_matrix DYNAMIC ARRAY OF t_matrix4 -- colours attributes for highlighting
 DEFINE m_sel_colours DYNAMIC ARRAY OF STRING -- selected colours
 DEFINE m_like BOOLEAN
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   CALL ui.Interface.setText(C_PRGDESC)
@@ -61,7 +61,7 @@ MAIN
     ON ACTION like
       CALL like(DIALOG.getForm())
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
     ON ACTION close
       EXIT DIALOG
     ON ACTION quit

@@ -25,7 +25,6 @@ CONSTANT C_PRGDESC = "Order Entry Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
-DEFINE m_db g2_db.dbInfo
 MAIN
   DEFINE l_email STRING
   DEFINE l_key INTEGER
@@ -35,7 +34,7 @@ MAIN
   WHENEVER ANY ERROR CALL g2_core.g2_error
   CALL ui.Interface.setText(C_PRGDESC)
 
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   IF UPSHIFT(ui.Interface.getFrontEndName()) = "GBC" THEN
     CALL ui.Interface.FrontCall(
@@ -85,7 +84,7 @@ MAIN
       ON ACTION help
         CALL showHelp(1)
 			ON ACTION about
-				CALL g2_about.g2_about(g2_core.m_appInfo)
+				CALL g2_about.g2_about()
       ON ACTION close
         EXIT MENU
       ON ACTION quit
@@ -116,7 +115,7 @@ FUNCTION new()
         CALL dispHead()
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
   END INPUT
   IF int_flag THEN
     MESSAGE % "Order Cancelled."
@@ -277,7 +276,7 @@ FUNCTION new()
         END IF
       END IF
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
   END INPUT
   IF int_flag THEN
     ROLLBACK WORK -- Rollback and end transaction.
@@ -415,7 +414,7 @@ FUNCTION enquire()
             EXIT INPUT
           END IF
 				ON ACTION about
-					CALL g2_about.g2_about(g2_core.m_appInfo)
+					CALL g2_about.g2_about()
       END INPUT
     END IF
     IF int_flag THEN
@@ -530,7 +529,7 @@ FUNCTION enquire()
         EXIT DISPLAY
         --ON KEY (F12) DISPLAY "F12" LET int_flag = TRUE EXIT DISPLAY
 			ON ACTION about
-				CALL g2_about.g2_about(g2_core.m_appInfo)
+				CALL g2_about.g2_about()
     END DISPLAY
 
     IF benchmark OR int_flag THEN

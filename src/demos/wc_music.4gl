@@ -31,10 +31,10 @@ DEFINE m_tree DYNAMIC ARRAY OF RECORD
   img STRING
 END RECORD
 DEFINE m_songno SMALLINT
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
   DEFINE l_data STRING
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 
   LET m_base = fgl_getenv("MUSICDIR")
@@ -71,7 +71,7 @@ MAIN
     ON ACTION refresh
       CALL get_music(FALSE)
     ON ACTION about
-      CALL g2_about.g2_about(m_appInfo)
+      CALL g2_about.g2_about()
   END DIALOG
 
   CALL g2_core.g2_exitProgram(0, % "Program Finished")

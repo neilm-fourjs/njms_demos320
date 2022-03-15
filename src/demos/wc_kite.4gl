@@ -29,10 +29,10 @@ DEFINE m_rec RECORD
   END RECORD
 END RECORD
 DEFINE info STRING
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
   DEFINE wc_data, panel, colour STRING
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "wc_kite")
 
 -- Try and find the kite folder
@@ -86,7 +86,7 @@ MAIN
       CALL setSVG(m_rec.kitename)
       LET wc_data = serializePanels()
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
     ON ACTION EXIT
       EXIT DIALOG
     ON ACTION CLOSE

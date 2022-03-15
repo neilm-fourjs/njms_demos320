@@ -104,13 +104,13 @@ DEFINE m_album_art_cover STRING
 DEFINE m_musicbrainz_url STRING
 DEFINE m_mb STRING
 DEFINE m_artist, m_prev_artist, m_album, m_prev_album STRING
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
 	DEFINE l_file STRING
 
 	OPTIONS ON CLOSE APPLICATION CALL tidyup
 
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "ipodtree")
 
 	CALL ui.Interface.setText(C_PRGDESC)
@@ -264,7 +264,7 @@ FUNCTION mainDialog()
 		ON ACTION close
 			EXIT DIALOG
 		ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
 		ON ACTION quit
 			EXIT DIALOG
 

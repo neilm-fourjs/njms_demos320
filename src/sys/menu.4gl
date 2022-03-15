@@ -38,14 +38,13 @@ MAIN
 
 	IF do_dbconnect_and_login() THEN
 		CALL g2_gdcUpdate.g2_gdcUpate()
-		CALL menuLib.do_menu(C_SPLASH, m_appInfo)
+		CALL menuLib.do_menu(C_SPLASH)
 	END IF
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 -- Connect to the database to do the login process
 FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
-	DEFINE l_db      g2_db.dbInfo
 	DEFINE l_user    STRING
 	DEFINE l_user_id INTEGER
 
@@ -53,7 +52,7 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
 		CALL g2_core.g2_splash(0, C_SPLASH, 243, 53) -- open splash
 	END IF
 
-	CALL l_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 
 	IF g2_core.m_mdi = "S" THEN
 		DISPLAY CURRENT, " SLEEP 2"
@@ -68,7 +67,7 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
 	IF ARG_VAL(1) = "test@test.com" THEN
 		LET l_user = ARG_VAL(1)
 	ELSE
-		LET l_user = lib_login.login(C_TITLE, C_PRGVER, g2_core.m_appInfo)
+		LET l_user = lib_login.login(C_TITLE, C_PRGVER)
 	END IF
 	IF l_user = "Cancelled" THEN
 		RETURN FALSE

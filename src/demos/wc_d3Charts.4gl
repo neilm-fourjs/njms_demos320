@@ -21,11 +21,11 @@ DEFINE m_data DYNAMIC ARRAY OF RECORD
 END RECORD
 DEFINE m_graph_data DYNAMIC ARRAY OF wc_d3ChartsLib.t_d3_rec
 DEFINE m_monthView BOOLEAN
-DEFINE m_appInfo g2_appInfo.appInfo
+
 MAIN
   DEFINE l_debug BOOLEAN
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
   CALL g2_init.g2_init(ARG_VAL(1), "default")
 	DISPLAY "FGLIMAGEPATH:", fgl_getEnv("FGLIMAGEPATH")
 -- Is the WC debug feature enabled?
@@ -59,7 +59,7 @@ MAIN
     ON ACTION wc_debug
       CALL ui.Interface.frontCall("standard", "launchURL", "http://localhost:" || l_debug, [])
     ON ACTION about
-			CALL g2_about.g2_about(m_appInfo)
+			CALL g2_about.g2_about()
     ON ACTION quit
       EXIT DIALOG
     ON ACTION close

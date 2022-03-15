@@ -106,7 +106,7 @@ FUNCTION disp_contacts()
 		ON ACTION quit
 			EXIT DISPLAY
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 	END DISPLAY
 
 END FUNCTION

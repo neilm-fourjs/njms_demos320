@@ -30,7 +30,7 @@ DEFINE m_fullname DYNAMIC ARRAY OF STRING
 DEFINE m_drag_source STRING
 DEFINE m_save, m_saveUser, m_saveRoles BOOLEAN
 DEFINE m_user_key, m_this_user_key LIKE sys_users.user_key
-DEFINE m_db g2_db.dbInfo
+
 MAIN
   DEFINE dnd ui.DragDrop
   DEFINE l_rules STRING
@@ -47,7 +47,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar( "dynmaint" )
 	CALL g2_core.g2_loadTopMenu( "dynmaint" )
 
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   DISPLAY "Env AppUser:", fgl_getenv("APPUSER")
 
@@ -233,7 +233,7 @@ MAIN
     ON ACTION close
       EXIT DIALOG
     ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
   END DIALOG
   CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN

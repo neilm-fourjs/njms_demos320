@@ -47,7 +47,7 @@ DEFINE m_wher           STRING
 DEFINE m_user_key       LIKE sys_users.user_key
 DEFINE m_allowedActions CHAR(6) --Y/N for Find / List / Update / Insert / Delete / Sample
 -- NNYNNN = Only update allowed.
-DEFINE m_db g2_db.dbInfo
+
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -62,7 +62,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
 
-	CALL m_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 
 	TRY
 		DECLARE fetch_row CURSOR FOR SELECT * FROM TABNAME, TABNAME2 WHERE KEYFLD = ? AND JOIN1
@@ -143,7 +143,7 @@ MAIN
 			CALL showRow(m_recs.getLength())
 			CALL app_lib.setActions(m_row, m_recs.getLength(), m_allowedActions)
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 	END MENU
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
