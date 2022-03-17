@@ -14,6 +14,7 @@ ACTION DEFAULTS
 	ACTION pg50 ( TEXT="Prog Bar 50", IMAGE="fa-battery-2" )
 	ACTION inactive ( TEXT="Inactive", IMAGE="fa-eye-slash" )
 	ACTION fc_ismob ( TEXT="isMobile", IMAGE="fa-mobile-phone" )
+	ACTION sleep ( TEXT="Sleep 5", IMAGE="fa-bed" )
 END -- AD
 
 TOPMENU
@@ -41,6 +42,7 @@ TOPMENU
 		COMMAND pg
 		COMMAND pg50
 		COMMAND fc_ismob
+		COMMAND sleep
 	END -- opt
 	GROUP help (TEXT="Help")
 		COMMAND about
@@ -62,9 +64,10 @@ TOOLBAR
 	ITEM win
 	ITEM pg
 	ITEM pg50
+	ITEM sleep
 END -- TB
 
-LAYOUT ( STYLE="main2", TEXT="Material Design Test", IMAGE="fa-bug" ) -- gbc_footer" )
+LAYOUT ( STYLE="main2", TEXT="Material Design Test.", IMAGE="fa-bug" ) -- gbc_footer" )
 VBOX ( STYLE="formborder" )
 HBOX ( SPLITTER )
 GRID

@@ -9,10 +9,7 @@ CONSTANT C_DEF_USER_PASSWD = "T3st.T3st"
 DEFINE m_mkey, m_ukey, m_rkey INTEGER
 DEFINE m_file STRING
 --------------------------------------------------------------------------------
-FUNCTION insert_system_data()
-	DEFINE l_db STRING
-
-	LET l_db = fgl_getenv("DBNAME")
+FUNCTION insert_system_data(l_db STRING)
 
 	CALL mkdb_progress("Loading system users / menus ...")
 
@@ -58,7 +55,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("demo", "main", "T", "UI Demo Programs", "", "")
 	CALL addMenu("demo", "main", "F", "Widgets Demo", "widgets", "")
 	CALL addMenu("demo", "main", "F", "ipodTree Demo", "ipodTree", "")
-	CALL addMenu("demo", "main", "F", "picFlow Demo", "picFlow", "")
+	--CALL addMenu("demo", "main", "F", "picFlow Demo", "picFlow", "")
 	CALL addMenu("demo", "main", "F", "Display Array Demo 1", "dispArr A", "")
 	CALL addMenu("demo", "main", "F", "Display Array Demo 2", "dispArr B", "")
 	CALL addMenu("demo", "main", "F", "Input Array Expenses Demo", "expenses", "")
@@ -67,10 +64,10 @@ FUNCTION insert_system_data()
 	CALL addMenu("demo", "main", "F", "Stack Demo - GBC / UR Only!", "stackDemo", "")
 
 	CALL addMenu("wizard", "demo", "T", "Wizard - Dialog Demos", "", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard SD", "wizard1_sd", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard MD", "wizard2_md", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard MRS", "wizard3_mrs", "")
-	CALL addMenu("wizard", "demo", "F", "Wizard DnD", "wizard4_dnd", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard SD", "wizard_sd", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard MD", "wizard_md", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard MRS", "wizard_mrs", "")
+	CALL addMenu("wizard", "demo", "F", "Wizard DnD", "wizard_dnd", "")
 
 	CALL addMenu("wcdemo", "demo", "T", "Web Component Demos", "", "")
 	CALL addMenu("wcdemo", "demo", "F", "GoogleMaps", "wc_googleMaps", "")
@@ -82,6 +79,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("wcdemo", "demo", "F", "Remote Music Player", "wc_music", "")
 	CALL addMenu("wcdemo", "demo", "F", "Calendar", "wc_calendar_demo", "")
 	CALL addMenu("wcdemo", "demo", "F", "Richtext", "wc_richtext", "")
+	CALL addMenu("wcdemo", "demo", "F", "Gallery", "wc_gallery", "")
 
 	CALL addMenu("webapp", "main", "T", "Web Application Demos", "", "")
 	CALL addMenu("webapp", "main", "F", "Customers", "custs", "")
@@ -155,7 +153,7 @@ FUNCTION insert_system_data()
 	CALL addMenu("oeprn", "oe", "F", "Print Picking Notes", "printInvoices picklist", "")
 
 	CALL addMenu("util", "main", "T", "Utilities", "", "")
-	CALL addMenu("util", "main", "F", "Material Design Test", "materialDesignTest", "")
+	CALL addMenu("util", "main", "F", "Material Design Test", "matDesTest", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: FontAwesome", "../utils/fontAwesome.sh def", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: FontAwesome 5", "../utils/fontAwesome.sh fa5", "")
 	CALL addMenu("util", "main", "P", "Font Viewer: Material Design Icons", "../utils/fontAwesome.sh mdi", "")
