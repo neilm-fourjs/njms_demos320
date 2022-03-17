@@ -89,6 +89,9 @@ rundef: $(BIN)/menu.42r
 clear:
 	clear
 
+beautify:
+	find src -name \*.4gl -exec fglcomp --format --fo-inplace {} \;
+
 runmatdes: clear $(BIN)/menu.42r
 	export FGLPROFILE=../etc/profile.nat && \
 	cd $(BIN) && fglrun materialDesignTest.42r

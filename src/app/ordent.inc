@@ -1,6 +1,6 @@
 #+
 #+ $Id: ordent.inc 439 2010-10-11 15:39:20Z  $
-&include "schema.inc"
+&include "../schema.inc"
 
 GLOBALS
   TYPE t_detailLine RECORD

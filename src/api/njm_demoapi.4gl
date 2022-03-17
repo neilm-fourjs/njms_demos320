@@ -17,13 +17,13 @@ MAIN
 	GL_DBGMSG(0,l_config.message)}
 	CALL l_db.g2_connect(NULL)
 
-  GL_DBGMSG(0,SFMT("%1 Server started",base.Application.getProgramName()))
+	GL_DBGMSG(0, SFMT("%1 Server started", base.Application.getProgramName()))
 
 -- Services
-  CALL com.WebServiceEngine.RegisterRestService("njm_cust_ws", "customers")
+	CALL com.WebServiceEngine.RegisterRestService("njm_cust_ws", "customers")
 
-  CALL com.WebServiceEngine.Start()
-  WHILE ws_lib.ws_ProcessServices_stat( com.WebServiceEngine.ProcessServices(-1) )
+	CALL com.WebServiceEngine.Start()
+	WHILE ws_lib.ws_ProcessServices_stat(com.WebServiceEngine.ProcessServices(-1))
 	END WHILE
-  GL_DBGMSG(0,SFMT("%1 Server stopped",base.Application.getProgramName()))
+	GL_DBGMSG(0, SFMT("%1 Server stopped", base.Application.getProgramName()))
 END MAIN

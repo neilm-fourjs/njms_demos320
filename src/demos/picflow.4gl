@@ -5,7 +5,7 @@ IMPORT FGL g2_core
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
 
-CONSTANT C_PRGVER = "3.1"
+CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "picFlow Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
@@ -23,12 +23,12 @@ DEFINE m_pics_info DYNAMIC ARRAY OF RECORD
 	typ STRING,
 	rwx STRING
 END RECORD
-DEFINE d, c INTEGER
+DEFINE d, c                               INTEGER
 DEFINE m_base, path, html_start, html_end STRING
 
 MAIN
 	DEFINE frm ui.Form
-	DEFINE n om.domNode
+	DEFINE n   om.domNode
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "picflow")
@@ -37,7 +37,7 @@ MAIN
 	DISPLAY "FGLIMAGEPATH:", fgl_getenv("FGLIMAGEPATH")
 	DISPLAY "PWD:", os.path.pwd()
 
-	LET m_base = checkBase( ARG_VAL(3) )
+	LET m_base = checkBase(ARG_VAL(3))
 	DISPLAY "Base:", m_base
 
 	OPEN FORM picf FROM "picflow"
@@ -48,12 +48,12 @@ MAIN
 
 	DISPLAY "Image Found:", m_pics.getLength()
 	IF m_pics.getLength() = 0 THEN
-		CALL g2_core.g2_winMessage("Error",SFMT("Not found any images in '%1'",m_base),"exclamation")
+		CALL g2_core.g2_winMessage("Error", SFMT("Not found any images in '%1'", m_base), "exclamation")
 		EXIT PROGRAM
 	END IF
 
 	LET html_start = "<P ALIGN=\"CENTER\">"
-	LET html_end = "<\P>"
+	LET html_end   = "<\P>"
 
 	LET c = 1
 	DIALOG ATTRIBUTE(UNBUFFERED)
@@ -75,8 +75,8 @@ MAIN
 
 		BEFORE DIALOG
 			LET frm = DIALOG.getForm()
-			LET n = frm.findNode("FormField", "formonly.c")
-			LET n = n.getFirstChild()
+			LET n   = frm.findNode("FormField", "formonly.c")
+			LET n   = n.getFirstChild()
 			CALL n.setAttribute("valueMax", m_pics.getLength())
 
 		ON ACTION quit
@@ -106,7 +106,7 @@ MAIN
 		ON ACTION close
 			EXIT DIALOG
 	END DIALOG
-	CALL g2_core.g2_exitProgram(0, % "Program Finished")
+	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION refresh(l_c STRING)
@@ -177,11 +177,11 @@ FUNCTION getImages(p_ext STRING, p_ext2 STRING)
 				CONTINUE WHILE
 			END IF
 
-			LET m_pics[m_pics.getLength() + 1].pic = path
+			LET m_pics[m_pics.getLength() + 1].pic  = path
 			LET m_pics_info[m_pics.getLength()].nam = os.Path.rootName(path)
 			LET m_pics_info[m_pics.getLength()].pth = m_base
 			LET m_pics_info[m_pics.getLength()].mod = os.Path.mtime(m_pics[m_pics.getLength()].pic)
-			LET c = os.Path.size(m_base || path)
+			LET c                                   = os.Path.size(m_base || path)
 			LET m_pics_info[m_pics.getLength()].siz = c USING "<<,<<<,<<<"
 			LET m_pics_info[m_pics.getLength()].pth = m_base
 			LET m_pics_info[m_pics.getLength()].typ = l_ext

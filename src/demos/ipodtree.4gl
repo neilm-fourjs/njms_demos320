@@ -17,7 +17,7 @@ IMPORT FGL g2_aui
 IMPORT FGL g2_about
 IMPORT FGL g2_appInfo
 
-CONSTANT C_PRGVER = "3.1"
+CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "TreeView Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
@@ -28,66 +28,66 @@ DEFINE xml_d om.domDocument
 DEFINE xml_r om.domNode
 
 TYPE t_song RECORD
-	sortby VARCHAR(140),
-	genre VARCHAR(40),
-	artist VARCHAR(40),
-	album VARCHAR(40),
-	year CHAR(4),
-	discno SMALLINT,
-	trackno SMALLINT,
-	title VARCHAR(40),
-	dur CHAR(10),
-	file VARCHAR(100),
+	sortby     VARCHAR(140),
+	genre      VARCHAR(40),
+	artist     VARCHAR(40),
+	album      VARCHAR(40),
+	year       CHAR(4),
+	discno     SMALLINT,
+	trackno    SMALLINT,
+	title      VARCHAR(40),
+	dur        CHAR(10),
+	file       VARCHAR(100),
 	play_count SMALLINT,
-	rating SMALLINT
+	rating     SMALLINT
 END RECORD
 
 TYPE t_tree RECORD
-	name STRING,
-	year CHAR(4),
-	pid STRING,
-	id STRING,
-	img STRING,
-	expanded BOOLEAN,
+	name        STRING,
+	year        CHAR(4),
+	pid         STRING,
+	id          STRING,
+	img         STRING,
+	expanded    BOOLEAN,
 	artist_name STRING
 END RECORD
 
 TYPE t_tracks RECORD
-	genre_key INTEGER,
+	genre_key  INTEGER,
 	artist_key INTEGER,
-	album_key INTEGER,
-	trackno SMALLINT,
-	title STRING,
-	dur CHAR(10),
-	file VARCHAR(100),
+	album_key  INTEGER,
+	trackno    SMALLINT,
+	title      STRING,
+	dur        CHAR(10),
+	file       VARCHAR(100),
 	play_count SMALLINT,
-	rating STRING,
-	image STRING
+	rating     STRING,
+	image      STRING
 END RECORD
 
-DEFINE song_a DYNAMIC ARRAY OF t_song
-DEFINE tree_a DYNAMIC ARRAY OF t_tree
-DEFINE tracks_a DYNAMIC ARRAY OF t_tracks
+DEFINE song_a       DYNAMIC ARRAY OF t_song
+DEFINE tree_a       DYNAMIC ARRAY OF t_tree
+DEFINE tracks_a     DYNAMIC ARRAY OF t_tracks
 DEFINE sel_tracks_a DYNAMIC ARRAY OF t_tracks
 DEFINE genre_a DYNAMIC ARRAY OF RECORD
-	genre STRING,
-	genre_key INTEGER,
+	genre      STRING,
+	genre_key  INTEGER,
 	artist_cnt INTEGER
 END RECORD
 DEFINE artist_a DYNAMIC ARRAY OF RECORD
 --		genre STRING,
-	artist STRING,
+	artist     STRING,
 	artist_key INTEGER,
-	album_cnt INTEGER
+	album_cnt  INTEGER
 END RECORD
 DEFINE album_a DYNAMIC ARRAY OF RECORD
-	artist STRING,
-	album_key INTEGER,
+	artist     STRING,
+	album_key  INTEGER,
 	artist_key INTEGER,
-	genre_key INTEGER,
-	album STRING,
-	genre STRING,
-	year CHAR(4)
+	genre_key  INTEGER,
+	album      STRING,
+	genre      STRING,
+	year       CHAR(4)
 END RECORD
 
 DEFINE f om.SaxDocumentHandler
@@ -97,12 +97,12 @@ DEFINE m_getAlbumArt, workFromDB BOOLEAN
 
 DEFINE m_album_art_artist DYNAMIC ARRAY OF RECORD
 	score SMALLINT,
-	id STRING,
-	name STRING
+	id    STRING,
+	name  STRING
 END RECORD
-DEFINE m_album_art_cover STRING
-DEFINE m_musicbrainz_url STRING
-DEFINE m_mb STRING
+DEFINE m_album_art_cover                              STRING
+DEFINE m_musicbrainz_url                              STRING
+DEFINE m_mb                                           STRING
 DEFINE m_artist, m_prev_artist, m_album, m_prev_album STRING
 
 MAIN
@@ -120,7 +120,7 @@ MAIN
 	CALL ui.window.getCurrent().setText("Loading, please wait ...")
 	CALL ui.interface.refresh()
 
-	LET l_file = "iTunes Music Library.xml"
+	LET l_file     = "iTunes Music Library.xml"
 	LET workFromDB = FALSE
 
 --CALL gldb_connect(NULL)
@@ -140,8 +140,7 @@ MAIN
 				LET l_file = "../ipodTree/etc/music.xml"
 			END IF
 			IF NOT os.path.exists(l_file) THEN
-				CALL g2_core.g2_errPopup(
-						% "'" || l_file || "' Doesn't Exist, try running again like this\nfglrun ipod.42r LOAD")
+				CALL g2_core.g2_errPopup(%"'" || l_file || "' Doesn't Exist, try running again like this\nfglrun ipod.42r LOAD")
 				EXIT PROGRAM
 			END IF
 			CALL openXML(l_file)
@@ -154,14 +153,14 @@ MAIN
 	LET m_getAlbumArt = TRUE
 	CALL dispInfo()
 	CALL mainDialog()
-	CALL g2_core.g2_exitProgram(0, % "Program Finished")
+	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION mainDialog()
 	DEFINE r_search, t_search, a_search, l_ret STRING
-	DEFINE n om.DomNode
+	DEFINE n                                   om.DomNode
 	LET m_prev_artist = "."
-	LET m_prev_album = "."
+	LET m_prev_album  = "."
 	DISPLAY CURRENT, ": Starting main dialog."
 	DISPLAY "noimage" TO album_art
 	CALL ui.window.getCurrent().setText("My Genero Music Tree Demo")
@@ -175,7 +174,7 @@ FUNCTION mainDialog()
 				IF tree_a[arr_curr()].img IS NOT NULL THEN -- artist or album
 					LET m_artist = tree_a[arr_curr()].artist_name
 					IF m_artist != m_prev_artist THEN
-						LET m_mb = "Artist:", m_artist, " (", getArtistID(m_artist), ")"
+						LET m_mb    = "Artist:", m_artist, " (", getArtistID(m_artist), ")"
 						LET m_album = "."
 					END IF
 					LET m_prev_artist = m_artist
@@ -229,8 +228,7 @@ FUNCTION mainDialog()
 			BEFORE ROW
 				IF arr_curr() > 0 THEN
 					CALL dispRowDetails(
-							sel_tracks_a[arr_curr()].genre_key,
-							sel_tracks_a[arr_curr()].artist_key,
+							sel_tracks_a[arr_curr()].genre_key, sel_tracks_a[arr_curr()].artist_key,
 							sel_tracks_a[arr_curr()].album_key)
 				END IF
 		END DISPLAY
@@ -285,25 +283,17 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION dispInfo()
 
-	LET t_hr = t_sec / 3600
+	LET t_hr  = t_sec / 3600
 	LET t_min = t_hr / 60
 	LET t_sec = t_hr - (t_min * 60)
 	LET t_day = t_hr / 24
-	LET t_hr = t_hr - (t_day * 24)
+	LET t_hr  = t_hr - (t_day * 24)
 
 	DISPLAY genre_a.getLength() TO genres
 	DISPLAY artist_a.getLength() TO artists
 	DISPLAY album_a.getLength() TO albums
 	DISPLAY tracks_a.getLength() TO tracks
-	DISPLAY "Total Play Time: "
-					|| t_day
-					|| " Days "
-					|| t_hr
-					|| " hours "
-					|| t_min
-					|| " minutes "
-					|| t_sec
-					|| " seconds"
+	DISPLAY "Total Play Time: " || t_day || " Days " || t_hr || " hours " || t_min || " minutes " || t_sec || " seconds"
 			TO playtime
 
 END FUNCTION
@@ -312,8 +302,7 @@ FUNCTION openLibrary(file)
 	DEFINE file STRING
 
 	IF file IS NULL THEN
-		CALL ui.interface.frontCall(
-				"standard", "openfile", ["", "iTunes Library", "*.xml", "Choose a Library"], file)
+		CALL ui.interface.frontCall("standard", "openfile", ["", "iTunes Library", "*.xml", "Choose a Library"], file)
 	END IF
 	IF file IS NULL THEN
 		MESSAGE "Cancelled."
@@ -321,7 +310,7 @@ FUNCTION openLibrary(file)
 	END IF
 
 	IF NOT os.path.exists(file) THEN
-		CALL g2_core.g2_errPopup(% "'" || file || "' Doesn't Exist, can't do load")
+		CALL g2_core.g2_errPopup(%"'" || file || "' Doesn't Exist, can't do load")
 		RETURN
 	END IF
 
@@ -347,13 +336,12 @@ FUNCTION openXML(file)
 	DISPLAY CURRENT, ": Opening " || file || " ..."
 	LET xml_d = om.domDocument.createFromXMLFile(file)
 	IF xml_d IS NULL THEN
-		CALL g2_core.g2_errPopup(
-				% "Failed to open '" || file || "'!\nTry running like this: fglrun ipod.42r LOAD")
+		CALL g2_core.g2_errPopup(%"Failed to open '" || file || "'!\nTry running like this: fglrun ipod.42r LOAD")
 		EXIT PROGRAM
 	END IF
 	LET xml_r = xml_d.getDocumentElement()
 	IF xml_r IS NULL THEN
-		CALL g2_core.g2_errPopup(% "Failed to get root node!")
+		CALL g2_core.g2_errPopup(%"Failed to get root node!")
 		EXIT PROGRAM
 	END IF
 
@@ -361,7 +349,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION t_searchARR(what)
 	DEFINE tmp, what STRING
-	DEFINE x INTEGER
+	DEFINE x         INTEGER
 
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
@@ -376,7 +364,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION ar_searchARR(what)
 	DEFINE tmp, what STRING
-	DEFINE x, y INTEGER
+	DEFINE x, y      INTEGER
 
 	MESSAGE "Searching for Artist matching '" || what || "'"
 	CALL showBranch(0, 0, 0, FALSE)
@@ -398,7 +386,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION al_searchARR(what)
 	DEFINE tmp, what STRING
-	DEFINE x, y INTEGER
+	DEFINE x, y      INTEGER
 
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
@@ -439,9 +427,9 @@ FUNCTION al_searchDB(what)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION loadMusic()
-	DEFINE x, y, z, k, g INTEGER
+	DEFINE x, y, z, k, g                 INTEGER
 	DEFINE xml_g, xml_ar, xml_al, xml_tr om.domNode
-	DEFINE nl, nl2, nl3 om.nodeList
+	DEFINE nl, nl2, nl3                  om.nodeList
 
 	CALL genre_a.clear()
 	CALL artist_a.clear()
@@ -450,48 +438,48 @@ FUNCTION loadMusic()
 
 	DISPLAY CURRENT, ": Loading from XML into array ..."
 	LET nl = xml_r.selectByTagName("Genre")
-	LET g = 0
+	LET g  = 0
 	FOR x = 1 TO nl.getlength()
-		LET xml_g = nl.item(x)
-		LET g = g + 1
-		LET genre_a[g].genre = xml_g.getAttribute("name")
-		LET genre_a[g].genre_key = g
-		LET nl2 = xml_g.selectByTagName("Artist")
+		LET xml_g                 = nl.item(x)
+		LET g                     = g + 1
+		LET genre_a[g].genre      = xml_g.getAttribute("name")
+		LET genre_a[g].genre_key  = g
+		LET nl2                   = xml_g.selectByTagName("Artist")
 		LET genre_a[g].artist_cnt = nl2.getLength()
 		FOR y = 1 TO nl2.getLength()
-			LET xml_ar = nl2.item(y)
-			LET k = xml_ar.getAttribute("artist_key")
-			LET artist_a[k].artist = xml_ar.getAttribute("name")
+			LET xml_ar                 = nl2.item(y)
+			LET k                      = xml_ar.getAttribute("artist_key")
+			LET artist_a[k].artist     = xml_ar.getAttribute("name")
 			LET artist_a[k].artist_key = k
-			LET nl3 = xml_ar.selectByTagName("Album")
+			LET nl3                    = xml_ar.selectByTagName("Album")
 			FOR z = 1 TO nl3.getLength()
-				LET xml_al = nl3.item(z)
-				LET k = xml_al.getAttribute("album_key")
-				LET album_a[k].album = xml_al.getAttribute("name")
-				LET album_a[k].album_key = k
+				LET xml_al                = nl3.item(z)
+				LET k                     = xml_al.getAttribute("album_key")
+				LET album_a[k].album      = xml_al.getAttribute("name")
+				LET album_a[k].album_key  = k
 				LET album_a[k].artist_key = xml_al.getAttribute("artist_key")
-				LET album_a[k].genre_key = xml_al.getAttribute("genre_key")
-				LET album_a[k].year = xml_al.getAttribute("year")
-				LET album_a[k].genre = xml_g.getAttribute("name")
-				LET album_a[k].artist = xml_ar.getAttribute("name")
+				LET album_a[k].genre_key  = xml_al.getAttribute("genre_key")
+				LET album_a[k].year       = xml_al.getAttribute("year")
+				LET album_a[k].genre      = xml_g.getAttribute("name")
+				LET album_a[k].artist     = xml_ar.getAttribute("name")
 			END FOR
 		END FOR
 	END FOR
 
 	LET nl = xml_r.selectByTagName("Track")
 	FOR x = 1 TO nl.getlength()
-		LET xml_tr = nl.item(x)
-		LET tracks_a[x].dur = xml_tr.getAttribute("dur")
-		LET tracks_a[x].genre_key = xml_tr.getAttribute("genre_key")
-		LET tracks_a[x].album_key = xml_tr.getAttribute("album_key")
+		LET xml_tr                 = nl.item(x)
+		LET tracks_a[x].dur        = xml_tr.getAttribute("dur")
+		LET tracks_a[x].genre_key  = xml_tr.getAttribute("genre_key")
+		LET tracks_a[x].album_key  = xml_tr.getAttribute("album_key")
 		LET tracks_a[x].artist_key = xml_tr.getAttribute("artist_key")
-		LET tracks_a[x].title = xml_tr.getAttribute("title")
-		LET tracks_a[x].trackno = xml_tr.getAttribute("trackno")
-		LET tracks_a[x].file = xml_tr.getAttribute("file")
+		LET tracks_a[x].title      = xml_tr.getAttribute("title")
+		LET tracks_a[x].trackno    = xml_tr.getAttribute("trackno")
+		LET tracks_a[x].file       = xml_tr.getAttribute("file")
 		LET tracks_a[x].play_count = xml_tr.getAttribute("play_count")
-		LET tracks_a[x].rating = xml_tr.getAttribute("rating")
-		LET t_min = t_min + tracks_a[x].dur[1, 2]
-		LET t_sec = t_sec + tracks_a[x].dur[4, 5]
+		LET tracks_a[x].rating     = xml_tr.getAttribute("rating")
+		LET t_min                  = t_min + tracks_a[x].dur[1, 2]
+		LET t_sec                  = t_sec + tracks_a[x].dur[4, 5]
 	END FOR
 	CALL buildTree()
 END FUNCTION
@@ -504,13 +492,13 @@ FUNCTION set_xml_n(n) -- Called from SAX Handler.
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION loadSongs()
-	DEFINE x, gk, ark, alk INTEGER
-	DEFINE trck, c om.domNode
+	DEFINE x, gk, ark, alk                INTEGER
+	DEFINE trck, c                        om.domNode
 	DEFINE tim, hr, minu, sec, navg, pavg INTEGER
-	DEFINE song t_song
+	DEFINE song                           t_song
 --	DEFINE xml_d om.domDocument
 	DEFINE xml_g, xml_ar, xml_al, xml_tr om.domNode
-	DEFINE nl om.nodeList
+	DEFINE nl                            om.nodeList
 
 	CALL song_a.clear()
 	CALL genre_a.clear()
@@ -520,13 +508,13 @@ FUNCTION loadSongs()
 
 	LET t_sec = 0
 	LET t_min = 0
-	LET t_hr = 0
+	LET t_hr  = 0
 	LET t_day = 0
 
 	DISPLAY CURRENT, ": Nodes:", xml_r.getChildCount(), ":", xml_r.getTagName()
 
 	LET trck = xml_r.getFirstChild()
-	LET x = 0
+	LET x    = 0
 	DISPLAY CURRENT, ": Loading from XML into array & sorting ..."
 
 	CALL g2_aui.g2_progBar(1, 100, "Processing XML - Phase 1 of 3")
@@ -562,17 +550,17 @@ FUNCTION loadSongs()
 		IF song.trackno IS NULL THEN
 			LET song.trackno = 0
 		END IF
-		LET song.year = trck.getAttribute("year")
+		LET song.year       = trck.getAttribute("year")
 		LET song.play_count = trck.getAttribute("play_count")
-		LET song.rating = trck.getAttribute("rating")
-		LET tim = trck.getAttribute("total_time")
+		LET song.rating     = trck.getAttribute("rating")
+		LET tim             = trck.getAttribute("total_time")
 		IF tim IS NOT NULL THEN
-			LET hr = tim / 1000
-			LET minu = hr / 60
-			LET sec = hr - (minu * 60)
+			LET hr       = tim / 1000
+			LET minu     = hr / 60
+			LET sec      = hr - (minu * 60)
 			LET song.dur = minu USING "&&", ":", sec USING "&&"
-			LET t_sec = t_sec + (tim / 1000)
-			LET t_min = t_min + minu
+			LET t_sec    = t_sec + (tim / 1000)
+			LET t_min    = t_min + minu
 		END IF
 		LET c = trck.getFirstChild()
 		IF c IS NOT NULL THEN
@@ -603,7 +591,7 @@ FUNCTION loadSongs()
 		IF gk > genre_a.getLength() THEN
 			LET genre_a[genre_a.getLength() + 1].genre = song_a[x].genre
 			LET genre_a[genre_a.getLength()].genre_key = gk
-			LET xml_g = xml_r.createChild("Genre")
+			LET xml_g                                  = xml_r.createChild("Genre")
 			CALL xml_g.setAttribute("name", genre_a[genre_a.getLength()].genre)
 			CALL xml_g.setAttribute("genre_key", genre_a[genre_a.getLength()].genre_key)
 		END IF
@@ -616,7 +604,7 @@ FUNCTION loadSongs()
 			LET artist_a[artist_a.getLength() + 1].artist = song_a[x].artist
 --			LET artist_a[ artist_a.getLength()].genre = song_a[x].genre
 			LET artist_a[artist_a.getLength()].artist_key = ark
-			LET xml_ar = xml_g.createChild("Artist")
+			LET xml_ar                                    = xml_g.createChild("Artist")
 			CALL xml_ar.setAttribute("name", artist_a[artist_a.getLength()].artist)
 			CALL xml_ar.setAttribute("artist_key", artist_a[artist_a.getLength()].artist_key)
 			CALL xml_ar.setAttribute("genre_key", gk)
@@ -628,12 +616,12 @@ FUNCTION loadSongs()
 		END FOR
 		IF alk > album_a.getLength() THEN
 			LET album_a[album_a.getLength() + 1].artist = song_a[x].artist
-			LET album_a[album_a.getLength()].album = song_a[x].album
-			LET album_a[album_a.getLength()].year = song_a[x].year
-			LET album_a[album_a.getLength()].genre = song_a[x].genre
-			LET album_a[album_a.getLength()].album_key = alk
+			LET album_a[album_a.getLength()].album      = song_a[x].album
+			LET album_a[album_a.getLength()].year       = song_a[x].year
+			LET album_a[album_a.getLength()].genre      = song_a[x].genre
+			LET album_a[album_a.getLength()].album_key  = alk
 			LET album_a[album_a.getLength()].artist_key = ark
-			LET nl = xml_g.selectbypath("//Artist[@artist_key='" || ark || "']")
+			LET nl                                      = xml_g.selectbypath("//Artist[@artist_key='" || ark || "']")
 			IF nl.getlength() > 0 THEN
 				LET xml_ar = nl.item(1)
 			ELSE
@@ -665,14 +653,14 @@ FUNCTION loadSongs()
 		CALL xml_tr.setAttribute("play_count", song_a[x].play_count)
 		CALL xml_tr.setAttribute("rating", song_a[x].rating)
 		LET tracks_a[tracks_a.getLength() + 1].genre_key = gk
-		LET tracks_a[tracks_a.getLength()].artist_key = ark
-		LET tracks_a[tracks_a.getLength()].album_key = alk
-		LET tracks_a[tracks_a.getLength()].trackno = song_a[x].trackno
-		LET tracks_a[tracks_a.getLength()].title = song_a[x].title CLIPPED
-		LET tracks_a[tracks_a.getLength()].dur = song_a[x].dur CLIPPED
-		LET tracks_a[tracks_a.getLength()].file = song_a[x].file CLIPPED
-		LET tracks_a[tracks_a.getLength()].play_count = song_a[x].play_count
-		LET tracks_a[tracks_a.getLength()].rating = song_a[x].rating
+		LET tracks_a[tracks_a.getLength()].artist_key    = ark
+		LET tracks_a[tracks_a.getLength()].album_key     = alk
+		LET tracks_a[tracks_a.getLength()].trackno       = song_a[x].trackno
+		LET tracks_a[tracks_a.getLength()].title         = song_a[x].title CLIPPED
+		LET tracks_a[tracks_a.getLength()].dur           = song_a[x].dur CLIPPED
+		LET tracks_a[tracks_a.getLength()].file          = song_a[x].file CLIPPED
+		LET tracks_a[tracks_a.getLength()].play_count    = song_a[x].play_count
+		LET tracks_a[tracks_a.getLength()].rating        = song_a[x].rating
 	END FOR
 	CALL xml_r.writeXML("music.xml")
 	CALL g2_aui.g2_progBar(3, 0, "")
@@ -698,7 +686,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION buildTree()
 	DEFINE x, y, g, a, t_cnt, album_cnt INTEGER
-	DEFINE prev_art STRING
+	DEFINE prev_art                     STRING
 
 	CALL g2_aui.g2_progBar(1, genre_a.getLength(), "Processing XML - Phase 3 of 3")
 
@@ -710,40 +698,35 @@ FUNCTION buildTree()
 	DISPLAY CURRENT, ": Building Tree ..."
 	LET t_cnt = 1
 	FOR x = 1 TO genre_a.getLength()
-		LET tree_a[t_cnt].id = (genre_a[x].genre_key USING "&&&&&")
-		LET g = t_cnt
+		LET tree_a[t_cnt].id      = (genre_a[x].genre_key USING "&&&&&")
+		LET g                     = t_cnt
 		LET genre_a[x].artist_cnt = 0
-		LET t_cnt = t_cnt + 1
-		LET prev_art = "."
+		LET t_cnt                 = t_cnt + 1
+		LET prev_art              = "."
 		CALL g2_aui.g2_progBar(2, x, "")
 		FOR y = 1 TO album_a.getLength()
 			IF album_a[y].genre = genre_a[x].genre THEN
 				IF album_a[y].artist != prev_art THEN
 					LET genre_a[x].artist_cnt = genre_a[x].artist_cnt + 1
-					LET tree_a[t_cnt].img = "user"
-					LET tree_a[t_cnt].pid = (genre_a[x].genre_key USING "&&&&&")
-					LET tree_a[t_cnt].id =
-							(genre_a[x].genre_key USING "&&&&&") || "-" || (album_a[y].artist_key USING "&&&&&")
-					LET a = t_cnt
-					LET t_cnt = t_cnt + 1
-					LET prev_art = album_a[y].artist
-					LET album_cnt = 0
+					LET tree_a[t_cnt].img     = "user"
+					LET tree_a[t_cnt].pid     = (genre_a[x].genre_key USING "&&&&&")
+					LET tree_a[t_cnt].id = (genre_a[x].genre_key USING "&&&&&") || "-" || (album_a[y].artist_key USING "&&&&&")
+					LET a                = t_cnt
+					LET t_cnt            = t_cnt + 1
+					LET prev_art         = album_a[y].artist
+					LET album_cnt        = 0
 				END IF
-				LET album_cnt = album_cnt + 1
-				LET tree_a[t_cnt].img = "cd16"
-				LET tree_a[t_cnt].name = album_a[y].album
-				LET tree_a[t_cnt].year = album_a[y].year
+				LET album_cnt                 = album_cnt + 1
+				LET tree_a[t_cnt].img         = "cd16"
+				LET tree_a[t_cnt].name        = album_a[y].album
+				LET tree_a[t_cnt].year        = album_a[y].year
 				LET tree_a[t_cnt].artist_name = album_a[y].artist
-				LET tree_a[t_cnt].pid =
-						(genre_a[x].genre_key USING "&&&&&") || "-" || (album_a[y].artist_key USING "&&&&&")
+				LET tree_a[t_cnt].pid = (genre_a[x].genre_key USING "&&&&&") || "-" || (album_a[y].artist_key USING "&&&&&")
 				LET tree_a[t_cnt].id =
-						(genre_a[x].genre_key USING "&&&&&")
-								|| "-"
-								|| (album_a[y].artist_key USING "&&&&&")
-								|| "-"
+						(genre_a[x].genre_key USING "&&&&&") || "-" || (album_a[y].artist_key USING "&&&&&") || "-"
 								|| (album_a[y].album_key USING "&&&&&")
-				LET t_cnt = t_cnt + 1
-				LET tree_a[a].name = album_a[y].artist || " (" || album_cnt || ")"
+				LET t_cnt                 = t_cnt + 1
+				LET tree_a[a].name        = album_a[y].artist || " (" || album_cnt || ")"
 				LET tree_a[a].artist_name = album_a[y].artist
 			END IF
 		END FOR
@@ -757,11 +740,11 @@ FUNCTION buildTree()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION showBranch(g, ar, al, tf)
-	DEFINE g, ar, al INTEGER
-	DEFINE tf BOOLEAN
-	DEFINE y, x INTEGER
+	DEFINE g, ar, al     INTEGER
+	DEFINE tf            BOOLEAN
+	DEFINE y, x          INTEGER
 	DEFINE id1, id2, id3 CHAR(5)
-	DEFINE d ui.Dialog
+	DEFINE d             ui.Dialog
 
 	LET d = ui.dialog.getCurrent()
 
@@ -806,7 +789,7 @@ FUNCTION showBranch(g, ar, al, tf)
 				IF tree_a[x].id.subString(1, 5) != tree_a[y].id.subString(1, 5) THEN
 					EXIT FOR
 				END IF
-				IF tree_a[x].expanded THEN -- if child expanded.
+				IF tree_a[x].expanded THEN      -- if child expanded.
 					LET tree_a[y].expanded = TRUE -- Expand parent
 					EXIT FOR
 				END IF
@@ -829,9 +812,9 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION dispRowDetails(g, art, alb)
 	DEFINE g, art, alb, x INTEGER
-	DEFINE album_name STRING
-	DEFINE id STRING
-	DEFINE d ui.dialog
+	DEFINE album_name     STRING
+	DEFINE id             STRING
+	DEFINE d              ui.dialog
 
 	IF alb > 0 THEN
 		LET album_name = album_a[alb].album
@@ -862,14 +845,14 @@ FUNCTION dispRowDetails(g, art, alb)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION loadTracks(id)
-	DEFINE id STRING
+	DEFINE id                STRING
 	DEFINE g, art, alb, x, y INTEGER
-	DEFINE tracks_tmp DYNAMIC ARRAY OF t_tracks
+	DEFINE tracks_tmp        DYNAMIC ARRAY OF t_tracks
 
 -- 12345678901234567
 -- 00000-00000-00000
 
-	LET g = id.subString(1, 5)
+	LET g   = id.subString(1, 5)
 	LET art = id.subString(7, 11)
 	LET alb = id.subString(13, 17)
 
@@ -887,15 +870,15 @@ FUNCTION loadTracks(id)
 			IF tracks_a[x].artist_key = art THEN
 				IF alb = 0 OR tracks_a[x].album_key = alb THEN
 					LET tracks_tmp[tracks_tmp.getLength() + 1].genre_key = tracks_a[x].genre_key
-					LET tracks_tmp[tracks_tmp.getLength()].artist_key = tracks_a[x].artist_key
-					LET tracks_tmp[tracks_tmp.getLength()].album_key = tracks_a[x].album_key
-					LET tracks_tmp[tracks_tmp.getLength()].title = tracks_a[x].title
-					LET tracks_tmp[tracks_tmp.getLength()].trackno = tracks_a[x].trackno
-					LET tracks_tmp[tracks_tmp.getLength()].image = "note"
-					LET tracks_tmp[tracks_tmp.getLength()].dur = tracks_a[x].dur
-					LET tracks_tmp[tracks_tmp.getLength()].file = tracks_a[x].file
-					LET tracks_tmp[tracks_tmp.getLength()].play_count = tracks_a[x].play_count
-					LET tracks_tmp[tracks_tmp.getLength()].rating = tracks_a[x].rating
+					LET tracks_tmp[tracks_tmp.getLength()].artist_key    = tracks_a[x].artist_key
+					LET tracks_tmp[tracks_tmp.getLength()].album_key     = tracks_a[x].album_key
+					LET tracks_tmp[tracks_tmp.getLength()].title         = tracks_a[x].title
+					LET tracks_tmp[tracks_tmp.getLength()].trackno       = tracks_a[x].trackno
+					LET tracks_tmp[tracks_tmp.getLength()].image         = "note"
+					LET tracks_tmp[tracks_tmp.getLength()].dur           = tracks_a[x].dur
+					LET tracks_tmp[tracks_tmp.getLength()].file          = tracks_a[x].file
+					LET tracks_tmp[tracks_tmp.getLength()].play_count    = tracks_a[x].play_count
+					LET tracks_tmp[tracks_tmp.getLength()].rating        = tracks_a[x].rating
 					IF tracks_a[x].rating IS NULL THEN
 						LET tracks_a[x].rating = 0
 					END IF
@@ -921,14 +904,14 @@ FUNCTION setSelTrack(x)
 	DEFINE x INTEGER
 
 	LET sel_tracks_a[sel_tracks_a.getLength() + 1].genre_key = tracks_a[x].genre_key
-	LET sel_tracks_a[sel_tracks_a.getLength()].artist_key = tracks_a[x].artist_key
-	LET sel_tracks_a[sel_tracks_a.getLength()].album_key = tracks_a[x].album_key
-	LET sel_tracks_a[sel_tracks_a.getLength()].title = tracks_a[x].title
-	LET sel_tracks_a[sel_tracks_a.getLength()].trackno = tracks_a[x].trackno
-	LET sel_tracks_a[sel_tracks_a.getLength()].image = "note"
-	LET sel_tracks_a[sel_tracks_a.getLength()].dur = tracks_a[x].dur
-	LET sel_tracks_a[sel_tracks_a.getLength()].file = tracks_a[x].file
-	LET sel_tracks_a[sel_tracks_a.getLength()].play_count = tracks_a[x].play_count
+	LET sel_tracks_a[sel_tracks_a.getLength()].artist_key    = tracks_a[x].artist_key
+	LET sel_tracks_a[sel_tracks_a.getLength()].album_key     = tracks_a[x].album_key
+	LET sel_tracks_a[sel_tracks_a.getLength()].title         = tracks_a[x].title
+	LET sel_tracks_a[sel_tracks_a.getLength()].trackno       = tracks_a[x].trackno
+	LET sel_tracks_a[sel_tracks_a.getLength()].image         = "note"
+	LET sel_tracks_a[sel_tracks_a.getLength()].dur           = tracks_a[x].dur
+	LET sel_tracks_a[sel_tracks_a.getLength()].file          = tracks_a[x].file
+	LET sel_tracks_a[sel_tracks_a.getLength()].play_count    = tracks_a[x].play_count
 	IF tracks_a[x].rating IS NULL THEN
 		LET tracks_a[x].rating = 0
 	END IF
@@ -977,7 +960,7 @@ FUNCTION getArtworkURL(l_album_id STRING)
 		END RECORD
 	END RECORD
 	DEFINE l_img STRING
-	DEFINE c base.channel
+	DEFINE c     base.channel
 
 	LET l_url = 'http://coverartarchive.org/release/' || l_album_id.trim()
 	CALL g2_core.g2_message(SFMT("Getting Album artwork for '%1' from: %2", l_album_id.trim(), l_url))
@@ -1010,7 +993,7 @@ FUNCTION getArtworkURL(l_album_id STRING)
 		ERROR "JSON Error:" || STATUS || ":" || err_get(STATUS)
 		RETURN NULL
 	END TRY
-	LET l_img = json_rec.images[1].image
+	LET l_img             = json_rec.images[1].image
 	LET m_album_art_cover = l_img
 	IF json_rec.images[1].thumbnails.small IS NOT NULL THEN
 		LET l_img = json_rec.images[1].thumbnails.small
@@ -1035,20 +1018,17 @@ FUNCTION getAlbumID(l_alb STRING)
 	DEFINE l_result RECORD
 		count SMALLINT,
 		releases DYNAMIC ARRAY OF RECORD
-			id STRING,
+			id    STRING,
 			score SMALLINT,
 			title STRING
 		END RECORD
 	END RECORD
 	DEFINE l_album_art_artist_id STRING
-	DEFINE x, y, l_score SMALLINT
+	DEFINE x, y, l_score         SMALLINT
 
 	FOR x = 1 TO m_album_art_artist.getLength()
 		LET l_url =
-				'http://musicbrainz.org/ws/2/release/?query="'
-						|| l_alb
-						|| '" AND arid:'
-						|| m_album_art_artist[x].id
+				'http://musicbrainz.org/ws/2/release/?query="' || l_alb || '" AND arid:' || m_album_art_artist[x].id
 						|| '&fmt=json'
 		LET l_line = getRestRequest(l_url)
 		IF l_line IS NULL THEN
@@ -1074,7 +1054,7 @@ FUNCTION getAlbumID(l_alb STRING)
 
 	-- replace m_mb with actually artist for this album
 	LET l_album_art_artist_id = m_album_art_artist[x].id
-	LET m_mb = "Artist:", m_artist, " (", l_album_art_artist_id, ")"
+	LET m_mb                  = "Artist:", m_artist, " (", l_album_art_artist_id, ")"
 
 -- delete the album_art_artist entries that are for this album
 	FOR y = 1 TO m_album_art_artist.getLength()
@@ -1087,7 +1067,7 @@ FUNCTION getAlbumID(l_alb STRING)
 	FOR x = 1 TO l_result.count
 		IF l_result.releases[x].score > l_score THEN
 			LET l_score = l_result.releases[x].score
-			LET l_id = l_result.releases[x].id
+			LET l_id    = l_result.releases[x].id
 			LET l_title = l_result.releases[x].title
 
 			IF l_score = 100 THEN
@@ -1118,14 +1098,14 @@ FUNCTION getArtistID(l_art STRING)
 	DEFINE l_artist RECORD
 		count SMALLINT,
 		artists DYNAMIC ARRAY OF RECORD
-			id STRING,
+			id    STRING,
 			score SMALLINT,
-			name STRING
+			name  STRING
 		END RECORD
 	END RECORD
 	DEFINE x SMALLINT
 
-	LET l_url = 'http://musicbrainz.org/ws/2/artist/?query="' || l_art.trim() || '"&fmt=json'
+	LET l_url  = 'http://musicbrainz.org/ws/2/artist/?query="' || l_art.trim() || '"&fmt=json'
 	LET l_line = getRestRequest(l_url)
 	IF l_line IS NULL THEN
 		RETURN NULL
@@ -1145,21 +1125,17 @@ FUNCTION getArtistID(l_art STRING)
 	FOR x = 1 TO l_artist.count
 		IF l_artist.artists[x].score > 80 THEN
 			LET m_album_art_artist[m_album_art_artist.getLength() + 1].score = l_artist.artists[x].score
-			LET m_album_art_artist[m_album_art_artist.getLength()].id = l_artist.artists[x].id
-			LET m_album_art_artist[m_album_art_artist.getLength()].name = l_artist.artists[x].name
+			LET m_album_art_artist[m_album_art_artist.getLength()].id        = l_artist.artists[x].id
+			LET m_album_art_artist[m_album_art_artist.getLength()].name      = l_artist.artists[x].name
 		END IF
 	END FOR
 	CALL m_album_art_artist.sort("score", TRUE)
 	DISPLAY "Found ", m_album_art_artist.getLength(), " Artists:"
 	FOR x = 1 TO m_album_art_artist.getLength()
-		DISPLAY m_album_art_artist[x].score,
-				" : ",
-				m_album_art_artist[x].id,
-				" : ",
-				m_album_art_artist[x].name
+		DISPLAY m_album_art_artist[x].score, " : ", m_album_art_artist[x].id, " : ", m_album_art_artist[x].name
 	END FOR
-	LET l_id = m_album_art_artist[1].id
-	LET l_name = m_album_art_artist[1].name
+	LET l_id              = m_album_art_artist[1].id
+	LET l_name            = m_album_art_artist[1].name
 	LET m_musicbrainz_url = "https://musicbrainz.org/artist/" || l_id
 	DISPLAY "Artist: ", NVL(l_id, "NULL"), " : ", l_name
 	CALL g2_core.g2_message(SFMT("Artist %1 Found, id:%2", l_name, l_id))
@@ -1167,8 +1143,8 @@ FUNCTION getArtistID(l_art STRING)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION getRestRequest(l_url STRING)
-	DEFINE l_err BOOLEAN
-	DEFINE l_req com.HttpRequest
+	DEFINE l_err  BOOLEAN
+	DEFINE l_req  com.HttpRequest
 	DEFINE l_resp com.HttpResponse
 	DEFINE l_line STRING
 
@@ -1193,7 +1169,7 @@ FUNCTION getRestRequest(l_url STRING)
 	TRY
 		IF l_resp.getStatusCode() = 200 THEN
 			LET l_line = l_resp.getTextResponse()
-			LET l_err = FALSE
+			LET l_err  = FALSE
 		ELSE
 			LET l_line = SFMT("WARN:%1-%2", l_resp.getStatusCode(), l_resp.getStatusDescription())
 		END IF
@@ -1235,7 +1211,7 @@ FUNCTION db_mk_tab()
 	TRY
 		CREATE TABLE ipod_genre(genre_key SERIAL, genre VARCHAR(40))
 	CATCH
-		CALL g2_core.g2_errPopup(% "failed to create 'ipod_genre'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(%"failed to create 'ipod_genre'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Created Table 'ipod_genre'"
@@ -1244,17 +1220,16 @@ FUNCTION db_mk_tab()
 	TRY
 		CREATE TABLE ipod_artists(artist_key SERIAL, artist VARCHAR(50))
 	CATCH
-		CALL g2_core.g2_errPopup(% "failed to create 'ipod_artists'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(%"failed to create 'ipod_artists'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Create Table 'ipod_artists'"
 
 	DISPLAY "Create Table  'ipod_albums'..."
 	TRY
-		CREATE TABLE ipod_albums(
-				album_key SERIAL, genre_key INTEGER, artist_key INTEGER, album VARCHAR(50), year CHAR(4))
+		CREATE TABLE ipod_albums(album_key SERIAL, genre_key INTEGER, artist_key INTEGER, album VARCHAR(50), year CHAR(4))
 	CATCH
-		CALL g2_core.g2_errPopup(% "failed to create 'ipod_albums'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(%"failed to create 'ipod_albums'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Create Table 'ipod_albums'"
@@ -1262,16 +1237,10 @@ FUNCTION db_mk_tab()
 	DISPLAY "Create Table  'ipod_tracks'..."
 	TRY
 		CREATE TABLE ipod_tracks(
-				track_key SERIAL,
-				album_key INTEGER,
-				track_no SMALLINT,
-				track VARCHAR(60),
-				dur VARCHAR(10),
-				file VARCHAR(100),
-				play_count SMALLINT,
-				rating SMALLINT)
+				track_key SERIAL, album_key INTEGER, track_no SMALLINT, track VARCHAR(60), dur VARCHAR(10), file VARCHAR(100),
+				play_count SMALLINT, rating SMALLINT)
 	CATCH
-		CALL g2_core.g2_errPopup(% "failed to create 'ipod_tracks'\n" || SQLERRMESSAGE)
+		CALL g2_core.g2_errPopup(%"failed to create 'ipod_tracks'\n" || SQLERRMESSAGE)
 		EXIT PROGRAM
 	END TRY
 	DISPLAY "Create Table 'ipod_tracks'"
@@ -1280,7 +1249,7 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION db_load_tab()
 	DEFINE x, y, ak INTEGER
-	DEFINE vc VARCHAR(60)
+	DEFINE vc       VARCHAR(60)
 
 	DISPLAY CURRENT, ":Loading " || genre_a.getLength() || " Genre ..."
 	MESSAGE "Loading " || genre_a.getLength() || " Genre ..."
@@ -1353,12 +1322,7 @@ FUNCTION db_load_tab()
 				LET ak = album_a[y].album_key
 			END IF
 		END FOR
-		PUT sng_put_cur FROM ak,
-				song_a[x].trackno,
-				vc,
-				song_a[x].dur,
-				song_a[x].file,
-				song_a[x].play_count,
+		PUT sng_put_cur FROM ak, song_a[x].trackno, vc, song_a[x].dur, song_a[x].file, song_a[x].play_count,
 				song_a[x].rating
 	END FOR
 	CLOSE sng_put_cur
@@ -1371,17 +1335,17 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION db_read()
 	DEFINE vc, vc2, vc3 VARCHAR(60)
-	DEFINE yr CHAR(4)
+	DEFINE yr           CHAR(4)
 	DEFINE gk, ark, alk INTEGER
 	DEFINE l_trk RECORD
-		track_key INTEGER,
-		album_key INTEGER,
-		track_no SMALLINT,
-		track VARCHAR(60),
-		dur VARCHAR(10),
-		file VARCHAR(100),
+		track_key  INTEGER,
+		album_key  INTEGER,
+		track_no   SMALLINT,
+		track      VARCHAR(60),
+		dur        VARCHAR(10),
+		file       VARCHAR(100),
 		play_count SMALLINT,
-		rating SMALLINT
+		rating     SMALLINT
 	END RECORD
 
 	CALL genre_a.clear()
@@ -1392,45 +1356,41 @@ FUNCTION db_read()
 	DISPLAY CURRENT, ": Populating the arrays from database ..."
 	DECLARE g_cur CURSOR FOR SELECT genre, genre_key FROM ipod_genre ORDER BY genre
 	DECLARE a_cur CURSOR FOR
-			SELECT al.album, al.album_key, ar.artist, ar.artist_key, al.year
-					FROM ipod_albums al, ipod_artists ar
-					WHERE al.genre_key = gk AND al.artist_key = ar.artist_key
-					ORDER BY artist, album
+			SELECT al.album, al.album_key, ar.artist, ar.artist_key, al.year FROM ipod_albums al, ipod_artists ar
+					WHERE al.genre_key = gk AND al.artist_key = ar.artist_key ORDER BY artist, album
 
 	FOREACH g_cur INTO vc, gk
-		LET genre_a[gk].genre = vc
+		LET genre_a[gk].genre     = vc
 		LET genre_a[gk].genre_key = gk
 		FOREACH a_cur INTO vc2, alk, vc3, ark, yr
 			--DISPLAY vc,":",vc2,":",vc3
-			LET album_a[alk].genre = vc
-			LET album_a[alk].genre_key = gk
-			LET album_a[alk].album = vc2
-			LET album_a[alk].album_key = alk
-			LET album_a[alk].artist = vc3
-			LET album_a[alk].artist_key = ark
-			LET album_a[alk].year = yr
-			LET artist_a[ark].artist = vc3
+			LET album_a[alk].genre       = vc
+			LET album_a[alk].genre_key   = gk
+			LET album_a[alk].album       = vc2
+			LET album_a[alk].album_key   = alk
+			LET album_a[alk].artist      = vc3
+			LET album_a[alk].artist_key  = ark
+			LET album_a[alk].year        = yr
+			LET artist_a[ark].artist     = vc3
 			LET artist_a[ark].artist_key = ark
 			--DISPLAY album_a[ alk ].*
 		END FOREACH
 	END FOREACH
 
 	DECLARE t_cur CURSOR FOR
-			SELECT ipod_tracks.*, artist_key
-					FROM ipod_tracks t, ipod_albums a
-					WHERE t.album_key = a.album_key
+			SELECT ipod_tracks.*, artist_key FROM ipod_tracks t, ipod_albums a WHERE t.album_key = a.album_key
 					ORDER BY t.album_key, track_no
 	FOREACH t_cur INTO l_trk.*, ark
 		LET tracks_a[tracks_a.getLength() + 1].artist_key = ark
-		LET tracks_a[tracks_a.getLength()].album_key = l_trk.album_key
-		LET tracks_a[tracks_a.getLength()].trackno = l_trk.track_no
-		LET tracks_a[tracks_a.getLength()].title = l_trk.track
-		LET tracks_a[tracks_a.getLength()].dur = l_trk.dur
-		LET tracks_a[tracks_a.getLength()].file = l_trk.file
-		LET tracks_a[tracks_a.getLength()].play_count = l_trk.play_count
-		LET tracks_a[tracks_a.getLength()].rating = l_trk.rating
-		LET t_min = t_min + tracks_a[tracks_a.getLength()].dur[1, 2]
-		LET t_sec = t_sec + tracks_a[tracks_a.getLength()].dur[4, 5]
+		LET tracks_a[tracks_a.getLength()].album_key      = l_trk.album_key
+		LET tracks_a[tracks_a.getLength()].trackno        = l_trk.track_no
+		LET tracks_a[tracks_a.getLength()].title          = l_trk.track
+		LET tracks_a[tracks_a.getLength()].dur            = l_trk.dur
+		LET tracks_a[tracks_a.getLength()].file           = l_trk.file
+		LET tracks_a[tracks_a.getLength()].play_count     = l_trk.play_count
+		LET tracks_a[tracks_a.getLength()].rating         = l_trk.rating
+		LET t_min                                         = t_min + tracks_a[tracks_a.getLength()].dur[1, 2]
+		LET t_sec                                         = t_sec + tracks_a[tracks_a.getLength()].dur[4, 5]
 	END FOREACH
 
 	CALL buildTree()

@@ -5,7 +5,7 @@ IMPORT FGL mk_db_sys_data
 IMPORT FGL mk_db_sys_ifx
 IMPORT FGL mk_db_app_data
 IMPORT FGL mk_db_app_ifx
-&include "schema.inc"
+&include "../schema.inc"
 
 DEFINE m_sys_tabs DYNAMIC ARRAY OF STRING
 DEFINE m_app_tabs DYNAMIC ARRAY OF STRING
