@@ -1,0 +1,45 @@
+
+
+LAYOUT (TEXT=%"WC Richtext Demo", STYLE="dialog3")
+GRID
+{
+[l001:f001          :    :l002:a1       ]
+[rt                                     ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[                                       ]
+[info                                   ]
+}
+END
+END
+ATTRIBUTES
+LABEL l001 : filename,TEXT=%"File Name:", JUSTIFY=RIGHT;
+f001 = FORMONLY.fileName;
+LABEL l002 : lab2,TEXT=%"Test:", JUSTIFY=RIGHT;
+a1=FORMONLY.fld2, SCROLL;
+
+WEBCOMPONENT rt = FORMONLY.richtext,
+COMPONENTTYPE = "fglrichtext",
+PROPERTIES = (
+TOOLBAR = "aligncenter|alignjustify|alignleft|alignright|bold|bullist|color|fontselect|fontsizeselect|formatselect|indent|italic|linespacing|numlist|outdent|redo|removeformat|strikethrough|underline|undo"
+{
+
+toolbar = "bold|italic|underline|fontsizeselect|undo|redo|color|image|emoji",
+spellcheck = "browser",
+autoflush = "autosave",
+autoflush_interval = 3
+}
+),
+  SIZEPOLICY = FIXED,
+  SCROLLBARS = NONE,
+  STRETCH = BOTH;
+
+LABEL info = FORMONLY.info;
+END
