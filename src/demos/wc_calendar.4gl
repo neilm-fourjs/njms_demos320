@@ -1,7 +1,6 @@
 IMPORT util
-
-IMPORT FGL g2_lib.*
 IMPORT FGL wc_fglsvgcalendar
+IMPORT FGL g2_calendar
 
 PUBLIC DEFINE rec RECORD
   curr_month SMALLINT,
@@ -42,12 +41,12 @@ FUNCTION init(l_date DATE, l_setDateCallBack t_cb_set_date, l_lang CHAR(2)) -- S
   CALL wc_fglsvgcalendar.setColorTheme(cid, wc_fglsvgcalendar.FGLCALENDAR_THEME_DEFAULT)
   CALL wc_fglsvgcalendar.showDayNames(cid, TRUE)
   CALL wc_fglsvgcalendar.showDayNumbers(cid, TRUE)
-  CALL wc_fglsvgcalendar.showWeekNumbers(cid, FALSE)
+  CALL wc_fglsvgcalendar.showweekNumbers(cid, FALSE)
   LET rec.curr_year = YEAR(l_date)
   LET rec.curr_month = MONTH(l_date)
   LET selected_date = l_date
   LET curdate = l_date
-  CALL ui.Interface.refresh()
+  CALL ui.Interface.Refresh()
   CALL wc_fglsvgcalendar.addSelectedDate(cid, l_date)
   CALL wc_fglsvgcalendar.display(cid, rec.curr_year, rec.curr_month)
 

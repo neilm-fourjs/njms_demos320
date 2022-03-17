@@ -1,5 +1,6 @@
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_init
+IMPORT FGL g2_core
 
 CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "Table Expenses Demo"

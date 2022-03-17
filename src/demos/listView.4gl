@@ -1,7 +1,9 @@
 IMPORT util
 IMPORT os
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_about
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "List View Demo"
@@ -104,7 +106,7 @@ FUNCTION disp_contacts()
 		ON ACTION quit
 			EXIT DISPLAY
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 	END DISPLAY
 
 END FUNCTION

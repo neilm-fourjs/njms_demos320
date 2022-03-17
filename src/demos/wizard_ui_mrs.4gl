@@ -1,17 +1,18 @@
+IMPORT FGL wizard_common
 GLOBALS "wizard_glob.inc"
 FUNCTION wizard_ui_mrs()
   DIALOG ATTRIBUTE(UNBUFFERED)
-    INPUT BY NAME currTable ATTRIBUTE(WITHOUT DEFAULTS)
+    INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS)
       ON CHANGE currtable
-        CALL on_change_currTable()
+        CALL on_change_currtable()
     END INPUT
-    DISPLAY ARRAY lFields TO l.*
+    DISPLAY ARRAY lfields TO l.*
       ON ACTION right
         CALL right(DIALOG)
       ON ACTION allright
         CALL allright()
     END DISPLAY
-    DISPLAY ARRAY rFields TO r.*
+    DISPLAY ARRAY rfields TO r.*
       ON ACTION left
         CALL left(DIALOG)
       ON ACTION allleft

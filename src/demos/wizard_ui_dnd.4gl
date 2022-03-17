@@ -1,13 +1,14 @@
+IMPORT FGL wizard_common
 GLOBALS "wizard_glob.inc"
 DEFINE drag_source STRING
 DEFINE dnd ui.DragDrop
 FUNCTION wizard_ui_dnd()
   DIALOG ATTRIBUTE(UNBUFFERED)
-    INPUT BY NAME currTable ATTRIBUTE(WITHOUT DEFAULTS)
+    INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS)
       ON CHANGE currtable
-        CALL on_change_currTable()
+        CALL on_change_currtable()
     END INPUT
-    DISPLAY ARRAY lFields TO l.*
+    DISPLAY ARRAY lfields TO l.*
       ON ACTION right
         CALL right(DIALOG)
       ON ACTION allright
@@ -21,7 +22,7 @@ FUNCTION wizard_ui_dnd()
       ON DRAG_FINISHED(dnd)
         INITIALIZE drag_source TO NULL
     END DISPLAY
-    DISPLAY ARRAY rFields TO r.*
+    DISPLAY ARRAY rfields TO r.*
       ON ACTION left
         CALL left(DIALOG)
       ON ACTION allleft

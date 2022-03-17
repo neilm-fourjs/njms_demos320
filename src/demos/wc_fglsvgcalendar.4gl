@@ -4,8 +4,8 @@
 #+
 
 IMPORT util
-IMPORT FGL g2_lib.*
 IMPORT FGL fglsvgcanvas
+IMPORT FGL g2_calendar
 
 PUBLIC TYPE t_isHoliday FUNCTION(l_dte DATE) RETURNS(BOOLEAN, STRING)
 

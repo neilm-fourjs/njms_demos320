@@ -4,7 +4,10 @@
 
 IMPORT util
 -- Core libraries
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
+IMPORT FGL g2_init
+IMPORT FGL g2_about
+IMPORT FGL g2_db
 IMPORT FGL app_lib
 -- Dynamic Maintenance Libraries
 IMPORT FGL glm_mkForm
@@ -15,15 +18,14 @@ IMPORT FGL glm_ui
 &include "schema.inc"
 &include "app.inc"
 -- Program Info
-CONSTANT C_PRGVER = "3.1"
+CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "Dynamic Stock Maintenance Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
 CONSTANT C_FIELDS_PER_PAGE = 14
-DEFINE m_dbname STRING
+DEFINE m_dbname         STRING
 DEFINE m_allowedActions CHAR(6)
-DEFINE m_db g2_db.dbInfo
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -31,27 +33,26 @@ MAIN
 
 	LET m_allowedActions = "YYYYYY"
 -- Connect to DB
-	CALL m_db.g2_connect(NULL)
+	CALL g2_db.m_db.g2_connect(NULL)
 -- Setup the SQL
-	LET glm_sql.m_tab = "stock"
-	LET glm_sql.m_key_nam = "stock_code"
-	LET glm_sql.m_key_fld = 0
-	LET glm_sql.m_row_cur = 0
+	LET glm_sql.m_tab       = "stock"
+	LET glm_sql.m_key_nam   = "stock_code"
+	LET glm_sql.m_key_fld   = 0
+	LET glm_sql.m_row_cur   = 0
 	LET glm_sql.m_row_count = 0
 	CALL glm_sql.glm_mkSQL("*", "1=2") -- not fetching any data.
 -- Generate the form
 	CALL glm_mkForm.init_form(
-			m_dbname, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
-			glm_sql.m_fields, "main2") -- C_FIELDS_PER_PAGE fields by folder page
+			m_dbname, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE, glm_sql.m_fields,
+			"main2") -- C_FIELDS_PER_PAGE fields by folder page
 	CALL ui.window.getCurrent().setText(C_PRGDESC)
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- Setup Callback functions
 	LET glm_ui.m_before_inp_func = FUNCTION my_before_inp
---	LET glm_ui.m_inpt_func = FUNCTION my_input
 	LET glm_ui.m_after_inp_func = FUNCTION my_after_inp
 -- start UI
-	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
+	CALL glm_ui.glm_menu(m_allowedActions)
 -- All Done
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
@@ -84,8 +85,7 @@ FUNCTION init_cb(l_cb ui.ComboBox)
 		WHEN "stock_cat"
 			LET l_sql = "SELECT catid, cat_name FROM stock_cat ORDER BY cat_name"
 		WHEN "colour_code"
-			LET l_sql =
-					"SELECT colour_key, colour_name FROM colours ORDER BY colour_name"
+			LET l_sql = "SELECT colour_key, colour_name FROM colours ORDER BY colour_name"
 		WHEN "supp_code"
 			LET l_sql = "SELECT supp_code, supp_name FROM supplier ORDER BY supp_name"
 		WHEN "disc_code"
@@ -103,13 +103,17 @@ FUNCTION init_cb(l_cb ui.ComboBox)
 	END IF
 END FUNCTION
 --------------------------------------------------------------------------------
+-- Callback function: called from the dynamic input code as a 'before input'.
+-- @param l_new is this a new record or updating an existing record.
 FUNCTION my_before_inp(l_new BOOLEAN, l_d ui.Dialog)
-	DISPLAY "BEFORE INPUT : ", IIF(l_new," Insert"," Update")
+	DISPLAY "BEFORE INPUT : ", IIF(l_new, " Insert", " Update")
 END FUNCTION
 --------------------------------------------------------------------------------
+-- Callback function: called from the dynamic input code as an 'after input'.
+-- @param l_new is this a new record or updating an existing record.
 FUNCTION my_after_inp(l_new BOOLEAN, l_d ui.Dialog) RETURNS BOOLEAN
 	DEFINE l_stk RECORD LIKE stock.*
-	DISPLAY "AFTER INPUT : ", IIF(l_new," Insert"," Update")
+	DISPLAY "AFTER INPUT : ", IIF(l_new, " Insert", " Update")
 	CALL util.JSON.parse(glm_mkForm.m_json_rec.toString(), l_stk) -- turn generic record back into stock record
 	IF l_stk.price < 0.10 THEN
 		ERROR "Stock price can't be less than 0.10!"
@@ -117,8 +121,4 @@ FUNCTION my_after_inp(l_new BOOLEAN, l_d ui.Dialog) RETURNS BOOLEAN
 		RETURN FALSE
 	END IF
 	RETURN TRUE
-END FUNCTION
---------------------------------------------------------------------------------
-FUNCTION my_input(l_new BOOLEAN)
-	DISPLAY "MY INPUT : ", l_new
 END FUNCTION

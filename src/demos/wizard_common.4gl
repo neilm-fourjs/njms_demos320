@@ -9,7 +9,7 @@ FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
   OPEN FORM w FROM l_form
   DISPLAY FORM w
   CALL ui.Interface.setText(l_text)
-  CALL ui.Window.getCurrent().setText(l_title)
+  CALL ui.window.getCurrent().setText(l_title)
 
   LET currTable = 1
   CALL on_change_currTable()
@@ -23,16 +23,16 @@ FUNCTION left(d) -- move row(s) to the left
 -- NOTE: can't do this in one loop because the row numbers change when you delete!
 -- 1st move the data from 1 array to the other
   LET x = 0
-  FOR i = 1 TO rFields.getLength()
+  FOR i = 1 TO rfields.getLength()
     IF d.isRowSelected("r", i) THEN
-      LET lFields[lFields.getLength() + 1] = rFields[i]
+      LET lfields[lfields.getLength() + 1] = rfields[i]
       LET x = x + 1
     END IF
   END FOR
 -- now delete from source array
-  FOR i = rFields.getLength() TO 1 STEP -1
+  FOR i = rfields.getLength() TO 1 STEP -1
     IF d.isRowSelected("r", i) THEN
-      CALL rFields.deleteElement(i)
+      CALL rfields.deleteElement(i)
       IF x > 1 THEN
         CALL d.setSelectionRange("r", i, i, FALSE) -- deselect the row
       END IF
@@ -47,16 +47,16 @@ FUNCTION right(d) -- move row(s) to the right
 -- NOTE: can't do this in one loop because the row numbers change when you delete!
 -- 1st move the data from 1 array to the other
   LET x = 0
-  FOR i = 1 TO lFields.getLength()
+  FOR i = 1 TO lfields.getLength()
     IF d.isRowSelected("l", i) THEN
-      LET rFields[rFields.getLength() + 1] = lFields[i]
+      LET rfields[rfields.getLength() + 1] = lfields[i]
       LET x = x + 1
     END IF
   END FOR
 -- now delete from source array
-  FOR i = lFields.getLength() TO 1 STEP -1
+  FOR i = lfields.getLength() TO 1 STEP -1
     IF d.isRowSelected("l", i) THEN
-      CALL lFields.deleteElement(i)
+      CALL lfields.deleteElement(i)
       IF x > 1 THEN
         CALL d.setSelectionRange("l", i, i, FALSE) -- deselect the row
       END IF
@@ -69,7 +69,7 @@ FUNCTION left_md(d) -- move row(s) to the left
   DEFINE i SMALLINT
 
   LET i = arr_curr()
-  LET lFields[lFields.getLength() + 1] = rFields[i]
+  LET lfields[lfields.getLength() + 1] = rfields[i]
   CALL d.deleteRow("r", i)
 
 END FUNCTION
@@ -79,37 +79,37 @@ FUNCTION right_md(d) -- move row(s) to the right
   DEFINE i SMALLINT
 
   LET i = arr_curr()
-  LET rFields[rFields.getLength() + 1] = lFields[i]
+  LET rfields[rfields.getLength() + 1] = lfields[i]
   CALL d.deleteRow("l", i)
 
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION allleft()
   DEFINE i SMALLINT
-  FOR i = 1 TO rFields.getLength()
-    LET lFields[lFields.getLength() + 1] = rFields[i]
+  FOR i = 1 TO rfields.getLength()
+    LET lfields[lfields.getLength() + 1] = rfields[i]
   END FOR
-  CALL rFields.clear()
+  CALL rfields.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION allright()
   DEFINE i SMALLINT
-  FOR i = 1 TO lFields.getLength()
-    LET rFields[rFields.getLength() + 1] = lFields[i]
+  FOR i = 1 TO lfields.getLength()
+    LET rfields[rfields.getLength() + 1] = lfields[i]
   END FOR
-  CALL lFields.clear()
+  CALL lfields.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION on_change_currTable()
   DEFINE i SMALLINT
 
-  CALL lFields.clear()
+  CALL lfields.clear()
 
   IF currTable IS NULL OR currTable > columns.getLength() THEN
     LET currTable = columns.getLength()
   END IF
   FOR i = 1 TO columns[currTable].colname.getLength()
-    LET lFields[i] = columns[currTable].colname[i]
+    LET lfields[i] = columns[currTable].colname[i]
   END FOR
 END FUNCTION
 --------------------------------------------------------------------------------

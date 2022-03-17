@@ -2,8 +2,9 @@
 #+
 #+ $Id: oe_lib.4gl 688 2011-05-31 09:58:14Z  $
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
 
+&include "schema.inc"
 &include "ordent.inc"
 
 FUNCTION oe_cursors()
