@@ -6,16 +6,16 @@ IMPORT FGL g2_core
 IMPORT FGL g2_appInfo
 IMPORT FGL g2_about
 
-CONSTANT C_PRGVER = "3.1"
+CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "WC Test Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
 DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
-	DEFINE l_debug BOOLEAN
+	DEFINE l_debug              BOOLEAN
 	DEFINE l_wc_guage, l_slider INTEGER
-	DEFINE l_wc_pie STRING
+	DEFINE l_wc_pie             STRING
 
 	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "default")
@@ -29,7 +29,7 @@ MAIN
 	DISPLAY FORM f
 
 	LET l_wc_guage = 50
-	LET l_slider = l_wc_guage
+	LET l_slider   = l_wc_guage
 	INPUT BY NAME l_wc_guage, l_wc_pie, l_slider ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
 		ON ACTION refresh
 			CALL setGraphTitle("text", "Title set in 4GL INPUT")
@@ -37,11 +37,11 @@ MAIN
 
 		ON ACTION plus5
 			LET l_wc_guage = l_wc_guage + 5
-			LET l_slider = l_wc_guage
+			LET l_slider   = l_wc_guage
 
 		ON ACTION minus5
 			LET l_wc_guage = l_wc_guage - 5
-			LET l_slider = l_wc_guage
+			LET l_slider   = l_wc_guage
 
 		ON ACTION quit
 			EXIT INPUT
@@ -50,19 +50,19 @@ MAIN
 			LET l_wc_guage = l_slider
 	END INPUT
 
-	CALL g2_core.g2_exitProgram(0, % "Program Finished")
+	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION getData()
 	DEFINE jo, sjo util.JSONObject
 	DEFINE ja, sja util.JSONArray
 	DEFINE li_rand SMALLINT
-	DEFINE li_tot SMALLINT
-	DEFINE x SMALLINT
+	DEFINE li_tot  SMALLINT
+	DEFINE x       SMALLINT
 	DEFINE lc_name CHAR(10)
 
 	LET sja = util.JSONArray.create()
-	LET ja = util.JSONArray.create()
+	LET ja  = util.JSONArray.create()
 
 	-- Set up the 'series' JSON object
 	LET sjo = util.JSONObject.create()
@@ -70,7 +70,7 @@ FUNCTION getData()
 	CALL sjo.put("colorByPoint", TRUE)
 
 	LET li_tot = 0
-	LET x = 1
+	LET x      = 1
 	WHILE li_tot < 100
 		LET lc_name = "NJMs Demos ", x USING "<<<<<&"
 		LET li_rand = util.math.rand(60)
@@ -87,7 +87,7 @@ FUNCTION getData()
 		END IF
 		CALL ja.put(x, jo)
 		LET li_tot = li_tot + li_rand
-		LET x = x + 1
+		LET x      = x + 1
 	END WHILE
 
 	-- Write this 'data' array information to the 'series' JSONObject.
@@ -101,8 +101,8 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION setGraphTitle(l_prop, l_val)
 	DEFINE l_prop, l_val STRING
-	DEFINE w ui.Window
-	DEFINE n om.domNode
+	DEFINE w             ui.Window
+	DEFINE n             om.domNode
 	LET w = ui.Window.getCurrent()
 	LET n = w.findNode("Property", l_prop)
 	IF n IS NULL THEN

@@ -1,4 +1,3 @@
-
 IMPORT os
 IMPORT util
 
@@ -84,7 +83,8 @@ FUNCTION gallery()
 			id, "http://freebigpictures.com/wp-content/uploads/2009/09/reservoir-lake.jpg", "Reservoir lake")
 
 	FOR x = 1 TO m_pics_info.getLength()
-		CALL fglgallery.addImage(id, image_path(m_pics_info[x].nam), SFMT("%1 ( %2kb )", m_pics_info[x].imgnam,  m_pics_info[x].siz))
+		CALL fglgallery.addImage(
+				id, image_path(m_pics_info[x].nam), SFMT("%1 ( %2kb )", m_pics_info[x].imgnam, m_pics_info[x].siz))
 	END FOR
 
 	LET m_rec.gallery_type = FGLGALLERY_TYPE_THUMBNAILS
@@ -99,7 +99,7 @@ FUNCTION gallery()
 	CALL fglgallery.setMultipleSelection(id, TRUE)
 	CALL fglgallery.display(id, m_rec.gallery_type, m_rec.gallery_size)
 
-	INPUT BY NAME m_rec.* ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS,CANCEL=FALSE, ACCEPT=FALSE)
+	INPUT BY NAME m_rec.* ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS, CANCEL = FALSE, ACCEPT = FALSE)
 
 		ON CHANGE gallery_type
 			CALL fglgallery.display(id, m_rec.gallery_type, m_rec.gallery_size)
@@ -114,7 +114,7 @@ FUNCTION gallery()
 		ON CHANGE multi_sel
 			CALL fglgallery.setMultipleSelection(id, m_rec.multi_sel)
 
-		ON ACTION set_current ATTRIBUTES(TEXT = "Set current", IMAGE="fa-check-square-o")
+		ON ACTION set_current ATTRIBUTES(TEXT = "Set current", IMAGE = "fa-check-square-o")
 			LET struct_value.current = m_rec.current
 			LET m_rec.gallery_wc     = util.JSON.stringify(struct_value)
 
@@ -122,12 +122,12 @@ FUNCTION gallery()
 			CALL util.JSON.parse(m_rec.gallery_wc, struct_value)
 			LET m_rec.current = struct_value.current
 
-		ON ACTION disable_wc ATTRIBUTES(TEXT = "Disable", IMAGE="fa-circle-o")
+		ON ACTION disable_wc ATTRIBUTES(TEXT = "Disable", IMAGE = "fa-circle-o")
 			CALL DIALOG.setFieldActive("gallery_wc", FALSE)
-		ON ACTION enable_wc ATTRIBUTES(TEXT = "Enable", IMAGE="fa-dot-circle-o")
+		ON ACTION enable_wc ATTRIBUTES(TEXT = "Enable", IMAGE = "fa-dot-circle-o")
 			CALL DIALOG.setFieldActive("gallery_wc", TRUE)
 
-		ON ACTION clean ATTRIBUTES(TEXT = "Clean", IMAGE="fa-square-o")
+		ON ACTION clean ATTRIBUTES(TEXT = "Clean", IMAGE = "fa-square-o")
 			CALL fglgallery.clean(id)
 			LET m_rec.current = NULL
 
@@ -201,9 +201,9 @@ FUNCTION getImages(p_ext STRING)
 
 			LET l_ext = os.path.extension(l_path)
 &ifdef gen400
-			IF l_ext IS NULL OR NOT (l_ext.matches(p_ext)) THEN
+   IF l_ext IS NULL OR NOT (l_ext.matches(p_ext)) THEN
 &else
-			IF l_ext IS NULL OR (l_ext != "jpg" AND l_ext != "png" AND l_ext != "svg" ) THEN
+			IF l_ext IS NULL OR (l_ext != "jpg" AND l_ext != "png" AND l_ext != "svg") THEN
 &endif
 				CONTINUE WHILE
 			END IF
