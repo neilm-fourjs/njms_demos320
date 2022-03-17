@@ -3,7 +3,9 @@
 
 IMPORT os
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_about
 
 CONSTANT C_PRGDESC = "FontAwesome Viewer"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -60,16 +62,19 @@ MAIN
 	DEFINE l_filter STRING
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(arg_val(1), "default")
+	CALL g2_init.g2_init(ARG_VAL(1), "default")
 
 	OPEN FORM f FROM "fontAwesome"
 	DISPLAY FORM f
+	{MENU
+		ON ACTION quit EXIT MENU
+	END MENU}
 
-	CALL ui.Window.getCurrent().setText(SFMT("Font Viewer - %1", arg_val(2)))
+	CALL ui.Window.getCurrent().setText(SFMT("Font Viewer - %1", ARG_VAL(2)))
 
-	DISPLAY "FGLIMAGEPATH:" || fgl_getenv("FGLIMAGEPATH") TO fglimagepath
+	DISPLAY "FGLIMAGEPATH:" || fgl_getEnv("FGLIMAGEPATH") TO fglimagepath
 	MESSAGE "Loading arrays ..."
-	CALL ui.Interface.refresh()
+	CALL ui.interface.refresh()
 	CALL load_arr()
 	DISPLAY "Before the dialog"
 	MESSAGE SFMT("Finished loading %1 icons", m_rec.getLength())
@@ -142,7 +147,7 @@ MAIN
 			CALL load_arr3(l_filter)
 			NEXT FIELD l_filter
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 		ON ACTION quit
 			EXIT DIALOG
 		ON ACTION close
@@ -161,7 +166,7 @@ END FUNCTION
 FUNCTION load_arr()
 	DEFINE l_file STRING
 	DEFINE l_st   base.StringTokenizer
-	LET l_st = base.StringTokenizer.create(fgl_getenv("FGLIMAGEPATH"), os.Path.pathSeparator())
+	LET l_st = base.StringTokenizer.create(fgl_getEnv("FGLIMAGEPATH"), os.path.pathSeparator())
 	WHILE l_st.hasMoreTokens()
 		LET l_file = l_st.nextToken()
 		IF l_file MATCHES "*.txt" THEN
@@ -172,19 +177,19 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION load_arr2(l_file)
 	DEFINE l_file STRING
-	DEFINE c      base.Channel
+	DEFINE c      base.channel
 	DEFINE l_rec RECORD
 		fld1 STRING,
 		fld2 STRING
 	END RECORD
 	DEFINE x SMALLINT
 	--DISPLAY SFMT("Adding: %1", l_file)
-	LET c = base.Channel.create()
+	LET c = base.channel.create()
 --	CALL c.openFile( fgl_getEnv("FGLDIR")||"/lib/image2font.txt","r")
 	CALL c.openFile(l_file, "r")
 	CALL c.setDelimiter("=")
 	CALL m_rec.clear()
-	WHILE NOT c.isEof()
+	WHILE NOT c.isEOF()
 		IF c.read([l_rec.*]) THEN
 			IF l_rec.fld1.getCharAt(1) = "#" THEN
 				CONTINUE WHILE

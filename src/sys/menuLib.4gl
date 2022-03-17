@@ -1,5 +1,10 @@
 IMPORT os
-IMPORT FGL g2_lib.*
+
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_about
+IMPORT FGL g2_appInfo
+IMPORT FGL g2_logging
 IMPORT FGL lib_login
 
 &include "schema.inc"
@@ -21,7 +26,7 @@ DEFINE m_menus DYNAMIC ARRAY OF VARCHAR(6)
 DEFINE m_prf   STRING
 DEFINE m_useUR BOOLEAN
 --------------------------------------------------------------------------------
-FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
+FUNCTION do_menu(l_logo STRING)
 	DEFINE l_form         ui.Form
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	OPEN WINDOW w_menu WITH FORM "menu"
@@ -38,7 +43,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 	END IF
 
 	DISPLAY l_logo TO logo
-	CALL ui.Interface.setText(l_appInfo.progDesc)
+	CALL ui.Interface.setText(g2_core.m_appInfo.progDesc)
 
 	LET m_curMenu          = 1
 	LET m_menus[m_curMenu] = "main"
@@ -46,7 +51,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 		CALL g2_core.g2_exitProgram(0, "'main' menu not found!")
 	END IF
 
-	DISPLAY l_appInfo.userName TO userName
+	DISPLAY g2_core.m_appInfo.userName TO userName
 
 	WHILE NOT int_flag
 		DISPLAY CURRENT, ":Dialog Started."
@@ -67,7 +72,7 @@ FUNCTION do_menu(l_logo STRING, l_appInfo g2_appInfo.appInfo INOUT)
 				END IF
 
 			ON ACTION about
-				CALL g2_about.g2_about(l_appInfo)
+				CALL g2_about.g2_about()
 
 			ON ACTION logout
 				CALL lib_login.logout()

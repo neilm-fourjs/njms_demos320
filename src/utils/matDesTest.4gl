@@ -2,11 +2,14 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
-IMPORT FGL g2_lib.*
+
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_about
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
-CONSTANT C_PRGVER = "3.2"
+CONSTANT C_PRGVER = "3.3"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG = "smiley"
 
@@ -42,6 +45,7 @@ MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "matDesTest")
+	CALL ui.Interface.setText(SFMT("%1 - %2",C_PRGDESC, C_PRGVER))
 --  CALL ui.Interface.setImage("fa-bug")
 	FOR X = 1 TO 15
 		LET l_arr[x].col1 = "Row " || x
@@ -122,12 +126,13 @@ MAIN
 			CALL pg(DIALOG.getForm(), 0)
 		ON ACTION pg50
 			CALL pg(DIALOG.getForm(), (PG_MAX / 2))
+		ON ACTION sleep SLEEP 5
 		ON ACTION showform
 			CALL showForm()
 		ON ACTION inactive
 			CALL dummy()
 		ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
 		ON ACTION actiona
 			ERROR "Control-A"
 		ON ACTION actionb

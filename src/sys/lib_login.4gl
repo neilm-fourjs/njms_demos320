@@ -4,7 +4,15 @@
 
 IMPORT os
 IMPORT util
-IMPORT FGL g2_lib.*
+
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_appInfo
+IMPORT FGL g2_about
+IMPORT FGL g2_secure
+IMPORT FGL g2_logging
+IMPORT FGL g2_debug
+&include "g2_debug.inc"
 &include "schema.inc"
 &include "app.inc"
 &include "OpenIdLogin.inc"
@@ -34,15 +42,18 @@ END RECORD
 #+ @param l_ver - String - the version of the application ( used in the window title )
 #+ @param l_allow_new - Boolean - Enable the 'Create New Account' option.
 #+ @return login email address or NULL or 'NEW' for a new account.
-PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) RETURNS STRING
+PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
   DEFINE l_login, l_pass, l_theme, l_cur_theme, l_old_theme STRING
   DEFINE l_allow_new BOOLEAN
   DEFINE f ui.Form
+	DEFINE l_info STRING
   WHENEVER ANY ERROR CALL g2_core.g2_error
   LET l_login = checkForSession() -- check to see if they have already logged in
   IF l_login IS NOT NULL THEN
     RETURN l_login
   END IF
+
+	LET l_info = getMOD()	
 
   LET l_allow_new = TRUE
   IF m_new_acc_func IS NULL THEN
@@ -54,6 +65,11 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
 
   OPEN WINDOW login WITH FORM "login"
   CALL login_ver_title(l_appname, l_ver)
+
+	IF l_info.getLength() > 2 THEN
+		CALL ui.Window.getCurrent().getForm().setFieldHidden("formonly.info", FALSE)
+		DISPLAY l_info TO info
+	END IF
 
   IF m_logo_image IS NOT NULL THEN
     CALL ui.window.getCurrent().getForm().setElementHidden("logo_grid", FALSE)
@@ -127,7 +143,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
         EXIT INPUT
       END IF
     ON ACTION about
-      CALL g2_about.g2_about(l_appInfo)
+      CALL g2_about.g2_about()
   END INPUT
   CLOSE WINDOW login
 
@@ -147,7 +163,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING, l_appInfo appInfo INOUT) R
 
   CALL g2_init.g2_log.logIt("after input for login:" || l_login)
   CALL fgl_setenv("APPUSER", l_login)
-  CALL l_appInfo.setUserName(l_login)
+  CALL g2_core.m_appInfo.setUserName(l_login)
   RETURN l_login
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -540,4 +556,18 @@ FUNCTION cb_gbcTheme(l_cb ui.Combobox)
   FOR x = 1 TO m_themes.getLength()
     CALL l_cb.addItem(l_themes[x].name, l_themes[x].title)
   END FOR
+END FUNCTION
+--------------------------------------------------------------------------------------------------------------
+-- Get Message of the Day
+FUNCTION getMOD() RETURNS STRING
+	DEFINE l_file STRING
+	DEFINE l_txt  TEXT
+	LET l_file = os.path.join(".", "mod.txt")
+	IF NOT os.path.exists(l_file) THEN
+		GL_DBGMSG(1, SFMT("No Message of the Day file: %1", l_file))
+		RETURN NULL
+	END IF
+	LOCATE l_txt IN FILE l_file
+	GL_DBGMSG(1, SFMT("Message of the Day file: %1\nMOD: %2", l_file, l_txt))
+	RETURN l_txt
 END FUNCTION

@@ -1,6 +1,9 @@
 #+ Menu Maintenance Demo - by N.J.Martin neilm@4js.com
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
+IMPORT FGL g2_init
+IMPORT FGL g2_about
+IMPORT FGL g2_db
 
 IMPORT FGL app_lib
 &include "schema.inc"
@@ -42,7 +45,7 @@ DEFINE m_drag_source STRING
 DEFINE m_menu_key LIKE sys_menus.menu_key
 DEFINE m_save BOOLEAN
 DEFINE m_user_key INTEGER
-DEFINE m_db g2_db.dbInfo
+
 MAIN
   DEFINE dnd ui.DragDrop
 
@@ -60,7 +63,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar( "dynmaint" )
 	CALL g2_core.g2_loadTopMenu( "dynmaint" )
 
-  CALL m_db.g2_connect(NULL)
+  CALL g2_db.m_db.g2_connect(NULL)
 
   IF NOT app_lib.checkUserRoles(m_user_key, "System Admin", TRUE) THEN
     EXIT PROGRAM
@@ -198,7 +201,7 @@ MAIN
       CALL showRow(m_recs.getLength())
       CALL app_lib.setActions(m_row, m_recs.getLength(), m_allowedActions)
     ON ACTION about
-			CALL g2_about.g2_about(g2_core.m_appInfo)
+			CALL g2_about.g2_about()
   END DIALOG
   CALL g2_core.g2_exitProgram(0, "Program Finished")
 END MAIN

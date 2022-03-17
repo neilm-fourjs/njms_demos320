@@ -4,7 +4,9 @@
 IMPORT os
 IMPORT util
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_appInfo
 
 CONSTANT C_PRGVER = "3.2"
 CONSTANT C_PRGDESC = "GBC Themes"

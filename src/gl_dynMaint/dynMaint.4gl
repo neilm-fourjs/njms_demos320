@@ -9,7 +9,11 @@
 -- 4: Primary Key name
 -- 5: Allowed actions: Y/N > Find / Update / Insert / Delete / Sample / List  -- eg: YNNNNN = enquiry only.
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
+IMPORT FGL g2_init
+IMPORT FGL g2_appInfo
+IMPORT FGL g2_about
+IMPORT FGL g2_db
 IMPORT FGL app_lib
 
 IMPORT FGL glm_mkForm
@@ -28,15 +32,13 @@ CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_FIELDS_PER_PAGE = 12
 DEFINE m_dbname STRING
 DEFINE m_allowedActions CHAR(6)
-DEFINE m_appInfo g2_appInfo.appInfo
-DEFINE m_db g2_db.dbInfo
 MAIN
-	CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(ARG_VAL(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
 -- Connect to DB
-	CALL m_db.g2_connect(m_dbname)
+	CALL g2_db.m_db.g2_connect(m_dbname)
 -- Setup SQL
 	LET glm_sql.m_key_fld = 0
 	LET glm_sql.m_row_cur = 0
@@ -50,7 +52,7 @@ MAIN
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- start UI
-	CALL glm_ui.glm_menu(m_allowedActions, m_appInfo)
+	CALL glm_ui.glm_menu(m_allowedActions)
 -- All Done
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN

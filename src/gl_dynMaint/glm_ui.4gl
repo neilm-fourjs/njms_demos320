@@ -1,5 +1,8 @@
 IMPORT util
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
+IMPORT FGL g2_appInfo
+IMPORT FGL g2_about
+IMPORT FGL g2_lookup
 
 IMPORT FGL glm_sql
 IMPORT FGL glm_mkForm
@@ -11,7 +14,7 @@ PUBLIC DEFINE m_before_inp_func t_before_inp_func -- callback function
 PUBLIC DEFINE m_after_inp_func  t_after_inp_func  -- callback function
 PUBLIC DEFINE m_inpt_func       t_inpt_func       -- input callback function
 --------------------------------------------------------------------------------
-FUNCTION glm_menu(l_allowedActions STRING, l_appInfo appInfo INOUT)
+FUNCTION glm_menu(l_allowedActions STRING)
 	IF m_inpt_func IS NULL THEN
 		LET m_inpt_func = FUNCTION glm_inpt
 	END IF
@@ -47,7 +50,7 @@ FUNCTION glm_menu(l_allowedActions STRING, l_appInfo appInfo INOUT)
 		ON ACTION close
 			EXIT MENU
 		ON ACTION about
-			CALL g2_about.g2_about(l_appInfo)
+			CALL g2_about.g2_about()
 	END MENU
 
 END FUNCTION

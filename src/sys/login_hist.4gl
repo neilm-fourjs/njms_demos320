@@ -1,6 +1,11 @@
 -- A Simple demo program with a login and menu system.
 IMPORT os
-IMPORT FGL g2_lib.*
+
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_about
+IMPORT FGL g2_appInfo
+IMPORT FGL g2_db
 
 IMPORT FGL lib_login
 IMPORT FGL new_acct
@@ -14,11 +19,10 @@ CONSTANT C_PRGVER = "3.2"
 CONSTANT C_PRGICON = "demo_icon"
 CONSTANT C_SPLASH = "logo_dark"
 
-DEFINE m_appInfo g2_appInfo.appInfo
 MAIN
   DEFINE l_db g2_db.dbInfo
 
-  CALL m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
+  CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init( ARG_VAL(1), "default")
   CALL ui.Interface.setText(C_PRGDESC)
 
@@ -45,6 +49,6 @@ FUNCTION login_hist()
     ON ACTION close
       EXIT DISPLAY
     ON ACTION about
-      CALL g2_about.g2_about(m_appInfo)
+      CALL g2_about.g2_about()
   END DISPLAY
 END FUNCTION
