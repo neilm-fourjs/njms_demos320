@@ -1,5 +1,5 @@
 
-&include "schema.inc"
+&include "../schema.inc"
 
 FUNCTION dummy()
 END FUNCTION

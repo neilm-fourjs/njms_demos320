@@ -10,7 +10,7 @@ IMPORT FGL g2_lib.g2_db
 IMPORT FGL g2_lib.g2_sql
 IMPORT FGL g2_lib.g2_ws
 
-&include "schema.inc"
+&include "../schema.inc"
 
 CONSTANT c_stockItemsPerPage = 15
 

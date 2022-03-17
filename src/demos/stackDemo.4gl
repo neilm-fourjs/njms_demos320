@@ -2,7 +2,7 @@
 
 IMPORT FGL g2_lib.*
 
-&include "schema.inc"
+&include "../schema.inc"
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "Stack Demo"

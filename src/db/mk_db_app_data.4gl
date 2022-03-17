@@ -4,7 +4,7 @@ IMPORT util
 IMPORT os
 IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
-&include "schema.inc"
+&include "../schema.inc"
 
 DEFINE m_ordHead RECORD LIKE ord_head.*
 DEFINE m_ordDet RECORD LIKE ord_detail.*

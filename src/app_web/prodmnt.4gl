@@ -1,7 +1,7 @@
 IMPORT FGL g2_lib.*
 IMPORT FGL combos
 
-&include "schema.inc"
+&include "../schema.inc"
 
 DEFINE m_sql g2_sql.sql
 DEFINE m_ui g2_ui.g2_ui

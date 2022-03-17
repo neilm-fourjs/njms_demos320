@@ -2,7 +2,7 @@ IMPORT FGL g2_lib.*
 IMPORT FGL app_lib
 IMPORT FGL combos
 
-&include "schema.inc"
+&include "../schema.inc"
 
 MAIN
   DEFINE l_db g2_db.dbInfo

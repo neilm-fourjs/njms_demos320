@@ -1,7 +1,7 @@
 IMPORT util -- only used to show JSON conversion.
 IMPORT FGL g2_lib.*
 IMPORT FGL fgldialog
-&include "schema.inc"
+&include "../schema.inc"
 MAIN
 	DEFINE l_rec DYNAMIC ARRAY OF RECORD LIKE stock.*
 	DEFINE i INTEGER = 0

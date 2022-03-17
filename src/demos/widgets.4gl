@@ -12,7 +12,7 @@ IMPORT FGL g2_lib.*
 IMPORT FGL widgets_charts
 IMPORT FGL widgets_clock
 
-&include "g2_debug.inc"
+&include "../../g2_lib/g2_lib/g2_debug.inc"
 
 CONSTANT C_PRGVER = "3.10"
 CONSTANT C_PRGDESC = "Widgets Demo"

@@ -5,9 +5,9 @@
 IMPORT os
 IMPORT util
 IMPORT FGL g2_lib.*
-&include "schema.inc"
-&include "app.inc"
-&include "OpenIdLogin.inc"
+&include "../schema.inc"
+&include "../app/app.inc"
+&include "../OpenIdLogin/OpenIdLogin.inc"
 
 -- Callback function for creating a new account.
 TYPE f_new_account

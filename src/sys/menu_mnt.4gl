@@ -3,8 +3,8 @@
 IMPORT FGL g2_lib.*
 
 IMPORT FGL app_lib
-&include "schema.inc"
-&include "app.inc"
+&include "../schema.inc"
+&include "../app/app.inc"
 
 CONSTANT C_PRGVER = "3.2"
 CONSTANT C_PRGDESC = "Menu Maintenance Demo"

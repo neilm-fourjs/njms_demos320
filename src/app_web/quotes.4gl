@@ -2,7 +2,7 @@ IMPORT FGL g2_lib.*
 IMPORT FGL app_lib
 IMPORT FGL combos
 
-&include "schema.inc"
+&include "../schema.inc"
 
 DEFINE m_arr DYNAMIC ARRAY OF RECORD LIKE quotes.*
 DEFINE m_scrArr DYNAMIC ARRAY OF RECORD

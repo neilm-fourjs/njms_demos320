@@ -86,6 +86,9 @@ runnat: $(BIN)/menu.42r
 rundef: $(BIN)/menu.42r
 	unset FGLGBCDIR && cd $(BIN) && fglrun menu.42r
 
+beautify:
+	find src -name \*.4gl -exec fglcomp --format --fo-inplace {} \;
+
 clear:
 	clear
 

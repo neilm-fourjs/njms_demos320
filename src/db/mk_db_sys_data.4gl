@@ -1,7 +1,7 @@
 IMPORT util
 IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
-&include "schema.inc"
+&include "../schema.inc"
 
 CONSTANT C_DEF_USER_EMAIL = "test@test.com"
 CONSTANT C_DEF_USER_PASSWD = "T3st.T3st"

@@ -17,8 +17,8 @@ IMPORT FGL glm_sql
 IMPORT FGL glm_ui
 &include "dynMaint.inc"
 
-&include "schema.inc"
-&include "app.inc"
+&include "../schema.inc"
+&include "../app/app.inc"
 
 CONSTANT C_PRGVER = "3.1"
 CONSTANT C_PRGDESC = "Dynamic Maintenance Demo"
