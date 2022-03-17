@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm fileVersion="31400" gstVersion="31409" name="ManagedForm" uid="{675c6474-d82b-485b-912c-770b39e52fce}">
+  <AGSettings>
+    <DynamicProperties version="2">
+      <DynamicProperty BRDynamicPropertyType="false" isDefaultInherited="false" isHidden="true" label="webcomponent.colour" name="webcomponent.colour" readOnly="false" type="TEXT"/>
+    </DynamicProperties>
+    <NodeInfos version="1">
+      <NodeInfo mimeType="modFD/WebComponent" properties="webcomponent.colour"/>
+    </NodeInfos>
+  </AGSettings>
+  <Record name="record1" uid="{8b4dc0e1-de10-424b-bad2-f9de62a27984}">
+    <RecordField colName="stock_code" fieldIdRef="0" name="stock_code" sqlTabName="formonly" uid="{2387921e-67d6-4ee7-9f32-f7baa0c7071f}"/>
+    <RecordField colName="stock_cat" fieldIdRef="1" name="stock_cat" sqlTabName="formonly" uid="{7798cb8c-ba95-4ddb-8663-f44a2d092e4d}"/>
+    <RecordField colName="pack_flag" fieldIdRef="2" name="pack_flag" sqlTabName="formonly" uid="{3a351701-b2dc-4d75-a69f-6a9efc25df2a}"/>
+    <RecordField colName="supp_code" fieldIdRef="3" name="supp_code" sqlTabName="formonly" uid="{f129ff12-7a58-405c-b5e6-83dcc0c00a99}"/>
+    <RecordField colName="barcode" fieldIdRef="4" name="barcode" sqlTabName="formonly" uid="{9cfc4545-59ba-4aeb-a167-76c86c2c4db7}"/>
+    <RecordField colName="description" fieldIdRef="5" name="description" sqlTabName="formonly" uid="{5c7a1fbb-c18d-4e57-a71d-3edbbbb78b7f}"/>
+    <RecordField colName="colour_code" fieldIdRef="6" name="colour_code" sqlTabName="formonly" uid="{73170b89-0c2e-4d32-88dd-40b7f3ef0bb5}"/>
+    <RecordField colName="colour_hex" fieldIdRef="7" name="colour_hex" sqlTabName="formonly" uid="{949b2e66-820f-4f74-8538-6db403de3223}"/>
+    <RecordField colName="price" fieldIdRef="8" name="price" sqlTabName="formonly" uid="{5a828610-3152-458f-8f8e-e3b5d2ab009b}"/>
+    <RecordField colName="cost" fieldIdRef="9" name="cost" sqlTabName="formonly" uid="{14158388-3b81-4ba6-ab6f-881fff3f70b7}"/>
+    <RecordField colName="tax_code" fieldIdRef="10" name="tax_code" sqlTabName="formonly" uid="{35c635f3-dafa-4773-b618-1fde8e6b2a24}"/>
+    <RecordField colName="disc_code" fieldIdRef="11" name="disc_code" sqlTabName="formonly" uid="{562b5fe4-8040-4365-acc3-722a6521d6e6}"/>
+    <RecordField colName="physical_stock" fieldIdRef="12" name="physical_stock" sqlTabName="formonly" uid="{e60bbec4-7ad2-4567-8638-b853517a2769}"/>
+    <RecordField colName="allocated_stock" fieldIdRef="13" name="allocated_stock" sqlTabName="formonly" uid="{53a9ef3a-a3ff-4f6e-a3a6-9bcd01292d3c}"/>
+    <RecordField colName="free_stock" fieldIdRef="14" name="free_stock" sqlTabName="formonly" uid="{e9a4168b-d61e-4e27-8f60-47291dff6b34}"/>
+    <RecordField colName="long_desc" fieldIdRef="15" name="long_desc" sqlTabName="formonly" uid="{d961bc0f-292e-4b28-9e49-8ffc185a7bc2}"/>
+    <RecordField colName="img_url" fieldIdRef="16" name="img_url" sqlTabName="formonly" uid="{967cfae6-a7a0-49f6-8157-4c221d0d4726}"/>
+    <RecordField colName="img" fieldIdRef="17" name="img" sqlTabName="formonly" uid="{a1b327ac-55eb-4a02-b29d-ea840955c8d6}"/>
+  </Record>
+  <Form gridHeight="27" gridWidth="98" image="fa-industry" name="prodmnt" style="main2" text="Product XXX">
+    <HBox gridHeight="27" gridWidth="98" name="hbox1" posX="0" posY="0">
+      <VBox gridHeight="27" gridWidth="47" name="vbox1" posX="2" posY="0">
+        <Grid gridHeight="17" gridWidth="47" name="grid1" posX="0" posY="1">
+          <Group gridHeight="10" gridWidth="46" name="group1" posX="1" posY="0" text="">
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lcode" posX="2" posY="1" text="Code"/>
+            <Edit colName="stock_code" fieldId="0" gridHeight="1" gridWidth="14" name="stock_code" posX="14" posY="1" sqlTabName="formonly" tabIndex="1" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lcat" posX="2" posY="2" text="Category"/>
+            <ComboBox colName="stock_cat" fieldId="1" gridHeight="1" gridWidth="30" initializer="cb_cat" items="" name="stock_cat" posX="14" posY="2" sqlTabName="formonly" tabIndex="2" widget="ComboBox"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lpack" posX="2" posY="3" text="Pack"/>
+            <CheckBox colName="pack_flag" fieldId="2" gridHeight="1" gridWidth="4" name="pack_flag" posX="14" posY="3" sqlTabName="formonly" tabIndex="3" valueChecked="P" valueUnchecked=" " widget="CheckBox"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lsupp" posX="2" posY="4" text="Supplier"/>
+            <ComboBox colName="supp_code" fieldId="3" gridHeight="1" gridWidth="30" initializer="cb_supp" items="" name="supp_code" posX="14" posY="4" sqlTabName="formonly" tabIndex="4" widget="ComboBox"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lbc" posX="2" posY="5" text="Bar Code"/>
+            <Edit colName="barcode" fieldId="4" gridHeight="1" gridWidth="30" name="barcode" posX="14" posY="5" sqlTabName="formonly" tabIndex="5" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="ldesc" posX="2" posY="6" text="Description"/>
+            <Edit colName="description" fieldId="5" gridHeight="1" gridWidth="30" name="description" posX="14" posY="6" sqlTabName="formonly" tabIndex="6" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lcolr" posX="2" posY="7" text="Colour"/>
+            <ComboBox colName="colour_code" fieldId="6" gridHeight="1" gridWidth="30" initializer="cb_colours" items="" name="colour_code" posX="14" posY="7" sqlTabName="formonly" tabIndex="7" widget="ComboBox"/>
+            <WebComponent colName="colour_hex" componentType="colour" fieldId="7" gridHeight="1" gridWidth="6" height="64" name="colour_hex" posX="14" posY="8" scrollBars="none" sizePolicy="fixed" sqlTabName="formonly" stretch="none" style="noborder" tabIndex="8" unitHeight="pixels" unitWidth="pixels" widget="WebComponent" width="128">
+              <DynamicProperty name="webcomponent.colour" value=""/>
+            </WebComponent>
+          </Group>
+        </Grid>
+        <Grid gridHeight="8" gridWidth="47" name="grid2" posX="0" posY="18" style="actions">
+          <Button gridHeight="1" gridWidth="5" name="clear" posX="2" posY="0" style="rounded" tabIndex="9"/>
+          <Button gridHeight="1" gridWidth="4" name="save" posX="9" posY="0" style="rounded green" tabIndex="10"/>
+          <Button gridHeight="1" gridWidth="5" name="close" posX="15" posY="0" style="rounded red" tabIndex="11"/>
+        </Grid>
+      </VBox>
+      <VBox gridHeight="27" gridWidth="47" name="vbox2" posX="49" posY="0">
+        <Grid gridHeight="23" gridWidth="47" name="grid3" posX="0" posY="1">
+          <Group gridChildrenInParent="true" gridHeight="6" gridWidth="46" name="pg2" posX="1" posY="0" style="collapsed" text="Price / Costs">
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lpric" posX="2" posY="1" text="Price"/>
+            <Edit colName="price" fieldId="8" gridHeight="1" gridWidth="30" name="price" posX="14" posY="1" sqlTabName="formonly" tabIndex="12" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lcost" posX="2" posY="2" text="Cost"/>
+            <Edit colName="cost" fieldId="9" gridHeight="1" gridWidth="30" name="cost" posX="14" posY="2" sqlTabName="formonly" tabIndex="13" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="ltax" posX="2" posY="3" text="Tax Code"/>
+            <Edit colName="tax_code" fieldId="10" gridHeight="1" gridWidth="30" name="tax_code" posX="14" posY="3" sqlTabName="formonly" tabIndex="14" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="ldisc" posX="2" posY="4" text="Discount Code"/>
+            <Edit colName="disc_code" fieldId="11" gridHeight="1" gridWidth="30" name="disc_code" posX="14" posY="4" sqlTabName="formonly" tabIndex="15" widget="Edit"/>
+          </Group>
+          <Group gridChildrenInParent="true" gridHeight="5" gridWidth="46" name="pg3" posX="1" posY="6" style="collapsed" text="Stock Levels">
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lphys" posX="2" posY="1" text="Physical"/>
+            <Edit colName="physical_stock" fieldId="12" gridHeight="1" gridWidth="30" name="physical_stock" posX="14" posY="1" sqlTabName="formonly" tabIndex="16" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lallo" posX="2" posY="2" text="Allocated"/>
+            <Edit colName="allocated_stock" fieldId="13" gridHeight="1" gridWidth="30" name="allocated_stock" noEntry="true" posX="14" posY="2" sqlTabName="formonly" tabIndex="17" widget="Edit"/>
+            <Label gridHeight="1" gridWidth="10" justify="right" name="lfree" posX="2" posY="3" text="Free"/>
+            <Edit colName="free_stock" fieldId="14" gridHeight="1" gridWidth="30" name="free_stock" noEntry="true" posX="14" posY="3" sqlTabName="formonly" tabIndex="18" widget="Edit"/>
+          </Group>
+          <Group gridChildrenInParent="true" gridHeight="6" gridWidth="46" name="pg4" posX="1" posY="11" style="collapsed" text="Long Description">
+            <TextEdit colName="long_desc" fieldId="15" gridHeight="4" gridWidth="42" name="long_desc" posX="2" posY="1" scroll="true" sqlTabName="formonly" tabIndex="19" wantNoReturns="false" widget="TextEdit"/>
+          </Group>
+          <Label gridHeight="1" gridWidth="10" justify="right" name="lurl" posX="3" posY="18" text="Image Url"/>
+          <Edit colName="img_url" fieldId="16" gridHeight="1" gridWidth="30" name="img_url" posX="15" posY="18" sqlTabName="formonly" tabIndex="20" widget="Edit"/>
+          <FFImage colName="img" fieldId="17" gridHeight="4" gridWidth="42" height="4" name="img" posX="3" posY="19" sizePolicy="fixed" sqlTabName="formonly" style="noborder" unitHeight="characters" unitWidth="characters" widget="FFImage" width="42"/>
+        </Grid>
+        <Grid gridHeight="2" gridWidth="47" name="grid4" posX="0" posY="24">
+          <Image gridHeight="1" gridWidth="3" image="fa-fw" name="spacer" posX="2" posY="0" sizePolicy="fixed" stretch="x" style="noborder" unitWidth="characters" width="3"/>
+        </Grid>
+      </VBox>
+    </HBox>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewA4AGIANABkAGMAMABlADEALQBkAGUAMQAwAC0ANAAyADQAYgAtAGIAYQBkADIALQBmADkAZABlADYAMgBhADIANwA5ADgANAB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>
