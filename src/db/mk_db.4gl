@@ -1,4 +1,5 @@
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
+IMPORT FGL g2_db
 IMPORT FGL mk_db_lib
 IMPORT FGL mk_db_sys_data
 IMPORT FGL mk_db_sys_ifx

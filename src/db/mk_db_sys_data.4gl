@@ -1,5 +1,7 @@
 IMPORT util
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_core
+IMPORT FGL g2_db
+IMPORT FGL g2_secure
 IMPORT FGL mk_db_lib
 &include "schema.inc"
 

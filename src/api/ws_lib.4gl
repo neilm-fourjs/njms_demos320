@@ -1,5 +1,5 @@
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_debug
 
 &include "../../g2_lib/g2_lib/g2_debug.inc"
 

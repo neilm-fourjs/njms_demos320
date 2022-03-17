@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="31409" version="6.00">
+    <report:Settings RWPageWidth="letterlength" RWPageLength="letterwidth" RWLeftMargin="0.5inch" RWTopMargin="0.5inch" RWRightMargin="0.5inch" RWBottomMargin="0.5inch">
+        <report:FormatList>
+            <report:Format-SVG/>
+            <report:Format-PDF/>
+            <report:Format-image/>
+        </report:FormatList>
+    </report:Settings>
+    <report:Data RWDataLocation="../src/app/printInvoices.rdd" RWFglReportName="rpt"/>
+    <report:Conflicts/>
+    <rtl:stylesheet>
+        <PXML>
+            <rtl:match name="Report" nameConstraint="Report" minOccurs="1" maxOccurs="1">
+                <rtl:match name="FirstPageHeader" nameConstraint="FirstPageHeader" minOccurs="0" maxOccurs="1"/>
+                <rtl:match name="Group order_number" nameConstraint="Group" minOccurs="0" maxOccurs="unbounded">
+                    <MINIPAGE name="Page Root" width="max" length="max">
+                        <LAYOUTNODE name="Page Header" width="max" length="min" port="anyPageHeader">
+                            <MINIPAGE name="StripeLayouter3" width="min" length="max" layoutDirection="leftToRight">
+                                <WORDBOX name="Report Title" x="0" y="max/2" anchorX="0" anchorY="0.5" alignment="baseline" fontSize="25" baselineType="leftleft" floatingBehavior="enclosed" text="Order Report"/>
+                                <PAGENOBOX name="PageNoBox" x="1.23857" y="max" anchorX="0" anchorY="1" alignment="baseline" baselineType="leftleft" floatingBehavior="enclosed" textAlignment="right"/>
+                            </MINIPAGE>
+                            <MINIPAGE name="OrderHeader_top" width="75" length="max" layoutDirection="leftToRight" borderWidth="1" borderStyle="solid">
+                                <WORDBOX name="r_ordhead.order_number Title" class="grwTableNumericColumnTitle" x="10" y="10" width="90" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="left" text="Order Number" localizeText="true"/>
+                                <WORDBOX name="r_ordhead.order_datetime Title" class="grwTableColumnTitle" x="10" y="450" width="90" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="left" text="Order Datetime" localizeText="true"/>
+                                <WORDBOX name="r_ordhead.order_ref Title" class="grwTableStringColumnTitle" x="30" y="10" width="90" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="left" text="Order Ref" localizeText="true"/>
+                                <rtl:input-variable name="r_ordhead.order_number" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="r_ordhead.order_number Value" class="grwNumericValue" x="10" y="100" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{r_ordhead.order_number}}"/>
+                                <rtl:input-variable name="r_ordhead.order_ref" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDWRAPBOX name="r_ordhead.order_ref Value" class="grwStringValue" x="30" y="100" width="width(&quot;M&quot;)*20" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.order_ref}}"/>
+                                <rtl:input-variable name="r_ordhead.req_del_date" type="FGLString" expectedLocation="expectedHere"/>
+                                <DATEFORMATBOX name="r_ordhead.req_del_date Value" class="grwDateValue" x="10" y="560" anchorX="0" anchorY="0" floatingBehavior="enclosed" value="{{Date.fromIsoValue(r_ordhead.req_del_date.isoValue)}}"/>
+                                <WORDBOX name="r_ordhead.customer_code Title" class="grwTableStringColumnTitle" x="50" y="10" width="90" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="left" text="Customer" localizeText="true"/>
+                                <rtl:input-variable name="r_ordhead.customer_code" type="FGLString" expectedLocation="expectedHere"/>
+                                <rtl:input-variable name="r_ordhead.customer_name" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="r_ordhead.customer_code Value" class="grwStringValue" x="50" y="100" width="min" anchorX="0" anchorY="0" floatingBehavior="enclosed" text="{{r_ordhead.customer_code+&quot; &quot;+r_ordhead.customer_name}}"/>
+                                <WORDBOX name="r_ordhead.req_del_date Title" class="grwTableDatetimeColumnTitle" x="30" y="450" width="90" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="left" text="Req Del Date" localizeText="true"/>
+                                <rtl:input-variable name="r_ordhead.req_del_date" type="FGLString" expectedLocation="expectedHere"/>
+                                <DATEFORMATBOX name="r_ordhead.req_del_date Value1" class="grwDateValue" x="30" y="560" anchorX="0" anchorY="0" floatingBehavior="enclosed" value="{{Date.fromIsoValue(r_ordhead.req_del_date.isoValue)}}"/>
+                            </MINIPAGE>
+                            <MINIPAGE name="Order Header Address" width="110" length="max" layoutDirection="leftToRight">
+                                <LAYOUTNODE name="DelAddr" x="10" y="50" width="220" length="90" anchorX="0" anchorY="0" floatingBehavior="enclosed" roundedCorners="true" paddingWidth="2" borderStyle="solid">
+                                    <rtl:input-variable name="r_ordhead.del_address1" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.del_address1 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.del_address1}}"/>
+                                    <rtl:input-variable name="r_ordhead.del_address2" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.del_address2 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.del_address2}}"/>
+                                    <rtl:input-variable name="r_ordhead.del_address3" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.del_address3 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.del_address3}}"/>
+                                    <rtl:input-variable name="r_ordhead.del_address4" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.del_address4 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.del_address4}}"/>
+                                    <rtl:input-variable name="r_ordhead.del_address5" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.del_address5 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.del_address5}}"/>
+                                    <rtl:input-variable name="r_ordhead.del_postcode" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDBOX name="r_ordhead.del_postcode Value" class="grwStringValue" floatingBehavior="enclosed" text="{{r_ordhead.del_postcode}}"/>
+                                </LAYOUTNODE>
+                                <LAYOUTNODE name="InvAddr" x="10" y="max-50" width="220" length="90" anchorX="0" anchorY="1" floatingBehavior="enclosed" roundedCorners="true" paddingWidth="2" borderStyle="solid">
+                                    <rtl:input-variable name="r_ordhead.inv_address1" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.inv_address1 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.inv_address1}}"/>
+                                    <rtl:input-variable name="r_ordhead.inv_address2" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.inv_address2 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.inv_address2}}"/>
+                                    <rtl:input-variable name="r_ordhead.inv_address3" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.inv_address3 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.inv_address3}}"/>
+                                    <rtl:input-variable name="r_ordhead.inv_address4" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.inv_address4 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.inv_address4}}"/>
+                                    <rtl:input-variable name="r_ordhead.inv_address5" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDWRAPBOX name="r_ordhead.inv_address5 Value" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{r_ordhead.inv_address5}}"/>
+                                    <rtl:input-variable name="r_ordhead.inv_postcode" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDBOX name="r_ordhead.inv_postcode Value" class="grwStringValue" floatingBehavior="enclosed" text="{{r_ordhead.inv_postcode}}"/>
+                                </LAYOUTNODE>
+                            </MINIPAGE>
+                            <MINIPAGE name="Table Header" class="grwTableHeader" width="min" length="max" layoutDirection="leftToRight">
+                                <WORDBOX name="Spacer" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                                <WORDBOX name="r_detailline.stock_code Title" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Stock Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="Stock Code" localizeText="true"/>
+                                <WORDBOX name="r_detailline.description Title" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" floatingBehavior="enclosed" text="Description" localizeText="true"/>
+                                <WORDBOX name="r_detailline.quantity Title" class="grwTableNumericColumnTitle" width="{max(width(&quot;{&quot;Quantity&quot;.translate()}&quot;),width(&quot;-0000000000&quot;))}" floatingBehavior="enclosed" textAlignment="right" text="Quantity" localizeText="true"/>
+                                <WORDBOX name="r_detailline.gross_value Title" class="grwTableNumericColumnTitle" width="{max(width(&quot;{&quot;Gross Value&quot;.translate()}&quot;),width(&quot;-000,000,000,000.00&quot;))}" floatingBehavior="enclosed" textAlignment="right" text="Gross Value" localizeText="true"/>
+                            </MINIPAGE>
+                            <MINIPAGE name="Separator" width="1" length="max" bgColor="#000000" layoutDirection="leftToRight"/>
+                        </LAYOUTNODE>
+                        <rtl:match name="Group pack_flag" nameConstraint="Group" minOccurs="0" maxOccurs="unbounded">
+                            <rtl:match name="OnEveryRow" nameConstraint="OnEveryRow" minOccurs="0" maxOccurs="unbounded">
+                                <MINIPAGE name="Table Row" class="grwTableRow" width="min" length="max" layoutDirection="leftToRight">
+                                    <WORDBOX name="Spacer_1" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                                    <rtl:input-variable name="r_detailline.stock_code" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDBOX name="r_detailline.stock_code Value" class="grwStringValue" width="{max(width(&quot;{&quot;Stock Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="{{r_detailline.stock_code}}"/>
+                                    <rtl:input-variable name="r_detailline.description" type="FGLString" expectedLocation="expectedHere"/>
+                                    <WORDBOX name="r_detailline.description Value" class="grwStringValue" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" floatingBehavior="enclosed" text="{{r_detailline.description}}"/>
+                                    <rtl:input-variable name="r_detailline.quantity" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailline.quantity Value" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Quantity&quot;.translate()}&quot;),width(&quot;-0000000000&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{r_detailline.quantity}}"/>
+                                    <rtl:input-variable name="r_detailline.gross_value" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                    <DECIMALFORMATBOX name="r_detailline.gross_value Value" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Gross Value&quot;.translate()}&quot;),width(&quot;-000,000,000,000.00&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="---,---,---,--&amp;.&amp;&amp;" value="{{r_detailline.gross_value}}"/>
+                                </MINIPAGE>
+                            </rtl:match>
+                        </rtl:match>
+                        <LAYOUTNODE name="LayoutNode" width="min" length="max" layoutDirection="leftToRight" floatingBehavior="enclosed">
+                            <WORDBOX name="r_ordhead.total_gross Title" class="grwTableNumericColumnTitle" x="2.534" y="439.139" anchorX="0" anchorY="0" floatingBehavior="enclosed" textAlignment="right" text="Total Gross" localizeText="true"/>
+                            <rtl:input-variable name="r_ordhead.total_gross" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                            <DECIMALFORMATBOX name="r_ordhead.total_gross Value" class="grwNumericValue" x="2.534" y="591.262" anchorX="0" anchorY="1" floatingBehavior="enclosed" textAlignment="right" format="---,---,---,--&amp;.&amp;&amp;" value="{{r_ordhead.total_gross}}"/>
+                        </LAYOUTNODE>
+                    </MINIPAGE>
+                </rtl:match>
+            </rtl:match>
+        </PXML>
+    </rtl:stylesheet>
+</report:Report>

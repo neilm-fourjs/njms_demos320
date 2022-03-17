@@ -1,6 +1,7 @@
 # Core rest service program for njm_demo database access
 IMPORT com
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_debug
+IMPORT FGL g2_db
 IMPORT FGL ws_lib
 IMPORT FGL njm_cust_ws
 

@@ -1,5 +1,5 @@
 
-IMPORT FGL g2_lib.*
+IMPORT FGL g2_db
 IMPORT FGL mk_db_lib
 
 #+ Create the application database tables: Informix
