@@ -20,13 +20,13 @@ IMPORT FGL glm_ui
 &include "../schema.inc"
 &include "../app/app.inc"
 
-CONSTANT C_PRGVER = "3.1"
+CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "Dynamic Maintenance Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
 CONSTANT C_FIELDS_PER_PAGE = 12
-DEFINE m_dbname STRING
+DEFINE m_dbname         STRING
 DEFINE m_allowedActions CHAR(6)
 MAIN
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -36,14 +36,13 @@ MAIN
 -- Connect to DB
 	CALL g2_db.m_db.g2_connect(m_dbname)
 -- Setup SQL
-	LET glm_sql.m_key_fld = 0
-	LET glm_sql.m_row_cur = 0
+	LET glm_sql.m_key_fld   = 0
+	LET glm_sql.m_row_cur   = 0
 	LET glm_sql.m_row_count = 0
 	CALL glm_sql.glm_mkSQL("*", "1=2") -- not fetching any data.
 -- Create Form
 	CALL glm_mkForm.init_form(
-			g2_db.m_db.name, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE,
-			glm_sql.m_fields, "main2")
+			g2_db.m_db.name, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE, glm_sql.m_fields, "main2")
 	CALL ui.window.getCurrent().setText(C_PRGDESC)
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
@@ -55,11 +54,11 @@ END MAIN
 --------------------------------------------------------------------------------
 FUNCTION init_args()
 	DEFINE l_user SMALLINT
-	LET l_user = arg_val(2)
-	LET m_dbname = arg_val(3)
-	LET glm_sql.m_tab = arg_val(4)
+	LET l_user            = arg_val(2)
+	LET m_dbname          = arg_val(3)
+	LET glm_sql.m_tab     = arg_val(4)
 	LET glm_sql.m_key_nam = arg_val(5)
-	LET m_allowedActions = arg_val(6)
+	LET m_allowedActions  = arg_val(6)
 	IF m_dbname IS NULL THEN
 		CALL g2_core.g2_errPopup(SFMT(%"Invalid Database Name '%1'!", m_dbname))
 		CALL g2_core.g2_exitProgram(1, %"invalid Database")

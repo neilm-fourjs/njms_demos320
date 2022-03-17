@@ -22,7 +22,7 @@ DEFINE m_prf   STRING
 DEFINE m_useUR BOOLEAN
 --------------------------------------------------------------------------------
 FUNCTION do_menu(l_logo STRING)
-	DEFINE l_form         ui.Form
+	DEFINE l_form ui.Form
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	OPEN WINDOW w_menu WITH FORM "menu"
 	LET l_form  = ui.Window.getCurrent().getForm()
@@ -94,7 +94,7 @@ FUNCTION do_menu(l_logo STRING)
 	CLOSE WINDOW w_menu
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION process_menu_item(x   SMALLINT)
+FUNCTION process_menu_item(x SMALLINT)
 	DEFINE l_cmd, l_prog, l_args STRING
 
 	DISPLAY CURRENT, ":Process_menu_item:" || x || ":", m_menu[x].m_type || "-" || m_menu[x].m_text
@@ -116,8 +116,8 @@ FUNCTION process_menu_item(x   SMALLINT)
 
 		WHEN "F" -- Run a standard 42r - with defaults args
 			CALL progArgs(m_menu[x].m_item) RETURNING l_prog, l_args
-			IF NOT os.path.exists(l_prog||".42r") THEN
-				IF NOT os.path.exists(l_prog||".42m") THEN
+			IF NOT os.path.exists(l_prog || ".42r") THEN
+				IF NOT os.path.exists(l_prog || ".42m") THEN
 					CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", l_prog))
 				ELSE
 					LET l_prog = l_prog.append(".42m")
@@ -130,14 +130,14 @@ FUNCTION process_menu_item(x   SMALLINT)
 
 		WHEN "S" -- Run a simple 42r - no args
 			LET l_cmd = SFMT("fglrun %1", m_menu[x].m_item)
-			IF NOT os.path.exists(m_menu[x].m_item||".42r") THEN
-				IF NOT os.path.exists(m_menu[x].m_item||".42m") THEN
+			IF NOT os.path.exists(m_menu[x].m_item || ".42r") THEN
+				IF NOT os.path.exists(m_menu[x].m_item || ".42m") THEN
 					CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", m_menu[x].m_item))
 				ELSE
-				 	LET l_cmd = l_cmd.append(".42m")
+					LET l_cmd = l_cmd.append(".42m")
 				END IF
 			ELSE
-				 LET l_cmd = l_cmd.append(".42r")
+				LET l_cmd = l_cmd.append(".42r")
 			END IF
 			CALL run_withoutWaiting(l_cmd)
 
@@ -158,9 +158,9 @@ FUNCTION process_menu_item(x   SMALLINT)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION populate_menu(l_mname LIKE sys_menus.m_id) RETURNS BOOLEAN
-	DEFINE l_role_name           LIKE sys_roles.role_name
-	DEFINE l_prev_key            LIKE sys_menus.menu_key
-	DEFINE l_titl                LIKE sys_menus.m_text
+	DEFINE l_role_name LIKE sys_roles.role_name
+	DEFINE l_prev_key  LIKE sys_menus.menu_key
+	DEFINE l_titl      LIKE sys_menus.m_text
 
 	DISPLAY CURRENT, ": Menu:", l_mname, " m_curMenu:", m_curMenu
 	SELECT m_text INTO l_titl FROM sys_menus WHERE m_id = l_mname AND m_type = "T"
@@ -215,8 +215,8 @@ END FUNCTION
 --------------------------------------------------------------------------------
 -- split program and args to two variables
 FUNCTION progArgs(l_prog STRING) RETURNS(STRING, STRING)
-	DEFINE l_args          STRING
-	DEFINE y               SMALLINT
+	DEFINE l_args STRING
+	DEFINE y      SMALLINT
 	LET y      = l_prog.getIndexOf(" ", 1)
 	LET l_args = " "
 	IF y > 0 THEN
@@ -246,7 +246,7 @@ FUNCTION run_withoutWaiting(l_cmd STRING)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION swap_nat_ur(l_renderer STRING) RETURNS()
-	DEFINE x                      SMALLINT
+	DEFINE x SMALLINT
 	LET x = m_prf.getIndexOf("profile.", 1)
 	IF x < 1 THEN
 		RETURN

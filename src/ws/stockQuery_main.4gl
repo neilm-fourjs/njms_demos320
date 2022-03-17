@@ -6,6 +6,6 @@ IMPORT FGL stockQuery
 
 MAIN
 
-  CALL stockQuery.init()
+	CALL stockQuery.init()
 
 END MAIN

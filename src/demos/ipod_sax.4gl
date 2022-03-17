@@ -5,21 +5,21 @@ DEFINE attr_name STRING
 CONSTANT PMAX = 10000
 DEFINE xml_d om.domDocument
 
-DEFINE song_r om.domNode
-DEFINE song_n om.domNode
-DEFINE typ STRING
+DEFINE song_r      om.domNode
+DEFINE song_n      om.domNode
+DEFINE typ         STRING
 DEFINE ignore_rest SMALLINT
-DEFINE p_cnt SMALLINT
+DEFINE p_cnt       SMALLINT
 
 FUNCTION startDocument()
 
 	DISPLAY CURRENT, ": SaxHandler - StartDocument"
 
-	LET xml_d = om.DomDocument.create("Library")
+	LET xml_d  = om.DomDocument.create("Library")
 	LET song_r = xml_d.createElement("SongList")
 
 	LET ignore_rest = FALSE
-	LET p_cnt = 0
+	LET p_cnt       = 0
 	CALL g2_aui.g2_progBar(1, PMAX, "Load XML data,  please wait ...")
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -45,8 +45,8 @@ FUNCTION startElement(name, attr)
 	END IF
 
 	IF name = "array" THEN
-		LET typ = "array"
-		LET song_n = NULL
+		LET typ         = "array"
+		LET song_n      = NULL
 		LET ignore_rest = TRUE
 	END IF
 	IF name = "dict" THEN
@@ -82,9 +82,9 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION characters(chars)
 	DEFINE chars STRING
-	DEFINE attr CHAR(40)
-	DEFINE x SMALLINT
-	DEFINE c om.DomNode
+	DEFINE attr  CHAR(40)
+	DEFINE x     SMALLINT
+	DEFINE c     om.DomNode
 
 	IF ignore_rest THEN
 		RETURN
@@ -103,7 +103,7 @@ FUNCTION characters(chars)
 		LET attr_name = attr CLIPPED
 	ELSE
 		IF attr_name.trim() = "location" THEN
-			LET x = chars.getIndexOf(":", 10)
+			LET x     = chars.getIndexOf(":", 10)
 			LET chars = fix_tokens(chars.subString(x - 1, chars.getLength()))
 
 			LET c = xml_d.createChars(chars.trim())
@@ -117,8 +117,8 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION fix_tokens(str)
 	DEFINE str, ret STRING
-	DEFINE x SMALLINT
-	DEFINE chr CHAR(1)
+	DEFINE x        SMALLINT
+	DEFINE chr      CHAR(1)
 
 	FOR x = 1 TO str.getLength()
 		LET chr = str.getCharAt(x)
@@ -126,14 +126,14 @@ FUNCTION fix_tokens(str)
 			WHEN "&"
 				IF str.subString(x, x + 4) = "&amp;" OR str.subString(x, x + 4) = "&#38;" THEN
 					LET chr = "&"
-					LET x = x + 4
+					LET x   = x + 4
 				ELSE
 --				DISPLAY "Unknown token:&:",x,":",str.subString(x,x+4),":"
 				END IF
 			WHEN "%"
 				IF str.subString(x, x + 2) = "%20" THEN
 					LET chr = " "
-					LET x = x + 2
+					LET x   = x + 2
 				ELSE
 --					DISPLAY "Unknown token:%:",x,":",str.subString(x,x+4),":"
 				END IF

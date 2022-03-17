@@ -1,4 +1,3 @@
-
 IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER  = "3.1"
@@ -49,12 +48,12 @@ MAIN
 
 			ON ACTION clone
 				CALL m_arr.insertElement(x)
-				LET m_arr[x].* = m_arr[x+1].*
-				CALL DIALOG.setCurrentRow("scr_arr",x+1)
+				LET m_arr[x].* = m_arr[x + 1].*
+				CALL DIALOG.setCurrentRow("scr_arr", x + 1)
 
 			BEFORE INSERT
 				LET x = arr_curr()
-				DISPLAY "X: ",x
+				DISPLAY "X: ", x
 				IF m_arr[x].dte IS NULL THEN
 					CALL add(x, "", "?", 0, 0, 0, 0, 0, 0, 0, 0, NULL)
 				END IF

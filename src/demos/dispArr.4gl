@@ -28,7 +28,8 @@ MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
-	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3", base.Application.getArgument(1), base.Application.getArgument(2), base.Application.getArgument(3))
+	DISPLAY SFMT("Arg1: %1 Arg2: %2 Arg3: %3",
+			base.Application.getArgument(1), base.Application.getArgument(2), base.Application.getArgument(3))
 	CALL ui.Interface.setText(C_PRGDESC)
 
 	OPEN FORM f FROM "dispArr"
@@ -36,11 +37,11 @@ MAIN
 
 	CALL poparr()
 	IF base.Application.getArgument(3) = "A" THEN
-		CALL ui.Window.getCurrent().setText( ui.Window.getCurrent().getText()||" Multiple Row Sel 1")
-				CALL disp_arr1()
+		CALL ui.Window.getCurrent().setText(ui.Window.getCurrent().getText() || " Multiple Row Sel 1")
+		CALL disp_arr1()
 	ELSE
-		CALL ui.Window.getCurrent().setText( ui.Window.getCurrent().getText()||" Multiple Row Sel 2")
-				CALL disp_arr2()
+		CALL ui.Window.getCurrent().setText(ui.Window.getCurrent().getText() || " Multiple Row Sel 2")
+		CALL disp_arr2()
 	END IF
 {
 	WHILE NOT int_flag
@@ -190,8 +191,8 @@ END FUNCTION
 #+ @param d ui.Dialog the Dialog Object
 #+ @param l_when Used for debug out
 FUNCTION totals(d ui.Dialog, l_when STRING)
-	DEFINE x, t     SMALLINT
-	DEFINE stot     DECIMAL(10, 2)
+	DEFINE x, t SMALLINT
+	DEFINE stot DECIMAL(10, 2)
 
 	LET stot = 0
 	LET t    = 0
