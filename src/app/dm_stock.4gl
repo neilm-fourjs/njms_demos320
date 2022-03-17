@@ -13,9 +13,9 @@ IMPORT FGL app_lib
 IMPORT FGL glm_mkForm
 IMPORT FGL glm_sql
 IMPORT FGL glm_ui
-&include "dynMaint.inc"
+&include "../gl_dynMaint/dynMaint.inc"
 -- Schema / App
-&include "schema.inc"
+&include "../schema.inc"
 &include "app.inc"
 -- Program Info
 CONSTANT C_PRGVER  = "3.1"
@@ -50,7 +50,7 @@ MAIN
 	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- Setup Callback functions
 	LET glm_ui.m_before_inp_func = FUNCTION my_before_inp
-	LET glm_ui.m_after_inp_func = FUNCTION my_after_inp
+	LET glm_ui.m_after_inp_func  = FUNCTION my_after_inp
 -- start UI
 	CALL glm_ui.glm_menu(m_allowedActions)
 -- All Done

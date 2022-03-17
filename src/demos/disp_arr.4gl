@@ -39,11 +39,11 @@ MAIN
 
 	CALL poparr()
 	IF ARG_VAL(3) = "A" THEN
-		CALL ui.Window.getCurrent().setText( ui.window.getCurrent().getText()||" Multiple Row Sel 1")
-				CALL disp_arr1()
+		CALL ui.Window.getCurrent().setText(ui.window.getCurrent().getText() || " Multiple Row Sel 1")
+		CALL disp_arr1()
 	ELSE
-		CALL ui.Window.getCurrent().setText( ui.window.getCurrent().getText()||" Multiple Row Sel 2")
-				CALL disp_arr2()
+		CALL ui.Window.getCurrent().setText(ui.window.getCurrent().getText() || " Multiple Row Sel 2")
+		CALL disp_arr2()
 	END IF
 {
 	WHILE NOT int_flag
@@ -193,8 +193,8 @@ END FUNCTION
 #+ @param d ui.Dialog the Dialog Object
 #+ @param l_when Used for debug out
 FUNCTION totals(d ui.Dialog, l_when STRING)
-	DEFINE x, t     SMALLINT
-	DEFINE stot     DECIMAL(10, 2)
+	DEFINE x, t SMALLINT
+	DEFINE stot DECIMAL(10, 2)
 
 	LET stot = 0
 	LET t    = 0

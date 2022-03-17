@@ -6,7 +6,7 @@ IMPORT FGL g2_about
 IMPORT FGL g2_db
 
 IMPORT FGL app_lib
-&include "schema.inc"
+&include "../schema.inc"
 &include "app.inc"
 
 CONSTANT C_PRGVER  = "3.2"
@@ -186,8 +186,12 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION showRow(x INT)
 
-	IF x > m_recs.getLength() THEN RETURN END IF
-	IF x < 1 THEN RETURN END IF
+	IF x > m_recs.getLength() THEN
+		RETURN
+	END IF
+	IF x < 1 THEN
+		RETURN
+	END IF
 
 	INITIALIZE m_rec.* TO NULL
 	INITIALIZE m_rec2.* TO NULL
