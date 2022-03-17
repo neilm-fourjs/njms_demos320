@@ -63,7 +63,7 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
 	IF ARG_VAL(1) = "test@test.com" THEN
 		LET l_user = ARG_VAL(1)
 	ELSE
-		LET l_user = lib_login.login(C_TITLE, C_PRGVER)
+		LET l_user = lib_login.login(C_TITLE, C_VER)
 	END IF
 	IF l_user = "Cancelled" THEN
 		RETURN FALSE

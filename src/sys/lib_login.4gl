@@ -4,7 +4,12 @@
 
 IMPORT os
 IMPORT util
-IMPORT FGL g2_lib.*
+--IMPORT FGL g2_lib.* -- crashes fglcomp in GST code editor, so have to import each required module
+IMPORT FGL g2_lib.g2_core
+IMPORT FGL g2_lib.g2_init
+IMPORT FGL g2_lib.g2_about
+IMPORT FGL g2_lib.g2_secure
+
 &include "../schema.inc"
 &include "../app/app.inc"
 &include "../OpenIdLogin/OpenIdLogin.inc"
@@ -47,7 +52,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 	IF m_new_acc_func IS NULL THEN
 		LET l_allow_new = FALSE
 	END IF
-	LET INT_FLAG = FALSE
+	LET int_flag = FALSE
 	CALL g2_init.g2_log.logIt("Allow New:" || l_allow_new || " Ver:" || l_ver)
 	OPTIONS INPUT NO WRAP
 
@@ -55,7 +60,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 	CALL login_ver_title(l_appname, l_ver)
 
 	IF m_logo_image IS NOT NULL THEN
-		CALL ui.window.getCurrent().getForm().setElementHidden("logo_grid", FALSE)
+		CALL ui.Window.getCurrent().getForm().setElementHidden("logo_grid", FALSE)
 		DISPLAY BY NAME m_logo_image
 	END IF
 	IF g2_core.m_isUniversal THEN
@@ -91,7 +96,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 			END IF
 
 		ON ACTION openid
-			CALL openid() RETURNING l_login
+			CALL openId() RETURNING l_login
 			IF l_login IS NOT NULL THEN
 				IF NOT validate_login(l_login, C_OPENID) THEN
 					ERROR %"Invalid Login ID!"
@@ -264,10 +269,10 @@ PRIVATE FUNCTION forgotten(l_login LIKE sys_users.email)
 
 	LET l_cmd =
 			EMAILPROG || " " || NVL(l_login, "NOEMAILADD!") || " \"[LoginDemo] " || NVL(l_subj, "NULLSUBJ") || "\" \""
-					|| NVL(l_body, "NULLBODY") || "\" 2> " || os.path.join(g2_init.g2_log.getLogDir(), "sendemail.err")
+					|| NVL(l_body, "NULLBODY") || "\" 2> " || os.Path.join(g2_init.g2_log.getLogDir(), "sendemail.err")
 	--DISPLAY "CMD:",NVL(l_cmd,"NULL")
 	ERROR "Sending Email, please wait ..."
-	CALL ui.interface.refresh()
+	CALL ui.Interface.refresh()
 	RUN l_cmd RETURNING l_ret
 	CALL g2_init.g2_log.logIt("Sendmail return:" || NVL(l_ret, "NULL"))
 	IF l_ret = 0 THEN -- email send okay
@@ -302,7 +307,7 @@ PRIVATE FUNCTION passchg(l_login LIKE sys_users.email) RETURNS BOOLEAN
 	LET l_pass1 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 	LET l_rules = g2_secure.g2_passwordRules(length(l_pass1))
 
-	CALL ui.window.getCurrent().getForm().setElementHidden("grp2", FALSE)
+	CALL ui.Window.getCurrent().getForm().setElementHidden("grp2", FALSE)
 	DISPLAY BY NAME l_rules, l_login
 
 	WHILE TRUE
@@ -474,7 +479,7 @@ PRIVATE FUNCTION audit_login(l_email LIKE sys_users.email, l_stat CHAR(1))
 	LET m_login_stat           = l_stat
 	LET l_audit_rec.hist_key   = 0
 	LET l_audit_rec.email      = l_email
-	LET l_audit_rec.client     = ui.interface.getFrontEndName()
+	LET l_audit_rec.client     = ui.Interface.getFrontEndName()
 	LET l_audit_rec.client_ip  = fgl_getenv("FGL_WEBSERVER_REMOTE_ADDR")
 	LET l_audit_rec.last_login = CURRENT
 	LET l_audit_rec.stat       = l_stat
