@@ -1,5 +1,9 @@
 IMPORT os
-IMPORT FGL g2_lib.*
+--IMPORT FGL g2_lib.* -- crashes fglcomp in GST code editor, so have to import each required module
+IMPORT FGL g2_lib.g2_core
+IMPORT FGL g2_lib.g2_init
+IMPORT FGL g2_lib.g2_about
+
 IMPORT FGL lib_login
 
 &include "../schema.inc"
@@ -116,8 +120,8 @@ FUNCTION process_menu_item(x SMALLINT)
 
 		WHEN "F" -- Run a standard 42r - with defaults args
 			CALL progArgs(m_menu[x].m_item) RETURNING l_prog, l_args
-			IF NOT os.path.exists(l_prog || ".42r") THEN
-				IF NOT os.path.exists(l_prog || ".42m") THEN
+			IF NOT os.Path.exists(l_prog || ".42r") THEN
+				IF NOT os.Path.exists(l_prog || ".42m") THEN
 					CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", l_prog))
 				ELSE
 					LET l_prog = l_prog.append(".42m")
@@ -130,8 +134,8 @@ FUNCTION process_menu_item(x SMALLINT)
 
 		WHEN "S" -- Run a simple 42r - no args
 			LET l_cmd = SFMT("fglrun %1", m_menu[x].m_item)
-			IF NOT os.path.exists(m_menu[x].m_item || ".42r") THEN
-				IF NOT os.path.exists(m_menu[x].m_item || ".42m") THEN
+			IF NOT os.Path.exists(m_menu[x].m_item || ".42r") THEN
+				IF NOT os.Path.exists(m_menu[x].m_item || ".42m") THEN
 					CALL g2_core.g2_errPopup(SFMT(%"This program '%1' appears to not be installed!", m_menu[x].m_item))
 				ELSE
 					LET l_cmd = l_cmd.append(".42m")

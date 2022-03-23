@@ -1,6 +1,10 @@
 -- A Simple demo program with a login and menu system.
 
-IMPORT FGL g2_lib.*
+--IMPORT FGL g2_lib.* -- crashes fglcomp in GST code editor, so have to import each required module
+IMPORT FGL g2_lib.g2_core
+IMPORT FGL g2_lib.g2_init
+IMPORT FGL g2_lib.g2_db
+IMPORT FGL g2_lib.g2_gdcUpdate
 
 IMPORT FGL lib_login
 IMPORT FGL menuLib

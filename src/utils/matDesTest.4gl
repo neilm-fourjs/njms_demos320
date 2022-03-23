@@ -3,7 +3,10 @@
 
 IMPORT os
 IMPORT FGL fgldialog
-IMPORT FGL g2_lib.*
+--IMPORT FGL g2_lib.* -- crashes in GST
+IMPORT FGL g2_lib.g2_init
+IMPORT FGL g2_lib.g2_core
+IMPORT FGL g2_lib.g2_about
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"

@@ -469,7 +469,7 @@
           <File filePath="src/sys/lib_login.4gl"/>
           <File filePath="src/sys/login.per"/>
         </Library>
-        <Library binaryName="lib_menu" dependencies="1986" id="-1416380752" label="lib_menu">
+        <Library binaryName="lib_menu" dependencies="1986,-47144818_-985216769,-47144818_14000" id="-1416380752" label="lib_menu">
           <File filePath="src/sys/menuLib.4gl"/>
           <File filePath="src/sys/new_acct.4gl"/>
         </Library>
