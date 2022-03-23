@@ -104,16 +104,21 @@ MAIN
 			CALL DIALOG.nextField("lvcol1")
 		ON ACTION arr3
 			CALL DIALOG.nextField("a3col1")
+
 		ON ACTION wintitle
 			CALL fgl_setTitle("My Window Title")
+		ON ACTION uitext
+			CALL ui.Interface.setText("My UI Text")
+		ON ACTION apptitle
+			CALL appTitle(C_PRGDESC, "fa_google","fa_circle")
+
 		ON ACTION dyntext
 			CALL gbc_replaceHTML("dyntext", "Dynamic Text:" || CURRENT)
 		ON ACTION darklogo
 			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_dark.png'/>")
 		ON ACTION lightlogo
 			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_light.png'/>")
-		ON ACTION uitext
-			CALL ui.Interface.setText("My UI Text")
+
 		ON ACTION pg
 			CALL pg(DIALOG.getForm(), 0)
 		ON ACTION pg50
@@ -341,4 +346,13 @@ FUNCTION getAUIAttrVal(l_nodeName STRING, l_attName STRING) RETURNS STRING
 	END IF
 	LET l_ret = l_nl.item(1).getAttribute(l_attName)
 	RETURN l_ret
+END FUNCTION
+
+FUNCTION appTitle(l_text STRING, l_icon STRING, l_notif STRING)
+	IF l_notif IS NOT NULL THEN
+		LET l_text = SFMT("%1 %2",l_notif, l_text)
+	END IF
+	CALL ui.Interface.setImage(l_icon)
+	CALL ui.Interface.setText(l_text)
+	CALL ui.Interface.refresh()
 END FUNCTION
