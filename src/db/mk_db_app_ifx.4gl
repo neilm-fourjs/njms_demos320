@@ -10,13 +10,13 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 			customer_code CHAR(8) NOT NULL, customer_name VARCHAR(30), contact_name VARCHAR(30), email VARCHAR(100),
 			web_passwd CHAR(10), del_addr INTEGER, inv_addr INTEGER, disc_code CHAR(2), credit_limit INTEGER DEFAULT 0,
 			total_invoices DECIMAL(12, 2) DEFAULT 0, outstanding_amount DECIMAL(12, 2) DEFAULT 0);
-	CALL l_db.g2_addPrimaryKey("customer", "customer_code")
+	CALL l_db.g2_addPrimaryKey("customer", "customer_code", FALSE)
 	CREATE TABLE countries(country_code CHAR(3) PRIMARY KEY, country_name CHAR(40));
 
 	CREATE TABLE addresses(
 			rec_key SERIAL, line1 VARCHAR(40), line2 VARCHAR(40), line3 VARCHAR(40), line4 VARCHAR(40), line5 VARCHAR(40),
 			postal_code VARCHAR(8), country_code CHAR(3));
-	CALL l_db.g2_addPrimaryKey("addresses", "rec_key")
+	CALL l_db.g2_addPrimaryKey("addresses", "rec_key", TRUE)
 	CREATE INDEX addr_idx ON addresses(line2, line3);
 
 	--EXECUTE IMMEDIATE "
@@ -26,7 +26,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 			disc_code CHAR(2), physical_stock INTEGER, allocated_stock INTEGER,
 			free_stock INTEGER, -- CONSTRAINT ch_free CHECK (free_stock  >= 0)
 			long_desc VARCHAR(100), img_url VARCHAR(100), UNIQUE(barcode));
-	CALL l_db.g2_addPrimaryKey("stock", "stock_code")
+	CALL l_db.g2_addPrimaryKey("stock", "stock_code", FALSE)
 	IF l_db.type = "ifx" THEN
 		EXECUTE IMMEDIATE "ALTER TABLE stock ADD CONSTRAINT CHECK (free_stock >= 0)"
 	END IF
@@ -60,7 +60,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 			inv_address4 VARCHAR(40), inv_address5 VARCHAR(40), inv_postcode VARCHAR(8), username CHAR(8), items INTEGER,
 			total_qty INTEGER, total_nett DECIMAL(12, 2), total_tax DECIMAL(12, 2), total_gross DECIMAL(12, 2),
 			total_disc DECIMAL(12, 3));
-	CALL l_db.g2_addPrimaryKey("ord_head", "order_number")
+	CALL l_db.g2_addPrimaryKey("ord_head", "order_number", TRUE)
 
 	DISPLAY "Create ord_detail ..."
 	CREATE TABLE ord_detail(
@@ -71,7 +71,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 
 	DISPLAY "Create colours ..."
 	CREATE TABLE colours(colour_key SERIAL, colour_name VARCHAR(30), colour_hex CHAR(7))
-	CALL l_db.g2_addPrimaryKey("colours", "colour_key")
+	CALL l_db.g2_addPrimaryKey("colours", "colour_key", TRUE)
 
 	DISPLAY "Create quotes ..."
 	CREATE TABLE quotes(
@@ -80,7 +80,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 			projected_date DATE, ordered_date DATE, description VARCHAR(250), end_user VARCHAR(50), project VARCHAR(50),
 			registered_project INTEGER, quote_total DECIMAL(10, 2),
 			FOREIGN KEY(customer_code) REFERENCES customer(customer_code));
-	CALL l_db.g2_addPrimaryKey("quotes", "quote_number")
+	CALL l_db.g2_addPrimaryKey("quotes", "quote_number", TRUE)
 
 	DISPLAY "Create quote_detail ..."
 	CREATE TABLE quote_detail(
