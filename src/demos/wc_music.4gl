@@ -1,6 +1,16 @@
 IMPORT util
 IMPORT os
+
+&ifdef gen320
+IMPORT FGL g2_init
+IMPORT FGL g2_core
+IMPORT FGL g2_appInfo
+IMPORT FGL g2_about
+IMPORT FGL g2_aui
+&else
 IMPORT FGL g2_lib.*
+&endif
+
 CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "WC Music Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
@@ -100,7 +110,18 @@ FUNCTION buildTree()
 	LET l_prev_genre = "."
 	LET l_prev_art   = "."
 	LET l_prev_alb   = "."
+	CALL m_songs.sort("name",FALSE)
+	CALL m_songs.sort("album",FALSE)
+	CALL m_songs.sort("artist",FALSE)
+	CALL m_songs.sort("genre",FALSE)
+	CALL m_tree.clear()
 	FOR m_songno = 1 TO m_songs.getLength()
+		DISPLAY SFMT("%1 Genre: %2 Artist: %3 Album: %4 Name: %5",
+					(m_songno USING "###&"), 
+					m_songs[m_songno].genre, 
+					m_songs[m_songno].artist, 
+					m_songs[m_songno].album,
+					m_songs[m_songno].name)
 		IF m_songs[m_songno].genre != l_prev_genre THEN
 			LET m_tree[x].id    = (x USING "&&&&&&")
 			LET m_tree[x].pid   = "000"
@@ -205,20 +226,17 @@ FUNCTION get_music(l_useCache BOOLEAN)
 			IF l_path IS NULL THEN
 				EXIT WHILE
 			END IF
-			IF l_path = "." OR l_path = ".." THEN
-				CONTINUE WHILE
-			END IF
-			IF l_path = "Audacity" THEN
-				CONTINUE WHILE
-			END IF
-			IF l_path = "Music_Vids" THEN
+
+			IF l_path.getCharAt(1) = "_" OR l_path.getCharAt(1) = "." THEN
 				CONTINUE WHILE
 			END IF
 			CALL g2_aui.g2_winInfo(2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
 			IF os.path.isDirectory(os.path.join(m_base, l_path)) THEN
-				LET m_songs[m_songno].genre = l_path
+				IF l_path.getCharAt(1) != "_" THEN
+					LET m_songs[m_songno].genre = l_path
 --				DISPLAY "Processing Dir:",l_path, " songno=",(m_songno USING "&&&&")," Artist:", m_songs[ m_songno ].artist
-				CALL get_albums(os.path.join(m_base, l_path))
+					CALL get_albums(os.path.join(m_base, l_path))
+				END IF
 			ELSE
 --				DISPLAY "Skipping File:",l_path
 			END IF
@@ -237,8 +255,14 @@ FUNCTION get_albums(l_path STRING)
 	DEFINE d     INTEGER
 	DEFINE l_dir STRING
 
-	DISPLAY "Getting Artists from ", l_path
+	IF l_path.getCharAt(1) = "_" THEN
+		DISPLAY SFMT("  Skipped _ folder %1", l_dir)
+		RETURN
+	END IF
+
+	DISPLAY "  Getting Artists from ", l_path
 	LET l_dir = l_path
+
 	CALL os.Path.dirSort("name", 1)
 	LET d = os.Path.dirOpen(l_dir)
 	IF d > 0 THEN
@@ -247,20 +271,17 @@ FUNCTION get_albums(l_path STRING)
 			IF l_path IS NULL THEN
 				EXIT WHILE
 			END IF
-			IF l_path = "." OR l_path = ".." THEN
+			IF l_path.getCharAt(1) = "_" OR l_path.getCharAt(1) = "." THEN
 				CONTINUE WHILE
 			END IF
-			IF l_path = "Audacity" THEN
-				CONTINUE WHILE
-			END IF
-			IF l_path = "mpd" THEN
-				CONTINUE WHILE
-			END IF
+			DISPLAY "    Getting Albums from ", l_path
 			CALL g2_aui.g2_winInfo(2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
 			IF os.path.isDirectory(os.path.join(l_dir, l_path)) THEN
-				LET m_songs[m_songno].artist = l_path
+				IF l_path.getCharAt(1) != "_" THEN
+					LET m_songs[m_songno].artist = l_path
 --				DISPLAY "Processing Dir:",l_path, " songno=",(m_songno USING "&&&&")," Artist:", m_songs[ m_songno ].artist
-				CALL get_songs(os.path.join(l_dir, l_path))
+					CALL get_songs(os.path.join(l_dir, l_path))
+				END IF
 			ELSE
 --				DISPLAY "Skipping File:",l_path
 			END IF
@@ -274,7 +295,11 @@ FUNCTION get_songs(l_path STRING)
 	DEFINE d            INTEGER
 
 	LET l_dir = l_path
-
+	IF l_dir.getCharAt(1) = "_" THEN
+		DISPLAY SFMT("  Skipped _ folder %1", l_dir)
+		RETURN
+	END IF
+	DISPLAY SFMT("      Getting Songs for Album %1", l_dir)
 	CALL os.Path.dirSort("name", 1)
 	LET d = os.Path.dirOpen(l_dir)
 	IF d > 0 THEN
@@ -283,12 +308,12 @@ FUNCTION get_songs(l_path STRING)
 			IF l_path IS NULL THEN
 				EXIT WHILE
 			END IF
-			IF l_path = "." OR l_path = ".." THEN
+
+			IF l_path.getCharAt(1) = "_" OR l_path.getCharAt(1) = "." THEN
 				CONTINUE WHILE
 			END IF
 
 			IF os.path.isDirectory(os.path.join(l_dir, l_path)) THEN
---				DISPLAY "Processing Sub Dir:",l_path
 				LET m_songs[m_songno].album = l_path
 				CALL get_songs(os.path.join(l_dir, l_path))
 			END IF
@@ -298,6 +323,7 @@ FUNCTION get_songs(l_path STRING)
 --				DISPLAY "Skipping File:",l_path
 				CONTINUE WHILE
 			END IF
+
 			IF m_songs[m_songno].genre IS NULL THEN
 				LET m_songs[m_songno].genre = m_songs[m_songno - 1].genre
 			END IF
@@ -313,9 +339,14 @@ FUNCTION get_songs(l_path STRING)
 			END IF
 			LET m_songs[m_songno].file = os.path.join(l_dir, l_path)
 			LET m_songs[m_songno].name = os.path.rootName(l_path)
-			DISPLAY "Adding Genre:", m_songs[m_songno].genre, " songno=", (m_songno USING "###&"), " Artist:",
-					m_songs[m_songno].artist, " Album:", m_songs[m_songno].album, " File:", m_songs[m_songno].file, " Name:",
-					m_songs[m_songno].name
+			DISPLAY SFMT("        Song: %1", l_path)
+{			DISPLAY SFMT("Adding No: %1 Genre: %2 Artist: %3 Album: %4 File: %5 Name: %6",
+					(m_songno USING "###&"), 
+					m_songs[m_songno].genre, 
+					m_songs[m_songno].artist, 
+					m_songs[m_songno].album,
+					m_songs[m_songno].file,
+					m_songs[m_songno].name)}
 
 			LET m_songno = m_songno + 1
 		END WHILE
