@@ -13,6 +13,8 @@ CONSTANT C_PRGVER  = "3.3"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG     = "smiley"
 
+CONSTANT C_NOTICE = "🔴"
+
 CONSTANT PG_MAX = 1000
 
 DEFINE m_forms DYNAMIC ARRAY OF STRING
@@ -21,12 +23,13 @@ MAIN
 	DEFINE l_rec RECORD
 		fld1    CHAR(10),
 		fld2    DATE,
-		fld3    STRING,
+		fld3    SMALLINT,
 		fld4    STRING,
 		fld5    STRING,
 		fld6    STRING,
 		fld7    STRING,
 		fld8    STRING,
+		fld9    STRING,
 		okay    BOOLEAN,
 		notokay BOOLEAN,
 		nul     BOOLEAN
@@ -57,12 +60,13 @@ MAIN
 	END FOR
 	LET l_rec.fld1    = "Active"
 	LET l_rec.fld2    = TODAY
-	LET l_rec.fld3    = "Red"
-	LET l_rec.fld4    = "Inactive"
-	LET l_rec.fld5    = "Active"
-	LET l_rec.fld6    = "Inactive"
-	LET l_rec.fld7    = "Active"
-	LET l_rec.fld8    = "Inactive"
+	LET l_rec.fld3    = 1
+	LET l_rec.fld4    = "Red"
+	LET l_rec.fld5    = "Inactive"
+	LET l_rec.fld6    = "Active"
+	LET l_rec.fld7    = "Inactive"
+	LET l_rec.fld8    = "Active"
+	LET l_rec.fld9    = "Inactive"
 	LET l_rec.okay    = TRUE
 	LET l_rec.notokay = FALSE
 	LET l_rec.nul     = NULL
@@ -99,18 +103,26 @@ MAIN
 		ON ACTION win
 			CALL win()
 		ON ACTION win_mess
+			CALL notify(C_NOTICE)
 			CALL g2_core.g2_winMessage("Info", "Testing", "information")
+			CALL notify("")
 		ON ACTION arr2
 			CALL DIALOG.nextField("lvcol1")
 		ON ACTION arr3
 			CALL DIALOG.nextField("a3col1")
 
+		ON ACTION constrct
+			CALL constrct()
+
 		ON ACTION wintitle
 			CALL fgl_setTitle("My Window Title")
 		ON ACTION uitext
 			CALL ui.Interface.setText("My UI Text")
-		ON ACTION apptitle
-			CALL appTitle(C_PRGDESC, "fa_google","fa_circle")
+
+		ON ACTION notify
+			CALL notify(C_NOTICE)
+			SLEEP 2
+			CALL notify("")
 
 		ON ACTION dyntext
 			CALL gbc_replaceHTML("dyntext", "Dynamic Text:" || CURRENT)
@@ -260,10 +272,10 @@ END FUNCTION
 -- GBC ONLY - isMobile
 FUNCTION gbc_isMobile() RETURNS BOOLEAN
 	DEFINE l_bool BOOLEAN = FALSE
-	IF ui.interface.getFrontEndName() MATCHES "GM?" THEN
+	IF ui.Interface.getFrontEndName() MATCHES "GM?" THEN
 		RETURN TRUE
 	END IF
-	IF ui.interface.getFrontEndName() = "GDC" THEN
+	IF ui.Interface.getFrontEndName() = "GDC" THEN
 		RETURN FALSE
 	END IF
 	CALL ui.Interface.frontCall("mymodule", "isMobile", [], l_bool)
@@ -273,7 +285,7 @@ END FUNCTION
 -- GBC ONLY - Dynamically replace HTML code
 FUNCTION gbc_replaceHTML(l_obj STRING, l_txt STRING)
 	DEFINE l_ret STRING
-	IF ui.interface.getFrontEndName() = "GBC" THEN
+	IF ui.Interface.getFrontEndName() = "GBC" THEN
 		CALL ui.Interface.frontCall("mymodule", "replace_html", [l_obj, l_txt], l_ret)
 	ELSE
 		CALL g2_winMessage("Error", "GBC Test only!", "exclamation")
@@ -294,7 +306,7 @@ FUNCTION showForm()
 			IF l_file IS NULL THEN
 				EXIT WHILE
 			END IF
-			IF os.path.extension(l_file) = "42f" THEN
+			IF os.Path.extension(l_file) = "42f" THEN
 				LET m_forms[m_forms.getLength() + 1] = l_file
 			END IF
 		END WHILE
@@ -347,12 +359,24 @@ FUNCTION getAUIAttrVal(l_nodeName STRING, l_attName STRING) RETURNS STRING
 	LET l_ret = l_nl.item(1).getAttribute(l_attName)
 	RETURN l_ret
 END FUNCTION
-
-FUNCTION appTitle(l_text STRING, l_icon STRING, l_notif STRING)
+--------------------------------------------------------------------------------
+FUNCTION notify(l_notif STRING)
+	DEFINE l_text STRING
+	LET l_text = ui.Interface.getText()
 	IF l_notif IS NOT NULL THEN
-		LET l_text = SFMT("%1 %2",l_notif, l_text)
+		LET l_text = SFMT("%1 %2", l_notif, l_text)
 	END IF
-	CALL ui.Interface.setImage(l_icon)
-	CALL ui.Interface.setText(l_text)
+	--CALL ui.Interface.setText(l_text)
+	CALL ui.Window.getCurrent().setText(l_text)
 	CALL ui.Interface.refresh()
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION constrct()
+	DEFINE l_const STRING
+	LET int_flag = FALSE
+	CONSTRUCT BY NAME l_const ON fld1, fld2, fld3, fld4
+	IF NOT int_flag THEN
+		CALL fgl_winMessage("Query",l_const, "information")
+	END IF
+	LET int_flag = FALSE
 END FUNCTION

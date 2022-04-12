@@ -1,12 +1,13 @@
 
 ACTION DEFAULTS
 	ACTION showform ( TEXT="Show Form", IMAGE="fa-desktop" )
+	ACTION constrct ( TEXT="Construct", IMAGE="fa-database" )
 	ACTION msg ( TEXT="Message", IMAGE="fa-info-circle" )
 	ACTION err ( TEXT="Error", IMAGE="fa-exclamation-circle" )
 	ACTION win ( TEXT="Model Window", IMAGE="fa-circle" )
 	ACTION win_mess ( TEXT="Message Window", IMAGE="fa-info" )
+	ACTION notify ( TEXT="Notify", IMAGE="fa-circle" )
 	ACTION wintitle ( TEXT="Window Title", IMAGE="fa-square" )
-	ACTION apptitle ( TEXT="Application Title", IMAGE="fa-square" )
 	ACTION uitext ( TEXT="UI Text", IMAGE="fa-square" )
 	ACTION dyntext ( TEXT="Dynamic Text", IMAGE="fa-square" )
 	ACTION darklogo ( TEXT="Dark Logo", IMAGE="fa-square" )
@@ -31,12 +32,13 @@ TOPMENU
 		COMMAND editpaste
 	END -- FIle
 	GROUP opt (TEXT="Option")
+		COMMAND constrct
 		COMMAND msg
 		COMMAND err
 		COMMAND win
 		COMMAND win_mess
+		COMMAND notify
 		COMMAND wintitle
-		COMMAND apptitle
 		COMMAND uitext
 		COMMAND dyntext
 		COMMAND darklogo
@@ -53,6 +55,9 @@ END -- TM
 
 TOOLBAR
 	ITEM quit
+	SEPARATOR
+	ITEM accept
+	ITEM cancel
 	SEPARATOR
 	ITEM editcut
 	ITEM editcopy
@@ -78,10 +83,11 @@ GRID
 [lab2|f002           ][a   ]
 [lab3|f003           ][b   ]
 [lab4|f004           ][c   ]
+[lab5|f005           ]
 [: :b1:but1  :msg    :err   : :]
 <G g1                          >
-[lab5|f005         ]
-[lab6|f006           ]
+[lab6|f006         ]
+[lab7|f007           ]
 <                              >
  more text outside of group.
 <T tab                         >
@@ -205,21 +211,24 @@ GROUP g2 : g2, TEXT=%"A Group #2",STYLE="collapsed";
 LABEL lab1 : lab1, TEXT=%"ButtonEdit:",JUSTIFY=RIGHT;
 LABEL lab2 : lab2, TEXT=%"DateEdit:",JUSTIFY=RIGHT;
 LABEL lab3 : lab3, TEXT=%"Combo:",JUSTIFY=RIGHT;
-LABEL lab4 : lab4, TEXT=%"Readonly:",JUSTIFY=RIGHT;
-LABEL lab5 : lab5, TEXT=%"Live Field:",JUSTIFY=RIGHT;
-LABEL lab6 : lab6, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
+LABEL lab4 : lab4, TEXT=%"Combo(QE):",JUSTIFY=RIGHT;
+LABEL lab5 : lab5, TEXT=%"Readonly:",JUSTIFY=RIGHT;
+LABEL lab6 : lab6, TEXT=%"Live Field:",JUSTIFY=RIGHT;
+LABEL lab7 : lab7, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
 
 BUTTONEDIT f001 = FORMONLY.fld1, ACTION=win, TABINDEX=2;
 DATEEDIT f002 = FORMONLY.fld2, TABINDEX=3;
-COMBOBOX f003 = FORMONLY.fld3, ITEMS=("Red","Blue","Green"), PLACEHOLDER=%"Pick a Colour", TABINDEX=4;
-f004 = FORMONLY.fld4, NOENTRY;
-f005 = FORMONLY.fld5, TABINDEX=5;
-f006 = FORMONLY.fld6, NOENTRY;
-p101 = FORMONLY.fld7, TABINDEX=6;
-p102 = FORMONLY.fld8, NOENTRY;
-CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=7;
-CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=8;
-CHECKBOX c = FORMONLY.nul, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Nul?", TABINDEX=9;
+COMBOBOX f003 = FORMONLY.fld3, ITEMS=((1,"Red"),(2,"Blue"),(3,"Green")), PLACEHOLDER=%"Pick a Colour", TABINDEX=4;
+COMBOBOX f004 = FORMONLY.fld4, ITEMS=("Red","Blue","Green"), PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=5;
+f005 = FORMONLY.fld5, NOENTRY;
+f006 = FORMONLY.fld6, TABINDEX=6;
+f007 = FORMONLY.fld7, NOENTRY;
+p101 = FORMONLY.fld8, TABINDEX=7;
+p102 = FORMONLY.fld9, NOENTRY;
+CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=8;
+CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=9;
+CHECKBOX c = FORMONLY.nul, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Nul?";
+
 IMAGE logo : logo, IMAGE="logo_dark", SIZEPOLICY=INITIAL,STYLE="noborder center";
 IMAGE logo2 : logo2, IMAGE="logo_light", SIZEPOLICY=INITIAL,STYLE="noborder center";
 
