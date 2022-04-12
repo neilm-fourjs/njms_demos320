@@ -2,6 +2,7 @@
 -- By: Neil J Martin ( neilm@4js.com )
 
 IMPORT os
+
 IMPORT FGL fgldialog
 --IMPORT FGL g2_lib.* -- crashes in GST
 IMPORT FGL g2_lib.g2_init
@@ -10,9 +11,11 @@ IMPORT FGL g2_lib.g2_about
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
-CONSTANT C_PRGVER  = "3.2"
+CONSTANT C_PRGVER  = "3.3"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG     = "smiley"
+
+CONSTANT C_NOTICE = "🔴"
 
 CONSTANT PG_MAX = 1000
 
@@ -22,12 +25,13 @@ MAIN
 	DEFINE l_rec RECORD
 		fld1    CHAR(10),
 		fld2    DATE,
-		fld3    STRING,
+		fld3    SMALLINT,
 		fld4    STRING,
 		fld5    STRING,
 		fld6    STRING,
 		fld7    STRING,
 		fld8    STRING,
+		fld9    STRING,
 		okay    BOOLEAN,
 		notokay BOOLEAN,
 		nul     BOOLEAN
@@ -37,7 +41,7 @@ MAIN
 		col2 SMALLINT,
 		img  STRING
 	END RECORD
-	DEFINE l_listView DYNAMIC ARRAY OF RECORD
+	DEFINE l_listview DYNAMIC ARRAY OF RECORD
 		col1 STRING,
 		col2 STRING,
 		img  STRING
@@ -45,10 +49,10 @@ MAIN
 	DEFINE x SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
+	CALL g2_init.g2_init(ARG_VAL(1), "matDesTest")
 	CALL ui.Interface.setText(SFMT("%1 - %2", C_PRGDESC, C_PRGVER))
 --  CALL ui.Interface.setImage("fa-bug")
-	FOR x = 1 TO 15
+	FOR X = 1 TO 15
 		LET l_arr[x].col1      = "Row " || x
 		LET l_arr[x].col2      = x
 		LET l_arr[x].img       = C_IMG
@@ -58,12 +62,13 @@ MAIN
 	END FOR
 	LET l_rec.fld1    = "Active"
 	LET l_rec.fld2    = TODAY
-	LET l_rec.fld3    = "Red"
-	LET l_rec.fld4    = "Inactive"
-	LET l_rec.fld5    = "Active"
-	LET l_rec.fld6    = "Inactive"
-	LET l_rec.fld7    = "Active"
-	LET l_rec.fld8    = "Inactive"
+	LET l_rec.fld3    = 1
+	LET l_rec.fld4    = "Red"
+	LET l_rec.fld5    = "Inactive"
+	LET l_rec.fld6    = "Active"
+	LET l_rec.fld7    = "Inactive"
+	LET l_rec.fld8    = "Active"
+	LET l_rec.fld9    = "Inactive"
 	LET l_rec.okay    = TRUE
 	LET l_rec.notokay = FALSE
 	LET l_rec.nul     = NULL
@@ -71,7 +76,7 @@ MAIN
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
 
-	DISPLAY fgl_getenv("FGLIMAGEPATH") TO imgpath
+	DISPLAY fgl_getEnv("FGLIMAGEPATH") TO imgpath
 	DISPLAY getAUIAttrVal("StyleList", "fileName") TO stylefile
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
@@ -100,21 +105,34 @@ MAIN
 		ON ACTION win
 			CALL win()
 		ON ACTION win_mess
+			CALL notify(C_NOTICE)
 			CALL g2_core.g2_winMessage("Info", "Testing", "information")
+			CALL notify("")
 		ON ACTION arr2
 			CALL DIALOG.nextField("lvcol1")
 		ON ACTION arr3
 			CALL DIALOG.nextField("a3col1")
+
+		ON ACTION constrct
+			CALL constrct()
+
 		ON ACTION wintitle
-			CALL fgl_settitle("My Window Title")
+			CALL fgl_setTitle("My Window Title")
+		ON ACTION uitext
+			CALL ui.Interface.setText("My UI Text")
+
+		ON ACTION notify
+			CALL notify(C_NOTICE)
+			SLEEP 2
+			CALL notify("")
+
 		ON ACTION dyntext
 			CALL gbc_replaceHTML("dyntext", "Dynamic Text:" || CURRENT)
 		ON ACTION darklogo
 			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_dark.png'/>")
 		ON ACTION lightlogo
 			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_light.png'/>")
-		ON ACTION uitext
-			CALL ui.Interface.setText("My UI Text")
+
 		ON ACTION pg
 			CALL pg(DIALOG.getForm(), 0)
 		ON ACTION pg50
@@ -204,7 +222,7 @@ MAIN
 		ON ACTION f12
 			ERROR "F12"
 		ON ACTION fc_ismob
-			CALL fgldialog.fgl_winMessage(
+			CALL fgl_winMessage(
 					"Mobile?", IIF(gbc_isMobile(), "App Running on Mobile device!", "App not running on Mobile device"),
 					"information")
 		ON ACTION close
@@ -342,4 +360,25 @@ FUNCTION getAUIAttrVal(l_nodeName STRING, l_attName STRING) RETURNS STRING
 	END IF
 	LET l_ret = l_nl.item(1).getAttribute(l_attName)
 	RETURN l_ret
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION notify(l_notif STRING)
+	DEFINE l_text STRING
+	LET l_text = ui.Interface.getText()
+	IF l_notif IS NOT NULL THEN
+		LET l_text = SFMT("%1 %2", l_notif, l_text)
+	END IF
+	--CALL ui.Interface.setText(l_text)
+	CALL ui.Window.getCurrent().setText(l_text)
+	CALL ui.Interface.refresh()
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION constrct()
+	DEFINE l_const STRING
+	LET int_flag = FALSE
+	CONSTRUCT BY NAME l_const ON fld1, fld2, fld3, fld4
+	IF NOT int_flag THEN
+		CALL fgl_winMessage("Query",l_const, "information")
+	END IF
+	LET int_flag = FALSE
 END FUNCTION

@@ -353,7 +353,7 @@
           <File filePath="src/demos/widgets_table.per"/>
         </Application>
       </Group>
-      <Group id="1028282104" label="Demos WC">
+      <Group compilerOptions="-Dgen400" id="1028282104" label="Demos WC">
         <Application binaryName="wc_aircraft" dependencies="-310428106,1136561508_14000,-47144818_14000" id="252530810" label="wc_aircraft">
           <Configuration id="1118944228" label="wc_aircraft"/>
           <VirtualFolder label="wc">
