@@ -5,6 +5,7 @@ export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
 export DBTYPE=pgs
+export DBNAME=njm_demo310
 export GBC=gbc-clean2
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos
