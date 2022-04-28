@@ -2,4 +2,9 @@
 # PostgreSQL
 dbi.default.driver = "dbmpgs"
 
+# Yana's test pod on AWS
+#dbi.database.njm_demo310.source = "njms_demos320@eks-aurora-postgres.cluster-cy0blef8sbyc.eu-west-2.rds.amazonaws.com:5432"
+#dbi.database.njm_demo310.username = "postgres"
+#dbi.database.njm_demo310.password = "ca3CnBf6APZpBLY"
+
 dbi.database.njm_demo310.ifxemul.datatype.serial.emulation = "native"

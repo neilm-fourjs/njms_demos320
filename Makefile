@@ -6,6 +6,7 @@ export BIN=njm_app_bin
 
 export PROJBASE=$(PWD)
 export DBTYPE=pgs
+export DBNAME=njm_demo310
 export GBC=gbc-clean2
 export GBCPROJDIR=/opt/fourjs/gbc-current
 export APP=njms_demos
