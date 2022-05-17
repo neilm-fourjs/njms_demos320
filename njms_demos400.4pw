@@ -578,7 +578,7 @@
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="etc" recursive="false" sourceDirectory="$(ProjectDir)/etc"/>
         <Directory destinationDirectory="$(ProjectDir)/bin" includedFiles="*.xcf" label="gas" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/bin" label="libbin" sourceDirectory="$(ProjectDir)/g2_lib/bin320"/>
-        <Directory includedFiles="MANIFEST" label="MANIFEST" recursive="false" sourceDirectory="$(ProjectDir)/etc"/>
+        <Directory includedFiles="MANIFEST" label="MANIFEST" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/pics" label="pics" sourceDirectory="$(ProjectDir)/pics"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="profile" recursive="false" sourceDirectory="$(ProjectDir)/etc/pgs"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/utils" includedFiles="*.sh" label="util" sourceDirectory="$(ProjectDir)/utils"/>
@@ -613,8 +613,9 @@
       </Package>
       <Library binaryName="xcf_files_deploy" id="1211226226" label="xcf_files_deploy">
         <File filePath="gas_deploy/fontAwesome.xcf"/>
-        <File filePath="gas_deploy/listView.xcf"/>
+        <File filePath="gas_deploy/MANIFEST"/>
         <File filePath="gas_deploy/materialDesignTest.xcf"/>
+        <File filePath="gas_deploy/nd.xcf"/>
         <File filePath="gas_deploy/njmdemo.xcf"/>
         <File filePath="gas_deploy/njmdemo_web.xcf"/>
         <File filePath="gas_deploy/njmdemodb.xcf"/>

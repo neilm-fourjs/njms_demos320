@@ -6,7 +6,7 @@
 	</TRIGGERS>
 	<RESOURCES>./pics</RESOURCES>
 	<APPLICATION xcf='fontAwesome.xcf'/>
-	<APPLICATION xcf='listView.xcf'/>
+	<APPLICATION xcf='nd.xcf'/>
 	<APPLICATION xcf='materialDesignTest.xcf'/>
 	<APPLICATION xcf='njmdemodb.xcf'/>
 	<APPLICATION xcf='njmdemo_ur.xcf'/>
