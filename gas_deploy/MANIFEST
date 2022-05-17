@@ -1,0 +1,18 @@
+<MANIFEST>
+  <DESCRIPTION>NJM's Demo Application Suite</DESCRIPTION>
+	<TRIGGERS component = 'cpn.gar.execution.local'>
+		<DEPLOY>/bin/bash utils/post_deploy.sh</DEPLOY>
+		<UNDEPLOY></UNDEPLOY>
+	</TRIGGERS>
+	<RESOURCES>./pics</RESOURCES>
+	<APPLICATION xcf='fontAwesome.xcf'/>
+	<APPLICATION xcf='nd.xcf'/>
+	<APPLICATION xcf='materialDesignTest.xcf'/>
+	<APPLICATION xcf='njmdemodb.xcf'/>
+	<APPLICATION xcf='njmdemo_ur.xcf'/>
+	<APPLICATION xcf='njmdemo_web.xcf'/>
+	<APPLICATION xcf='njmdemo.xcf'/>
+	<APPLICATION xcf='njmweb2.xcf'/>
+	<APPLICATION xcf='njmweb.xcf'/>
+	<APPLICATION xcf='njm.xcf'/>
+</MANIFEST>
