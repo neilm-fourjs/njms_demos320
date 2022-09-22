@@ -317,6 +317,7 @@
           <File filePath="pics/webcomponents/aircraft/aircraft.css"/>
           <File filePath="pics/webcomponents/aircraft/aircraft.html"/>
           <File filePath="pics/webcomponents/aircraft/aircraft.js"/>
+          <File filePath="pics/webcomponents/aircraft/x_b777.svg"/>
         </VirtualFolder>
         <File filePath="src/demos/wc_aircraft.4gl"/>
         <File filePath="src/demos/wc_aircraft.per"/>

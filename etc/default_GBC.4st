@@ -13,6 +13,7 @@
 		<StyleAttribute name="headerAlignment" value="center" />
 	</Style>
 	<Style name="HBox.splitView">
+<!-- note this is 3.20 - in V4 you need different code! -->
 		<StyleAttribute name="splitViewRendering" value="yes" />
 	</Style>
 	<Style name="Group.collapsed" >

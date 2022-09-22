@@ -16,7 +16,7 @@
   </StartMenuGroup>
   <StartMenuGroup text="Utils">
     <StartMenuCommand image="fab-font-awesome-flag" text="Font Awesume Viewer" exec="fglrun fontAwesome C"/>
-    <StartMenuCommand image="fa-file-code-o" text="Material Design Test" exec="fglrun materialDesignTest.42r C"/>
+    <StartMenuCommand image="fa-file-code-o" text="Material Design Test" exec="fglrun matDesTest.42r C"/>
   </StartMenuGroup>
   <StartMenuGroup text="WebComponent Demos">
     <StartMenuCommand image="fa-bar-chart" text="amCharts" exec="fglrun wc_amCharts.42r C"/>
