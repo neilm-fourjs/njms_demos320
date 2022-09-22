@@ -81,7 +81,7 @@ GRID
 {
 [lab1|f001      ]
 [lab2|f002           ][a   ]
-[lab3|f003           ][b   ]
+[lab3|f003      ]     [b   ]
 [lab4|f004           ][c   ]
 [lab5|f005           ]
 [: :b1:but1  :msg    :err   : :]
@@ -218,7 +218,7 @@ LABEL lab7 : lab7, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
 
 BUTTONEDIT f001 = FORMONLY.fld1, ACTION=win, TABINDEX=2;
 DATEEDIT f002 = FORMONLY.fld2, TABINDEX=3;
-COMBOBOX f003 = FORMONLY.fld3, ITEMS=((1,"Red"),(2,"Blue"),(3,"Green")), PLACEHOLDER=%"Pick a Colour", TABINDEX=4;
+COMBOBOX f003 = FORMONLY.fld3, ITEMS=((1,"Red"),(2,"Blue"),(3,"Green")), PLACEHOLDER=%"Pick a Colour", SIZEPOLICY=FIXED, TABINDEX=4, NOT NULL;
 COMBOBOX f004 = FORMONLY.fld4, ITEMS=("Red","Blue","Green"), PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=5;
 f005 = FORMONLY.fld5, NOENTRY;
 f006 = FORMONLY.fld6, TABINDEX=6;

@@ -60,7 +60,7 @@ MAIN
 	END FOR
 	LET l_rec.fld1    = "Active"
 	LET l_rec.fld2    = TODAY
-	LET l_rec.fld3    = 1
+	LET l_rec.fld3    = NULL
 	LET l_rec.fld4    = "Red"
 	LET l_rec.fld5    = "Inactive"
 	LET l_rec.fld6    = "Active"
@@ -74,11 +74,14 @@ MAIN
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
 
+  CALL pop_combo( ui.ComboBox.forName("formonly.fld3") )
 	DISPLAY fgl_getEnv("FGLIMAGEPATH") TO imgpath
 	DISPLAY getAUIAttrVal("StyleList", "fileName") TO stylefile
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
 		INPUT BY NAME l_rec.* ATTRIBUTES(WITHOUT DEFAULTS)
+      ON CHANGE fld3
+        MESSAGE SFMT("Fld3 = %1",l_rec.fld3)
 		END INPUT
 		DISPLAY ARRAY l_arr TO arr1.* --ATTRIBUTES(ACCEPT=FALSE)
 		END DISPLAY
@@ -380,3 +383,13 @@ FUNCTION constrct()
 	END IF
 	LET int_flag = FALSE
 END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION pop_combo(l_cb ui.ComboBox)
+  IF l_cb IS NULL THEN RETURN END IF
+  CALL l_cb.clear()
+  CALL l_cb.addItem(1,"Red")
+  CALL l_cb.addItem(2,"Blue")
+  CALL l_cb.addItem(3,"Green")
+  CALL l_cb.addItem(4,"A horrible shade of yellowish brown")
+END FUNCTION
+
