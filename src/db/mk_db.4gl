@@ -36,21 +36,22 @@ MAIN
 	LET m_sys_tabs[x := x + 1] = "sys_menus"
 	LET m_sys_tabs[x := x + 1] = "sys_menu_roles"
 	LET m_sys_tabs[x := x + 1] = "sys_login_hist"
+
 	LET x                      = 0
-	LET m_app_tabs[x := x + 1] = "quote_detail"
-	LET m_app_tabs[x := x + 1] = "quotes"
-	LET m_app_tabs[x := x + 1] = "customer"
-	LET m_app_tabs[x := x + 1] = "addresses"
 	LET m_app_tabs[x := x + 1] = "countries"
-	LET m_app_tabs[x := x + 1] = "stock"
-	LET m_app_tabs[x := x + 1] = "pack_items"
+	LET m_app_tabs[x := x + 1] = "addresses"
+	LET m_app_tabs[x := x + 1] = "disc"
+	LET m_app_tabs[x := x + 1] = "customer"
+	LET m_app_tabs[x := x + 1] = "colours"
 	LET m_app_tabs[x := x + 1] = "stock_cat"
 	LET m_app_tabs[x := x + 1] = "supplier"
-	LET m_app_tabs[x := x + 1] = "ord_detail"
+	LET m_app_tabs[x := x + 1] = "stock"
+	LET m_app_tabs[x := x + 1] = "pack_items"
 	LET m_app_tabs[x := x + 1] = "ord_head"
+	LET m_app_tabs[x := x + 1] = "ord_detail"
 	LET m_app_tabs[x := x + 1] = "ord_payment"
-	LET m_app_tabs[x := x + 1] = "disc"
-	LET m_app_tabs[x := x + 1] = "colours"
+	LET m_app_tabs[x := x + 1] = "quote_detail"
+	LET m_app_tabs[x := x + 1] = "quotes"
 
 	CALL mkdb_checkTabs()
 

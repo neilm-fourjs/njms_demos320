@@ -6,7 +6,7 @@ IMPORT FGL oe_lib
 DEFINE m_pay RECORD LIKE ord_payment.*
 
 PUBLIC DEFINE m_stock_cats DYNAMIC ARRAY OF RECORD
-	id   LIKE stock_cat.catid,
+	id   LIKE stock_cat.cat_code,
 	desc LIKE stock_cat.cat_name
 END RECORD
 
@@ -112,7 +112,7 @@ FUNCTION build_cats(l_form ui.Form)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION getItems(sc)
-	DEFINE sc    LIKE stock_cat.catid
+	DEFINE sc    LIKE stock_cat.cat_code
 	DEFINE l_stk RECORD LIKE stock.*
 	DEFINE rec   SMALLINT
 	DEFINE img   STRING

@@ -5,10 +5,11 @@ IMPORT os
 IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
 &include "../schema.inc"
+&include "../njm_demo400.inc"
 
 DEFINE m_ordHead RECORD LIKE ord_head.*
-DEFINE m_ordDet  RECORD LIKE ord_detail.*
-DEFINE m_cust    RECORD LIKE customer.*
+DEFINE m_ordDet  t_ord_detail
+DEFINE m_cust    t_customer
 
 CONSTANT MAX_ORDERS = 100
 CONSTANT MAX_QUOTES = 50
@@ -69,8 +70,43 @@ FUNCTION insert_app_data()
 	SELECT COUNT(*) INTO x FROM customer
 	CALL mk_db_lib.mkdb_progress(SFMT("Inserted %1 Customers.", x))
 
-	CALL mk_db_lib.mkdb_progress("Inserting test stock data...")
+	CALL mk_db_lib.mkdb_progress("Inserting test stock_cat data...")
+	INSERT INTO stock_cat VALUES('ART', 'Office Decor', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('ENTERTAIN', 'Entertainment', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('FURNITURE', 'Furniture', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('TRAVELLING', 'Travelling', NULL, NULL, NULL)
+--	INSERT INTO stock_cat VALUES ('HOUSEHOLD', 'House Hold', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('SUPPLIES', 'Supplies', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('FRUIT', 'Fruit', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('ARMY', 'WWIII Supplies', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('GAMES', 'Games/Toys', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('SPORTS', 'Sporting Goods', NULL, NULL, NULL)
+	INSERT INTO stock_cat VALUES('UNK', 'Unknown', NULL, NULL, NULL)
 
+	CALL mk_db_lib.mkdb_progress("Inserting test disc data...")
+	INSERT INTO disc VALUES("AA", "AA", 2.5, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("AA", "BB", 5, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("AA", "CC", 10, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("AA", "DD", 10.25, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("BB", "AA", 2, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("BB", "BB", 2.5, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("BB", "CC", 4, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("BB", "DD", 4.25, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("CC", "AA", 1.5, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("CC", "BB", 3, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("CC", "CC", 15, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("CC", "DD", 15.25, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("DD", "AA", 1.25, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("DD", "BB", 1.35, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("DD", "CC", 1.45, NULL, NULL, NULL)
+	INSERT INTO disc VALUES("DD", "DD", 1.55, NULL, NULL, NULL)
+
+	CALL insSupp("UNK", "Unknown")
+	CALL insSupp("GRO", "Grown up supplies")
+	CALL insSupp("SS", "Sercret Supplier")
+	CALL insSupp("USGOV", "US Gov")
+
+	CALL mk_db_lib.mkdb_progress("Inserting test stock data...")
 	LET m_bc_cnt   = 124212
 	LET m_prod_key = 1
 	CALL insStock("FR01", NULL, "An Apple", NULL, 0.20, "AA", NULL)
@@ -121,36 +157,6 @@ FUNCTION insert_app_data()
 	CALL genStock(os.Path.join(g2_core.g2_getImagePath(), "products"), "??", FALSE)
 	SELECT COUNT(*) INTO x FROM stock
 	CALL mk_db_lib.mkdb_progress(SFMT("Inserted %1 Stock Items.", x))
-
-	INSERT INTO stock_cat VALUES('ART', 'Office Decor')
-	INSERT INTO stock_cat VALUES('ENTERTAIN', 'Entertainment')
-	INSERT INTO stock_cat VALUES('FURNITURE', 'Furniture')
-	INSERT INTO stock_cat VALUES('TRAVELLING', 'Travelling')
---	INSERT INTO stock_cat VALUES ('HOUSEHOLD', 'House Hold')
-	INSERT INTO stock_cat VALUES('SUPPLIES', 'Supplies')
-	INSERT INTO stock_cat VALUES('FRUIT', 'Fruit')
-	INSERT INTO stock_cat VALUES('ARMY', 'WWIII Supplies')
-	INSERT INTO stock_cat VALUES('GAMES', 'Games/Toys')
-	INSERT INTO stock_cat VALUES('SPORTS', 'Sporting Goods')
-
-	INSERT INTO disc VALUES("AA", "AA", 2.5)
-	INSERT INTO disc VALUES("AA", "BB", 5)
-	INSERT INTO disc VALUES("AA", "CC", 10)
-	INSERT INTO disc VALUES("AA", "DD", 10.25)
-	INSERT INTO disc VALUES("BB", "AA", 2)
-	INSERT INTO disc VALUES("BB", "BB", 2.5)
-	INSERT INTO disc VALUES("BB", "CC", 4)
-	INSERT INTO disc VALUES("BB", "DD", 4.25)
-	INSERT INTO disc VALUES("CC", "AA", 1.5)
-	INSERT INTO disc VALUES("CC", "BB", 3)
-	INSERT INTO disc VALUES("CC", "CC", 15)
-	INSERT INTO disc VALUES("CC", "DD", 15.25)
-	INSERT INTO disc VALUES("DD", "AA", 1.25)
-	INSERT INTO disc VALUES("DD", "BB", 1.35)
-	INSERT INTO disc VALUES("DD", "CC", 1.45)
-	INSERT INTO disc VALUES("DD", "DD", 1.55)
-
-	CALL insSupp()
 
 	CALL genQuotes()
 
@@ -242,12 +248,14 @@ FUNCTION insStock(
 	LET l_ps  = l_ps + 50
 	LET l_fr  = l_ps - l_al
 	LET l_cst = (l_pr * 0.75)
---  DISPLAY l_sc, "-", l_bc, "-", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
+
 	IF l_img IS NULL THEN
 		LET l_img = downshift(l_sc CLIPPED)
 	END IF
+	IF l_sup IS NULL THEN LET l_sup = "UNK" END IF
+--  DISPLAY l_sc, "-", l_bc, "- sup:", l_sup, "ds: ", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
 	INSERT INTO stock
-			VALUES(l_sc, l_cat, l_pack, l_sup, l_bc, l_ds, l_col, l_pr, l_cst, l_tc, l_dc, l_ps, l_al, l_fr, "", l_img)
+			VALUES(l_sc, l_cat, l_pack, l_sup, l_bc, l_ds, l_col, l_pr, l_cst, l_tc, l_dc, l_ps, l_al, l_fr, "", l_img, "", "", "")
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insPackItem(l_pc, l_sc, l_qty)
@@ -258,18 +266,14 @@ FUNCTION insPackItem(l_pc, l_sc, l_qty)
 		l_tc        CHAR(1),
 		l_dc        CHAR(2)
 	SELECT price, cost, tax_code, disc_code INTO l_pr, l_cst, l_tc, l_dc FROM stock WHERE stock_code = l_sc
-	INSERT INTO pack_items VALUES(l_pc, l_sc, l_qty, l_pr, l_cst, l_tc, l_dc)
+	INSERT INTO pack_items VALUES(l_pc, l_sc, l_qty, l_pr, l_cst, l_tc, l_dc, "", "", "")
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION insSupp()
-	DEFINE sup     CHAR(10)
-	DEFINE supname CHAR(20)
+FUNCTION insSupp(
+	l_sup     CHAR(10),
+	l_supname CHAR(20))
 
-	DECLARE sup_cur CURSOR FOR SELECT UNIQUE supp_code FROM stock ORDER BY supp_code
-	FOREACH sup_cur INTO sup
-		LET supname = "Supplier " || sup
-		INSERT INTO supplier VALUES(sup, supname, "DC", "al1", "al2", "al3", "al4", "al5", "pc", "tel", "email")
-	END FOREACH
+	INSERT INTO supplier VALUES(l_sup, l_supname, "DC", "al1", "al2", "al3", "al4", "al5", "pc", "tel", "email", "", "", "")
 
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -548,6 +552,7 @@ FUNCTION oe_calcLineTot()
 
 END FUNCTION
 --------------------------------------------------------------------------------
+-- Generate stock records from the image folders.
 FUNCTION genStock(l_base STRING, l_cat STRING, l_process BOOLEAN)
 	DEFINE l_ext, l_path, l_dir, l_desc STRING
 	DEFINE l_d                          INT
@@ -619,7 +624,7 @@ FUNCTION insCountries()
 	DEFINE l_cnt INTEGER
 	CALL mk_db_lib.mkdb_progress("Loading Countries ...")
 	LET m_file = mk_db_lib.mkdb_chkFile("countries.unl")
-	LOAD FROM m_file INSERT INTO countries
+	LOAD FROM m_file INSERT INTO countries (country_code, country_name)
 	SELECT COUNT(*) INTO l_cnt FROM countries
 	CALL mk_db_lib.mkdb_progress(SFMT("Loaded %1 Countries.", l_cnt))
 END FUNCTION

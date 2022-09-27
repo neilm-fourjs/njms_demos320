@@ -4,9 +4,9 @@ FUNCTION dummy()
 END FUNCTION
 ----------------------------------------------------------------------------------------------------
 FUNCTION cb_cat(l_cb ui.ComboBox)
-	DEFINE l_code LIKE stock_cat.catid
+	DEFINE l_code LIKE stock_cat.cat_code
 	DEFINE l_name LIKE stock_cat.cat_name
-	DECLARE l_catcur CURSOR FOR SELECT catid, cat_name FROM stock_cat
+	DECLARE l_catcur CURSOR FOR SELECT cat_code, cat_name FROM stock_cat
 	FOREACH l_catcur INTO l_code, l_name
 		CALL l_cb.addItem(l_code CLIPPED, l_name CLIPPED)
 	END FOREACH

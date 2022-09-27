@@ -121,7 +121,7 @@ FUNCTION cb_stkcat(cb ui.ComboBox)
 	DEFINE l_sc RECORD LIKE stock_cat.*
 	CALL cb.clear()
 	FOREACH cb_sc INTO l_sc.*
-		CALL cb.addItem(l_sc.catid, l_sc.cat_name CLIPPED)
+		CALL cb.addItem(l_sc.cat_code, l_sc.cat_name CLIPPED)
 	END FOREACH
 END FUNCTION
 --------------------------------------------------------------------------------

@@ -107,3 +107,10 @@ runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip
 
 recmatdes: $(BIN)/menu.42r
 	cd $(BIN) && fglrun --start-guilog=../ggc/matdes.log materialDesignTest.42r
+
+distbin/njms_demos401_pgs.war: distbin/njms_demos401_pgs.gar
+	fglgar war --input-gar $^ --output $@  --gbc /opt/fourjs/gbc-current401/dist/customization/gbc-clean
+
+runwar: distbin/njms_demos401_pgs.war
+	fglgar run --war $^
+

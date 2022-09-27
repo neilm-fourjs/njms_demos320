@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ManagedForm databaseName="njm_demo310" fileVersion="31400" gstVersion="31402" name="ManagedForm" uid="{28a6dfc8-0000-4000-a8ee-e81b63978086}">
-  <AGSettings/>
+<ManagedForm databaseName="njm_demo310" fileVersion="40100" gstVersion="40100" name="ManagedForm" uid="{28a6dfc8-0000-4000-a8ee-e81b63978086}">
+  <AGSettings>
+    <DynamicProperties version="4"/>
+  </AGSettings>
   <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="cust_rec" order="" uid="{14601740-0000-4000-b9dd-460e90268dd6}" where="">
     <RecordField colName="customer_code" fieldIdRef="1" fieldType="TABLE_COLUMN" name="customer.customer_code" sqlTabName="customer" sqlType="VARCHAR" table_alias_name="" uid="{cbe842ca-0000-4000-b77f-d791933640a4}"/>
     <RecordField colName="customer_name" fieldIdRef="2" fieldType="TABLE_COLUMN" name="customer.customer_name" sqlTabName="customer" sqlType="VARCHAR" table_alias_name="" uid="{a90fdc29-0000-4000-a80e-253023f080b4}"/>
@@ -89,6 +91,6 @@
     </VBox>
   </Form>
   <DiagramLayout>
-    <![CDATA[AAAAAgAAAEwAewAxADQANgAwADEANwA0ADAALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOQBkAGQALQA0ADYAMABlADkAMAAyADYAOABkAGQANgB9wHwwACUzKB5AMAAAFR2bCD9wYk3S8an8AQAAAEwAewBiAGYAYgBiADkAMwA0AGMALQAwADAAMAAwAC0ANAAwADAAMAAtADkAZAAyAGUALQBhAGQAYwAxADAANwBmADYAMABlADYAYgB9wFWAAAa4AABAOAAAB4AAAD+EeuFHrhR8AQAAAEwAewBjAGMAMABhAGQAZgA5AGYALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOAAxADcALQA2ADUANQAyADIANAA4AGQAZgBiADcAOAB9wGygABKjz0VALAAAg6G+Hz+CbpeNT988AQ==]]>
+    <![CDATA[AAAAAgAAAEwAewBiAGYAYgBiADkAMwA0AGMALQAwADAAMAAwAC0ANAAwADAAMAAtADkAZAAyAGUALQBhAGQAYwAxADAANwBmADYAMABlADYAYgB9wFWAAAa4AABAOAAAB4AAAD+EeuFHrhR8AQAAAEwAewAxADQANgAwADEANwA0ADAALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOQBkAGQALQA0ADYAMABlADkAMAAyADYAOABkAGQANgB9wHwwACUzKB5AMAAAFR2bCD9wYk3S8an8AQAAAEwAewBjAGMAMABhAGQAZgA5AGYALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOAAxADcALQA2ADUANQAyADIANAA4AGQAZgBiADcAOAB9wGygABKjz0VALAAAg6G+Hz+CbpeNT988AQ==]]>
   </DiagramLayout>
 </ManagedForm>
