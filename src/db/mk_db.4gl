@@ -50,8 +50,8 @@ MAIN
 	LET m_app_tabs[x := x + 1] = "ord_head"
 	LET m_app_tabs[x := x + 1] = "ord_detail"
 	LET m_app_tabs[x := x + 1] = "ord_payment"
-	LET m_app_tabs[x := x + 1] = "quote_detail"
 	LET m_app_tabs[x := x + 1] = "quotes"
+	LET m_app_tabs[x := x + 1] = "quote_detail"
 
 	CALL mkdb_checkTabs()
 
@@ -123,7 +123,8 @@ FUNCTION drop_app()
 	DEFINE l_stmt STRING
 	CALL mkdb_progress("Dropping application tables...")
 	WHENEVER ERROR CONTINUE
-	FOR x = 1 TO m_app_tabs.getLength()
+-- drop in reverse order to avoid issues with constraints.
+	FOR x = m_app_tabs.getLength() TO 1 STEP -1
 		LET l_stmt = "DROP TABLE " || m_app_tabs[x]
 		CALL mkdb_progress(l_stmt)
 		EXECUTE IMMEDIATE l_stmt

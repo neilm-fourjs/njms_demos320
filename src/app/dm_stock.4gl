@@ -80,7 +80,7 @@ FUNCTION init_cb(l_cb ui.ComboBox)
 	END IF
 	CASE l_cb.getColumnName()
 		WHEN "stock_cat"
-			LET l_sql = "SELECT catid, cat_name FROM stock_cat ORDER BY cat_name"
+			LET l_sql = "SELECT cat_code, cat_name FROM stock_cat ORDER BY cat_name"
 		WHEN "colour_code"
 			LET l_sql = "SELECT colour_key, colour_name FROM colours ORDER BY colour_name"
 		WHEN "supp_code"

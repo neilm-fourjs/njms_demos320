@@ -255,7 +255,7 @@ FUNCTION insStock(
 	IF l_sup IS NULL THEN LET l_sup = "UNK" END IF
 --  DISPLAY l_sc, "-", l_bc, "- sup:", l_sup, "ds: ", l_ds, " ps:", l_ps, " al:", l_al, " fr:", l_fr
 	INSERT INTO stock
-			VALUES(l_sc, l_cat, l_pack, l_sup, l_bc, l_ds, l_col, l_pr, l_cst, l_tc, l_dc, l_ps, l_al, l_fr, "", l_img, "", "", "")
+			VALUES(l_sc, l_cat, l_pack, l_sup, l_bc, l_ds, l_col, l_pr, l_cst, l_tc, l_dc, l_ps, l_al, l_fr, "", l_img, NULL, NULL, NULL)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insPackItem(l_pc, l_sc, l_qty)
@@ -266,14 +266,14 @@ FUNCTION insPackItem(l_pc, l_sc, l_qty)
 		l_tc        CHAR(1),
 		l_dc        CHAR(2)
 	SELECT price, cost, tax_code, disc_code INTO l_pr, l_cst, l_tc, l_dc FROM stock WHERE stock_code = l_sc
-	INSERT INTO pack_items VALUES(l_pc, l_sc, l_qty, l_pr, l_cst, l_tc, l_dc, "", "", "")
+	INSERT INTO pack_items VALUES(l_pc, l_sc, l_qty, l_pr, l_cst, l_tc, l_dc, NULL, NULL, NULL)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION insSupp(
 	l_sup     CHAR(10),
 	l_supname CHAR(20))
 
-	INSERT INTO supplier VALUES(l_sup, l_supname, "DC", "al1", "al2", "al3", "al4", "al5", "pc", "tel", "email", "", "", "")
+	INSERT INTO supplier VALUES(l_sup, l_supname, "DC", "al1", "al2", "al3", "al4", "al5", "pc", "tel", "email", NULL, NULL, NULL)
 
 END FUNCTION
 --------------------------------------------------------------------------------

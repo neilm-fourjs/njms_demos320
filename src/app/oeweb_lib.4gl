@@ -73,7 +73,7 @@ FUNCTION get_categories()
 	DECLARE stkcur CURSOR FROM "SELECT * FROM stock WHERE stock_cat = ?"
 	DECLARE sc_cur CURSOR FOR
 			SELECT UNIQUE stock_cat.* FROM stock_cat, stock
-					WHERE stock.stock_cat = stock_cat.catid {AND stock_cat.catid != "ARMS"}
+					WHERE stock.stock_cat = stock_cat.cat_code {AND stock_cat.cat_code != "ARMS"}
 					ORDER BY stock_cat.cat_name
 	FOREACH sc_cur INTO m_stock_cats[m_stock_cats.getLength() + 1].*
 	END FOREACH

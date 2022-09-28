@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ManagedForm databaseName="njm_demo310" fileVersion="40100" gstVersion="40100" name="ManagedForm" uid="{28a6dfc8-0000-4000-a8ee-e81b63978086}">
+<ManagedForm databaseName="njm_demo400" fileVersion="40100" gstVersion="40100" name="ManagedForm" uid="{28a6dfc8-0000-4000-a8ee-e81b63978086}">
   <AGSettings>
     <DynamicProperties version="4"/>
   </AGSettings>
@@ -12,6 +12,10 @@
     <RecordField colName="total_invoices" defaultValue="0" fieldIdRef="6" fieldType="TABLE_COLUMN" name="customer.total_invoices" sqlTabName="customer" sqlType="DECIMAL" table_alias_name="" uid="{726ae05e-0000-4000-9beb-348502dbec39}"/>
     <RecordField colName="outstanding_amount" fieldIdRef="7" fieldType="TABLE_COLUMN" name="customer.outstanding_amount" sqlTabName="customer" sqlType="DECIMAL" table_alias_name="" uid="{9e2786d6-0000-4000-a6ed-d7085a7b2590}"/>
     <RecordField colName="del_addr" fieldIdRef="8" fieldType="TABLE_COLUMN" name="customer.del_addr" sqlTabName="customer" sqlType="INTEGER" table_alias_name="" uid="{ff0fd3c4-0000-4000-baff-7edc87832d38}"/>
+    <RecordField colName="inv_addr" fieldIdRef="17" fieldType="TABLE_COLUMN" name="customer.inv_addr" sqlTabName="customer" sqlType="INTEGER" table_alias_name="" uid="{8cd12c51-0000-4000-a741-f0b9a15e48e8}"/>
+    <RecordField colName="dbsync_muser" fieldIdRef="28" fieldType="TABLE_COLUMN" name="customer.dbsync_muser" sqlTabName="customer" uid="{04f2bc41-e028-48b7-aee0-6f0e3de6da45}"/>
+    <RecordField colName="dbsync_mtime" fieldIdRef="29" fieldType="TABLE_COLUMN" name="customer.dbsync_mtime" sqlTabName="customer" uid="{662317ce-4238-4712-b876-03cb3ef470b2}"/>
+    <RecordField colName="dbsync_mstat" fieldIdRef="30" fieldType="TABLE_COLUMN" name="customer.dbsync_mstat" sqlTabName="customer" uid="{6f5dc019-637d-4f64-97d0-714856a1028d}"/>
     <RecordField colName="rec_key" fieldIdRef="9" fieldType="TABLE_COLUMN" name="addresses.rec_key" sqlTabName="addresses" sqlType="SERIAL" table_alias_name="" uid="{c5bd848b-0000-4000-bf6b-1b5f09b74c7b}"/>
     <RecordField colName="line1" fieldIdRef="10" fieldType="TABLE_COLUMN" name="addresses.line1" sqlTabName="addresses" sqlType="VARCHAR" table_alias_name="" uid="{510d99c5-0000-4000-aaaf-0bb79a512549}"/>
     <RecordField colName="line2" fieldIdRef="11" fieldType="TABLE_COLUMN" name="addresses.line2" sqlTabName="addresses" sqlType="VARCHAR" table_alias_name="" uid="{9f5151aa-0000-4000-ae81-34d595cdc32a}"/>
@@ -20,7 +24,9 @@
     <RecordField colName="line5" fieldIdRef="14" fieldType="TABLE_COLUMN" name="addresses.line5" sqlTabName="addresses" sqlType="VARCHAR" table_alias_name="" uid="{c6cd0c7b-0000-4000-b1a3-e51d63187349}"/>
     <RecordField colName="postal_code" fieldIdRef="16" fieldType="TABLE_COLUMN" name="addresses.postal_code" sqlTabName="addresses" sqlType="VARCHAR" table_alias_name="" uid="{cdabdfb2-0000-4000-a990-6097ccf2fd16}"/>
     <RecordField colName="country_code" fieldIdRef="15" fieldType="TABLE_COLUMN" name="addresses.country_code" sqlTabName="addresses" sqlType="CHAR" table_alias_name="" uid="{174a4f45-0000-4000-9421-8b751f663683}"/>
-    <RecordField colName="inv_addr" fieldIdRef="17" fieldType="TABLE_COLUMN" name="customer.inv_addr" sqlTabName="customer" sqlType="INTEGER" table_alias_name="" uid="{8cd12c51-0000-4000-a741-f0b9a15e48e8}"/>
+    <RecordField colName="dbsync_muser" fieldIdRef="31" fieldType="TABLE_COLUMN" name="addresses.dbsync_muser" sqlTabName="addresses" uid="{43bb3f6a-69f4-488a-a0cf-baaf2d0cdb6a}"/>
+    <RecordField colName="dbsync_mtime" fieldIdRef="32" fieldType="TABLE_COLUMN" name="addresses.dbsync_mtime" sqlTabName="addresses" uid="{b914399f-8a0c-4e49-9043-9d13c4cfb95b}"/>
+    <RecordField colName="dbsync_mstat" fieldIdRef="33" fieldType="TABLE_COLUMN" name="addresses.dbsync_mstat" sqlTabName="addresses" uid="{54f22ec1-f1be-4068-b6b6-9646df011824}"/>
   </Record>
   <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="ff" order="" uid="{cc0adf9f-0000-4000-b817-6552248dfb78}" where="">
     <RecordField colName="" fieldIdRef="18" fieldType="NON_DATABASE" name="rec_key" sqlTabName="" sqlType="INTEGER" table_alias_name="" uid="{515440f8-0000-4000-a434-87e3277578f3}"/>
@@ -31,6 +37,9 @@
     <RecordField colName="" fieldIdRef="23" fieldType="NON_DATABASE" name="line5" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{fa13fc1f-0000-4000-80fa-868a534fd9d7}"/>
     <RecordField colName="" fieldIdRef="25" fieldType="NON_DATABASE" name="postal_code" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{2864756f-0000-4000-a0f1-382824225f39}"/>
     <RecordField colName="" fieldIdRef="24" fieldType="NON_DATABASE" name="country_code" sqlTabName="" sqlType="CHAR" table_alias_name="" uid="{1e0ccbd1-0000-4000-b333-6da6e1e74b10}"/>
+    <RecordField fieldIdRef="36" name="dbsync_mstat" uid="{6328cbc2-46dd-464b-ad30-d49bcd7b27af}"/>
+    <RecordField fieldIdRef="35" name="dbsync_mtime" uid="{330d75de-cbd1-45aa-9202-85aca0348055}"/>
+    <RecordField fieldIdRef="34" name="dbsync_muser" uid="{8c345136-a80a-466a-9bc7-903cb7b81733}"/>
   </Record>
   <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="Undefined" order="" uid="{bfbb934c-0000-4000-9d2e-adc107f60e6b}" where="">
     <RecordField colName="email" fieldIdRef="26" fieldType="TABLE_COLUMN" name="customer.email" sqlTabName="customer" sqlType="VARCHAR" table_alias_name="" uid="{b8face50-0000-4000-8c63-c5d5f46081b2}"/>
@@ -89,8 +98,17 @@
         </Group>
       </Grid>
     </VBox>
+    <Phantom colName="dbsync_muser" fieldId="28" fieldType="TABLE_COLUMN" name="customer.dbsync_muser" sqlTabName="customer" widget="Phantom"/>
+    <Phantom colName="dbsync_mtime" fieldId="29" fieldType="TABLE_COLUMN" name="customer.dbsync_mtime" sqlTabName="customer" widget="Phantom"/>
+    <Phantom colName="dbsync_mstat" fieldId="30" fieldType="TABLE_COLUMN" name="customer.dbsync_mstat" sqlTabName="customer" widget="Phantom"/>
+    <Phantom colName="dbsync_muser" fieldId="31" fieldType="TABLE_COLUMN" name="addresses.dbsync_muser" sqlTabName="addresses" widget="Phantom"/>
+    <Phantom colName="dbsync_mtime" fieldId="32" fieldType="TABLE_COLUMN" name="addresses.dbsync_mtime" sqlTabName="addresses" widget="Phantom"/>
+    <Phantom colName="dbsync_mstat" fieldId="33" fieldType="TABLE_COLUMN" name="addresses.dbsync_mstat" sqlTabName="addresses" widget="Phantom"/>
+    <Phantom fieldId="34" name="dbsync_muser" widget="Phantom"/>
+    <Phantom fieldId="35" name="dbsync_mtime" widget="Phantom"/>
+    <Phantom fieldId="36" name="dbsync_mstat" widget="Phantom"/>
   </Form>
   <DiagramLayout>
-    <![CDATA[AAAAAgAAAEwAewBiAGYAYgBiADkAMwA0AGMALQAwADAAMAAwAC0ANAAwADAAMAAtADkAZAAyAGUALQBhAGQAYwAxADAANwBmADYAMABlADYAYgB9wFWAAAa4AABAOAAAB4AAAD+EeuFHrhR8AQAAAEwAewAxADQANgAwADEANwA0ADAALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOQBkAGQALQA0ADYAMABlADkAMAAyADYAOABkAGQANgB9wHwwACUzKB5AMAAAFR2bCD9wYk3S8an8AQAAAEwAewBjAGMAMABhAGQAZgA5AGYALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOAAxADcALQA2ADUANQAyADIANAA4AGQAZgBiADcAOAB9wGygABKjz0VALAAAg6G+Hz+CbpeNT988AQ==]]>
+    <![CDATA[AAAAAgAAAEwAewAxADQANgAwADEANwA0ADAALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOQBkAGQALQA0ADYAMABlADkAMAAyADYAOABkAGQANgB9wIFwABKZlA9ALAAAKjs2ED+GhysCDEm8AQAAAEwAewBiAGYAYgBiADkAMwA0AGMALQAwADAAMAAwAC0ANAAwADAAMAAtADkAZAAyAGUALQBhAGQAYwAxADAANwBmADYAMABlADYAYgB9wFWAAAa4AABAOAAAB4AAAD+EeuFHrhR8AQAAAEwAewBjAGMAMABhAGQAZgA5AGYALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAOAAxADcALQA2ADUANQAyADIANAA4AGQAZgBiADcAOAB9wHAwAAlR56JAJgAAg6G+ID+Kn752yLQ8AQ==]]>
   </DiagramLayout>
 </ManagedForm>

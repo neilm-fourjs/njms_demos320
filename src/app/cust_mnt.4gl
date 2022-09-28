@@ -52,7 +52,7 @@ MAIN
 	LET m_allowedActions = ARG_VAL(3)
 	LET m_allowedActions = (m_allowedActions CLIPPED), "YYYYY"
 
-	OPEN FORM frm FROM "cust_mnt"
+	OPEN FORM frm FROM "cust_mnt2"
 	DISPLAY FORM frm
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
@@ -145,7 +145,8 @@ END MAIN
 --------------------------------------------------------------------------------
 FUNCTION query() RETURNS BOOLEAN
 	LET int_flag = FALSE
-	CONSTRUCT BY NAME m_wher ON RECNAME, RECNAME2
+--	CONSTRUCT BY NAME m_wher ON RECNAME --, RECNAME2
+	CONSTRUCT m_wher ON customer.*, addresses.*, addresses.* FROM cust_rec.*, del_addr.*, inv_addr.*
 	IF int_flag THEN
 		LET int_flag = FALSE
 		RETURN FALSE
@@ -200,7 +201,7 @@ FUNCTION showRow(x INT)
 	OPEN fetch_row2 USING m_rec.JOIN2_M
 	FETCH fetch_row2 INTO m_rec3.*
 	CLOSE fetch_row2
-	DISPLAY m_rec3.* TO ff.*
+	DISPLAY m_rec3.* TO inv_addr.*
 
 	LET m_rec_o.* = m_rec.*
 	LET m_rec2_o.* = m_rec2.*
@@ -222,7 +223,7 @@ FUNCTION inp(l_ins BOOLEAN) RETURNS BOOLEAN
 	END IF
 	LET int_flag = FALSE
 	DIALOG ATTRIBUTES(UNBUFFERED)
-		INPUT BY NAME m_rec.*, m_rec2.* ATTRIBUTES(WITHOUT DEFAULTS) --=NOT ins)
+		INPUT BY NAME m_rec.* ATTRIBUTES(WITHOUT DEFAULTS) --=NOT ins)
 			BEFORE INPUT
 				IF NOT l_ins THEN
 					CALL DIALOG.setFieldActive(TABNAMEQ || "." || KEYFLDQ, FALSE)
@@ -232,15 +233,17 @@ FUNCTION inp(l_ins BOOLEAN) RETURNS BOOLEAN
 			ON ACTION sameaddr
 				LET m_rec3.* = m_rec2.*
 				LET m_rec3.rec_key = NULL
-				CALL DIALOG.setFieldActive("ff.line1", FALSE)
-				CALL DIALOG.setFieldActive("ff.line2", FALSE)
-				CALL DIALOG.setFieldActive("ff.line3", FALSE)
-				CALL DIALOG.setFieldActive("ff.line4", FALSE)
-				CALL DIALOG.setFieldActive("ff.line5", FALSE)
-				CALL DIALOG.setFieldActive("ff.postal_code", FALSE)
-				CALL DIALOG.setFieldActive("ff.country_code", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.line1", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.line2", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.line3", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.line4", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.line5", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.postal_code", FALSE)
+				CALL DIALOG.setFieldActive("inv_addr.country_code", FALSE)
 		END INPUT
-		INPUT m_rec3.* FROM ff.* ATTRIBUTES(WITHOUT DEFAULTS)
+		INPUT m_rec2.* FROM del_addr.* ATTRIBUTES(WITHOUT DEFAULTS)
+		END INPUT
+		INPUT m_rec3.* FROM inv_addr.* ATTRIBUTES(WITHOUT DEFAULTS)
 			ON ACTION sameaddr
 				LET m_rec3.* = m_rec2.*
 				LET m_rec3.rec_key = NULL
