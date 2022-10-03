@@ -260,12 +260,12 @@ END FUNCTION
 --------------------------------------------------------------------------------
 PRIVATE FUNCTION setProperties(l_fldno SMALLINT)
 	DEFINE l_typ STRING
-	DEFINE l_len         SMALLINT
-	DEFINE l_num         BOOLEAN
+	DEFINE l_len SMALLINT
+	DEFINE l_num BOOLEAN
 
 	LET l_num = TRUE
 	LET l_typ = m_fields[l_fldno].type
-	LET l_len = g2_db.g2_getColumnLength(l_typ, 0 )
+	LET l_len = g2_db.g2_getColumnLength(l_typ, 0)
 
 	IF l_typ = "CHAR" OR l_typ = "VARCHAR" OR l_typ MATCHES "DATE*" THEN
 		LET l_num = FALSE

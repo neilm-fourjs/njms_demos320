@@ -9,7 +9,6 @@
 	<APPLICATION xcf='nd.xcf'/>
 	<APPLICATION xcf='materialDesignTest.xcf'/>
 	<APPLICATION xcf='njmdemodb.xcf'/>
-	<APPLICATION xcf='njmdemo_ur.xcf'/>
 	<APPLICATION xcf='njmdemo_web.xcf'/>
 	<APPLICATION xcf='njmdemo.xcf'/>
 	<APPLICATION xcf='njmweb2.xcf'/>
