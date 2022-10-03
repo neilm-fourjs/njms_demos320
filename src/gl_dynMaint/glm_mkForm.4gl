@@ -267,7 +267,7 @@ PRIVATE FUNCTION setProperties(l_fldno SMALLINT)
 	LET l_typ = m_fields[l_fldno].type
 	LET l_len = g2_db.g2_getColumnLength(l_typ, 0)
 
-	IF l_typ = "CHAR" OR l_typ = "VARCHAR" OR l_typ MATCHES "DATE*" THEN
+	IF l_typ MATCHES "CHAR*" OR l_typ MATCHES "VARCHAR*" OR l_typ MATCHES "DATE*" THEN
 		LET l_num = FALSE
 	END IF
 	LET m_fld_props[l_fldno].name    = m_tab.trim() || "." || m_fields[l_fldno].colname

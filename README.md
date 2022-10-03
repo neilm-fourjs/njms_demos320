@@ -87,25 +87,25 @@ Originally the demos using a database where written for Informix, but currently 
 For PostgreSQL
 ```
 sudo -u postgres createuser <appuser>
-sudo -u postgres createdb njm_demo310
+sudo -u postgres createdb njm_demo400
 sudo -u postgres psql
 psql (9.6.7)
 Type "help" for help.
 
-postgres=# grant all privileges on database njm_demo310 to <appuser>;
+postgres=# grant all privileges on database njm_demo400 to <appuser>;
 GRANT
 postgres=# \q
 ```
 
 or
 ```
-postgres=# \connect njm_demo310;
-You are now connected to database "njm_demo310" as user "postgres".
-njm_demo310=# GRANT UPDATE ON ALL TABLES IN SCHEMA public TO fourjs;
+postgres=# \connect njm_demo400;
+You are now connected to database "njm_demo400" as user "postgres".
+njm_demo400=# GRANT UPDATE ON ALL TABLES IN SCHEMA public TO fourjs;
 GRANT
-njm_demo310=# GRANT INSERT ON ALL TABLES IN SCHEMA public TO fourjs;
+njm_demo400=# GRANT INSERT ON ALL TABLES IN SCHEMA public TO fourjs;
 GRANT
-njm_demo310=# GRANT DELETE ON ALL TABLES IN SCHEMA public TO fourjs;
+njm_demo400=# GRANT DELETE ON ALL TABLES IN SCHEMA public TO fourjs;
 GRANT
 ```
 
@@ -135,9 +135,9 @@ Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 11
 Server version: 8.0.21-0ubuntu0.20.04.4 (Ubuntu)
 
-mysql> CREATE DATABASE njm_demo310;
+mysql> CREATE DATABASE njm_demo400;
 Query OK, 1 row affected (0.00 sec)
-mysql> GRANT ALL PRIVILEGES ON njm_demo310.* TO 'dbuser'@'%' WITH GRANT OPTION;
+mysql> GRANT ALL PRIVILEGES ON njm_demo400.* TO 'dbuser'@'%' WITH GRANT OPTION;
 Query OK, 1 row affected (0.00 sec)
 ```
 
