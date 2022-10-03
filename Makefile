@@ -21,6 +21,7 @@ export FGLRESOURCEPATH=$(PROJBASE)/etc
 export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.$(RENDERER)
 export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
 
+export DB_LOCALE=en_GB.utf8
 export LANG=en_GB.utf8
 
 TARGETS=\

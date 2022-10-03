@@ -265,15 +265,16 @@ PRIVATE FUNCTION setProperties(l_fldno SMALLINT)
 
 	LET l_num = TRUE
 	LET l_typ = m_fields[l_fldno].type
-	IF l_typ = "SMALLINT" THEN
-		LET l_len = 5
-	END IF
-	IF l_typ = "INTEGER" OR l_typ = "SERIAL" THEN
-		LET l_len = 10
-	END IF
-	IF l_typ = "DATE" THEN
-		LET l_len = 10
-	END IF
+	CASE l_typ
+		WHEN "SMALLINT" LET l_len = 5
+		WHEN "DATETIME HOUR TO MINUTE" LET l_len = 5
+		WHEN "DATETIME YEAR TO MINUTE" LET l_len = 16 -- 1234/67/90 23:56
+		WHEN "DATETIME YEAR TO SECOND" LET l_len = 19 -- 1234/67/90 23:56:89
+		WHEN "DATETIME YEAR TO FRACTION(3)" LET l_len = 23 -- 1234/67/90 23:56:89.123
+		WHEN "DATETIME YEAR TO FRACTION(5)" LET l_len = 25 -- 1234/67/90 23:56:89.12345
+		OTHERWISE LET l_len = 10
+	END CASE
+
 	LET l_typ2 = l_typ
 
 	LET x = l_typ.getIndexOf("(", 1)
@@ -286,7 +287,7 @@ PRIVATE FUNCTION setProperties(l_fldno SMALLINT)
 		LET l_len = l_typ.subString(x + 1, y - 1)
 	END IF
 
-	IF l_typ2 = "CHAR" OR l_typ2 = "VARCHAR" OR l_typ2 = "DATE" THEN
+	IF l_typ2 = "CHAR" OR l_typ2 = "VARCHAR" OR l_typ2 MATCHES "DATE*" THEN
 		LET l_num = FALSE
 	END IF
 	LET m_fld_props[l_fldno].name    = m_tab.trim() || "." || m_fields[l_fldno].colname

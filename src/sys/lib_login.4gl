@@ -9,10 +9,12 @@ IMPORT FGL g2_lib.g2_core
 IMPORT FGL g2_lib.g2_init
 IMPORT FGL g2_lib.g2_about
 IMPORT FGL g2_lib.g2_secure
+IMPORT FGL g2_lib.g2_debug
 
 &include "../schema.inc"
 &include "../app/app.inc"
 &include "../OpenIdLogin/OpenIdLogin.inc"
+&include "../../g2_lib/g2_lib/g2_debug.inc"
 
 -- Callback function for creating a new account.
 TYPE f_new_account FUNCTION(l_email STRING, l_family STRING, l_given STRING, l_photo STRING) RETURNS STRING
@@ -487,7 +489,7 @@ PRIVATE FUNCTION audit_login(l_email LIKE sys_users.email, l_stat CHAR(1))
 	LET m_login_audit_key = SQLCA.SQLERRD[2]
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION cb_gbc_theme(l_cb ui.Combobox)
+FUNCTION cb_gbc_theme(l_cb ui.ComboBox)
 	DEFINE l_result STRING
 	DEFINE x        SMALLINT
 
@@ -497,23 +499,13 @@ FUNCTION cb_gbc_theme(l_cb ui.Combobox)
 		RETURN
 	END IF
 	CALL ui.Interface.frontCall("theme", "listThemes", [], [l_result])
-	CALL util.JSON.parse(l_result, m_themes)
+	TRY
+		CALL util.JSON.parse(l_result, m_themes)
+	CATCH
+		GL_DBGMSG(0,SFMT("Get themes from gbc failed! '%1'", l_result)) 
+		RETURN
+	END TRY
 	FOR x = 1 TO m_themes.getLength()
 		CALL l_cb.addItem(m_themes[x].name, m_themes[x].title)
-	END FOR
-END FUNCTION
---------------------------------------------------------------------------------
-FUNCTION cb_gbcTheme(l_cb ui.Combobox)
-	DEFINE l_result STRING
-	DEFINE x        SMALLINT
-	DEFINE l_themes DYNAMIC ARRAY OF RECORD
-		name       STRING,
-		title      STRING,
-		conditions DYNAMIC ARRAY OF STRING
-	END RECORD
-	CALL ui.Interface.frontCall("theme", "listThemes", [], [l_result])
-	CALL util.JSON.parse(l_result, l_themes)
-	FOR x = 1 TO m_themes.getLength()
-		CALL l_cb.addItem(l_themes[x].name, l_themes[x].title)
 	END FOR
 END FUNCTION
