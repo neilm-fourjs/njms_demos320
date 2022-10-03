@@ -1,4 +1,5 @@
 IMPORT util
+IMPORT FGL g2_lib.g2_db
 &include "dynMaint.inc"
 
 PUBLIC DEFINE m_fld_props DYNAMIC ARRAY OF t_fld_props
@@ -258,36 +259,15 @@ FUNCTION update_form_value(l_sql_handle base.SqlHandle)
 END FUNCTION
 --------------------------------------------------------------------------------
 PRIVATE FUNCTION setProperties(l_fldno SMALLINT)
-	DEFINE l_typ, l_typ2 STRING
+	DEFINE l_typ STRING
 	DEFINE l_len         SMALLINT
-	DEFINE x, y          SMALLINT
 	DEFINE l_num         BOOLEAN
 
 	LET l_num = TRUE
 	LET l_typ = m_fields[l_fldno].type
-	CASE l_typ
-		WHEN "SMALLINT" LET l_len = 5
-		WHEN "DATETIME HOUR TO MINUTE" LET l_len = 5
-		WHEN "DATETIME YEAR TO MINUTE" LET l_len = 16 -- 1234/67/90 23:56
-		WHEN "DATETIME YEAR TO SECOND" LET l_len = 19 -- 1234/67/90 23:56:89
-		WHEN "DATETIME YEAR TO FRACTION(3)" LET l_len = 23 -- 1234/67/90 23:56:89.123
-		WHEN "DATETIME YEAR TO FRACTION(5)" LET l_len = 25 -- 1234/67/90 23:56:89.12345
-		OTHERWISE LET l_len = 10
-	END CASE
+	LET l_len = g2_db.g2_getColumnLength(l_typ, 0 )
 
-	LET l_typ2 = l_typ
-
-	LET x = l_typ.getIndexOf("(", 1)
-	IF x > 0 THEN
-		LET l_typ2 = l_typ.subString(1, x - 1)
-		LET y      = l_typ.getIndexOf(",", x)
-		IF y = 0 THEN
-			LET y = l_typ.getIndexOf(")", x)
-		END IF
-		LET l_len = l_typ.subString(x + 1, y - 1)
-	END IF
-
-	IF l_typ2 = "CHAR" OR l_typ2 = "VARCHAR" OR l_typ2 MATCHES "DATE*" THEN
+	IF l_typ = "CHAR" OR l_typ = "VARCHAR" OR l_typ MATCHES "DATE*" THEN
 		LET l_num = FALSE
 	END IF
 	LET m_fld_props[l_fldno].name    = m_tab.trim() || "." || m_fields[l_fldno].colname
