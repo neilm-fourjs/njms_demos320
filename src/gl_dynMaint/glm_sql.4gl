@@ -5,10 +5,12 @@ IMPORT FGL glm_mkForm
 PUBLIC DEFINE m_where, m_cols        STRING
 PUBLIC DEFINE m_tab                  STRING
 PUBLIC DEFINE m_key_nam              STRING
+PUBLIC DEFINE m_orderBy              STRING
 PUBLIC DEFINE m_sql_handle           base.SqlHandle
 PUBLIC DEFINE m_fields               DYNAMIC ARRAY OF t_fields
 PUBLIC DEFINE m_row_count, m_row_cur INTEGER
 PUBLIC DEFINE m_key_fld              SMALLINT
+PUBLIC DEFINE m_user                 VARCHAR(20)
 --------------------------------------------------------------------------------
 FUNCTION glm_mkSQL(l_cols STRING, l_where STRING)
 	DEFINE l_sql STRING
@@ -20,6 +22,11 @@ FUNCTION glm_mkSQL(l_cols STRING, l_where STRING)
 	LET m_cols  = l_cols
 
 	LET l_sql        = "select " || l_cols || " from " || m_tab || " where " || l_where
+	IF m_orderBy IS NOT NULL THEN
+		LET l_sql = l_sql.append( SFMT(" order by %1", m_orderBy))
+	ELSE
+		LET l_sql = l_sql.append( SFMT(" order by %1", m_key_nam))
+	END IF
 	LET m_sql_handle = base.SqlHandle.create()
 	TRY
 		CALL m_sql_handle.prepare(l_sql)
@@ -91,6 +98,7 @@ END FUNCTION
 FUNCTION glm_SQLupdate(l_dialog ui.Dialog)
 	DEFINE l_sql, l_val, l_key STRING
 	DEFINE x                   SMALLINT
+	CALL glm_SQLdbsyncUpdate(l_dialog)
 	LET l_sql = "update " || m_tab || " SET ("
 	FOR x = 1 TO m_fields.getLength()
 		IF x != m_key_fld THEN
@@ -117,6 +125,7 @@ FUNCTION glm_SQLupdate(l_dialog ui.Dialog)
 		END IF
 	END FOR
 	LET l_sql = l_sql.append(") where " || m_key_nam || " = ?")
+	DISPLAY l_sql
 	TRY
 		PREPARE upd_stmt FROM l_sql
 		EXECUTE upd_stmt USING l_key
@@ -130,6 +139,21 @@ FUNCTION glm_SQLupdate(l_dialog ui.Dialog)
 	ELSE
 		CALL g2_core.g2_errPopup(SFMT(%"Failed to update record!\n%1!", SQLERRMESSAGE))
 	END IF
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION glm_SQLdbsyncUpdate(l_dialog ui.Dialog)
+	DEFINE x INT
+	FOR x = 1 TO m_fields.getLength()
+		IF m_fields[x].colname = "dbsync_muser" THEN
+			CALL l_dialog.setFieldValue(m_fields[x].colname, "app")
+		END IF
+		IF m_fields[x].colname = "dbsync_mtime" THEN
+			CALL l_dialog.setFieldValue(m_fields[x].colname, CURRENT)
+		END IF
+		IF m_fields[x].colname = "dbsync_mstat" THEN
+			CALL l_dialog.setFieldValue(m_fields[x].colname, "U1")
+		END IF
+	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
 -- NOTE: Need to find an alternative way to handle the SQL to stop sql-injection

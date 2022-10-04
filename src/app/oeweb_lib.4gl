@@ -614,27 +614,29 @@ FUNCTION gotoco()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION logaccess(l_new BOOLEAN, l_email VARCHAR(60))
-	CONSTANT C_VER = 2
+	CONSTANT C_VER = 3
 	DEFINE l_ver SMALLINT
-	DEFINE l_wu RECORD
-		wu_tabver         SMALLINT,
-		wu_email          CHAR(60),
-		wu_new_user       SMALLINT,
-		wu_when           DATETIME YEAR TO SECOND,
-		wu_fe             CHAR(10),
-		wu_fever          CHAR(10),
-		wu_gbc            CHAR(20),
-		wu_gbc_bootstrap  CHAR(50),
-		wu_gbc_url_prefix CHAR(50),
-		wu_gas_addr       CHAR(50),
-		wu_host           CHAR(50),
-		wu_referer        CHAR(200),
-		wu_user_agent     CHAR(200),
-		wu_remote_addr    CHAR(50)
-	END RECORD
+	DEFINE l_wa RECORD LIKE web_access.*
+{
+		wa_key            INTEGER,
+		wa_tabver         SMALLINT,
+		wa_email          CHAR(60),
+		wa_new_user       SMALLINT,
+		wa_when           DATETIME YEAR TO SECOND,
+		wa_fe             CHAR(10),
+		wa_fever          CHAR(10),
+		wa_gbc            CHAR(20),
+		wa_gbc_bootstrap  CHAR(50),
+		wa_gbc_url_prefix CHAR(50),
+		wa_gas_addr       CHAR(50),
+		wa_host           CHAR(50),
+		wa_referer        CHAR(200),
+		wa_user_agent     CHAR(200),
+		wa_remote_addr    CHAR(50)
+	END RECORD}
 
 	TRY
-		SELECT MAX(wu_tabver) INTO l_ver FROM web_access
+		SELECT MAX(wa_tabver) INTO l_ver FROM web_access
 	CATCH
 		LET l_ver = 0
 	END TRY
@@ -645,28 +647,29 @@ FUNCTION logaccess(l_new BOOLEAN, l_email VARCHAR(60))
 			CATCH
 			END TRY
 		END IF
-		CREATE TABLE web_access(
-				wu_tabver SMALLINT, wu_email CHAR(60), wu_new_user SMALLINT, wu_when DATETIME YEAR TO SECOND, wu_fe CHAR(10),
-				wu_fever CHAR(10), wu_gbc CHAR(20), wu_gbc_bootstrap CHAR(50), wu_gbc_url_prefix CHAR(50), wu_gas_addr CHAR(50),
-				wu_host CHAR(50), wu_referer CHAR(200), wu_user_agent CHAR(200), wu_remote_addr CHAR(50))
+		CREATE TABLE web_access( wa_key SERIAL,
+				wa_tabver SMALLINT, wa_email CHAR(60), wa_new_user SMALLINT, wa_when DATETIME YEAR TO SECOND, wa_fe CHAR(10),
+				wa_fever CHAR(10), wa_gbc CHAR(20), wa_gbc_bootstrap CHAR(50), wa_gbc_url_prefix CHAR(50), wa_gas_addr CHAR(50),
+				wa_host CHAR(50), wa_referer CHAR(200), wa_user_agent CHAR(200), wa_remote_addr CHAR(50), PRIMARY KEY(wa_key) )
 		LET l_ver = C_VER
 	END IF
 
-	LET l_wu.wu_tabver         = C_VER
-	LET l_wu.wu_email          = l_email
-	LET l_wu.wu_new_user       = l_new
-	LET l_wu.wu_when           = CURRENT
-	LET l_wu.wu_fe             = ui.Interface.getFrontEndName()
-	LET l_wu.wu_fever          = ui.Interface.getFrontEndVersion()
-	LET l_wu.wu_gas_addr       = fgl_getenv("FGL_VMPROXY_GAS_ADDRESS")
-	LET l_wu.wu_gbc            = fgl_getenv("GBC")
-	LET l_wu.wu_gbc_bootstrap  = fgl_getenv("GBC_BOOTSTRAP")
-	LET l_wu.wu_gbc_url_prefix = fgl_getenv("GBC_URL_PREFIX")
-	LET l_wu.wu_host           = fgl_getenv("FGL_WEBSERVER_HTTP_HOST")
-	LET l_wu.wu_referer        = fgl_getenv("FGL_WEBSERVER_HTTP_REFERER")
-	LET l_wu.wu_user_agent     = fgl_getenv("FGL_WEBSERVER_HTTP_USER_AGENT")
-	LET l_wu.wu_remote_addr    = fgl_getenv("FGL_WEBSERVER_REMOTE_ADDR")
+	LET l_wa.wa_key            = 0
+	LET l_wa.wa_tabver         = C_VER
+	LET l_wa.wa_email          = l_email
+	LET l_wa.wa_new_user       = l_new
+	LET l_wa.wa_when           = CURRENT
+	LET l_wa.wa_fe             = ui.Interface.getFrontEndName()
+	LET l_wa.wa_fever          = ui.Interface.getFrontEndVersion()
+	LET l_wa.wa_gas_addr       = fgl_getenv("FGL_VMPROXY_GAS_ADDRESS")
+	LET l_wa.wa_gbc            = fgl_getenv("GBC")
+	LET l_wa.wa_gbc_bootstrap  = fgl_getenv("GBC_BOOTSTRAP")
+	LET l_wa.wa_gbc_url_prefix = fgl_getenv("GBC_URL_PREFIX")
+	LET l_wa.wa_host           = fgl_getenv("FGL_WEBSERVER_HTTP_HOST")
+	LET l_wa.wa_referer        = fgl_getenv("FGL_WEBSERVER_HTTP_REFERER")
+	LET l_wa.wa_user_agent     = fgl_getenv("FGL_WEBSERVER_HTTP_USER_AGENT")
+	LET l_wa.wa_remote_addr    = fgl_getenv("FGL_WEBSERVER_REMOTE_ADDR")
 
-	INSERT INTO web_access VALUES(l_wu.*)
+	INSERT INTO web_access VALUES(l_wa.*)
 
 END FUNCTION

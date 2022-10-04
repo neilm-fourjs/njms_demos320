@@ -34,6 +34,7 @@ MAIN
 -- Setup the SQL
 	LET glm_sql.m_tab       = "stock"
 	LET glm_sql.m_key_nam   = "stock_code"
+	LET glm_sql.m_orderBy   = "stock_code"
 	LET glm_sql.m_key_fld   = 0
 	LET glm_sql.m_row_cur   = 0
 	LET glm_sql.m_row_count = 0

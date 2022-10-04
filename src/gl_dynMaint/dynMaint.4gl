@@ -25,16 +25,23 @@ CONSTANT C_PRGDESC = "Dynamic Maintenance Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
-CONSTANT C_FIELDS_PER_PAGE = 12
+CONSTANT C_FIELDS_PER_PAGE = 16
 DEFINE m_dbname         STRING
 DEFINE m_allowedActions CHAR(6)
+DEFINE m_userKey        INTEGER
+DEFINE m_user           STRING
 MAIN
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 -- setup database / table / key field information
 	CALL init_args()
 -- Connect to DB
 	CALL g2_db.m_db.g2_connect(m_dbname)
+
+-- njm_demo400 specific SQL!
+--	SELECT email INTO m_user FROM sys_users WHERE user_key = m_userKey
+--	LET glm_sql.m_user = m_user
+
 -- Setup SQL
 	LET glm_sql.m_key_fld   = 0
 	LET glm_sql.m_row_cur   = 0
@@ -43,7 +50,7 @@ MAIN
 -- Create Form
 	CALL glm_mkForm.init_form(
 			g2_db.m_db.name, glm_sql.m_tab, glm_sql.m_key_fld, C_FIELDS_PER_PAGE, glm_sql.m_fields, "main2")
-	CALL ui.window.getCurrent().setText(C_PRGDESC)
+	CALL ui.Window.getCurrent().setText(C_PRGDESC)
 	CALL g2_core.g2_loadToolBar("dynmaint")
 	CALL g2_core.g2_loadTopMenu("dynmaint")
 -- start UI
@@ -53,12 +60,11 @@ MAIN
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION init_args()
-	DEFINE l_user SMALLINT
-	LET l_user            = arg_val(2)
-	LET m_dbname          = arg_val(3)
-	LET glm_sql.m_tab     = arg_val(4)
-	LET glm_sql.m_key_nam = arg_val(5)
-	LET m_allowedActions  = arg_val(6)
+	LET m_userKey         = base.Application.getArgument(2)
+	LET m_dbname          = base.Application.getArgument(3)
+	LET glm_sql.m_tab     = base.Application.getArgument(4)
+	LET glm_sql.m_key_nam = base.Application.getArgument(5)
+	LET m_allowedActions  = base.Application.getArgument(6)
 	IF m_dbname IS NULL THEN
 		CALL g2_core.g2_errPopup(SFMT(%"Invalid Database Name '%1'!", m_dbname))
 		CALL g2_core.g2_exitProgram(1, %"invalid Database")
