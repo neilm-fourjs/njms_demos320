@@ -1,3 +1,4 @@
+IMPORT util
 IMPORT FGL g2_lib.*
 IMPORT FGL glm_mkForm
 &include "dynMaint.inc"
@@ -141,6 +142,7 @@ FUNCTION glm_SQLupdate(l_dialog ui.Dialog)
 	END IF
 END FUNCTION
 --------------------------------------------------------------------------------
+-- dbsync needs the mtime to be updates to know to sync the changes.
 FUNCTION glm_SQLdbsyncUpdate(l_dialog ui.Dialog)
 	DEFINE x INT
 	FOR x = 1 TO m_fields.getLength()
@@ -148,10 +150,10 @@ FUNCTION glm_SQLdbsyncUpdate(l_dialog ui.Dialog)
 			CALL l_dialog.setFieldValue(m_fields[x].colname, "app")
 		END IF
 		IF m_fields[x].colname = "dbsync_mtime" THEN
-			CALL l_dialog.setFieldValue(m_fields[x].colname, CURRENT)
+			CALL l_dialog.setFieldValue(m_fields[x].colname, util.Datetime.getCurrentAsUTC())
 		END IF
 		IF m_fields[x].colname = "dbsync_mstat" THEN
-			CALL l_dialog.setFieldValue(m_fields[x].colname, "U1")
+			CALL l_dialog.setFieldValue(m_fields[x].colname, NULL)
 		END IF
 	END FOR
 END FUNCTION
@@ -160,6 +162,8 @@ END FUNCTION
 FUNCTION glm_SQLinsert(l_dialog ui.Dialog)
 	DEFINE l_sql, l_val STRING
 	DEFINE x            SMALLINT
+	CALL glm_SQLdbsyncUpdate(l_dialog)
+
 	LET l_sql = "insert into " || m_tab || " ("
 	FOR x = 1 TO m_fields.getLength()
 		LET l_sql = l_sql.append(m_fields[x].colname)

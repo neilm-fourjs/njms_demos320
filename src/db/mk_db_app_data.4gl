@@ -13,7 +13,7 @@ DEFINE m_cust    t_customer
 
 CONSTANT MAX_ORDERS = 100
 CONSTANT MAX_QUOTES = 50
-CONSTANT MAX_LINES  = 25
+CONSTANT MAX_LINES  = 12
 CONSTANT MAX_QTY    = 25
 
 DEFINE m_file               STRING
@@ -671,7 +671,7 @@ FUNCTION genQuotes()
 	SELECT COUNT(*) INTO l_users FROM sys_users
 
 	DECLARE qcstcur CURSOR FOR SELECT customer_code FROM customer
-	DECLARE qstkcur CURSOR FOR SELECT stock_code FROM stock
+	DECLARE qstkcur CURSOR FOR SELECT stock_code FROM stock WHERE LENGTH(stock_code) > 7
 	FOREACH qcstcur INTO l_cst[l_cst.getLength() + 1]
 	END FOREACH
 	FOREACH qstkcur INTO l_stk[l_stk.getLength() + 1]
