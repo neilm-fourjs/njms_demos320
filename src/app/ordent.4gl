@@ -336,7 +336,8 @@ FUNCTION enquire()
 					nett_value, gross_value
 					FROM ord_detail WHERE order_number = g_ordHead.order_number ORDER BY line_number
 
-	DECLARE packCur CURSOR FROM "SELECT p.*,s.description FROM pack_items p,stock s WHERE p.pack_code = ? AND s.stock_code = p.stock_code"
+	DECLARE packCur CURSOR FROM 
+		"SELECT p.pack_code, p.stock_code, p.qty, p.price, p.cost, p.tax_code, p.disc_code, s.description FROM pack_items p,stock s WHERE p.pack_code = ? AND s.stock_code = p.stock_code"
 
 	LET benchmark = FALSE
 	WHILE TRUE
@@ -427,9 +428,9 @@ FUNCTION enquire()
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].tax_value      = 0
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].nett_value     = 0
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].gross_value    = 0
-
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].id       = m_detailArray_tree.getLength()
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].parentid = l_pack_id
+					DISPLAY SFMT("Pack Id: %1 - %2", l_pack.stock_code, l_pack.description)
 				END FOREACH
 				--CALL m_detailArray_tree.deleteElement( m_detailArray_tree.getLength()  ) -- remove empty read.
 			END IF
