@@ -115,18 +115,31 @@ FUNCTION getItems(sc)
 	DEFINE sc    LIKE stock_cat.cat_code
 	DEFINE l_stk RECORD LIKE stock.*
 	DEFINE rec   SMALLINT
-	DEFINE img   STRING
 
 	CALL m_items.clear()
 	LET rec = 1
 	FOREACH stkcur USING sc INTO l_stk.*
-		LET img                                          = l_stk.img_url CLIPPED
 		LET m_items[m_items.getLength() + 1].stock_code1 = l_stk.stock_code
-		LET m_items[m_items.getLength()].img1            = img.trim()
+		LET m_items[m_items.getLength()].img1            = SFMT("products/%1", l_stk.img_url CLIPPED)
 		LET m_items[m_items.getLength()].desc1           = mkDesc(l_stk.*)
 		LET m_items[m_items.getLength()].qty1            = 0
+		DISPLAY SFMT("Image: %1", m_items[m_items.getLength()].img1   )
+		DISPLAY SFMT("Desc: %1", m_items[m_items.getLength()].desc1)
 	END FOREACH
 
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION mkDesc(l_stk RECORD LIKE stock.*) RETURNS STRING
+	DEFINE l_desc STRING
+&define TITLON(sz) "<b style=\"font-size: "||sz||"pt;\">"
+&define TITLOFF "</b>"
+	IF l_stk.free_stock IS NULL THEN
+		LET l_stk.free_stock = 0
+	END IF
+	LET l_desc = SFMT("%1%2%3<br>", TITLON(10),(l_stk.description CLIPPED), TITLOFF)
+	LET l_desc = l_desc.append( SFMT("%1Price: %2%3<br>", TITLON(8), TITLOFF, l_stk.price))
+	LET l_desc = l_desc.append( SFMT("%1Stock: %2%3", TITLON(8), TITLOFF, l_stk.free_stock))
+	RETURN l_desc
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION detLnk(l_sc, l_det, l_img, l_qty)
@@ -318,20 +331,6 @@ FUNCTION detLine(l_sc, l_qty)
 	IF l_qty > l_stk.free_stock THEN
 		ERROR "Warning there is not enough stock for this quantity."
 	END IF
-END FUNCTION
---------------------------------------------------------------------------------
-FUNCTION mkDesc(l_stk RECORD LIKE stock.*) RETURNS STRING
-	DEFINE l_desc STRING
-&define TITLON(sz) "<B STYLE=\"font-size: "||sz||"pt;\">"
-&define TITLOFF "</B>"
-	IF l_stk.free_stock IS NULL THEN
-		LET l_stk.free_stock = 0
-	END IF
-	LET l_desc = TITLON(10) || (l_stk.description CLIPPED) || TITLOFF || "<BR>"
-	LET l_desc = l_desc.append(TITLON(8) || "Price: " || TITLOFF || l_stk.price || "<BR>")
-	LET l_desc = l_desc.append(TITLON(8) || "Stock: " || TITLOFF || l_stk.free_stock || "<BR>")
-	--DISPLAY "Desc:"||l_desc
-	RETURN l_desc
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION viewb()
@@ -614,8 +613,8 @@ FUNCTION gotoco()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION logaccess(l_new BOOLEAN, l_email VARCHAR(60))
-	CONSTANT C_VER = 3
-	DEFINE l_ver SMALLINT
+	CONSTANT C_VER = 4
+	DEFINE l_ver SMALLINT = 0
 	DEFINE l_wa RECORD LIKE web_access.*
 {
 		wa_key            INTEGER,
@@ -641,12 +640,10 @@ FUNCTION logaccess(l_new BOOLEAN, l_email VARCHAR(60))
 		LET l_ver = 0
 	END TRY
 	IF l_ver != C_VER THEN
-		IF l_ver > 0 THEN
-			TRY
-				DROP TABLE web_access
-			CATCH
-			END TRY
-		END IF
+		TRY
+			DROP TABLE web_access
+		CATCH
+		END TRY
 		CREATE TABLE web_access( wa_key SERIAL,
 				wa_tabver SMALLINT, wa_email CHAR(60), wa_new_user SMALLINT, wa_when DATETIME YEAR TO SECOND, wa_fe CHAR(10),
 				wa_fever CHAR(10), wa_gbc CHAR(20), wa_gbc_bootstrap CHAR(50), wa_gbc_url_prefix CHAR(50), wa_gas_addr CHAR(50),
@@ -670,6 +667,6 @@ FUNCTION logaccess(l_new BOOLEAN, l_email VARCHAR(60))
 	LET l_wa.wa_user_agent     = fgl_getenv("FGL_WEBSERVER_HTTP_USER_AGENT")
 	LET l_wa.wa_remote_addr    = fgl_getenv("FGL_WEBSERVER_REMOTE_ADDR")
 
-	INSERT INTO web_access VALUES(l_wa.*)
+	INSERT INTO web_access VALUES l_wa.* 
 
 END FUNCTION
