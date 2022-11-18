@@ -354,6 +354,7 @@ END FUNCTION
 -- Try and use an OpenID Login
 PRIVATE FUNCTION openId() RETURNS STRING
 	DEFINE l_url       STRING
+	DEFINE l_uri       STRING
 	DEFINE l_ret       INTEGER
 	DEFINE l_store     STRING
 	DEFINE l_oidc      t_oidc
@@ -363,7 +364,18 @@ PRIVATE FUNCTION openId() RETURNS STRING
 
 	LET l_url = fgl_getenv("OPENIDLOGIN_URL")
 	IF l_url.getLength() < 2 THEN
-		LET l_url = C_OPENIDLOGIN
+		LET l_uri = fgl_getEnv("FGL_WEBSERVER_HTTP_REFERER")
+-- http://localhost/g4/ua/r/njmdemo
+-- 123456789010
+		LET x = l_uri.getIndexOf("/",10)
+		IF x > 0 THEN
+			LET x = l_uri.getIndexOf("/",x+1)
+			LET l_url = SFMT("%1/ua/r/%2", l_uri.subString(1,x-1), C_OPENIDLOGIN)
+			GL_DBGMSG(1, SFMT("l_url = '%1'  derived from '%2'", l_url, l_uri))
+		ELSE
+			LET l_url = SFMT("https://generodemos.dynu.net/g/ua/r/%1", C_OPENIDLOGIN)
+			GL_DBGMSG(1, SFMT("l_url = '%1' defaulted", l_url))
+		END IF
 	END IF
 
 	IF ui.Interface.getFrontEndName() = "GDC" THEN

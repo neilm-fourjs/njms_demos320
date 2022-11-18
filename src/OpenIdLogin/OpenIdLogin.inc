@@ -1,6 +1,6 @@
 
 -- URL for service - used by the lib_login unless set in the env using $OPENIDLOGIN_URL
-CONSTANT C_OPENIDLOGIN = "https://generodemos.dynu.net/g/ua/r/OpenIdLogin"
+CONSTANT C_OPENIDLOGIN = "OpenIdLogin"
 
 CONSTANT C_OPENID = "#OpenId#"
 
