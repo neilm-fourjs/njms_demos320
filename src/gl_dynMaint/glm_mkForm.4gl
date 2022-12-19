@@ -111,6 +111,7 @@ PRIVATE FUNCTION mk_form(l_style STRING)
 			CALL l_n_formfield.setAttribute("posX", "1")
 			CALL l_n_formfield.setAttribute("gridWidth", m_fld_props[x].label.getLength())
 			CALL l_n_formfield.setAttribute("hidden", m_fld_props[x].hidden)
+		--	CALL l_n_formfield.setAttribute("justify", "right")
 -- FormField
 			LET l_n_formfield                = l_n_grid.createChild("FormField")
 			LET m_fld_props[x].formFieldNode = l_n_formfield
