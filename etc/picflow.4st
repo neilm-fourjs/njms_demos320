@@ -7,9 +7,6 @@
   	<StyleAttribute name="fontSize" value="2em" />
   	<StyleAttribute name="border" value="none" />
 	</Style>
-	<Style name=".center">
-  	<StyleAttribute name="textAlign" value="center" />
-	</Style>
 	<Style name="Label.black">
   	<StyleAttribute name="backgroundColor" value="black" />
   	<StyleAttribute name="fontSize" value="1.8em" />
