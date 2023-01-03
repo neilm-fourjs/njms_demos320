@@ -211,7 +211,7 @@
         <File filePath="src/app_web/quotes.4gl"/>
       </Application>
     </Group>
-    <Group id="-441041544" label="Database" language="Genero">
+    <Group environment="value:DBDEBUG=TRUE" id="-441041544" label="Database" language="Genero">
       <Library binaryName="Databases" id="1986" label="Databases">
         <File filePath="etc/njm_demo310.4db"/>
         <File filePath="src/schema.inc"/>
