@@ -1,0 +1,102 @@
+---------------------------------------------------------------------------------- 
+-- File created from /opt/fourJs/all/my_github/njms_demos400/src/app/cust_mnt.4fd by Genero Studio
+-- WARNING! All changes made in this file will be lost!
+----------------------------------------------------------------------------------
+
+SCHEMA njm_demo400
+
+LAYOUT (text=%"Customer Maintenance", style="", windowStyle="main2")
+VBOX vbox1(style="formborder")
+GRID Grid1
+{
+
+ [label1 |customer]                         [label6   |di]          [web_passwd ]
+ [label2 |customer_name                 ]   [label7   |credit_limi]
+ [label3 |contact_name                  ]   [label8   |total_invoices]
+ [label10|email                         ]   [label9   |outstanding_am]
+
+ <G group1                               > <G group2                               >
+ [label11|line1                         ]  [label19|line6                         ]
+         [line2                         ]          [line7                         ]
+         [line3                         ]          [line8                         ]
+         [line4                         ]          [line9                         ]
+         [line5                         ]          [line0                         ]
+ [label16|postal_c]                        [label25|postal_1]
+ [label17|cou]                             [label24|co1]                   [samead]
+ <                                       > <                                       >
+}
+END -- Grid1
+END -- vbox1
+END -- cust_mnt
+
+TABLES
+addresses,
+customer
+ATTRIBUTES
+LABEL label1:Label1, text=%"Code:", justify=RIGHT;
+LABEL label6:Label6, text=%"Discount:", justify=right;
+LABEL label2:Label2, text=%"Name:", justify=RIGHT;
+LABEL label7:Label7, text=%"Credit Limit:", justify=RIGHT;
+LABEL label3:Label3, text=%"Contact:", justify=RIGHT;
+LABEL label8:Label8, text=%"Total Invocies:", justify=RIGHT;
+LABEL label10:Label10, text=%"Email", justify=RIGHT;
+LABEL label9:Label9, text=%"Outstanding:", justify=right;
+
+EDIT customer=customer.customer_code, tabIndex=1, downShift, scroll;
+EDIT di=customer.disc_code, tabIndex=5, upShift;
+EDIT web_passwd=customer.web_passwd, tabIndex=28, HIDDEN;
+EDIT customer_name=customer.customer_name, tabIndex=2, scroll;
+EDIT credit_limi=customer.credit_limit, tabIndex=4;
+EDIT contact_name=customer.contact_name, tabIndex=3, scroll;
+EDIT total_invoices=customer.total_invoices, tabIndex=6, default = "0", scroll;
+EDIT email=customer.email, tabIndex=27, scroll;
+EDIT outstanding_am=customer.outstanding_amount, tabIndex=7, SCROLL;
+PHANTOM customer.del_addr;
+PHANTOM customer.inv_addr;
+PHANTOM customer.dbsync_muser;
+PHANTOM customer.dbsync_mtime;
+PHANTOM customer.dbsync_mstat;
+
+GROUP group1:Group1, text=%"Deliverly";
+LABEL label11:Label11, text=%"Address:", justify=right;
+LABEL label16:Label16, text=%"Post Code:", justify=RIGHT;
+LABEL label17:Label17, text=%"Country:", justify=RIGHT;
+
+PHANTOM addresses.rec_key;
+EDIT line1=addresses.line1, tabIndex=10, scroll;
+EDIT line2=addresses.line2, tabIndex=11, scroll;
+EDIT line3=addresses.line3, tabIndex=12, scroll;
+EDIT line4=addresses.line4, tabIndex=13, scroll;
+EDIT line5=addresses.line5, tabIndex=14, scroll;
+EDIT postal_c=addresses.postal_code, tabIndex=16, scroll;
+EDIT cou=addresses.country_code, tabIndex=15;
+PHANTOM addresses.dbsync_muser;
+PHANTOM addresses.dbsync_mtime;
+PHANTOM addresses.dbsync_mstat;
+
+GROUP group2:Group2, text=%"Invoice";
+LABEL label19:Label19, text=%"Address:", justify=right;
+LABEL label25:Label25, text=%"Post Code:", justify=RIGHT;
+LABEL label24:Label24, text=%"Country:", justify=RIGHT;
+
+PHANTOM formonly.rec_key;
+EDIT line6=formonly.line1 type VARCHAR, tabIndex=19, scroll;
+EDIT line7=formonly.line2 type VARCHAR, tabIndex=20, scroll;
+EDIT line8=formonly.line3 type VARCHAR, tabIndex=21, scroll;
+EDIT line9=formonly.line4 type VARCHAR, tabIndex=22, scroll;
+EDIT line0=formonly.line5 type VARCHAR, tabIndex=23, scroll;
+EDIT postal_1=formonly.postal_code type VARCHAR, tabIndex=25, scroll;
+EDIT co1=formonly.country_code type CHAR, tabIndex=24;
+PHANTOM formonly.dbsync_muser;
+PHANTOM formonly.dbsync_mtime;
+PHANTOM formonly.dbsync_mstat;
+
+BUTTON samead:sameaddr, tabIndex=26, text=%"Default";
+END -- ATTRIBUTES
+
+INSTRUCTIONS
+SCREEN RECORD cust_rec(customer.*)
+SCREEN RECORD del_addr(addresses.*)
+SCREEN RECORD inv_addr(formonly.rec_key,formonly.line1,formonly.line2,formonly.line3,formonly.line4,formonly.line5,formonly.postal_code,formonly.country_code,formonly.dbsync_mstat,formonly.dbsync_mtime,formonly.dbsync_muser)
+END -- INSTRUCTIONS
+
