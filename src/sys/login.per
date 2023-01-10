@@ -1,52 +1,58 @@
 
 #+ Login Form - used by lib_login
 
-LAYOUT (TEXT=%"Login",WINDOWSTYLE="dialog2 center grad2", IMAGE="fa-user-secret")
+LAYOUT (TEXT=%"Login",WINDOWSTYLE="login", IMAGE="fa-user-secret")
 
 GRID (STYLE="center")
 {
-<G logo_grid                             >
- [sp1:logo                          :sp2]
-<                                        >
-<G grp1                                  >
- [: :titl                            : :]
- [""]
- [l001                    ]
- [f001                                  ]
- [l002                    ]
- [f002                    ]
- [l003]
- [openid        ]
- [l004                    ]
- [f004                    ]
- [""]
- [info                              ]
- [                                  ]
- [""]
- [:    :accept :newacc :about :    :]
-<                                        >
+<G logo_grid           >
+[s1:logo           :s2]
+<                      >
+<G grp1                >
+[::titl             ::]
 [""]
-<G grp2                                  >
- [" "][l005                    ]
- [" "][f005                    ]
- [" "][l006                    ]
- [" "][f006                    ]
- [l_rules                               ]
- [                                      ]
- [                                      ]
- [                                      ]
- [                                      ]
- [                                      ]
- [                                      ]
-<                                        >
+[l001                 ]
+[f001                 ]
+[l002                 ]
+[f002                 ]
+[l003                 ]
+[openid               ]
+[l004                 ]
+[f004                 ]
+[gap0]
+[info                 ]
+[                     ]
+[gap1]
+[accept               ]
+[newacc               ]
+[about                ]
+<                      >
+[gap2]
+<G grp2                >
+ [l005                ]
+ [f005                ]
+ [l006                ]
+ [f006                ]
+[l_rules              ]
+[                     ]
+[                     ]
+[                     ]
+[                     ]
+[                     ]
+[                     ]
+<                      >
+<G grp3                >
+[mobile               ]
+<                      >
 }
 END -- GRID
 
+
 ATTRIBUTES
 GROUP logo_grid : logo_grid, STYLE="noborder", HIDDEN;
-IMAGE sp1 : spacer, IMAGE="fa-fw", STRETCH=X, STYLE="noborder";
+IMAGE s1 : spacer, IMAGE="fa-fw", STRETCH=X, STYLE="noborder";
 IMAGE logo = FORMONLY.m_logo_image, SIZEPOLICY=INITIAL, STYLE="noborder center";
-IMAGE sp2 : spacer, IMAGE="fa-fw", STRETCH=X, STYLE="noborder";
+IMAGE s2 : spacer, IMAGE="fa-fw", STRETCH=X, STYLE="noborder";
 
 GROUP grp1 : grp1, GRIDCHILDRENINPARENT,STYLE="login_g";
 
@@ -65,6 +71,10 @@ BUTTON openid : openid, TEXT=%"GoogleId", IMAGE="fab-google";
 LABEL l004 : ltheme,TEXT=%"Theme:", STYLE="bold left";
 COMBOBOX f004 = FORMONLY.l_theme, NOT NULL, INITIALIZER=cb_gbc_theme;
 
+LABEL gap0: gap0, TEXT="", STYLE="smaller";
+LABEL gap1: gap1, TEXT="", STYLE="smaller";
+LABEL gap2: gap2, TEXT="", STYLE="smaller";
+
 GROUP grp2 : grp2, GRIDCHILDRENINPARENT,TEXT=%"Password Change:",HIDDEN;
 
 LABEL l005 : lpassw1,TEXT=%"New Password:", STYLE="bold";
@@ -79,5 +89,7 @@ BUTTON accept : accept, TEXT=%"Login",IMAGE="fa-user";
 BUTTON newacc : acct_new, TEXT=%"New User", IMAGE="fa-user-plus";
 
 --BUTTON forgotten : forgotten, TEXT=%"Reset Password?", IMAGE="fa-question-circle";
-BUTTON about : about, TEXT=%"About?", IMAGE="fa-info-circle";
+BUTTON about : about, TEXT=%"About", IMAGE="fa-info-circle";
 
+GROUP grp3 : grp3, GRIDCHILDRENINPARENT, HIDDEN@MEDIUM, HIDDEN@LARGE;
+LABEL mobile : mobile, TEXT=%"Mobile",JUSTIFY=CENTER;

@@ -39,7 +39,7 @@
 		<StyleAttribute name="backgroundColor" value="transparent" />
 	</Style>
 	<Style name=".heading">
-		<StyleAttribute name="fontSize" value="1.6em" />
+		<StyleAttribute name="fontSize" value="1.3em" />
 		<StyleAttribute name="fontWeight" value="bold" />
 		<StyleAttribute name="position" value="center" />
 	</Style>
@@ -96,6 +96,13 @@
 	<Style name=".em12">
 		<StyleAttribute name="fontSize" value="1.2em" />
 	</Style>
+	<Style name=".small">
+		<StyleAttribute name="fontSize" value="0.8em" />
+	</Style>
+	<Style name=".smaller">
+		<StyleAttribute name="fontSize" value="0.6em" />
+	</Style>
+
 
 <!--  -->
 	<Style name="ToolBar.alt">
@@ -149,9 +156,7 @@
 		<StyleAttribute name="highlightCurrentRow" value="no" />
 		<StyleAttribute name="highlightCurrentCell" value="no"/>
 	</Style>
-	<Style name="Table.disparr">
-		<StyleAttribute name="summaryLineAlwaysAtBottom" value="no" />
-	</Style>
+
 	<Style name="Table.nocurrent">
 		<StyleAttribute name="highlightCurrentRow" value="no" />
 	</Style>
@@ -169,6 +174,14 @@
 	<Style name="Window.blue">
 		<StyleAttribute name="defaultTTFColor" value="darkblue" />
 	</Style>
+	<Style name="Window.login">
+		<StyleAttribute name="windowType" value="normal" />
+		<StyleAttribute name="toolBarPosition" value="none" />
+		<StyleAttribute name="actionPanelPosition" value="none" />
+		<StyleAttribute name="ringMenuPosition" value="none" />
+		<StyleAttribute name="sizable" value="no" />
+		<StyleAttribute name="position" value="center" />
+	</Style>
 	<Style name="Window.centered">
 		<StyleAttribute name="windowType" value="normal" />
 		<StyleAttribute name="toolBarPosition" value="top" />
@@ -183,7 +196,9 @@
 		<StyleAttribute name="actionPanelPosition" value="chrome" />
 		<StyleAttribute name="ringMenuPosition" value="chrome" />
 	</Style>
-
+  <Style name="Window">
+		<StyleAttribute name="fontSize" value="1em" />
+  </Style>
 
 <!-- Default 4st -->
   <Style name="Window">
