@@ -71,7 +71,7 @@ FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)
 		EXIT PROGRAM
 	END IF
 
-	IF NOT l_db.g2_createTable(reflect.Value.valueOf(l_quotes), "quotes", c_quotes_pk, c_quotes_extra) THEN
+	IF NOT l_db.g2_createTable(reflect.Value.valueOf(l_quotes), "quotes", "", c_quotes_extra) THEN
 		EXIT PROGRAM
 	END IF
 

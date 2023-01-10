@@ -108,7 +108,7 @@
         <File filePath="README.md"/>
       </Library>
     </Group>
-    <Group environment="value:DB_LOCALE=en_GB.utf8,value:USEDEFAULT4ST=FALSE,value:SQLEXPLAIN=ON,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVERx=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=ifx,value:RENDERER=ur,dir:GBC_USER_DIR=$(FGLDIR)/web_utilities/gbc,value:GBC_USER=gbc-clean,dir:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/products:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo400" id="1812115377" label="njms_demos400" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin400">
+    <Group environment="value:DB_LOCALE=en_GB.utf8,value:USEDEFAULT4ST=FALSE,value:SQLEXPLAIN=ON,value:GRESRVPORT=6492,dir:GREOUTPUTDIR=/tmp,value:GRESERVERx=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=sqt,value:RENDERER=ur,dir:GBC_USER_DIR=$(FGLDIR)/web_utilities/gbc,value:GBC_USER=gbc-clean,dir:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/products:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo400" id="1812115377" label="njms_demos400" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin400">
       <Group id="1931904086" label="API" language="Genero (no link)">
         <Library binaryName="njm_cust_db" dependencies="1986,-489765796" id="-1358259824" label="njm_cust_db">
           <File filePath="src/api/njm_cust_db.4gl"/>
@@ -251,6 +251,7 @@
           <File filePath="src/db/mk_db.per"/>
           <File filePath="src/db/mk_db_sys_data.4gl"/>
           <File filePath="src/db/mk_db_sys_ifx.4gl"/>
+          <File filePath="src/db/mk_db_sys_sqt.4gl"/>
         </Application>
         <Library binaryName="mk_db_lib" dependencies="-400184264,1986,-310428106,1136561508_14000,-47144818_14000" id="726830537" label="mk_db_lib">
           <File filePath="src/db/mk_db_app_data.4gl"/>

@@ -1,4 +1,5 @@
 IMPORT os
+IMPORT FGL g2_lib.*
 DEFINE m_dataPath    STRING
 PUBLIC DEFINE m_stat DYNAMIC ARRAY OF STRING
 --------------------------------------------------------------------------------
@@ -39,7 +40,7 @@ FUNCTION mkdb_chkFile(l_file STRING) RETURNS STRING
 	LET l_file = os.Path.join(m_dataPath, l_file)
 
 	IF NOT os.Path.exists(l_file) THEN
-		CALL fgl_winMessage("Error", SFMT("Data file %1 not found!", l_file), "exclamation")
+		CALL g2_winMessage("Error", SFMT("Data file %1 not found!", l_file), "exclamation")
 		EXIT PROGRAM
 	END IF
 	DISPLAY SFMT("Loading from file %1", l_file)

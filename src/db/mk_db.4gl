@@ -2,6 +2,7 @@ IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
 IMPORT FGL mk_db_sys_data
 IMPORT FGL mk_db_sys_ifx
+IMPORT FGL mk_db_sys_sqt
 IMPORT FGL mk_db_app_data
 IMPORT FGL mk_db_app_ifx
 &include "../schema.inc"
@@ -67,7 +68,11 @@ MAIN
 
 		IF l_arg = "SYS" OR l_arg = "ALL" THEN
 			CALL drop_sys()
-			CALL mk_db_sys_ifx.ifx_create_system_tables()
+			IF l_db.type = "sqt" THEN
+				CALL mk_db_sys_sqt.sqt_create_system_tables()
+			ELSE
+				CALL mk_db_sys_ifx.ifx_create_system_tables()
+			END IF
 			CALL mk_db_sys_data.insert_system_data(l_db.name)
 		END IF
 
