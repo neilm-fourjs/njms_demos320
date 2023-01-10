@@ -222,7 +222,6 @@ PUBLIC TYPE t_quotes RECORD
   registered_project INTEGER ATTRIBUTE(XMLNillable),
   quote_total DECIMAL(10, 2) ATTRIBUTE(XMLNillable)
 END RECORD
-CONSTANT c_quotes_pk = "quote_number"
 CONSTANT c_quotes_extra  = "FOREIGN KEY(customer_code) REFERENCES customer(customer_code)"
 
 PUBLIC TYPE t_quote_detail RECORD
