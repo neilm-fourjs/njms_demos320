@@ -1,7 +1,7 @@
 GLOBALS "wizard_glob.inc"
 --------------------------------------------------------------------------------
 FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
-	DISPLAY "FGLRESOURCEPATH:", fgl_getenv("FGLRESOURCEPATH")
+	DISPLAY SFMT("FGLRESOURCEPATH: %1", fgl_getenv("FGLRESOURCEPATH"))
 	CALL init_arrays()
 
 	CALL ui.Interface.loadStyles("default_" || ui.Interface.getFrontEndName())
@@ -13,10 +13,9 @@ FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
 
 	LET currTable = 1
 	CALL on_change_currTable()
-
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION left(d) -- move row(s) to the left
+FUNCTION mv_left(d) -- move row(s) to the left
 	DEFINE d    ui.Dialog
 	DEFINE i, x SMALLINT
 
@@ -40,7 +39,7 @@ FUNCTION left(d) -- move row(s) to the left
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION right(d) -- move row(s) to the right
+FUNCTION mv_right(d) -- move row(s) to the right
 	DEFINE d    ui.Dialog
 	DEFINE i, x SMALLINT
 
@@ -64,7 +63,7 @@ FUNCTION right(d) -- move row(s) to the right
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION left_md(d) -- move row(s) to the left
+FUNCTION mv_left_md(d) -- move row(s) to the left
 	DEFINE d ui.Dialog
 	DEFINE i SMALLINT
 
@@ -74,7 +73,7 @@ FUNCTION left_md(d) -- move row(s) to the left
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION right_md(d) -- move row(s) to the right
+FUNCTION mv_right_md(d) -- move row(s) to the right
 	DEFINE d ui.Dialog
 	DEFINE i SMALLINT
 
@@ -84,7 +83,7 @@ FUNCTION right_md(d) -- move row(s) to the right
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION allleft()
+FUNCTION all_left()
 	DEFINE i SMALLINT
 	FOR i = 1 TO rFields.getLength()
 		LET lFields[lFields.getLength() + 1] = rFields[i]
@@ -92,7 +91,7 @@ FUNCTION allleft()
 	CALL rFields.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION allright()
+FUNCTION all_right()
 	DEFINE i SMALLINT
 	FOR i = 1 TO lFields.getLength()
 		LET rFields[rFields.getLength() + 1] = lFields[i]
@@ -114,7 +113,7 @@ FUNCTION on_change_currTable()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION cb_init(cb)
-	DEFINE cb ui.comboBox
+	DEFINE cb ui.ComboBox
 	DEFINE i  SMALLINT
 	CALL cb.clear()
 	FOR i = 1 TO tables.getLength()
