@@ -4,19 +4,19 @@ FUNCTION wizard_ui_mrs()
 	DIALOG ATTRIBUTE(UNBUFFERED)
 		INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS)
 			ON CHANGE currtable
-				CALL on_change_currtable()
+				CALL on_change_currTable()
 		END INPUT
 		DISPLAY ARRAY lfields TO l.*
 			ON ACTION right
-				CALL right(DIALOG)
+				CALL mv_right(DIALOG)
 			ON ACTION allright
-				CALL allright()
+				CALL all_right()
 		END DISPLAY
 		DISPLAY ARRAY rfields TO r.*
 			ON ACTION left
-				CALL left(DIALOG)
+				CALL mv_left(DIALOG)
 			ON ACTION allleft
-				CALL allleft()
+				CALL all_left()
 		END DISPLAY
 		BEFORE DIALOG
 			CALL DIALOG.setSelectionMode("l", TRUE)

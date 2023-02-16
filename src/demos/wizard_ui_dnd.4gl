@@ -6,33 +6,33 @@ FUNCTION wizard_ui_dnd()
 	DIALOG ATTRIBUTE(UNBUFFERED)
 		INPUT BY NAME currtable ATTRIBUTE(WITHOUT DEFAULTS)
 			ON CHANGE currtable
-				CALL on_change_currtable()
+				CALL on_change_currTable()
 		END INPUT
 		DISPLAY ARRAY lfields TO l.*
 			ON ACTION right
-				CALL right(DIALOG)
+				CALL mv_right(DIALOG)
 			ON ACTION allright
-				CALL allright()
+				CALL all_right()
 			ON DRAG_START(dnd)
 				LET drag_source = "left"
 			ON DRAG_ENTER(dnd)
 				CALL drop_validate("right")
 			ON DROP(dnd)
-				CALL left(DIALOG)
+				CALL mv_left(DIALOG)
 			ON DRAG_FINISHED(dnd)
 				INITIALIZE drag_source TO NULL
 		END DISPLAY
 		DISPLAY ARRAY rfields TO r.*
 			ON ACTION left
-				CALL left(DIALOG)
+				CALL mv_left(DIALOG)
 			ON ACTION allleft
-				CALL allleft()
+				CALL all_left()
 			ON DRAG_START(dnd)
 				LET drag_source = "right"
 			ON DRAG_ENTER(dnd)
 				CALL drop_validate("left")
 			ON DROP(dnd)
-				CALL right(DIALOG)
+				CALL mv_right(DIALOG)
 			ON DRAG_FINISHED(dnd)
 				INITIALIZE drag_source TO NULL
 		END DISPLAY

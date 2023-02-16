@@ -1,7 +1,7 @@
 GLOBALS "wizard_glob.inc"
 --------------------------------------------------------------------------------
 FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
-	DISPLAY "FGLRESOURCEPATH:", fgl_getenv("FGLRESOURCEPATH")
+	DISPLAY SFMT("FGLRESOURCEPATH: %1", fgl_getenv("FGLRESOURCEPATH"))
 	CALL init_arrays()
 
 	CALL ui.Interface.loadStyles("default_" || ui.Interface.getFrontEndName())
@@ -16,7 +16,7 @@ FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION left(d) -- move row(s) to the left
+FUNCTION mv_left(d) -- move row(s) to the left
 	DEFINE d    ui.Dialog
 	DEFINE i, x SMALLINT
 
@@ -40,7 +40,7 @@ FUNCTION left(d) -- move row(s) to the left
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION right(d) -- move row(s) to the right
+FUNCTION mv_right(d) -- move row(s) to the right
 	DEFINE d    ui.Dialog
 	DEFINE i, x SMALLINT
 
@@ -64,7 +64,7 @@ FUNCTION right(d) -- move row(s) to the right
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION left_md(d) -- move row(s) to the left
+FUNCTION mv_left_md(d) -- move row(s) to the left
 	DEFINE d ui.Dialog
 	DEFINE i SMALLINT
 
@@ -74,7 +74,7 @@ FUNCTION left_md(d) -- move row(s) to the left
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION right_md(d) -- move row(s) to the right
+FUNCTION mv_right_md(d) -- move row(s) to the right
 	DEFINE d ui.Dialog
 	DEFINE i SMALLINT
 
@@ -84,7 +84,7 @@ FUNCTION right_md(d) -- move row(s) to the right
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION allleft()
+FUNCTION all_left()
 	DEFINE i SMALLINT
 	FOR i = 1 TO rfields.getLength()
 		LET lfields[lfields.getLength() + 1] = rfields[i]
@@ -92,7 +92,7 @@ FUNCTION allleft()
 	CALL rfields.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION allright()
+FUNCTION all_right()
 	DEFINE i SMALLINT
 	FOR i = 1 TO lfields.getLength()
 		LET rfields[rfields.getLength() + 1] = lfields[i]
