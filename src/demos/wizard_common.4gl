@@ -9,11 +9,10 @@ FUNCTION init_prog(l_form STRING, l_text STRING, l_title STRING)
 	OPEN FORM w FROM l_form
 	DISPLAY FORM w
 	CALL ui.Interface.setText(l_text)
-	CALL ui.window.getCurrent().setText(l_title)
+	CALL ui.Window.getCurrent().setText(l_title)
 
 	LET currTable = 1
 	CALL on_change_currTable()
-
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION mv_left(d) -- move row(s) to the left
@@ -23,16 +22,16 @@ FUNCTION mv_left(d) -- move row(s) to the left
 -- NOTE: can't do this in one loop because the row numbers change when you delete!
 -- 1st move the data from 1 array to the other
 	LET x = 0
-	FOR i = 1 TO rfields.getLength()
+	FOR i = 1 TO rFields.getLength()
 		IF d.isRowSelected("r", i) THEN
-			LET lfields[lfields.getLength() + 1] = rfields[i]
+			LET lFields[lFields.getLength() + 1] = rFields[i]
 			LET x                                = x + 1
 		END IF
 	END FOR
 -- now delete from source array
-	FOR i = rfields.getLength() TO 1 STEP -1
+	FOR i = rFields.getLength() TO 1 STEP -1
 		IF d.isRowSelected("r", i) THEN
-			CALL rfields.deleteElement(i)
+			CALL rFields.deleteElement(i)
 			IF x > 1 THEN
 				CALL d.setSelectionRange("r", i, i, FALSE) -- deselect the row
 			END IF
@@ -47,16 +46,16 @@ FUNCTION mv_right(d) -- move row(s) to the right
 -- NOTE: can't do this in one loop because the row numbers change when you delete!
 -- 1st move the data from 1 array to the other
 	LET x = 0
-	FOR i = 1 TO lfields.getLength()
+	FOR i = 1 TO lFields.getLength()
 		IF d.isRowSelected("l", i) THEN
-			LET rfields[rfields.getLength() + 1] = lfields[i]
+			LET rFields[rFields.getLength() + 1] = lFields[i]
 			LET x                                = x + 1
 		END IF
 	END FOR
 -- now delete from source array
-	FOR i = lfields.getLength() TO 1 STEP -1
+	FOR i = lFields.getLength() TO 1 STEP -1
 		IF d.isRowSelected("l", i) THEN
-			CALL lfields.deleteElement(i)
+			CALL lFields.deleteElement(i)
 			IF x > 1 THEN
 				CALL d.setSelectionRange("l", i, i, FALSE) -- deselect the row
 			END IF
@@ -69,7 +68,7 @@ FUNCTION mv_left_md(d) -- move row(s) to the left
 	DEFINE i SMALLINT
 
 	LET i                                = arr_curr()
-	LET lfields[lfields.getLength() + 1] = rfields[i]
+	LET lFields[lFields.getLength() + 1] = rFields[i]
 	CALL d.deleteRow("r", i)
 
 END FUNCTION
@@ -79,42 +78,42 @@ FUNCTION mv_right_md(d) -- move row(s) to the right
 	DEFINE i SMALLINT
 
 	LET i                                = arr_curr()
-	LET rfields[rfields.getLength() + 1] = lfields[i]
+	LET rFields[rFields.getLength() + 1] = lFields[i]
 	CALL d.deleteRow("l", i)
 
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION all_left()
 	DEFINE i SMALLINT
-	FOR i = 1 TO rfields.getLength()
-		LET lfields[lfields.getLength() + 1] = rfields[i]
+	FOR i = 1 TO rFields.getLength()
+		LET lFields[lFields.getLength() + 1] = rFields[i]
 	END FOR
-	CALL rfields.clear()
+	CALL rFields.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION all_right()
 	DEFINE i SMALLINT
-	FOR i = 1 TO lfields.getLength()
-		LET rfields[rfields.getLength() + 1] = lfields[i]
+	FOR i = 1 TO lFields.getLength()
+		LET rFields[rFields.getLength() + 1] = lFields[i]
 	END FOR
-	CALL lfields.clear()
+	CALL lFields.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION on_change_currTable()
 	DEFINE i SMALLINT
 
-	CALL lfields.clear()
+	CALL lFields.clear()
 
 	IF currTable IS NULL OR currTable > columns.getLength() THEN
 		LET currTable = columns.getLength()
 	END IF
 	FOR i = 1 TO columns[currTable].colname.getLength()
-		LET lfields[i] = columns[currTable].colname[i]
+		LET lFields[i] = columns[currTable].colname[i]
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION cb_init(cb)
-	DEFINE cb ui.comboBox
+	DEFINE cb ui.ComboBox
 	DEFINE i  SMALLINT
 	CALL cb.clear()
 	FOR i = 1 TO tables.getLength()

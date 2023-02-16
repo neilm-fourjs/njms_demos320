@@ -7,8 +7,8 @@ FUNCTION wizard_ui_sd(l_state STRING)
 		CASE l_state
 			WHEN "combo"
 				LET l_state = "left"
-				INPUT BY NAME currtable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED) -- Combobox
-					ON CHANGE currtable
+				INPUT BY NAME currTable WITHOUT DEFAULTS ATTRIBUTES(UNBUFFERED) -- Combobox
+					ON CHANGE currTable
 						CALL on_change_currTable()
 						CALL upd_left()
 					ON ACTION goleft
@@ -26,7 +26,7 @@ FUNCTION wizard_ui_sd(l_state STRING)
 				END INPUT
 			WHEN "left"
 				LET l_state = "right"
-				DISPLAY ARRAY lfields TO l.* ATTRIBUTES(UNBUFFERED) -- Left field list
+				DISPLAY ARRAY lFields TO l.* ATTRIBUTES(UNBUFFERED) -- Left field list
 					ON ACTION right
 						CALL mv_right(DIALOG)
 						CALL upd_right()
@@ -51,7 +51,7 @@ FUNCTION wizard_ui_sd(l_state STRING)
 				END DISPLAY
 			WHEN "right"
 				LET l_state = "combo"
-				DISPLAY ARRAY rfields TO r.* ATTRIBUTES(UNBUFFERED) -- Right selected field list
+				DISPLAY ARRAY rFields TO r.* ATTRIBUTES(UNBUFFERED) -- Right selected field list
 					ON ACTION left
 						CALL mv_left(DIALOG)
 						CALL upd_left()
@@ -79,14 +79,14 @@ FUNCTION wizard_ui_sd(l_state STRING)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION upd_left()
-	DISPLAY ARRAY lfields TO l.*
+	DISPLAY ARRAY lFields TO l.*
 		BEFORE DISPLAY
 			EXIT DISPLAY
 	END DISPLAY
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION upd_right()
-	DISPLAY ARRAY rfields TO r.*
+	DISPLAY ARRAY rFields TO r.*
 		BEFORE DISPLAY
 			EXIT DISPLAY
 	END DISPLAY
