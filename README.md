@@ -44,6 +44,20 @@ $ git clone --recursive https://github.com/neilm-fourjs/njms_demos320.git
 $ cd njms_demos320
 $ make
 ```
+For Genero 4.0x
+```
+$ git clone --recursive https://github.com/neilm-fourjs/njms_demos320.git
+$ cd njms_demos320/
+$ git checkout g400
+$ cd g2_lib
+$ git checkout v400
+$ make   <-- note: you might need to run this twice to get success!
+$ cd ..
+$ make
+```
+NOTE: if you are build from GeneroStudio use the njms_demos400.4pw
+
+NOTE: the DOS versions are probably out of date so use the normal version and just check the env vars for Linux/DOS specific paths
 
 This demo uses imported git repos for common library code and GBC customizations
 * git submodule add https://github.com/neilm-fourjs/g2_lib.git g2_lib
