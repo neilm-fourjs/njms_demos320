@@ -647,7 +647,7 @@ FUNCTION logaccess(l_new BOOLEAN, l_email VARCHAR(60))
 		CREATE TABLE web_access( wa_key SERIAL,
 				wa_tabver SMALLINT, wa_email CHAR(60), wa_new_user SMALLINT, wa_when DATETIME YEAR TO SECOND, wa_fe CHAR(10),
 				wa_fever CHAR(10), wa_gbc CHAR(20), wa_gbc_bootstrap CHAR(50), wa_gbc_url_prefix CHAR(50), wa_gas_addr CHAR(50),
-				wa_host CHAR(50), wa_referer CHAR(200), wa_user_agent CHAR(200), wa_remote_addr CHAR(50), PRIMARY KEY(wa_key) )
+				wa_host CHAR(50), wa_referer CHAR(200), wa_user_agent CHAR(200), wa_remote_addr CHAR(50) )
 		LET l_ver = C_VER
 	END IF
 
