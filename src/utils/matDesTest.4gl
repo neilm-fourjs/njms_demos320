@@ -15,23 +15,32 @@ CONSTANT C_PRGVER  = "3.3"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG     = "smiley"
 
+CONSTANT C_COLOURSFILE = "../etc/colour_names.txt"
 CONSTANT C_NOTICE = "🔴"
 
 CONSTANT PG_MAX = 1000
 
 DEFINE m_forms DYNAMIC ARRAY OF STRING
+TYPE t_colours RECORD
+ c_key STRING,
+ c_name STRING,
+ c_hex STRING
+END RECORD
+DEFINE m_colours DYNAMIC ARRAY OF t_colours
 
 MAIN
 	DEFINE l_rec RECORD
 		fld1    CHAR(10),
 		fld2    DATE,
-		fld3    SMALLINT,
+		fld3    STRING,
 		fld4    STRING,
 		fld5    STRING,
-		fld6    STRING,
+		fld6    STRING, -- Colour completer
+		col_hex STRING, -- WebComponent
 		fld7    STRING,
 		fld8    STRING,
 		fld9    STRING,
+		fld10   STRING,
 		okay    BOOLEAN,
 		notokay BOOLEAN,
 		nul     BOOLEAN
@@ -41,7 +50,7 @@ MAIN
 		col2 SMALLINT,
 		img  STRING
 	END RECORD
-	DEFINE l_listview DYNAMIC ARRAY OF RECORD
+	DEFINE l_listView DYNAMIC ARRAY OF RECORD
 		col1 STRING,
 		col2 STRING,
 		img  STRING
@@ -49,10 +58,10 @@ MAIN
 	DEFINE x SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "matDesTest")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
 	CALL ui.Interface.setText(SFMT("%1 - %2", C_PRGDESC, C_PRGVER))
 --  CALL ui.Interface.setImage("fa-bug")
-	FOR X = 1 TO 15
+	FOR x = 1 TO 15
 		LET l_arr[x].col1      = "Row " || x
 		LET l_arr[x].col2      = x
 		LET l_arr[x].img       = C_IMG
@@ -65,13 +74,15 @@ MAIN
 	LET l_rec.fld3    = 1
 	LET l_rec.fld4    = "Red"
 	LET l_rec.fld5    = "Inactive"
-	LET l_rec.fld6    = "Active"
-	LET l_rec.fld7    = "Inactive"
-	LET l_rec.fld8    = "Active"
-	LET l_rec.fld9    = "Inactive"
+	LET l_rec.fld6    = "Turquoise2"
+	LET l_rec.fld7    = "Active"
+	LET l_rec.fld8    = "Inactive"
+	LET l_rec.fld9    = "Active"
+	LET l_rec.fld10    = "Inactive"
 	LET l_rec.okay    = TRUE
 	LET l_rec.notokay = FALSE
 	LET l_rec.nul     = NULL
+	CALL getColours()
 
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
@@ -81,6 +92,21 @@ MAIN
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
 		INPUT BY NAME l_rec.* ATTRIBUTES(WITHOUT DEFAULTS)
+			ON CHANGE fld3
+				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld3))
+{ Can't change the content of a web component using this FC because it's in an iframe.
+				TRY
+					CALL ui.Interface.frontCall("mymodule","replace_html",["colour",l_rec.fld3],[x])
+					DISPLAY SFMT("FC test: %1", x)
+				CATCH
+					DISPLAY SFMT("FC test failed! %1 %2", status, err_get(status))
+				END TRY}
+				LET l_rec.fld6 = l_rec.fld3
+			ON CHANGE fld6
+				CALL set_completer(DIALOG, l_rec.fld6)
+				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
+			AFTER FIELD fld6
+				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
 		END INPUT
 		DISPLAY ARRAY l_arr TO arr1.* --ATTRIBUTES(ACCEPT=FALSE)
 		END DISPLAY
@@ -96,6 +122,7 @@ MAIN
 			BEFORE ROW
 				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr3"), l_listView.getLength()) TO tab3info
 		END DISPLAY
+
 		COMMAND "bomb"
 			ERROR "Bang!"
 		ON ACTION msg
@@ -237,6 +264,7 @@ MAIN
 				CALL DIALOG.setActionActive("dyntext", FALSE)
 			END IF
 			CALL DIALOG.getForm().ensureElementVisible("bomb") -- attempt to give focus to a button will not work.
+			CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
 	END DIALOG
 END MAIN
 --------------------------------------------------------------------------------
@@ -381,4 +409,55 @@ FUNCTION constrct()
 		CALL fgl_winMessage("Query",l_const, "information")
 	END IF
 	LET int_flag = FALSE
+END FUNCTION
+--------------------------------------------------------------------------------
+-- sets the completer items of a current form field
+FUNCTION set_completer(l_d ui.Dialog, l_in_str STRING)
+	DEFINE l_items DYNAMIC ARRAY OF STRING
+	DEFINE i       INT
+	IF l_in_str.getLength() > 0 THEN
+		FOR i = 1 TO m_colours.getLength()
+			IF m_colours[i].c_name.toUpperCase() MATCHES l_in_str.toUpperCase().append("*") THEN -- case insensitive filter
+				LET l_items[l_items.getLength() + 1] = m_colours[i].c_name
+				IF l_items.getLength() == 50 THEN
+					EXIT FOR
+				END IF -- Completer is limited to 50 items			
+			END IF
+		END FOR
+	END IF
+	CALL l_d.setCompleterItems(l_items)
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION getColour(l_colName STRING) RETURNS STRING
+	DEFINE l_cnt SMALLINT
+	FOR l_cnt = 1 TO m_colours.getLength()
+		IF m_colours[l_cnt].c_name = l_colName THEN
+			DISPLAY SFMT("getColour: %1 Hex: %2", l_colName, m_colours[l_cnt].c_hex)
+			RETURN m_colours[l_cnt].c_hex
+		END IF
+	END FOR
+	DISPLAY SFMT("getColour: %1 Not Found", l_colName)
+	RETURN NULL
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION cb_colour(l_cb ui.ComboBox)
+	DEFINE l_cnt SMALLINT
+	FOR l_cnt = 1 TO m_colours.getLength()
+		CALL l_cb.addItem(m_colours[l_cnt].c_name.trim(), m_colours[l_cnt].c_name.trim())
+	END FOR
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION getColours()
+	DEFINE c     base.Channel
+	DEFINE l_col t_colours
+	DEFINE l_cnt SMALLINT = 0 
+	LET c      = base.Channel.create()
+	CALL c.openFile(C_COLOURSFILE, "r")
+	WHILE NOT c.isEof()
+		IF c.read([l_col.*]) THEN
+			LET m_colours[l_cnt:=l_cnt+1].c_name = l_col.c_name
+			LET m_colours[l_cnt].c_hex = l_col.c_hex
+		END IF
+	END WHILE
+	CALL c.close()
 END FUNCTION

@@ -84,10 +84,11 @@ GRID
 [lab3|f003           ][b   ]
 [lab4|f004           ][c   ]
 [lab5|f005           ]
+[lab6|f006           ][col ]
 [: :b1:but1  :msg    :err   : :]
 <G g1                          >
-[lab6|f006         ]
 [lab7|f007           ]
+[lab8|f008           ]
 <                              >
  more text outside of group.
 <T tab                         >
@@ -213,20 +214,30 @@ LABEL lab2 : lab2, TEXT=%"DateEdit:",JUSTIFY=RIGHT;
 LABEL lab3 : lab3, TEXT=%"Combo:",JUSTIFY=RIGHT;
 LABEL lab4 : lab4, TEXT=%"Combo(QE):",JUSTIFY=RIGHT;
 LABEL lab5 : lab5, TEXT=%"Readonly:",JUSTIFY=RIGHT;
-LABEL lab6 : lab6, TEXT=%"Live Field:",JUSTIFY=RIGHT;
-LABEL lab7 : lab7, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
+LABEL lab6 : lab6, TEXT=%"Completer:",JUSTIFY=RIGHT;
+LABEL lab7 : lab7, TEXT=%"Live Field:",JUSTIFY=RIGHT;
+LABEL lab8 : lab8, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
 
 BUTTONEDIT f001 = FORMONLY.fld1, ACTION=win, TABINDEX=2;
 DATEEDIT f002 = FORMONLY.fld2, TABINDEX=3;
-COMBOBOX f003 = FORMONLY.fld3, ITEMS=((1,"Red"),(2,"Blue"),(3,"Green")), PLACEHOLDER=%"Pick a Colour", TABINDEX=4;
-COMBOBOX f004 = FORMONLY.fld4, ITEMS=("Red","Blue","Green"), PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=5;
+COMBOBOX f003 = FORMONLY.fld3, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", TABINDEX=4;
+COMBOBOX f004 = FORMONLY.fld4, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=5;
 f005 = FORMONLY.fld5, NOENTRY;
-f006 = FORMONLY.fld6, TABINDEX=6;
-f007 = FORMONLY.fld7, NOENTRY;
-p101 = FORMONLY.fld8, TABINDEX=7;
-p102 = FORMONLY.fld9, NOENTRY;
-CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=8;
-CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=9;
+f006 = FORMONLY.fld6,COMPLETER, TABINDEX=6;
+WEBCOMPONENT col = FORMONLY.col_hex,
+	STYLE="curvedborder",
+	SIZEPOLICY=FIXED, 
+	STRETCH=NONE, 
+	SCROLLBARS=NONE, 
+	HEIGHT=32 PIXELS, WIDTH=64 PIXELS,
+	COMPONENTTYPE="colour";
+
+f007 = FORMONLY.fld7, TABINDEX=7;
+f008 = FORMONLY.fld8, NOENTRY;
+p101 = FORMONLY.fld9, TABINDEX=8;
+p102 = FORMONLY.fld10, NOENTRY;
+CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=9;
+CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=10;
 CHECKBOX c = FORMONLY.nul, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Nul?";
 
 IMAGE logo : logo, IMAGE="logo_dark", SIZEPOLICY=INITIAL,STYLE="noborder center";
