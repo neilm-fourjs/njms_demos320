@@ -76,8 +76,8 @@
     </Language>
   </LanguageList>
   <PlatformList version="1.0"/>
-  <Group environment="value:GENVER=400" id="-504965881" label="v400" language="Genero">
-    <Group excludeFromBuild="true" id="1346150139" label="Configs" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin400">
+  <Group environment="value:GENVER=401" id="-504965881" label="v401" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin401">
+    <Group excludeFromBuild="true" id="1346150139" label="Configs" language="Genero">
       <Group id="-1860471333" label="Configs">
         <Library binaryName="etc" id="-400184264" label="etc">
           <File filePath="etc/default.4ad"/>
@@ -108,7 +108,7 @@
         <File filePath="README.md"/>
       </Library>
     </Group>
-    <Group environment="value:DB_LOCALE=en_GB.utf8,value:USEDEFAULT4ST=FALSE,value:SQLEXPLAIN=ON,value:GRESRVPORT=6494,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=sqt,value:RENDERER=ur,dir:GBC_USER_DIR=$(FGLDIR)/web_utilities/gbc,value:GBC_USER=gbc-clean,dir:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/products:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo400" id="1812115377" label="njms_demos400" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin400">
+    <Group environment="value:DB_LOCALE=en_GB.utf8,value:USEDEFAULT4ST=FALSE,value:SQLEXPLAIN=ON,value:GRESRVPORT=6494,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=sqt,value:RENDERER=ur,dir:GBC_USER_DIR=$(FGLDIR)/web_utilities/gbc,value:GBC_USER=gbc-clean,dir:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/products:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo400" id="1812115377" label="njms_demos401" language="Genero">
       <Group id="1931904086" label="API" language="Genero (no link)">
         <Library binaryName="njm_cust_db" dependencies="1986,-489765796" id="-1358259824" label="njm_cust_db">
           <File filePath="src/api/njm_cust_db.4gl"/>
@@ -357,7 +357,7 @@
           <File filePath="src/demos/widgets_table.per"/>
         </Application>
       </Group>
-      <Group compilerOptions="-Dgen400" id="1028282104" label="Demos WC">
+      <Group compilerOptions="-Dgen401" id="1028282104" label="Demos WC">
         <Application binaryName="wc_aircraft" dependencies="-310428106,1136561508_14000,-47144818_14000" id="252530810" label="wc_aircraft">
           <Configuration id="1118944228" label="wc_aircraft"/>
           <VirtualFolder label="wc">
@@ -459,7 +459,7 @@
           <File filePath="src/demos/wc_richtext.per"/>
         </Application>
       </Group>
-      <ExtProject filePath="g2_lib/g2_lib400.4pw" id="-47144818"/>
+      <ExtProject filePath="g2_lib/g2_lib401.4pw" id="-2124414409"/>
       <Group id="1469027916" label="System" language="Genero">
         <Application binaryName="container" dependencies="-400184264" id="248425532" label="container">
           <Configuration environment="value:GBC_USER=gbc-mdi,value:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER)" id="1115856571" label="container"/>
@@ -538,7 +538,7 @@
           <File filePath="src/utils/matDesTest_modal.per"/>
         </Application>
       </Group>
-      <Group environment="value:FGLPROFILE=$(ProjectDir)/etc/wsprofile" id="417956768" label="WebServices" targetDirectory="$(ProjectDir)/ws_bin400">
+      <Group environment="value:FGLPROFILE=$(ProjectDir)/etc/wsprofile" id="417956768" label="WebServices" targetDirectory="$(ProjectDir)/ws_bin401">
         <Application binaryName="stockQuery" dependencies="1136561508_14000,1986" id="-1861949473" label="stockQuery">
           <Configuration id="-919385668" label="stockQuery"/>
           <File filePath="src/ws/stockQuery.4gl"/>
@@ -554,23 +554,14 @@
         </Library>
       </Group>
     </Group>
-    <Group id="252404927" label="Packages" language="Genero" targetDirectory="$(ProjectDir)/njm_app_bin400">
-      <Package binaryName="gdc_update_srv" dependencies="-580790058,-850398834,654551740,14000" description="GDC Update WebService" id="364266706" label="gdc_update_srv" platform="Genero Application Server">
-        <DynamicProperty name="packageId" value="gdcupdate"/>
-        <DynamicProperty name="packageLabel" value="gdcupdate"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="ws_*.42?" label="bin" recursive="false" sourceDirectory="$(ProjectDir)/bin320"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin" includedFiles="*.xcf" label="gas" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy_ws"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/gdcupdate" includedFiles="*.txt" label="gdcupdate" sourceDirectory="$(ProjectDir)/gdcupdate"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="gl_lib_gdcupd.42m,gl_lib_restful.42m" label="lib" recursive="false" sourceDirectory="$(ProjectDir)/bin"/>
-      </Package>
+    <Group id="252404927" label="Packages" language="Genero">
       <Package binaryName="njms_demos401_ifx" dependencies="-559263813,1773362531,-1090563702,-1954675472,-183914303,-1350833088,-400184264,1835393312,1663756762,1521876251,1873655788,-217822240,726830537,-272766546,1986,-1334009856,-1273407208,2103145373,1001967872,-2121135278,2135194580,1554019048,-2014604027,252530810,1211226226,1486280688,1022451972,985734158,62326091,-1722719568,1852932452,-1964806629,1320948536,1103957492,-531765990,1848127715,-1384381362,248425532,381716529,-1757926610,789344678,-1557891896,-1746016620,-1049145178,476951290,1211711094,1197855432,-132093204,1106939540,-2006546962,528729868,437366480,-1670171360,-1155424042,-1277007627,-527753430,-310428106" description="NJMs Demos" id="1693965529" label="njms_demos401_ifx" platform="Genero Application Server">
         <DynamicProperty name="packageId" value="njmsdemos"/>
         <DynamicProperty name="packageLabel" value="NJMs Demos"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="*.42?" label="bin" recursive="false" sourceDirectory="$(ProjectDir)/njm_app_bin400"/>
+        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="*.42?" label="bin" recursive="false" sourceDirectory="$(ProjectDir)/njm_app_bin401"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="etc" recursive="false" sourceDirectory="$(ProjectDir)/etc"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" includedFiles=".test.cfg" label="etc_hidden" recursive="false" sourceDirectory="$(ProjectDir)/etc"/>
         <Directory destinationDirectory="$(ProjectDir)/bin" includedFiles="*.xcf" label="gas" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" label="libbin" sourceDirectory="$(ProjectDir)/g2_lib/bin320"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/pics" label="pics" sourceDirectory="$(ProjectDir)/pics"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="profile" recursive="false" sourceDirectory="$(ProjectDir)/etc/ifx"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/utils" includedFiles="*.sh" label="util" sourceDirectory="$(ProjectDir)/utils"/>
@@ -578,10 +569,9 @@
       <Package binaryName="njms_demos401_pgs" dependencies="-559263813,1773362531,-1090563702,-1954675472,-183914303,-1350833088,-400184264,1835393312,1663756762,1521876251,1873655788,-217822240,726830537,-272766546,1986,-1334009856,-1273407208,2103145373,1001967872,-2121135278,2135194580,1554019048,-2014604027,252530810,1211226226,-1557891896,1022451972,1848127715,528729868,985734158,62326091,-1746016620,1486280688,248425532,476951290,-1964806629,-1757926610,1320948536,1852932452,-1384381362,789344678,1103957492,-1248408576,1211711094,1197855432,-531765990,381716529,-1722719568,-132093204,1106939540,-2006546962,437366480,-1670171360,-1155424042,-1277007627,-527753430,-310428106,-489765796,153418360,1006556201,-342751680,-1358259824,-1861949473,1287057631,-1239450589,631779877,-1838355315,-1072068994,-544615500" description="NJMs Demos" id="-496300616" label="njms_demos401_pgs" platform="Genero Application Server">
         <DynamicProperty name="packageId" value="njmsdemos"/>
         <DynamicProperty name="packageLabel" value="NJMs Demos"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="*.42?" label="bin" sourceDirectory="$(ProjectDir)/njm_app_bin400"/>
+        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="*.42?" label="bin" sourceDirectory="$(ProjectDir)/njm_app_bin401"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="etc" recursive="false" sourceDirectory="$(ProjectDir)/etc"/>
         <Directory destinationDirectory="$(ProjectDir)/bin" includedFiles="*.xcf" label="gas" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" label="libbin" sourceDirectory="$(ProjectDir)/g2_lib/bin320"/>
         <Directory includedFiles="MANIFEST" label="MANIFEST" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/pics" label="pics" sourceDirectory="$(ProjectDir)/pics"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="profile" recursive="false" sourceDirectory="$(ProjectDir)/etc/pgs"/>
@@ -591,11 +581,10 @@
       <Package binaryName="njms_demos401_sqt" dependencies="-559263813,1773362531,-1090563702,-1954675472,-183914303,-1350833088,-400184264,1835393312,1663756762,1521876251,1873655788,-217822240,726830537,-272766546,1986,-1334009856,-1273407208,2103145373,1001967872,-2121135278,2135194580,1554019048,-2014604027,252530810,1211226226,-1557891896,1022451972,1848127715,528729868,985734158,62326091,-1746016620,1486280688,248425532,476951290,-1964806629,-1757926610,1320948536,1852932452,-1384381362,789344678,1103957492,-1248408576,1211711094,1197855432,-531765990,381716529,-1722719568,-132093204,1106939540,-2006546962,437366480,-1670171360,-1155424042,-1277007627,-527753430,-310428106" description="NJMs Demos" id="-539376564" label="njms_demos401_sqt" platform="Genero Application Server">
         <DynamicProperty name="packageId" value="njmsdemos"/>
         <DynamicProperty name="packageLabel" value="NJMs Demos"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="*.42?" label="bin" recursive="false" sourceDirectory="$(ProjectDir)/njm_app_bin400"/>
+        <Directory destinationDirectory="$(ProjectDir)/bin/bin" includedFiles="*.42?" label="bin" recursive="false" sourceDirectory="$(ProjectDir)/njm_app_bin401"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/db" includedFiles="*.db" label="db" sourceDirectory="$(ProjectDir)/db"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="etc" recursive="false" sourceDirectory="$(ProjectDir)/etc"/>
         <Directory destinationDirectory="$(ProjectDir)/bin" includedFiles="*.xcf" label="gas" recursive="false" sourceDirectory="$(ProjectDir)/gas_deploy"/>
-        <Directory destinationDirectory="$(ProjectDir)/bin/bin" label="libbin" sourceDirectory="$(ProjectDir)/g2_lib/bin320"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/pics" label="pics" sourceDirectory="$(ProjectDir)/pics"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/etc" label="profile" recursive="false" sourceDirectory="$(ProjectDir)/etc/sqt"/>
         <Directory destinationDirectory="$(ProjectDir)/bin/utils" includedFiles="*.sh" label="util" sourceDirectory="$(ProjectDir)/utils"/>
@@ -608,13 +597,12 @@
         <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/src/OpenIdLogin"/>
         <Directory includedFiles="homer-doh_Login.png" label="img" sourceDirectory="$(ProjectDir)/pics"/>
       </Package>
-      <Package binaryName="ws_demos400_pgs" dependencies="-1861949473,367791215,1211226226" id="-2138345710" label="ws_demos400_pgs" platform="Genero Application Server">
+      <Package binaryName="ws_demos401_pgs" dependencies="-1861949473,367791215,1211226226" id="-2138345710" label="ws_demos401_pgs" platform="Genero Application Server">
         <DynamicProperty name="packageId" value="myapp"/>
         <DynamicProperty name="packageLabel" value="MyApp"/>
-        <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/ws_bin320"/>
+        <Directory excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" sourceDirectory="$(ProjectDir)/ws_bin401"/>
         <Directory includedFiles="profile" label="Config" sourceDirectory="$(ProjectDir)/etc/pgs"/>
         <Directory includedFiles="*.xcf" label="gas" sourceDirectory="$(ProjectDir)/gas_ws"/>
-        <Directory includedFiles="*.42?" label="libbin" sourceDirectory="$(ProjectDir)/g2_lib/bin320"/>
       </Package>
       <Library binaryName="xcf_files_deploy" id="1211226226" label="xcf_files_deploy">
         <File filePath="gas_deploy/fontAwesome.xcf"/>
