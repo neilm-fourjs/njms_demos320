@@ -11,8 +11,8 @@
 	<Style name="Table.listview">
 		<StyleAttribute name="tableType"	value="listView" />
 	</Style>
-	<Style name="Table.table3:odd">
-		<StyleAttribute name="backgroundColor"	value="#F2F2F9" />
+	<Style name="Table.nocurrent">
+		<StyleAttribute name="highlightCurrentRow" value="no" />
 	</Style>
 	<Style name=".noborder">
 		<StyleAttribute name="border" value="none" />

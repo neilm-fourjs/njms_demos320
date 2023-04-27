@@ -17,6 +17,8 @@ ACTION DEFAULTS
 	ACTION inactive ( TEXT="Inactive", IMAGE="fa-eye-slash" )
 	ACTION fc_ismob ( TEXT="isMobile", IMAGE="fa-mobile-phone" )
 	ACTION sleep ( TEXT="Sleep 5", IMAGE="fa-bed" )
+	ACTION clipset ( TEXT="Clipboard Set", IMAGE="fa-copy" )
+	ACTION clipshow ( TEXT="Clipboard Show", IMAGE="fa-paste" )
 END -- AD
 
 TOPMENU
@@ -47,6 +49,8 @@ TOPMENU
 		COMMAND pg50
 		COMMAND fc_ismob
 		COMMAND sleep
+		COMMAND clipset
+		COMMAND clipshow
 	END -- opt
 	GROUP help (TEXT="Help")
 		COMMAND about
@@ -175,6 +179,16 @@ Some text on a page.
  text in a group
  Live Field: [p101     ]
  Dead Field: [p102     ]
+[""]
+ Table in a group:
+ <T tab4               >
+ [t402                ]
+ [t402                ]
+ [t402                ]
+ [t402                ]
+ [t402                ]
+ <                     >
+ bottom of group
 <                       >
 }
 END -- GRID
@@ -272,7 +286,14 @@ t302 = FORMONLY.a3col2, SCROLL, TITLE="Column 2";
 PHANTOM FORMONLY.a3img;
 LABEL tab3info = FORMONLY.tab3info, STYLE="center";
 
+-- table in group
+TABLE tab4 : tab4, WANTFIXEDPAGESIZE, STYLE="nocurrent";
+PHANTOM FORMONLY.tab401;
+t402 = FORMONLY.tab402, TITLE="Colours";
+PHANTOM FORMONLY.tab403;
+
 INSTRUCTIONS
 SCREEN RECORD arr1 ( FORMONLY.col1 THRU FORMONLY.img )
 SCREEN RECORD arr2 ( FORMONLY.lvcol1 THRU FORMONLY.lvimg )
 SCREEN RECORD arr3 ( FORMONLY.a3col1 THRU FORMONLY.a3img )
+SCREEN RECORD arr4 ( FORMONLY.tab401 THRU FORMONLY.tab403 )

@@ -1,4 +1,5 @@
 #+ A simple container program for MDI
+IMPORT FGL fgldialog
 
 MAIN
 	DEFINE l_children SMALLINT
@@ -13,7 +14,6 @@ MAIN
 	CALL ui.Interface.setText("Container 1.2")
 	OPEN FORM f FROM "container"
 	DISPLAY FORM f
-
 	MENU
 		ON ACTION close
 			DISPLAY "Check for children!"

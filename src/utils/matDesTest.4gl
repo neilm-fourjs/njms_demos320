@@ -122,6 +122,8 @@ MAIN
 			BEFORE ROW
 				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr3"), l_listView.getLength()) TO tab3info
 		END DISPLAY
+		DISPLAY ARRAY m_colours TO arr4.*
+		END DISPLAY
 
 		COMMAND "bomb"
 			ERROR "Bang!"
@@ -248,6 +250,10 @@ MAIN
 			ERROR "F11"
 		ON ACTION f12
 			ERROR "F12"
+		ON ACTION clipset
+			CALL clipSet("Hello world\nThis is a test!")
+		ON ACTION clipshow
+			CALL clipShow()
 		ON ACTION fc_ismob
 			CALL fgl_winMessage(
 					"Mobile?", IIF(gbc_isMobile(), "App Running on Mobile device!", "App not running on Mobile device"),
@@ -440,14 +446,14 @@ FUNCTION getColour(l_colName STRING) RETURNS STRING
 	RETURN NULL
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION cb_colour(l_cb ui.ComboBox)
+FUNCTION cb_colour(l_cb ui.ComboBox) RETURNS ()
 	DEFINE l_cnt SMALLINT
 	FOR l_cnt = 1 TO m_colours.getLength()
 		CALL l_cb.addItem(m_colours[l_cnt].c_name.trim(), m_colours[l_cnt].c_name.trim())
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION getColours()
+FUNCTION getColours() RETURNS ()
 	DEFINE c     base.Channel
 	DEFINE l_col t_colours
 	DEFINE l_cnt SMALLINT = 0 
@@ -460,4 +466,16 @@ FUNCTION getColours()
 		END IF
 	END WHILE
 	CALL c.close()
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION clipSet(l_text STRING) RETURNS ()
+	DEFINE l_res STRING
+	CALL ui.Interface.frontCall("standard","cbset", l_text, l_res)
+	MESSAGE (SFMT("Result: %1", IIF(l_res,"Success","Failed")))
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION clipShow() RETURNS ()
+	DEFINE l_res STRING
+	CALL ui.Interface.frontCall("standard","cbget", [], l_res)
+	CALL fgl_winMessage("Clipboard", l_res, "information")
 END FUNCTION

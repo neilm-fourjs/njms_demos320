@@ -24,11 +24,11 @@ CONSTANT C_SPLASH = "logo"
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	CALL ui.Interface.setText(C_PRGDESC)
 
-	RUN "env | sort > /tmp/njmdemo_" || fgl_getPID() || ".env"
+	RUN SFMT("env | sort > /tmp/njmdemo_%1.env", fgl_getPID())
 
 	CLOSE WINDOW SCREEN
 
@@ -64,8 +64,8 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
 	LET lib_login.m_new_acc_func = FUNCTION new_acct.new_acct
 
 -- For quick testing only
-	IF ARG_VAL(1) = "test@test.com" THEN
-		LET l_user = ARG_VAL(1)
+	IF base.Application.getArgument(1) = "test@test.com" THEN
+		LET l_user = base.Application.getArgument(1)
 	ELSE
 		LET l_user = lib_login.login(C_TITLE, C_VER)
 	END IF
