@@ -85,8 +85,6 @@
           <File filePath="etc/default_GDC.4st"/>
           <File filePath="etc/dynmaint.4tb"/>
           <File filePath="etc/dynmaint.4tm"/>
-          <File filePath="etc/profile.nat"/>
-          <File filePath="etc/profile.ur"/>
         </Library>
         <Library binaryName="profile_ifx" id="-1049145178" label="profile_ifx">
           <File filePath="etc/ifx/profile"/>
@@ -108,7 +106,7 @@
         <File filePath="README.md"/>
       </Library>
     </Group>
-    <Group environment="value:DB_LOCALE=en_GB.utf8,value:USEDEFAULT4ST=FALSE,value:SQLEXPLAIN=ON,value:GRESRVPORT=6494,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=pgs,value:RENDERER=ur,dir:GBC_USER_DIR=$(FGLDIR)/web_utilities/gbc,value:GBC_USER=gbc-clean2,dir:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile:$(ProjectDir)/etc/profile.$(RENDERER),value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/products:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo400,value:DBDEBUG=TRUE,value:HC_DBNAME=$(DBNAME),value:HC_DBSERVER=localhost,value:HC_DBUSER=neilm,value:HC_DBDRIVER=dbm$(DBTYPE)" id="1812115377" label="njms_demos401" language="Genero">
+    <Group environment="value:DB_LOCALE=en_GB.utf8,value:USEDEFAULT4ST=FALSE,value:SQLEXPLAIN=ON,value:GRESRVPORT=6494,dir:GREOUTPUTDIR=/tmp,value:GRESERVER=127.0.0.1,value:FJS_GL_DBGLEV=2,value:DBTYPE=sqt,dir:GBC_USER_DIR=$(FGLDIR)/web_utilities/gbc,value:GBC_USER=gbc-clean2,dir:FGLGBCDIR=$(GBC_USER_DIR)/$(GBC_USER),file:FGLPROFILE=$(ProjectDir)/etc/$(DBTYPE)/profile,value:FGLRESOURCEPATH=$(ProjectDir)/etc,value:FGLIMAGEPATH=../pics:../pics/products:../pics/fa5.txt,value:GDCUPDATESERVER=https://generodemos.dynu.net/g/ws/r/gdc_update_srv,dir:GDCUPDATEDIR=../gdcupdate_local,value:REPORTDIR=$(ProjectDir)/etc,value:MUSICDIR=$(HOME)/Music,value:DBNAME=njm_demo400,value:DBDEBUG=TRUE,value:HC_DBNAME=$(DBNAME),value:HC_DBSERVER=localhost,value:HC_DBUSER=neilm,value:HC_DBDRIVER=dbm$(DBTYPE)" id="1812115377" label="njms_demos401" language="Genero">
       <Group id="1931904086" label="API" language="Genero (no link)">
         <Library binaryName="njm_cust_db" dependencies="1986,-489765796" id="-1358259824" label="njm_cust_db">
           <File filePath="src/api/njm_cust_db.4gl"/>
@@ -327,11 +325,6 @@
         <Application binaryName="showfile" id="-1746016620" label="showfile">
           <Configuration commandLineArguments="widgets.42f" id="-540492405" label="showfile"/>
           <File filePath="src/demos/showfile.4gl"/>
-        </Application>
-        <Application binaryName="stackDemo" dependencies="1136561508_14000,1986" id="-1239450589" label="stackDemo">
-          <Configuration id="-362964762" label="stackDemo"/>
-          <File filePath="src/demos/stackDemo.4gl"/>
-          <File filePath="src/demos/stackDemo.per"/>
         </Application>
         <Application binaryName="table" dependencies="1986" id="-1838355315" label="table">
           <Configuration id="-799096172" label="table"/>

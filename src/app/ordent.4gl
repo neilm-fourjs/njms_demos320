@@ -27,14 +27,14 @@ MAIN
 	DEFINE l_key   INTEGER
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	CALL ui.Interface.setText(C_PRGDESC)
 
 	CALL g2_db.m_db.g2_connect(NULL)
 
-	IF UPSHIFT(ui.Interface.getFrontEndName()) = "GBC" THEN
-		CALL ui.Interface.FrontCall("session", "getvar", base.application.getProgramName() || "_login", l_email)
+	IF ui.Interface.getFrontEndName().toUpperCase() = "GBC" THEN
+		CALL ui.Interface.frontCall("session", "getvar", base.Application.getProgramName() || "_login", l_email)
 		TRY
 			LET l_key = l_email
 		CATCH
@@ -42,7 +42,7 @@ MAIN
 		END TRY
 		DISPLAY "From cookie:", l_email
 	ELSE
-		LET l_email = fgl_getEnv("REALUSER")
+		LET l_email = fgl_getenv("REALUSER")
 	END IF
 -- either key or email may have a valid, if both null the function uses arg2
 	CALL app_lib.getUser(l_key, l_email)
@@ -59,7 +59,7 @@ MAIN
 	DISPLAY SFMT(%"Welcome %1", m_fullname) TO welcome
 	--CALL setTitle()
 
-	IF ARG_VAL(3) = "E" THEN
+	IF base.Application.getArgument(3) = "E" THEN
 		CALL enquire()
 	ELSE
 		MENU
@@ -98,7 +98,7 @@ FUNCTION new()
 	CALL initVariables()
 	CLEAR FORM
 	MESSAGE %"Enter Header details."
-	INPUT BY NAME g_ordHead.customer_code, g_ordHead.order_ref, g_ordhead.req_del_date
+	INPUT BY NAME g_ordHead.customer_code, g_ordHead.order_ref, g_ordHead.req_del_date
 			ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS) HELP 2
 
 		AFTER FIELD customer_code
@@ -118,8 +118,8 @@ FUNCTION new()
 		LET int_flag = FALSE
 		RETURN
 	END IF
-	IF g_ordhead.req_del_date IS NULL THEN
-		LET g_ordhead.req_del_date = (g_ordhead.order_date + 10)
+	IF g_ordHead.req_del_date IS NULL THEN
+		LET g_ordHead.req_del_date = (g_ordHead.order_date + 10)
 	END IF
 	BEGIN WORK -- Start the transaction.
 	LET g_ordHead.order_datetime = CURRENT
@@ -131,7 +131,7 @@ FUNCTION new()
 	MESSAGE %"Enter Details Lines."
 	INPUT ARRAY g_detailArray FROM details.* ATTRIBUTE(UNBUFFERED, WITHOUT DEFAULTS) HELP 3
 		ON ACTION getstock INFIELD stock_code
-			LET g_detailArray[arr_curr()].stock_code = fgl_dialog_getBuffer()
+			LET g_detailArray[arr_curr()].stock_code = fgl_dialog_getbuffer()
 			CALL getStock(g_detailArray[arr_curr()].stock_code) RETURNING m_stk.*
 			IF m_stk.stock_code IS NOT NULL THEN
 				LET g_detailArray[l_row].stock_code = m_stk.stock_code
@@ -345,11 +345,11 @@ FUNCTION enquire()
 		CALL initVariables()
 		LET int_flag = FALSE
 
-		LET l_arg4 = ARG_VAL(4)
-		IF ARG_VAL(3) = "E" AND l_arg4.getLength() > 0 THEN
+		LET l_arg4 = base.Application.getArgument(4)
+		IF base.Application.getArgument(3) = "E" AND l_arg4.getLength() > 0 THEN
 			IF l_arg4 = "R" THEN -- benchmark only
 				SELECT COUNT(*) INTO l_ords FROM ord_head
-				LET g_ordHead.order_number = util.math.rand(l_ords)
+				LET g_ordHead.order_number = util.Math.rand(l_ords)
 				LET benchmark              = TRUE
 			ELSE
 				LET g_ordHead.order_number = l_arg4
@@ -498,20 +498,28 @@ FUNCTION printInv(l_what)
 
 	IF fgl_getEnv("BENCHMARK") = "true" THEN
 		DISPLAY "Printing Invoice:", g_ordHead.order_number
-		RUN "fglrun printInvoices.42r " || ARG_VAL(1) || " " || m_user.user_key || " " || g_ordHead.order_number || " "
-				|| l_what || " PDF save 0 " || fgl_getPID() || ".pdf"
+		RUN SFMT("fglrun printInvoices.42r %1 %2 %3 %4 PDF save 0 %5.pdf", 
+				base.Application.getArgument(1), 
+				m_user.user_key, 
+				g_ordHead.order_number,
+				l_what, 
+				fgl_getPID())
 		RETURN
 	END IF
 
-	IF UPSHIFT(ui.interface.getFrontEndName()) = "GDC" THEN
+	IF ui.Interface.getFrontEndName().toUpperCase() = "GDC" THEN
 		LET l_rptTo = "SVG"
 	ELSE
 		LET l_rptTo = "PDF"
 	END IF
 
 	DISPLAY "Printing Invoice:", g_ordHead.order_number
-	RUN "fglrun printInvoices.42r " || ARG_VAL(1) || " " || m_user.user_key || " " || g_ordHead.order_number || " "
-			|| l_what || " " || l_rptTo || " preview 1"
+	RUN SFMT("fglrun printInvoices.42r %1 %2 %3 %4 %5 preview 1",
+			base.Application.getArgument(1),
+			m_user.user_key,
+			g_ordHead.order_number,
+			l_what,
+			l_rptTo)
 
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -529,9 +537,9 @@ END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION chkFont()
 	DEFINE scr_x         SMALLINT
-	DEFINE tmp, fontsize STRING
-	DEFINE dn1, dn2      om.domNode
-	DEFINE nl            om.nodeList
+	DEFINE tmp, fontSize STRING
+	DEFINE dn1, dn2      om.DomNode
+	DEFINE nl            om.NodeList
 	CALL ui.Interface.frontCall("standard", "feinfo", "screenresolution", tmp)
 	DISPLAY "FE:", tmp
 	LET scr_x = tmp.getIndexOf("x", 1)

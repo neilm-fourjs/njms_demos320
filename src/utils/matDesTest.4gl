@@ -87,7 +87,7 @@ MAIN
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
 
-	DISPLAY fgl_getEnv("FGLIMAGEPATH") TO imgpath
+	DISPLAY fgl_getenv("FGLIMAGEPATH") TO imgpath
 	DISPLAY getAUIAttrVal("StyleList", "fileName") TO stylefile
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)

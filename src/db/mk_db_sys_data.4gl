@@ -61,7 +61,6 @@ FUNCTION insert_system_data(l_db STRING)
 	CALL addMenu("demo", "main", "F", "Input Array Expenses Demo", "expenses", "")
 	CALL addMenu("demo", "main", "F", "Multi Cell Select", "multi_cell_sel", "")
 	CALL addMenu("demo", "main", "F", "Table - List View - GBC / AwesomeUR Only", "listView", "")
-	CALL addMenu("demo", "main", "F", "Stack Demo - GBC / UR Only!", "stackDemo", "")
 
 	CALL addMenu("wizard", "demo", "T", "Wizard - Dialog Demos", "", "")
 	CALL addMenu("wizard", "demo", "F", "Wizard SD", "wizard_sd", "")
