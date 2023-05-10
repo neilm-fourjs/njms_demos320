@@ -4,7 +4,7 @@ export GENVER=401
 export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
-export DBTYPE=ifx
+export DBTYPE=sqt
 export DBNAME=njm_demo400
 export GBC=gbc-clean2
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
@@ -13,13 +13,10 @@ export ARCH=$(APP)$(GENVER)_$(DBTYPE)
 export GASCFG=$(FGLASDIR)/etc/as.xcf
 export MUSICDIR=~/Music
 
-export RENDERER=ur
-#export RENDERER=nat320
-
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
-export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.$(RENDERER)
+export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile
 export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
 
 export DB_LOCALE=en_GB.utf8
@@ -81,11 +78,8 @@ redeploy: undeploy deploy
 run: $(BIN)/menu.42r
 	cd $(BIN) && fglrun menu.42r
 
-runur: $(BIN)/menu.42r
-	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-clean && cd $(BIN) && fglrun menu.42r
-
-runnat: $(BIN)/menu.42r
-	FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(PROJBASE)/etc/profile.nat && cd $(BIN) && fglrun menu.42r
+db: $(BIN)/mk_db.42m
+	cd $(BIN) && fglrun mk_db
 
 rundef: $(BIN)/menu.42r
 	unset FGLGBCDIR && cd $(BIN) && fglrun menu.42r
