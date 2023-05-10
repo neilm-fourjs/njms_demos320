@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <StartMenu text="Example1">
   <StartMenuGroup text="Widgets" image="widgetsdemo_icon">
     <StartMenuCommand text="Widgets" exec="fglrun widgets C" />

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ActionDefaultList>
 	<ActionDefault name="accept" image="accept" text="OK" acceleratorName="Return" acceleratorName2="Enter"/>
 	<ActionDefault name="cancel" image="cancel" text="Cancel" acceleratorName="Escape"/>

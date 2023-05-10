@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <StyleList>
   <Style name='ToolBar'>
     <StyleAttribute name="backgroundColor" value="#C4BBA8"/>
