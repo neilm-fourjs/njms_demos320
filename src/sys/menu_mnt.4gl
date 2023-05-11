@@ -46,11 +46,11 @@ MAIN
 	DEFINE dnd ui.DragDrop
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	WHENEVER ANY ERROR CALL g2_core.g2_error
-	LET m_user_key       = arg_val(2)
-	LET m_allowedActions = arg_val(3)
+	LET m_user_key       = base.Application.getArgument(2)
+	LET m_allowedActions = base.Application.getArgument(3)
 	LET m_allowedActions = (m_allowedActions CLIPPED), "YYYYY"
 	DISPLAY "AllowedActions:", m_allowedActions
 
@@ -172,7 +172,7 @@ MAIN
 			END IF
 
 {	 	ON ACTION list
-			LET RECKEY = g2_fldChoose( TABNAMEQ, base.typeInfo.create( m_rec ) )
+			LET RECKEY = g2_fldChoose( TABNAMEQ, base.TypeInfo.create( m_rec ) )
 			DISPLAY "key:",RECKEY
 			LET m_wher = KEYFLDQ||"='"||RECKEY||"'"
 			IF getRec() THEN CALL showRow(1) END IF}
@@ -317,7 +317,7 @@ FUNCTION update()
 	END IF
 
 	LET l_wher = KEYFLDQ || " = ?"
-	LET l_stmt = g2_db.g2_genUpdate(TABNAMEQ, l_wher, base.typeInfo.create(m_rec), base.typeInfo.create(m_rec_o), 0, TRUE)
+	LET l_stmt = g2_db.g2_genUpdate(TABNAMEQ, l_wher, base.TypeInfo.create(m_rec), base.TypeInfo.create(m_rec_o), 0, TRUE)
 --	DISPLAY "Update:",l_stmt CLIPPED
 	TRY
 		PREPARE pre_upd FROM l_stmt CLIPPED
@@ -349,7 +349,7 @@ FUNCTION insert()
 	END IF
 
 	IF g2_core.g2_winQuestion("Confirm", "Insert new user?", "No", "Yes|No", "question") = "Yes" THEN
-		LET l_stmt = g2_db.g2_genInsert(TABNAMEQ, base.typeInfo.create(m_rec), TRUE)
+		LET l_stmt = g2_db.g2_genInsert(TABNAMEQ, base.TypeInfo.create(m_rec), TRUE)
 		TRY
 			PREPARE pre_ins FROM l_stmt
 		CATCH
@@ -424,7 +424,7 @@ FUNCTION setSave_menu(tf)
 	DEFINE d  ui.Dialog
 	LET m_save = tf
 	LET d      = ui.Dialog.getCurrent()
-	CALL d.setactionActive("save", m_save)
+	CALL d.setActionActive("save", m_save)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION saveRoles_menu()

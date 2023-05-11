@@ -46,10 +46,10 @@ DEFINE m_allowedActions CHAR(6) --Y/N for Find / List / Update / Insert / Delete
 MAIN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
-	LET m_user_key       = ARG_VAL(2)
-	LET m_allowedActions = ARG_VAL(3)
+	LET m_user_key       = base.Application.getArgument(2)
+	LET m_allowedActions = base.Application.getArgument(3)
 	LET m_allowedActions = (m_allowedActions CLIPPED), "YYYYY"
 
 	OPEN FORM frm FROM "cust_mnt2"
@@ -114,7 +114,7 @@ MAIN
 			END IF
 
 {	 	ON ACTION list
-			LET RECKEY = app_lib.fldChoose( TABNAMEQ, base.typeInfo.create( m_rec ) )
+			LET RECKEY = app_lib.fldChoose( TABNAMEQ, base.TypeInfo.create( m_rec ) )
 			DISPLAY "key:",RECKEY
 			LET m_wher = KEYFLDQ||"='"||RECKEY||"'"
 			IF getRec() THEN CALL showRow(1) END IF}
@@ -330,7 +330,7 @@ FUNCTION update() RETURNS BOOLEAN
 	IF m_rec.* != m_rec_o.* THEN
 		LET l_wher = KEYFLDQ || " = ?"
 		LET l_stmt =
-				g2_db.g2_genUpdate(TABNAMEQ, l_wher, base.typeInfo.create(m_rec), base.typeInfo.create(m_rec_o), 0, TRUE)
+				g2_db.g2_genUpdate(TABNAMEQ, l_wher, base.TypeInfo.create(m_rec), base.TypeInfo.create(m_rec_o), 0, TRUE)
 		--	DISPLAY "Update:",l_stmt CLIPPED
 		TRY
 			PREPARE pre_upd FROM l_stmt CLIPPED
@@ -349,7 +349,7 @@ FUNCTION update() RETURNS BOOLEAN
 	IF m_rec2.* != m_rec2_o.* THEN
 		LET l_wher = KEYFLD2Q || " = ?"
 		LET l_stmt =
-				g2_db.g2_genUpdate(TABNAME2Q, l_wher, base.typeInfo.create(m_rec2), base.typeInfo.create(m_rec2_o), 0, TRUE)
+				g2_db.g2_genUpdate(TABNAME2Q, l_wher, base.TypeInfo.create(m_rec2), base.TypeInfo.create(m_rec2_o), 0, TRUE)
 		TRY
 			PREPARE pre_upd2 FROM l_stmt CLIPPED
 		CATCH
@@ -366,7 +366,7 @@ FUNCTION update() RETURNS BOOLEAN
 	IF m_rec3.* = m_rec3_o.* THEN
 		LET l_wher = KEYFLD2Q || " = ?"
 		LET l_stmt =
-				g2_db.g2_genUpdate(TABNAME2Q, l_wher, base.typeInfo.create(m_rec3), base.typeInfo.create(m_rec3_o), 0, TRUE)
+				g2_db.g2_genUpdate(TABNAME2Q, l_wher, base.TypeInfo.create(m_rec3), base.TypeInfo.create(m_rec3_o), 0, TRUE)
 		TRY
 			PREPARE pre_upd3 FROM l_stmt CLIPPED
 		CATCH
@@ -401,7 +401,7 @@ FUNCTION insert(l_ad_only BOOLEAN) RETURNS BOOLEAN
 	END IF
 
 	BEGIN WORK
-	LET l_stmt = g2_db.g2_genInsert(TABNAME2Q, base.typeInfo.create(m_rec2), TRUE)
+	LET l_stmt = g2_db.g2_genInsert(TABNAME2Q, base.TypeInfo.create(m_rec2), TRUE)
 	TRY
 		PREPARE pre_ins2 FROM l_stmt
 	CATCH
@@ -411,7 +411,7 @@ FUNCTION insert(l_ad_only BOOLEAN) RETURNS BOOLEAN
 		END IF
 	END TRY
 	IF m_rec3.rec_key IS NOT NULL THEN
-		LET l_stmt = g2_db.g2_genInsert(TABNAME2Q, base.typeInfo.create(m_rec3), TRUE)
+		LET l_stmt = g2_db.g2_genInsert(TABNAME2Q, base.TypeInfo.create(m_rec3), TRUE)
 		TRY
 			PREPARE pre_ins3 FROM l_stmt
 		CATCH
@@ -454,7 +454,7 @@ FUNCTION insert(l_ad_only BOOLEAN) RETURNS BOOLEAN
 		--UPDATE customer SET (del_addr, inv_addr )= (m_rec2.rec_key,m_rec3.rec_key)
 		--	WHERE customer.customer_code = m_rec.customer_code
 	ELSE
-		LET l_stmt = g2_db.g2_genInsert(TABNAMEQ, base.typeInfo.create(m_rec), TRUE)
+		LET l_stmt = g2_db.g2_genInsert(TABNAMEQ, base.TypeInfo.create(m_rec), TRUE)
 		TRY
 			PREPARE pre_ins FROM l_stmt
 		CATCH

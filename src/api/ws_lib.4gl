@@ -42,7 +42,7 @@ FUNCTION getHostName()
 	IF m_host.getLength() > 1 THEN
 		RETURN m_host
 	END IF
-	LET l_host = fgl_getEnv("HOSTNAME")
+	LET l_host = fgl_getenv("HOSTNAME")
 	IF l_host.getLength() < 2 THEN
 		LET c = base.Channel.create()
 		CALL c.openPipe("hostname -f", "r")

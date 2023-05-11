@@ -19,8 +19,8 @@ CONSTANT C_PRGICON = "logo_dark"
 
 CONSTANT IDLE_TIME = 300
 
-DEFINE xml_d om.domDocument
-DEFINE xml_r om.domNode
+DEFINE xml_d om.DomDocument
+DEFINE xml_r om.DomNode
 
 TYPE t_song RECORD
 	sortby     VARCHAR(140),
@@ -400,31 +400,25 @@ FUNCTION al_searchARR(what)
 	DISPLAY sel_tracks_a.getLength() TO nooftracks
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION t_searchDB(l_what)
-	DEFINE l_what STRING
-
+FUNCTION t_searchDB(l_what STRING)
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION ar_searchDB(l_what)
-	DEFINE l_what STRING
-
+FUNCTION ar_searchDB(l_what STRING)
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION al_searchDB(l_what)
-	DEFINE l_what STRING
-
+FUNCTION al_searchDB(l_what STRING)
 	CALL showBranch(0, 0, 0, FALSE)
 	CALL sel_tracks_a.clear()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION loadMusic()
 	DEFINE x, y, z, k, g                 INTEGER
-	DEFINE xml_g, xml_ar, xml_al, xml_tr om.domNode
-	DEFINE nl, nl2, nl3                  om.nodeList
+	DEFINE xml_g, xml_ar, xml_al, xml_tr om.DomNode
+	DEFINE nl, nl2, nl3                  om.NodeList
 
 	CALL genre_a.clear()
 	CALL artist_a.clear()
@@ -480,20 +474,18 @@ FUNCTION loadMusic()
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION set_xml_n(n) -- Called from SAX Handler.
-	DEFINE n om.domNode
-
+	DEFINE n om.DomNode
 	LET xml_r = n
-
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION loadSongs()
 	DEFINE x, gk, ark, alk                INTEGER
-	DEFINE trck, c                        om.domNode
+	DEFINE trck, c                        om.DomNode
 	DEFINE tim, hr, minu, sec, navg, pavg INTEGER
 	DEFINE song                           t_song
 --	DEFINE xml_d om.domDocument
-	DEFINE xml_g, xml_ar, xml_al, xml_tr om.domNode
-	DEFINE nl                            om.nodeList
+	DEFINE xml_g, xml_ar, xml_al, xml_tr om.DomNode
+	DEFINE nl                            om.NodeList
 
 	CALL song_a.clear()
 	CALL genre_a.clear()
@@ -809,7 +801,7 @@ FUNCTION dispRowDetails(g, art, alb)
 	DEFINE g, art, alb, x INTEGER
 	DEFINE album_name     STRING
 	DEFINE id             STRING
-	DEFINE d              ui.dialog
+	DEFINE d              ui.Dialog
 
 	IF alb > 0 THEN
 		LET album_name = album_a[alb].album
@@ -955,7 +947,7 @@ FUNCTION getArtworkURL(l_album_id STRING)
 		END RECORD
 	END RECORD
 	DEFINE l_img STRING
-	DEFINE c     base.channel
+	DEFINE c     base.Channel
 
 	LET l_url = 'http://coverartarchive.org/release/' || l_album_id.trim()
 	CALL g2_core.g2_message(SFMT("Getting Album artwork for '%1' from: %2", l_album_id.trim(), l_url))

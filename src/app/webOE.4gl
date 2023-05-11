@@ -25,7 +25,7 @@ MAIN
 	DEFINE l_cat  SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "weboe")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "weboe")
 
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	CALL g2_db.m_db.g2_connect(NULL)
@@ -33,10 +33,10 @@ MAIN
 	CALL ui.Interface.setText(C_PRGDESC)
 
 	LET m_csslayout = FALSE
-	IF fgl_getEnv("GBC_CUSTOM") = "csslayout" THEN
+	IF fgl_getenv("GBC_CUSTOM") = "csslayout" THEN
 		LET m_csslayout = TRUE
 	END IF
-	DISPLAY "GBC_CUSTOM:", fgl_getEnv("GBC_CUSTOM")
+	DISPLAY "GBC_CUSTOM:", fgl_getenv("GBC_CUSTOM")
 
 	OPEN FORM weboe FROM "webOE"
 	DISPLAY FORM weboe

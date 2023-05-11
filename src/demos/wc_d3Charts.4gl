@@ -19,8 +19,8 @@ MAIN
 	DEFINE l_debug BOOLEAN
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
-	DISPLAY "FGLIMAGEPATH:", fgl_getEnv("FGLIMAGEPATH")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
+	DISPLAY "FGLIMAGEPATH:", fgl_getenv("FGLIMAGEPATH")
 -- Is the WC debug feature enabled?
 	CALL ui.Interface.frontCall("standard", "getenv", ["QTWEBENGINE_REMOTE_DEBUGGING"], l_debug)
 	DISPLAY "DEBUG:", l_debug
@@ -107,7 +107,7 @@ FUNCTION genRndData()
 		LET m_data[x].labs = g2_calendar.month_fullName_int(x)
 		LET m_data[x].vals = 0
 		FOR y = 1 TO g2_calendar.days_in_month(x)
-			LET m_data[x].days[y] = 5 + util.math.rand(50)
+			LET m_data[x].days[y] = 5 + util.Math.rand(50)
 			LET m_data[x].vals    = m_data[x].vals + m_data[x].days[y]
 		END FOR
 	END FOR

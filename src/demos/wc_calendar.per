@@ -19,8 +19,8 @@ END -- LAYOUT
 ATTRIBUTES
 
 COMBOBOX cm=FORMONLY.curr_month, NOT NULL,
-   STYLE="bigfont", HIDDEN,
-   INITIALIZER=cmb_init_month;
+   STYLE="bigfont", HIDDEN;
+--   ,INITIALIZER=cmb_init_month;
 
 SPINEDIT cy=FORMONLY.curr_year, NOT NULL,
    STYLE="bigfont", HIDDEN;

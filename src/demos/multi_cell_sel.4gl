@@ -76,7 +76,7 @@ FUNCTION toggle(l_val)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION like(f)
-	DEFINE f ui.form
+	DEFINE f ui.Form
 	LET m_like = NOT m_like
 	IF m_like THEN
 		CALL f.setElementImage("like", "fa-thumbs-up")
@@ -157,7 +157,7 @@ END FUNCTION
 FUNCTION pop_array(l_file, l_arr)
 	DEFINE l_file STRING
 	DEFINE l_arr  DYNAMIC ARRAY OF STRING
-	DEFINE c      base.channel
+	DEFINE c      base.Channel
 	LET c = base.Channel.create()
 	CALL c.openFile(l_file, "r")
 	WHILE NOT c.isEof()

@@ -1,41 +1,37 @@
 IMPORT FGL g2_lib.*
+IMPORT FGL ipodTree
 
 DEFINE attr_name STRING
 
 CONSTANT PMAX = 10000
-DEFINE xml_d om.domDocument
+DEFINE xml_d om.DomDocument
 
-DEFINE song_r      om.domNode
-DEFINE song_n      om.domNode
+DEFINE song_r      om.DomNode
+DEFINE song_n      om.DomNode
 DEFINE typ         STRING
-DEFINE ignore_rest SMALLINT
+DEFINE m_ignore_rest SMALLINT
 DEFINE p_cnt       SMALLINT
 
 FUNCTION startDocument()
-
-	DISPLAY CURRENT, ": SaxHandler - StartDocument"
+	DISPLAY SFMT("%1: SaxHandler SD", CURRENT)
 
 	LET xml_d  = om.DomDocument.create("Library")
 	LET song_r = xml_d.createElement("SongList")
 
-	LET ignore_rest = FALSE
+	LET m_ignore_rest = FALSE
 	LET p_cnt       = 0
 	CALL g2_aui.g2_progBar(1, PMAX, "Load XML data,  please wait ...")
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION processingInstruction(name, data)
-	DEFINE name, data STRING
-
+FUNCTION processingInstruction(l_name STRING, l_data STRING)
+	DISPLAY SFMT("%1: SaxHandler PI: %2 %3", CURRENT,l_name, l_data)
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION startElement(name, attr)
-	DEFINE name STRING
-	DEFINE attr om.SaxAttributes
-
-	IF ignore_rest THEN
+FUNCTION startElement(l_name STRING, l_attr om.SaxAttributes)
+	IF m_ignore_rest THEN
 		RETURN
 	END IF
-
+	DISPLAY SFMT("%1: SaxHandler SE: %2 attribs: %3", CURRENT,l_name, l_attr.getLength())
 	LET p_cnt = p_cnt + 1
 	IF NOT (p_cnt MOD 100) THEN
 		CALL g2_aui.g2_progBar(2, p_cnt, "")
@@ -44,38 +40,35 @@ FUNCTION startElement(name, attr)
 		LET p_cnt = 0
 	END IF
 
-	IF name = "array" THEN
+	IF l_name = "array" THEN
 		LET typ         = "array"
 		LET song_n      = NULL
-		LET ignore_rest = TRUE
+		LET m_ignore_rest = TRUE
 	END IF
-	IF name = "dict" THEN
+	IF l_name = "dict" THEN
 		LET song_n = song_r.createChild("Song")
 	END IF
-	IF name = "key" THEN
+	IF l_name = "key" THEN
 		LET typ = "key"
 	END IF
-	IF name = "string" THEN
+	IF l_name = "string" THEN
 		LET typ = "string"
 	END IF
-	IF name = "integer" THEN
+	IF l_name = "integer" THEN
 		LET typ = "integer"
 	END IF
 
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION endElement(name)
-	DEFINE name STRING
-
---	DISPLAY "endElement"
-
+FUNCTION endElement(l_name STRING)
+	DISPLAY SFMT("%1: SaxHandler EL: %2", CURRENT,l_name)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION endDocument()
 
 --	CALL song_r.writeXML("songs.xml")
-	CALL set_xml_n(song_r)
-	DISPLAY CURRENT, ": SaxHandler - EndDocument"
+	CALL ipodTree.set_xml_n(song_r)
+	DISPLAY SFMT("%1: SaxHandler ED", CURRENT)
 	CALL g2_aui.g2_progBar(3, 0, "")
 
 END FUNCTION
@@ -86,7 +79,7 @@ FUNCTION characters(chars)
 	DEFINE x     SMALLINT
 	DEFINE c     om.DomNode
 
-	IF ignore_rest THEN
+	IF m_ignore_rest THEN
 		RETURN
 	END IF
 	IF song_n IS NULL THEN

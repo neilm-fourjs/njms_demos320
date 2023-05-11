@@ -10,7 +10,7 @@
 -- 5: Allowed actions: Y/N > Find / Update / Insert / Delete / Sample / List  -- eg: YNNNNN = enquiry only.
 
 IMPORT FGL g2_lib.*
-IMPORT FGL app_lib
+
 
 IMPORT FGL glm_mkForm
 IMPORT FGL glm_sql
@@ -29,7 +29,7 @@ CONSTANT C_FIELDS_PER_PAGE = 16
 DEFINE m_dbname         STRING
 DEFINE m_allowedActions CHAR(6)
 DEFINE m_userKey        INTEGER
-DEFINE m_user           STRING
+
 MAIN
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "default")

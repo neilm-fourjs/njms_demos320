@@ -1,6 +1,5 @@
 --https://www.amcharts.com/
 IMPORT util
-IMPORT os
 IMPORT FGL g2_lib.*
 
 CONSTANT C_PRGVER  = "3.1"
@@ -22,7 +21,7 @@ END RECORD
 MAIN
 	DEFINE l_data STRING
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	OPEN FORM f FROM "wc_amcharts"
 	DISPLAY FORM f
@@ -113,7 +112,7 @@ FUNCTION genRndData()
 		LET m_data[x].vals  = 0
 		LET m_data2[x].labs = m_data[x].labs
 		FOR y = 1 TO g2_calendar.days_in_month(x)
-			LET m_data[x].days[y] = util.math.rand(50)
+			LET m_data[x].days[y] = util.Math.rand(50)
 			LET m_data[x].vals    = m_data[x].vals + m_data[x].days[y]
 		END FOR
 		LET m_data2[x].vals = m_data[x].vals

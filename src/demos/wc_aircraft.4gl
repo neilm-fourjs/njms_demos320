@@ -25,7 +25,7 @@ MAIN
 	DEFINE l_wc, l_data STRING
 	DEFINE l_f          ui.Form
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	OPEN FORM f FROM "wc_aircraft"
 	DISPLAY FORM f
@@ -75,7 +75,7 @@ END MAIN
 #+ Set a Property in the AUI
 FUNCTION wc_setProp(l_propName STRING, l_value STRING)
 	DEFINE w ui.Window
-	DEFINE n om.domNode
+	DEFINE n om.DomNode
 	LET w = ui.Window.getCurrent()
 	LET n = w.findNode("Property", l_propName)
 	IF n IS NULL THEN
@@ -132,7 +132,7 @@ FUNCTION setItem(l_itemCode STRING, l_bc SMALLINT, l_arrsel BOOLEAN)
 		END IF
 	END IF
 
-	IF os.path.exists(c_wc_images || l_itemCode.trim() || ".svg") THEN
+	IF os.Path.exists(c_wc_images || l_itemCode.trim() || ".svg") THEN
 		LET m_bc = l_bc
 		CALL setSVG(l_itemCode)
 		LET l_breadcrumbs[m_bc] = l_itemCode

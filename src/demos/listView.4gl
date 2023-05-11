@@ -1,4 +1,4 @@
-IMPORT util
+
 IMPORT os
 
 IMPORT FGL g2_lib.*

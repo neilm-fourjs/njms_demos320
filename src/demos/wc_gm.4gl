@@ -16,7 +16,7 @@ MAIN
 	END RECORD
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	OPEN FORM f FROM "wc_gm"
 	DISPLAY FORM f
@@ -49,7 +49,7 @@ END MAIN
 -- Set a Property in the AUI
 FUNCTION wc_setProp(prop_name STRING, value STRING)
 	DEFINE w ui.Window
-	DEFINE n om.domNode
+	DEFINE n om.DomNode
 	LET w = ui.Window.getCurrent()
 	LET n = w.findNode("Property", prop_name)
 	IF n IS NULL THEN

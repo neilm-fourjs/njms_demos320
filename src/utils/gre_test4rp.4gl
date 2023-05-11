@@ -9,6 +9,7 @@
 
 IMPORT os
 IMPORT FGL greruntime
+IMPORT FGL fgldialog
 DEFINE m_fontdir, m_greserver, m_greserverPort, m_fglserver STRING
 DEFINE m_start                                              DATETIME HOUR TO SECOND
 DEFINE m_gresrv                                             BOOLEAN
@@ -112,7 +113,7 @@ MAIN
 			LET l_xmlFile = m_filePath || l_inFile || ".xml"
 			IF init_gre(l_xmlFile, l_4rp, l_device, l_preview, l_targetName, l_merge_cells, l_singleSheet) THEN
 			ELSE
-				CALL fgl_winMessage("Error", "Failed to load '" || l_4rp || "'", "exclamation")
+				CALL fgldialog.fgl_winMessage("Error", "Failed to load '" || l_4rp || "'", "exclamation")
 				CONTINUE WHILE
 			END IF
 			MESSAGE "Processing..."
@@ -123,18 +124,18 @@ MAIN
 			LET m_start = CURRENT
 			DISPLAY "Started:", m_start
 			IF NOT os.Path.exists(l_xmlFile) THEN
-				CALL fgl_winMessage("Error", SFMT("XML File not found '%1'\n%2-%3", l_xmlFile), "exclamation")
+				CALL fgldialog.fgl_winMessage("Error", SFMT("XML File not found '%1'\n%2-%3", l_xmlFile), "exclamation")
 			END IF
 
 			IF NOT fgl_report_runReportFromProcessLevelDataFile(l_myHandler, l_xmlFile) THEN
-				CALL fgl_winMessage(
+				CALL fgldialog.fgl_winMessage(
 						"Error", SFMT("Failed to process '%1'\n%2-%3", l_xmlFile, STATUS, err_get(STATUS)), "exclamation")
 			END IF
 			MESSAGE "Finished, duration:", CURRENT - m_start
 			DISPLAY "Finished, duration:", CURRENT - m_start
 		END WHILE
 
-		IF fgl_winQuestion("Question", "Confirm Exit?", "yes", "yes|no", "question", 0) = "Yes" THEN
+		IF fgldialog.fgl_winQuestion("Question", "Confirm Exit?", "yes", "yes|no", "question", 0) = "Yes" THEN
 		END IF
 	ELSE
 		LET l_xmlFile = m_filePath || l_inFile || ".xml"

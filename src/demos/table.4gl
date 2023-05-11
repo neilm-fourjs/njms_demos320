@@ -1,4 +1,4 @@
-IMPORT util -- only used to show JSON conversion.
+--IMPORT util -- only used to show JSON conversion.
 IMPORT FGL g2_lib.*
 IMPORT FGL fgldialog
 &include "../schema.inc"

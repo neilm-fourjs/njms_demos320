@@ -1,5 +1,3 @@
-IMPORT FGL ws_lib
-
 &include "../schema.inc"
 
 PUBLIC TYPE t_customers RECORD

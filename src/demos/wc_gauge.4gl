@@ -14,12 +14,12 @@ MAIN
 	DEFINE l_wc_pie             STRING
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 -- Is the WC debug feature enabled?
 	CALL ui.Interface.frontCall("standard", "getenv", ["QTWEBENGINE_REMOTE_DEBUGGING"], l_debug)
 	DISPLAY "DEBUG:", l_debug
-	CALL util.math.srand()
+	CALL util.Math.srand()
 
 	OPEN FORM f FROM "wc_gauge"
 	DISPLAY FORM f
@@ -72,7 +72,7 @@ FUNCTION getData()
 	LET x      = 1
 	WHILE li_tot < 100
 		LET lc_name = "NJMs Demos ", x USING "<<<<<&"
-		LET li_rand = util.math.rand(60)
+		LET li_rand = util.Math.rand(60)
 		IF (li_tot + li_rand) > 100 THEN
 			LET li_rand = 100 - li_tot
 		END IF
@@ -101,7 +101,7 @@ END FUNCTION
 FUNCTION setGraphTitle(l_prop, l_val)
 	DEFINE l_prop, l_val STRING
 	DEFINE w             ui.Window
-	DEFINE n             om.domNode
+	DEFINE n             om.DomNode
 	LET w = ui.Window.getCurrent()
 	LET n = w.findNode("Property", l_prop)
 	IF n IS NULL THEN

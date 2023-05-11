@@ -19,8 +19,6 @@ CONSTANT C_PRGDESC = "Widgets Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
 CONSTANT C_PRGICON = "logo_dark"
 
-CONSTANT C_PRGSPLASH = "widgetsdemo"
-
 CONSTANT arrmax = 55
 
 DEFINE aniyn      SMALLINT
@@ -87,10 +85,10 @@ DEFINE g_frm ui.Form
 
 DEFINE cnt  SMALLINT
 DEFINE scal SMALLINT
-DEFINE f_n  om.domNode
+DEFINE f_n  om.DomNode
 MAIN
 	DEFINE tmp  STRING
-	DEFINE stat SMALLINT
+	DEFINE l_stat SMALLINT
 	DEFINE f    ui.Form
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
@@ -225,7 +223,7 @@ MAIN
 				CALL webkit()
 
 			COMMAND "manual"
-				CALL winshellexec("d:\\temp\\genero220.pdf") RETURNING stat
+				CALL ui.Interface.frontCall("standard","launchURL","https://4js.com/download/documentation",l_stat)
 
 			COMMAND "displaya2"
 				CALL lookup1("D")
@@ -546,7 +544,7 @@ FUNCTION do1()
 
 		AFTER FIELD norm
 			DISPLAY "LastKey:", fgl_lastkey()
-			IF DOWNSHIFT(norm) = "error" THEN
+			IF downshift(norm) = "error" THEN
 				ERROR "You entered error!"
 			END IF
 
@@ -876,7 +874,7 @@ END FUNCTION
 -- Initialize the combobox, dynamically coded when form opened
 FUNCTION init_combo(l_cb ui.ComboBox)
 
-	GL_DBGMSG(2, "init_combo: start")
+	GL_DBGMSG(2, SFMT("init_combo: start %1.%2", l_cb.getTableName(), l_cb.getColumnName()))
 	CALL set_combo("?")
 	GL_DBGMSG(2, "init_combo: done")
 
@@ -1069,7 +1067,7 @@ END FUNCTION
 FUNCTION textedit()
 	DEFINE txt2          CHAR(2000)
 	DEFINE f             ui.Form
-	DEFINE w, v, g, n, h om.domNode
+	DEFINE w, v, g, n, h om.DomNode
 	DEFINE edt           SMALLINT
 
 	OPEN WINDOW te AT 1, 1 WITH 1 ROWS, 1 COLUMNS ATTRIBUTE(STYLE = "naked")
@@ -1529,7 +1527,7 @@ FUNCTION chart_demo(key, typ)
 	DEFINE l1, l2, l3, l4, l5, l6 CHAR(20)
 
 	CALL drawInit()
-	CALL drawselect("canv")
+	CALL drawSelect("canv")
 
 	LET f1 = 87
 	LET f2 = 27
@@ -1754,7 +1752,7 @@ FUNCTION setFieldValue(fld, val)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION load_new_imgarr()
-	DEFINE c base.channel
+	DEFINE c base.Channel
 	DEFINE l_rec RECORD
 		fld1 STRING,
 		fld2 STRING
@@ -1900,7 +1898,7 @@ FUNCTION set_completer(l_d ui.Dialog, l_in_str STRING)
 	DEFINE i       INT
 	IF l_in_str.getLength() > 0 THEN
 		FOR i = 1 TO m_all_names.getLength()
-			IF UPSHIFT(m_all_names[i]) MATCHES UPSHIFT(l_in_str.append("*")) THEN -- case insensitive filter
+			IF upshift(m_all_names[i]) MATCHES upshift(l_in_str.append("*")) THEN -- case insensitive filter
 				LET l_items[l_items.getLength() + 1] = m_all_names[i]
 				IF l_items.getLength() == 50 THEN
 					EXIT FOR

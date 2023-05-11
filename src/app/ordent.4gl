@@ -311,9 +311,9 @@ FUNCTION initVariables()
 	INITIALIZE g_ordHead.* TO NULL
 	LET g_ordHead.order_number = 0
 	LET g_ordHead.order_date   = TODAY
-	LET g_ordHead.username     = fgl_getEnv("LOGNAME")
+	LET g_ordHead.username     = fgl_getenv("LOGNAME")
 	IF g_ordHead.username IS NULL THEN
-		LET g_ordHead.username = fgl_getEnv("USERNAME")
+		LET g_ordHead.username = fgl_getenv("USERNAME")
 	END IF
 	CALL g_detailArray.clear()
 	CALL m_detailArray_tree.clear()
@@ -496,14 +496,14 @@ FUNCTION printInv(l_what)
 	DEFINE l_what  STRING
 	DEFINE l_rptTo STRING
 
-	IF fgl_getEnv("BENCHMARK") = "true" THEN
+	IF fgl_getenv("BENCHMARK") = "true" THEN
 		DISPLAY "Printing Invoice:", g_ordHead.order_number
 		RUN SFMT("fglrun printInvoices.42r %1 %2 %3 %4 PDF save 0 %5.pdf", 
 				base.Application.getArgument(1), 
 				m_user.user_key, 
 				g_ordHead.order_number,
 				l_what, 
-				fgl_getPID())
+				fgl_getpid())
 		RETURN
 	END IF
 

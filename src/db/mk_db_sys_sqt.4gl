@@ -1,5 +1,5 @@
 #+ Create the system database tables: SQLite
-
+IMPORT FGL mk_db_lib
 --------------------------------------------------------------------------------
 FUNCTION sqt_create_system_tables()
 	CALL mkdb_progress("Creating system tables (sqt) ...")

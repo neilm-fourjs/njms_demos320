@@ -28,22 +28,14 @@ DEFINE m_pics_info DYNAMIC ARRAY OF RECORD
 	rwx    STRING
 END RECORD
 MAIN
-	DEFINE l_rec RECORD
-		fileName STRING,
-		richtext STRING,
-		fld2     STRING,
-		info     STRING
-	END RECORD
-	DEFINE l_tmp STRING
-	DEFINE l_ret SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	DISPLAY "FGLSERVER:", fgl_getenv("FGLSERVER")
 	DISPLAY "FGLIMAGEPATH:", fgl_getenv("FGLIMAGEPATH")
-	DISPLAY "PWD:", os.path.pwd()
-	LET m_base = checkBase(ARG_VAL(3))
+	DISPLAY "PWD:", os.Path.pwd()
+	LET m_base = checkBase(base.Application.getArgument(3))
 	DISPLAY "Base:", m_base
 
 	CALL getImages("(svg|jpg|png|gif)")
@@ -190,14 +182,14 @@ FUNCTION getImages(p_ext STRING)
 				EXIT WHILE
 			END IF
 
-			IF os.path.isDirectory(l_path) THEN
+			IF os.Path.isDirectory(l_path) THEN
 				--DISPLAY "Dir:",path
 				CONTINUE WHILE
 			ELSE
 				--DISPLAY "Fil:",path
 			END IF
 
-			LET l_ext = os.path.extension(l_path)
+			LET l_ext = os.Path.extension(l_path)
 			IF l_ext IS NULL OR NOT (l_ext.matches(p_ext)) THEN
 				CONTINUE WHILE
 			END IF

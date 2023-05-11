@@ -18,7 +18,7 @@ MAIN
 	DEFINE l_ret SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	LET l_rec.fileName = "text.html"
 

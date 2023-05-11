@@ -195,7 +195,7 @@ FUNCTION mk_demo_account()
 		LET l_user.forenames  = l_juser[x].forenames
 		LET l_user.surname    = l_juser[x].surname
 		LET l_passwd          = g2_secure.g2_genPassword()
-		LET l_user.email      = DOWNSHIFT(l_user.forenames[1] || "." || l_user.surname CLIPPED || "@njmdemos.com")
+		LET l_user.email      = downshift(l_user.forenames[1] || "." || l_user.surname CLIPPED || "@njmdemos.com")
 		DISPLAY "User:", l_user.salutation, " ", l_user.forenames, " ", l_user.surname, " ", l_passwd, " ", l_user.email
 		LET l_user.salt      = g2_secure.g2_genSalt(l_user.hash_type)
 		LET l_user.pass_hash = g2_secure.g2_genPasswordHash(l_passwd, l_user.salt, l_user.hash_type)

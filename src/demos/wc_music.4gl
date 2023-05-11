@@ -1,15 +1,7 @@
 IMPORT util
 IMPORT os
 
-&ifdef gen320
-IMPORT FGL g2_init
-IMPORT FGL g2_core
-IMPORT FGL g2_appInfo
-IMPORT FGL g2_about
-IMPORT FGL g2_aui
-&else
 IMPORT FGL g2_lib.*
-&endif
 
 CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "WC Music Demo"
@@ -39,7 +31,7 @@ DEFINE m_songno SMALLINT
 MAIN
 	DEFINE l_data STRING
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 
 	LET m_base = fgl_getenv("MUSICDIR")
 
@@ -91,7 +83,7 @@ END FUNCTION
 #+ Set a Property in the AUI
 FUNCTION wc_setProp(l_prop_name STRING, l_value STRING)
 	DEFINE w ui.Window
-	DEFINE n om.domNode
+	DEFINE n om.DomNode
 	LET w = ui.Window.getCurrent()
 	LET n = w.findNode("Property", l_prop_name)
 	IF n IS NULL THEN
@@ -195,7 +187,7 @@ FUNCTION get_music(l_useCache BOOLEAN)
 	DEFINE l_path, l_cache STRING
 	DEFINE d               INTEGER
 
-	IF NOT os.path.exists(m_base) THEN
+	IF NOT os.Path.exists(m_base) THEN
 		ERROR SFMT("MUSICDIR '%1' Not Found!", m_base)
 		CALL g2_core.g2_winMessage("Error", SFMT("MUSICDIR '%1' Not Found!", m_base), "exclamation")
 		RETURN
@@ -203,7 +195,7 @@ FUNCTION get_music(l_useCache BOOLEAN)
 
 	LET l_cache = os.Path.join(m_base, "musiccache.json")
 	DISPLAY "Getting Music from ", m_base, " Cache:", l_cache
-	IF os.path.exists(l_cache) AND l_useCache THEN
+	IF os.Path.exists(l_cache) AND l_useCache THEN
 		IF g2_core.m_mdi != "C" THEN
 			CALL g2_aui.g2_winInfo(2, SFMT("Reading cache file %1", m_base), "")
 		END IF
@@ -231,11 +223,11 @@ FUNCTION get_music(l_useCache BOOLEAN)
 				CONTINUE WHILE
 			END IF
 			CALL g2_aui.g2_winInfo(2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
-			IF os.path.isDirectory(os.path.join(m_base, l_path)) THEN
+			IF os.Path.isDirectory(os.Path.join(m_base, l_path)) THEN
 				IF l_path.getCharAt(1) != "_" THEN
 					LET m_songs[m_songno].genre = l_path
 --				DISPLAY "Processing Dir:",l_path, " songno=",(m_songno USING "&&&&")," Artist:", m_songs[ m_songno ].artist
-					CALL get_albums(os.path.join(m_base, l_path))
+					CALL get_albums(os.Path.join(m_base, l_path))
 				END IF
 			ELSE
 --				DISPLAY "Skipping File:",l_path
@@ -276,11 +268,11 @@ FUNCTION get_albums(l_path STRING)
 			END IF
 			DISPLAY "    Getting Albums from ", l_path
 			CALL g2_aui.g2_winInfo(2, "Getting Music Info, please wait ...\nDirectory: " || l_path, "")
-			IF os.path.isDirectory(os.path.join(l_dir, l_path)) THEN
+			IF os.Path.isDirectory(os.Path.join(l_dir, l_path)) THEN
 				IF l_path.getCharAt(1) != "_" THEN
 					LET m_songs[m_songno].artist = l_path
 --				DISPLAY "Processing Dir:",l_path, " songno=",(m_songno USING "&&&&")," Artist:", m_songs[ m_songno ].artist
-					CALL get_songs(os.path.join(l_dir, l_path))
+					CALL get_songs(os.Path.join(l_dir, l_path))
 				END IF
 			ELSE
 --				DISPLAY "Skipping File:",l_path
@@ -313,12 +305,12 @@ FUNCTION get_songs(l_path STRING)
 				CONTINUE WHILE
 			END IF
 
-			IF os.path.isDirectory(os.path.join(l_dir, l_path)) THEN
+			IF os.Path.isDirectory(os.Path.join(l_dir, l_path)) THEN
 				LET m_songs[m_songno].album = l_path
-				CALL get_songs(os.path.join(l_dir, l_path))
+				CALL get_songs(os.Path.join(l_dir, l_path))
 			END IF
 
-			LET l_ext = os.path.extension(l_path)
+			LET l_ext = os.Path.extension(l_path)
 			IF l_ext IS NULL OR (l_ext != "mp3" AND l_ext != "ogg") THEN
 --				DISPLAY "Skipping File:",l_path
 				CONTINUE WHILE
@@ -337,8 +329,8 @@ FUNCTION get_songs(l_path STRING)
 					LET m_songs[m_songno].album = "Unknown"
 				END IF
 			END IF
-			LET m_songs[m_songno].file = os.path.join(l_dir, l_path)
-			LET m_songs[m_songno].name = os.path.rootName(l_path)
+			LET m_songs[m_songno].file = os.Path.join(l_dir, l_path)
+			LET m_songs[m_songno].name = os.Path.rootName(l_path)
 			DISPLAY SFMT("        Song: %1", l_path)
 {			DISPLAY SFMT("Adding No: %1 Genre: %2 Artist: %3 Album: %4 File: %5 Name: %6",
 					(m_songno USING "###&"), 

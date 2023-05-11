@@ -1,5 +1,5 @@
 #+ Create the system database tables: Informix
-
+IMPORT FGL mk_db_lib
 --------------------------------------------------------------------------------
 FUNCTION ifx_create_system_tables()
 	CALL mkdb_progress("Creating system tables (ifx) ...")

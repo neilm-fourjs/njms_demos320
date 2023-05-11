@@ -29,13 +29,13 @@ DEFINE info STRING
 MAIN
 	DEFINE wc_data, panel, colour STRING
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "wc_kite")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "wc_kite")
 
 -- Try and find the kite folder
-	IF os.path.isDirectory("../pics/webcomponents/kite") THEN
+	IF os.Path.isDirectory("../pics/webcomponents/kite") THEN
 		LET m_kitePath = "../pics/webcomponents/kite"
 	END IF
-	IF os.path.isDirectory("../wc_kite/webcomponents/kite") THEN
+	IF os.Path.isDirectory("../wc_kite/webcomponents/kite") THEN
 		LET m_kitePath = "../wc_kite/webcomponents/kite"
 	END IF
 	DISPLAY "Kite Path:", m_kitePath
@@ -46,7 +46,7 @@ MAIN
 -- Default kite to show on load.
 	LET m_rec.kitename         = "Talon_std"
 	LET m_rec.colourSchemaName = "New"
-	LET m_rec.kiteFileName     = os.path.join(m_kitePath, "kite_" || m_rec.kitename || ".svg")
+	LET m_rec.kiteFileName     = os.Path.join(m_kitePath, SFMT("kite_%1.svg", m_rec.kitename))
 	CALL setSVG(m_rec.kitename)
 	LET wc_data = serializePanels()
 
@@ -57,11 +57,11 @@ MAIN
 			ON CHANGE kitename
 				CALL m_rec.panels.clear()
 				LET m_rec.colourSchemaName = "New"
-				LET m_rec.kiteFileName     = os.path.join(m_kitePath, "kite_" || m_rec.kitename || ".svg")
+				LET m_rec.kiteFileName     = os.Path.join(m_kitePath, SFMT("kite_%1.svg", m_rec.kitename))
 				CALL setSVG(m_rec.kitename)
 				LET wc_data = serializePanels()
 			ON ACTION kiteupdated
-				DISPLAY "DATA=", wc_data
+				--DISPLAY "DATA=", wc_data
 				CALL updatePanels(wc_data)
 				LET wc_data = serializePanels()
 		END INPUT
@@ -70,7 +70,7 @@ MAIN
 		ON ACTION newKite
 			CALL m_rec.panels.clear()
 			LET m_rec.colourSchemaName = "New"
-			LET m_rec.kiteFileName     = os.path.join(m_kitePath, "kite_" || m_rec.kitename || ".svg")
+			LET m_rec.kiteFileName     = os.Path.join(m_kitePath, SFMT("kite_%1.svg", m_rec.kitename))
 			CALL setSVG(m_rec.kitename)
 			LET wc_data = serializePanels()
 			NEXT FIELD kitename
@@ -131,7 +131,7 @@ END FUNCTION
 #+ Set a Property in the AUI
 FUNCTION wc_setProp(l_prop_name STRING, l_value STRING)
 	DEFINE w ui.Window
-	DEFINE n om.domNode
+	DEFINE n om.DomNode
 	LET w = ui.Window.getCurrent()
 	LET n = w.findNode("Property", l_prop_name)
 	IF n IS NULL THEN
@@ -189,7 +189,7 @@ FUNCTION openKite()
 	DEFINE dn                xml.DomNode
 	DEFINE tmpFile, fileName STRING
 
-	LET tmpfile = fgl_getpid() || ".tmp"
+	LET tmpFile = SFMT("%1.tmp", fgl_getpid())
 
 	IF ui.Interface.getFrontEndName() != "GDC" THEN
 		OPEN WINDOW upload_kite WITH FORM "fileupload" ATTRIBUTES(STYLE = "dialog")
@@ -212,7 +212,7 @@ FUNCTION openKite()
 	END IF
 
 	TRY
-		CALL fgl_getfile(fileName, tmpfile)
+		CALL fgl_getfile(fileName, tmpFile)
 	CATCH
 		ERROR "Failed to upload '" || fileName || "'"
 		RETURN
@@ -245,16 +245,16 @@ FUNCTION cb_kites(cb)
 	DEFINE dir    SMALLINT
 
 	CALL m_kites.clear()
-	CALL os.Path.dirsort("name", 1)
+	CALL os.Path.dirSort("name", 1)
 
-	LET dir = os.Path.diropen(m_kitePath)
+	LET dir = os.Path.dirOpen(m_kitePath)
 	WHILE dir > 0
-		LET l_file = os.Path.dirnext(dir)
+		LET l_file = os.Path.dirNext(dir)
 		IF l_file IS NULL THEN
 			EXIT WHILE
 		END IF
-		IF os.path.extension(l_file) = "svg" AND l_file.subString(1, 5) = "kite_" THEN
-			LET l_file                           = os.path.rootname(l_file.subString(6, l_file.getLength()))
+		IF os.Path.extension(l_file) = "svg" AND l_file.subString(1, 5) = "kite_" THEN
+			LET l_file                           = os.Path.rootName(l_file.subString(6, l_file.getLength()))
 			LET m_kites[m_kites.getLength() + 1] = l_file
 			CALL cb.addItem(l_file, l_file)
 		END IF

@@ -30,7 +30,7 @@ MAIN
 	DEFINE l_rules STRING
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
-	CALL g2_init.g2_init(ARG_VAL(1), "default")
+	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 
 	LET m_this_user_key = arg_val(2)
@@ -142,7 +142,7 @@ MAIN
 				CALL setSave_user(TRUE)
 				DISPLAY "Touched!"
 			BEFORE INPUT
-				CALL DIALOG.setactionActive("save", FALSE)
+				CALL DIALOG.setActionActive("save", FALSE)
 				IF m_user_rec.user_key IS NULL THEN
 					LET m_user_rec.active     = TRUE
 					LET m_user_rec.login_pass = "rubbish" -- an invalid password
@@ -198,7 +198,7 @@ MAIN
 		BEFORE DIALOG
 			CALL DIALOG.setSelectionMode("r_arr", TRUE)
 			CALL DIALOG.setSelectionMode("ur_arr", TRUE)
-			CALL DIALOG.setactionActive("save", m_save)
+			CALL DIALOG.setActionActive("save", m_save)
 		ON ACTION save
 			CALL checkSave()
 		ON ACTION quit
@@ -224,7 +224,7 @@ FUNCTION removeRoles_user(d)
 			LET m_save      = TRUE
 		END IF
 	END FOR
-	CALL d.setactionActive("save", m_save)
+	CALL d.setActionActive("save", m_save)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION addRoles_user(d)
@@ -245,7 +245,7 @@ FUNCTION addRoles_user(d)
 			LET m_saveRoles           = TRUE
 		END IF
 	END FOR
-	CALL d.setactionActive("save", m_save)
+	CALL d.setActionActive("save", m_save)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION setSave_user(tf)
@@ -254,7 +254,7 @@ FUNCTION setSave_user(tf)
 	DISPLAY "setSave:", tf
 	LET m_save = tf
 	LET d      = ui.Dialog.getCurrent()
-	CALL d.setactionActive("save", m_save)
+	CALL d.setActionActive("save", m_save)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION checkSave()

@@ -2,7 +2,7 @@
 IMPORT com
 IMPORT FGL g2_lib.*
 IMPORT FGL ws_lib
-IMPORT FGL njm_cust_ws
+IMPORT FGL njm_cust_ws -- imported to ensure it's compiled.
 
 &include "../../g2_lib/g2_lib/g2_debug.inc"
 

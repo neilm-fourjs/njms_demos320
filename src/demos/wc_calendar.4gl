@@ -1,4 +1,3 @@
-IMPORT util
 
 IMPORT FGL g2_lib.*
 IMPORT FGL wc_fglsvgcalendar
@@ -160,6 +159,5 @@ FUNCTION isHoliday(l_dte DATE) RETURNS(BOOLEAN, STRING)
 	END IF
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION cmb_init_month(l_cb ui.ComboBox)
-
-END FUNCTION
+--FUNCTION cmb_init_month(l_cb ui.ComboBox)
+--END FUNCTION

@@ -146,7 +146,7 @@ MAIN
 			CALL constrct()
 
 		ON ACTION wintitle
-			CALL fgl_setTitle("My Window Title")
+			CALL fgl_settitle("My Window Title")
 		ON ACTION uitext
 			CALL ui.Interface.setText("My UI Text")
 
