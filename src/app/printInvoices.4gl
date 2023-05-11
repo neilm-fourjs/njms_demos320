@@ -13,10 +13,8 @@
 IMPORT os
 
 IMPORT FGL g2_lib.*
-
 IMPORT FGL app_lib
 
-&include "app.inc"
 &include "ordent.inc"
 
 CONSTANT C_PRGVER  = "3.2"
@@ -261,7 +259,8 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
 
 		BEFORE GROUP OF r_ordHead.order_number
 			LET order_date = r_ordHead.order_datetime
-			--DISPLAY "DEBUG GROUP:", r_ordHead.customer_name
+			--LET r_ordHead.order_datetime = NULL -- testing nulls in date box
+			DISPLAY SFMT("DEBUG GROUP: %1 : %2", r_ordHead.customer_name, r_ordHead.order_datetime)
 			LET line_num = 0
 			LET tax_0    = 0
 			LET tax_1    = 0

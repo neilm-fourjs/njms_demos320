@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40003" version="7.00">
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40101" version="7.00">
     <report:Settings RWPageWidth="a4width" RWPageLength="a4length" RWLeftMargin="0.5cm" RWTopMargin="1.0cm" RWRightMargin="0.5cm" RWBottomMargin="1.0cm">
         <report:FormatList>
             <report:Format-SVG/>
@@ -25,8 +25,8 @@
                                     <rtl:input-variable name="r_ordHead.order_ref" type="FGLString" expectedLocation="expectedHere"/>
                                     <WORDWRAPBOX name="r_ordHead.order_ref Value" x="20" y="70" width="110" length="20" anchorX="0" anchorY="0" alignment="center" fontSize="10" floatingBehavior="enclosed" text="{{r_ordHead.order_ref}}" textAlignment="center" borderWidth=".5" borderStyle="solid"/>
                                     <WORDBOX name="lab_ord_no" x="20" y="0" width="70" length="20" anchorX="0" anchorY="0" alignment="center" floatingBehavior="enclosed" textAlignment="left" text=" Your Ref" borderWidth=".5" borderStyle="solid"/>
-                                    <rtl:input-variable name="order_date" type="FGLString" expectedLocation="expectedHere"/>
-                                    <WORDBOX name="r_ordHead.order_datetime Value" x="40" y="70" width="110" length="20" anchorX="0" anchorY="0" alignment="center" floatingBehavior="enclosed" textAlignment="center" text="{{order_date}}" borderWidth=".5" borderStyle="solid"/>
+                                    <rtl:input-variable name="r_ordHead.order_datetime" type="FGLString" expectedLocation="expectedHere"/>
+                                    <DATEFORMATBOX name="r_ordHead.order_datetime Value" x="40" y="70" width="110" length="20" anchorX="0" anchorY="0" alignment="center" floatingBehavior="enclosed" textAlignment="center" format="dd MMM yyyy" value="{{r_ordHead.order_datetime}}" borderWidth=".5" borderStyle="solid"/>
                                     <WORDBOX name="lab_tax_point" x="40" y="0" width="70" length="20" anchorX="0" anchorY="0" alignment="far" floatingBehavior="enclosed" textAlignment="left" text=" Order Date" borderWidth=".5" borderStyle="solid"/>
                                 </LAYOUTNODE>
                             </MINIPAGE>

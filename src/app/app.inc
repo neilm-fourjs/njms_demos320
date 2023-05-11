@@ -1,6 +1,6 @@
 CONSTANT C_VER = "4.00"
 CONSTANT C_APP_NAME = "NJM_Demos"
-CONSTANT C_APP_DESC = "NJM's Demos for Genero 4.00"
+CONSTANT C_APP_DESC = "NJM's Demos for Genero 4.01"
 CONSTANT C_APP_SPLASH = "njm_demo_logo_256"
 CONSTANT C_APP_ICON = "njm_demo_icon"
 
