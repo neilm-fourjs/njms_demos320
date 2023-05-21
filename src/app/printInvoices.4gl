@@ -258,6 +258,7 @@ REPORT rpt(rpt_user, r_ordHead, r_detailLine)
 			--DISPLAY "First Page Header"
 
 		BEFORE GROUP OF r_ordHead.order_number
+			--LET order_date = NULL
 			LET order_date = r_ordHead.order_datetime
 			--LET r_ordHead.order_datetime = NULL -- testing nulls in date box
 			DISPLAY SFMT("DEBUG GROUP: %1 : %2", r_ordHead.customer_name, r_ordHead.order_datetime)
