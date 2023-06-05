@@ -71,6 +71,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 	END IF
 	LET l_login = fgl_getenv("OPENID_email")
 	CALL g2_init.g2_log.logIt("before input for login")
+	DISPLAY %"F12 or Ctrl-G - login as test" TO info
 	INPUT BY NAME l_login, l_pass, l_theme ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
 		BEFORE INPUT
 			LET f = DIALOG.getForm()

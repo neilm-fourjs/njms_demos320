@@ -1,6 +1,6 @@
 &include "schema.inc"
 
-TOOLBAR  (STYLE="alt")
+TOOLBAR  --(STYLE="alt")
 	ITEM accept
 	ITEM cancel
 END -- TB
@@ -42,6 +42,9 @@ PHANTOM stock.allocated_stock;
 f004 = stock.free_stock, TITLE="Stock";
 PHANTOM stock.long_desc;
 PHANTOM stock.img_url;
+PHANTOM stock.dbsync_muser;
+PHANTOM stock.dbsync_mtime;
+PHANTOM stock.dbsync_mstat;
 
 AGGREGATE t003 = FORMONLY.tot_price, AGGREGATETEXT = "Totals:", AGGREGATETYPE = SUM;
 AGGREGATE t004 = FORMONLY.tot_stock, AGGREGATETYPE = SUM;

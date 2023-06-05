@@ -1,10 +1,17 @@
---IMPORT util -- only used to show JSON conversion.
+IMPORT util -- only used to show JSON conversion.
+IMPORT os
 IMPORT FGL g2_lib.*
 IMPORT FGL fgldialog
 &include "../schema.inc"
 MAIN
 	DEFINE l_rec DYNAMIC ARRAY OF RECORD LIKE stock.*
 	DEFINE i     INTEGER = 0
+	DEFINE l_imgPath1, l_imgPath2 STRING
+	DEFINE l_st base.StringTokenizer
+	LET l_st = base.StringTokenizer.create(fgl_getenv("FGLIMAGEPATH"),":")
+	LET l_imgPath1 = l_st.nextToken()
+	LET l_imgPath2 = l_st.nextToken()
+	DISPLAY SFMT("ImgPath 1: %1 2: %2", l_imgPath1, l_imgPath2)
 	CALL ui.Interface.loadStyles("default_GBC")
 -- Open and display form to the default 'screen' window.
 	OPEN FORM f FROM "table"
@@ -14,14 +21,18 @@ MAIN
 -- Get the data
 	DECLARE stk_cur CURSOR FOR SELECT * FROM stock
 	FOREACH stk_cur INTO l_rec[i := i + 1].*
+		IF NOT os.Path.exists( os.Path.join(l_imgPath1, SFMT("%1.jpg", l_rec[i].img_url))) 
+		AND NOT os.Path.exists( os.Path.join(l_imgPath2, SFMT("%1.jpg", l_rec[i].img_url)))  THEN
+			LET l_rec[i].img_url = "fa-close" 
+		END IF 
 	END FOREACH
 	CALL l_rec.deleteElement(l_rec.getLength()) -- delete last empty row
 -- Display data
 	DISPLAY ARRAY l_rec TO scrarr.*
-{		BEFORE ROW -- show the row as XML and JSON on stdout
+		BEFORE ROW -- show the row as XML and JSON on stdout
 			DISPLAY base.TypeInfo.create(l_rec[ arr_curr() ]).toString() -- turn row into XML
 			DISPLAY util.JSON.stringify(l_rec[ arr_curr() ]) -- turn row into JSON string.
-	END DISPLAY}
+	END DISPLAY
 	IF int_flag THEN -- did they cancel or accept the display array ?
 		CALL fgldialog.fgl_winMessage("Aborted", "Selection Cancelled", "exclamation")
 	ELSE

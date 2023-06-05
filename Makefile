@@ -34,10 +34,8 @@ all: $(TARGETS)
 $(BIN)/g2_lib.42x:
 	cd g2_lib && gsmake g2_lib$(GENVER).4pw
 
-$(BIN)/menu.42r: 
-	gsmake $(APP)$(GENVER).4pw
-
 gars: $(BIN)/menu.42r
+	gsmake $(APP)$(GENVER).4pw
 
 gbc_clean/gbc-current:
 	cd gbc_clean && ln -s $(GBCPROJDIR)

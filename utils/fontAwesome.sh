@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GENVER=${GENVER:-400}
+GENVER=${GENVER:-401}
 DIR=../njm_app_bin$GENVER
 
 if [ ! -e $DIR ]; then

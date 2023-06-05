@@ -42,7 +42,7 @@
 	<ActionDefault name="findlist" text="Find List" image="fa-search-plus" contextMenu="no"/>
 	<ActionDefault name="rpt" text="Report" image="fa-print" acceleratorName="Control-P" contextMenu="no"/>
 	
-	<ActionDefault name="testlogin" text="Test Login" image="fa-key" contextMenu="yes" acceleratorName="f12" />
+	<ActionDefault name="testlogin" text="Test Login" image="fa-key" contextMenu="yes" acceleratorName="f12" acceleratorName2="control-g"/>
 	<ActionDefault name="forgotten" text="Forgotten" image="fa-question" comment="Forgotten?" defaultView="no" contextMenu="no" />
 	<ActionDefault name="dumpenv" text="Dump Env" image="fa-cloud-download" comment="Dump Env to env.txt" defaultView="no" contextMenu="yes" />
 

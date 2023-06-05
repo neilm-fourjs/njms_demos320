@@ -5,7 +5,9 @@ ACTION DEFAULTS
 	ACTION filter (TEXT=%"Filter", IMAGE="filter")
 	ACTION copy (TEXT=%"Copy Current Icon Name", IMAGE="copy")
 	ACTION clearfilter (TEXT=%"Clear Filter", IMAGE="filter")
+	ACTION applyfilter (TEXT=%"Apply Filter", IMAGE="filter")
 END -- AD
+
 LAYOUT  (TEXT="Font Viewer", STYLE="main2") --, IMAGE="fab-font-awesome-flag" )
 VBOX -- 1
 HBOX ( SPLITTER
@@ -94,7 +96,7 @@ GROUP clab : clab, TEXT=%"Current Icon:";
 LABEL nlab : nlab, TEXT=%"Icon:";
 LABEL img_name = FORMONLY.img_name, SIZEPOLICY=FIXED, STYLE="em14";
 LABEL flab : flab, TEXT=%"Font File:";
-LABEL font_name = FORMONLY.font_name, SIZEPOLICY=FIXED, STYLE="em14";
+LABEL font_name = FORMONLY.font_name, SIZEPOLICY=FIXED, STYLE="em12";
 
 IMAGE ii = FORMONLY.img2, STYLE="noborder", SIZEPOLICY=DYNAMIC;
 IMAGE img = FORMONLY.img, STRETCH=BOTH, AUTOSCALE, {HEIGHT=150 PIXELS, WIDTH=150 PIXELS,} STYLE="noborder";
