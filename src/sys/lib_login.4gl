@@ -41,13 +41,22 @@ END RECORD
 #+ @param l_allow_new - Boolean - Enable the 'Create New Account' option.
 #+ @return login email address or NULL or 'NEW' for a new account.
 PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
-	DEFINE l_login, l_pass, l_theme, l_cur_theme, l_old_theme STRING
-	DEFINE l_allow_new                                        BOOLEAN
-	DEFINE f                                                  ui.Form
+	DEFINE l_login, l_pass                   STRING
+	DEFINE l_theme, l_cur_theme, l_old_theme STRING
+	DEFINE l_ret                             SMALLINT
+	DEFINE l_allow_new                       BOOLEAN
+	DEFINE f                                 ui.Form
+	DEFINE l_refer                           STRING
+
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	LET l_login = checkForSession() -- check to see if they have already logged in
 	IF l_login IS NOT NULL THEN
 		RETURN l_login
+	END IF
+
+	LET l_refer = fgl_getenv("FGL_WEBSERVER_HTTP_REFERER")
+	IF l_refer.getIndexOf("?", 1) = 0 AND l_refer.getLength() > 10 THEN
+		LET l_refer = l_refer.append("_web?gbc=gbc-mdi")
 	END IF
 
 	LET l_allow_new = TRUE
@@ -71,7 +80,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 	END IF
 	LET l_login = fgl_getenv("OPENID_email")
 	CALL g2_init.g2_log.logIt("before input for login")
-	DISPLAY %"F12 or Ctrl-G - login as test" TO info
+	DISPLAY %"F12 or Ctrl-G - login as 'test'" TO info
 	INPUT BY NAME l_login, l_pass, l_theme ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
 		BEFORE INPUT
 			LET f = DIALOG.getForm()
@@ -133,6 +142,13 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 			IF validate_login(l_login, l_pass) THEN
 				EXIT INPUT
 			END IF
+
+		ON ACTION alttheme1
+			IF l_refer.getLength() > 10 THEN
+				MESSAGE SFMT("Launch: %1", l_refer)
+				CALL ui.Interface.frontCall("standard", "launchURL", l_refer, l_ret)
+			END IF
+
 		ON ACTION about
 			CALL g2_about.g2_about()
 	END INPUT
@@ -365,13 +381,13 @@ PRIVATE FUNCTION openId() RETURNS STRING
 
 	LET l_url = fgl_getenv("OPENIDLOGIN_URL")
 	IF l_url.getLength() < 2 THEN
-		LET l_uri = fgl_getEnv("FGL_WEBSERVER_HTTP_REFERER")
+		LET l_uri = fgl_getenv("FGL_WEBSERVER_HTTP_REFERER")
 -- http://localhost/g4/ua/r/njmdemo
 -- 123456789010
-		LET x = l_uri.getIndexOf("/",10)
+		LET x = l_uri.getIndexOf("/", 10)
 		IF x > 0 THEN
-			LET x = l_uri.getIndexOf("/",x+1)
-			LET l_url = SFMT("%1/ua/r/%2", l_uri.subString(1,x-1), C_OPENIDLOGIN)
+			LET x     = l_uri.getIndexOf("/", x + 1)
+			LET l_url = SFMT("%1/ua/r/%2", l_uri.subString(1, x - 1), C_OPENIDLOGIN)
 			GL_DBGMSG(1, SFMT("l_url = '%1'  derived from '%2'", l_url, l_uri))
 		ELSE
 			LET l_url = SFMT("https://generodemos.dynu.net/g/ua/r/%1", C_OPENIDLOGIN)
@@ -515,7 +531,7 @@ FUNCTION cb_gbc_theme(l_cb ui.ComboBox)
 	TRY
 		CALL util.JSON.parse(l_result, m_themes)
 	CATCH
-		GL_DBGMSG(0,SFMT("Get themes from gbc failed! '%1'", l_result)) 
+		GL_DBGMSG(0, SFMT("Get themes from gbc failed! '%1'", l_result))
 		RETURN
 	END TRY
 	FOR x = 1 TO m_themes.getLength()

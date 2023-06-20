@@ -16,7 +16,7 @@ export MUSICDIR=~/Music
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
-export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile
+export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(FGLPROFILEUI)
 export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
 
 export DB_LOCALE=en_GB.utf8
@@ -88,13 +88,12 @@ beautify:
 clear:
 	clear
 
-runmatdes: clear $(BIN)/menu.42r
+runmatdesnat: clear $(BIN)/menu.42r
 	export FGLPROFILE=../etc/profile.nat && \
-	cd $(BIN) && fglrun materialDesignTest.42r
+	cd $(BIN) && fglrun matDesTest.42m
 
-runmatdesur: clear $(BIN)/menu.42r
-	echo $(GBC) && export FGLPROFILE=../etc/profile.ur && \
-	cd $(BIN) && fglrun materialDesignTest.42r
+runmatdes: clear $(BIN)/menu.42r
+	cd $(BIN) && fglrun matDesTest.42m
 
 # Not supported!
 runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip

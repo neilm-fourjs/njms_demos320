@@ -32,6 +32,7 @@ MAIN
 	DEFINE l_rec RECORD
 		fld1    CHAR(10),
 		fld2    DATE,
+		fld2a   INTERVAL HOUR TO MINUTE,
 		fld3    STRING,
 		fld4    STRING,
 		fld5    STRING,
@@ -56,6 +57,7 @@ MAIN
 		img  STRING
 	END RECORD
 	DEFINE x SMALLINT
+	DEFINE l_tim DATETIME HOUR TO SECOND
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
@@ -71,6 +73,8 @@ MAIN
 	END FOR
 	LET l_rec.fld1    = "Active"
 	LET l_rec.fld2    = TODAY
+	LET l_tim = TIME
+	LET l_rec.fld2a   = ( (l_tim + 90 UNITS MINUTE) - l_tim )
 	LET l_rec.fld3    = 1
 	LET l_rec.fld4    = "Red"
 	LET l_rec.fld5    = "Inactive"
@@ -269,7 +273,7 @@ MAIN
 				CALL DIALOG.setActionActive("lightlogo", FALSE)
 				CALL DIALOG.setActionActive("dyntext", FALSE)
 			END IF
-			CALL DIALOG.getForm().ensureElementVisible("bomb") -- attempt to give focus to a button will not work.
+			CALL DIALOG.getForm().ensureElementVisible("tab2info") -- attempt to bring listView to front in folder
 			CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
 	END DIALOG
 END MAIN
@@ -461,7 +465,7 @@ FUNCTION getColours() RETURNS ()
 	CALL c.openFile(C_COLOURSFILE, "r")
 	WHILE NOT c.isEof()
 		IF c.read([l_col.*]) THEN
-			LET m_colours[l_cnt:=l_cnt+1].c_name = l_col.c_name
+			LET m_colours[l_cnt:=l_cnt+1].c_name = l_col.c_name.trim()
 			LET m_colours[l_cnt].c_hex = l_col.c_hex
 		END IF
 	END WHILE
