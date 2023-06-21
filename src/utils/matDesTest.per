@@ -80,7 +80,7 @@ END -- TB
 
 LAYOUT ( STYLE="main2", TEXT="Material Design Test.", IMAGE="fa-bug" ) -- gbc_footer" )
 VBOX ( STYLE="formborder" )
-HBOX ( SPLITTER )
+HBOX ( SPLITTER, ORIENTATION@SMALL = VERTICAL )
 GRID
 {
 [lab1|f001      |lab2a|f02a-]
@@ -105,9 +105,6 @@ GRID
 <                              >
 }
 END -- GRID
-VBOX
-
-HBOX ( SPLITTER )
 
 FOLDER (STYLE="accordion")
 
@@ -171,7 +168,7 @@ END -- GRID
 END -- PAGE
 END -- FOLDER
 
-FOLDER
+FOLDER (HIDDEN@SMALL)
 PAGE p1 (TEXT="Page1", IMAGE="smiley")
 GRID
 {
@@ -209,15 +206,23 @@ END -- FOLDER
 
 END -- HBOX
 
-
-END -- VBOX
-END -- HBOX
-
-GRID ( STYLE="center" )
+HBOX (HIDDEN@SMALL)
+GRID
 {
-[pg                           :sp:logo                         ]
+[pg                         ]
 }
 END -- GRID
+GRID
+{
+[sp]
+}
+END -- GRID
+GRID
+{
+[logo]
+}
+END -- GRID
+END -- HBOX
 
 END -- VBOX
 ATTRIBUTES
@@ -242,6 +247,7 @@ COMBOBOX f003 = FORMONLY.fld3, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colou
 COMBOBOX f004 = FORMONLY.fld4, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=6;
 f005 = FORMONLY.fld5, NOENTRY;
 f006 = FORMONLY.fld6,COMPLETER, TABINDEX=7;
+
 WEBCOMPONENT col = FORMONLY.col_hex,
 	STYLE="curvedborder",
 	SIZEPOLICY=FIXED, 
@@ -296,10 +302,10 @@ PHANTOM FORMONLY.tab403;
 
 IMAGE logo : logo, IMAGE="logo_dark", SIZEPOLICY=INITIAL,STYLE="noborder center";
 IMAGE sp : sp, IMAGE="", STRETCH=X, STYLE="noborder";
-PROGRESSBAR pg = FORMONLY.pg, VALUEMAX=10000;
+PROGRESSBAR pg = FORMONLY.pg, VALUEMAX=10000 ;
 
 INSTRUCTIONS
-SCREEN RECORD arr1 ( FORMONLY.col1 THRU FORMONLY.img )
+SCREEN RECORD arr1 [6] ( FORMONLY.col1 THRU FORMONLY.img )
 SCREEN RECORD arr2 ( FORMONLY.lvcol1 THRU FORMONLY.lvimg )
 SCREEN RECORD arr3 ( FORMONLY.a3col1 THRU FORMONLY.a3img )
 SCREEN RECORD arr4 ( FORMONLY.tab401 THRU FORMONLY.tab403 )
