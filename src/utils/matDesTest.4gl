@@ -16,17 +16,24 @@ CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG     = "smiley"
 
 CONSTANT C_COLOURSFILE = "../etc/colour_names.txt"
-CONSTANT C_NOTICE = "🔴"
+CONSTANT C_NOTICE      = "🔴"
 
 CONSTANT PG_MAX = 1000
 
 DEFINE m_forms DYNAMIC ARRAY OF STRING
-TYPE t_colours RECORD
- c_key STRING,
- c_name STRING,
- c_hex STRING
+TYPE t_colour RECORD
+	c_key  STRING,
+	c_name STRING,
+	c_hex  STRING
 END RECORD
-DEFINE m_colours DYNAMIC ARRAY OF t_colours
+TYPE t_icon RECORD
+	i_name  STRING,
+	i_file  STRING,
+	i_glyph STRING,
+	i_colr  STRING
+END RECORD
+DEFINE m_colours DYNAMIC ARRAY OF t_colour
+DEFINE m_icons   DYNAMIC ARRAY OF t_icon
 
 MAIN
 	DEFINE l_rec RECORD
@@ -47,8 +54,9 @@ MAIN
 		nul     BOOLEAN
 	END RECORD
 	DEFINE l_arr DYNAMIC ARRAY OF RECORD
-		col1 STRING,
-		col2 SMALLINT,
+		col1 DATE,
+		col2 STRING,
+		col3 SMALLINT,
 		img  STRING
 	END RECORD
 	DEFINE l_listView DYNAMIC ARRAY OF RECORD
@@ -56,25 +64,29 @@ MAIN
 		col2 STRING,
 		img  STRING
 	END RECORD
-	DEFINE x SMALLINT
+	DEFINE x     SMALLINT
 	DEFINE l_tim DATETIME HOUR TO SECOND
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
 	CALL ui.Interface.setText(SFMT("%1 - %2", C_PRGDESC, C_PRGVER))
 --  CALL ui.Interface.setImage("fa-bug")
+	CALL getIcons()
 	FOR x = 1 TO 15
-		LET l_arr[x].col1      = "Row " || x
-		LET l_arr[x].col2      = x
-		LET l_arr[x].img       = C_IMG
-		LET l_listView[x].col1 = "This is row " || x
-		LET l_listView[x].col2 = "this is a like an information line"
-		LET l_listView[x].img  = C_IMG
+		LET l_arr[x].col1 = TODAY
+		LET l_arr[x].col2 = "Row " || x
+		LET l_arr[x].col3 = x
+		LET l_arr[x].img  = C_IMG
+	END FOR
+	FOR x = 1 TO m_icons.getLength()
+		LET l_listView[x].col1 = m_icons[x].i_name
+		LET l_listView[x].col2 = SFMT("File: %1 Glypth: %2", m_icons[x].i_file, m_icons[x].i_glyph)
+		LET l_listView[x].img  = m_icons[x].i_name
 	END FOR
 	LET l_rec.fld1    = "Active"
 	LET l_rec.fld2    = TODAY
-	LET l_tim = TIME
-	LET l_rec.fld2a   = ( (l_tim + 90 UNITS MINUTE) - l_tim )
+	LET l_tim         = TIME
+	LET l_rec.fld2a   = ((l_tim + 90 UNITS MINUTE) - l_tim)
 	LET l_rec.fld3    = 1
 	LET l_rec.fld4    = "Red"
 	LET l_rec.fld5    = "Inactive"
@@ -82,7 +94,7 @@ MAIN
 	LET l_rec.fld7    = "Active"
 	LET l_rec.fld8    = "Inactive"
 	LET l_rec.fld9    = "Active"
-	LET l_rec.fld10    = "Inactive"
+	LET l_rec.fld10   = "Inactive"
 	LET l_rec.okay    = TRUE
 	LET l_rec.notokay = FALSE
 	LET l_rec.nul     = NULL
@@ -93,6 +105,14 @@ MAIN
 
 	DISPLAY fgl_getenv("FGLIMAGEPATH") TO imgpath
 	DISPLAY getAUIAttrVal("StyleList", "fileName") TO stylefile
+
+	-- various attempt to bring listView page to front in folder, all FAIL!
+	CALL ui.Window.getCurrent().getForm().ensureElementVisible("tab2info")
+	DISPLAY ARRAY l_listView TO arr2.*
+		BEFORE ROW EXIT DISPLAY
+	END DISPLAY
+	CALL ui.Interface.refresh()
+	---------------------------------------------------------
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
 		INPUT BY NAME l_rec.* ATTRIBUTES(WITHOUT DEFAULTS)
@@ -416,7 +436,7 @@ FUNCTION constrct()
 	LET int_flag = FALSE
 	CONSTRUCT BY NAME l_const ON fld1, fld2, fld3, fld4
 	IF NOT int_flag THEN
-		CALL fgl_winMessage("Query",l_const, "information")
+		CALL fgl_winMessage("Query", l_const, "information")
 	END IF
 	LET int_flag = FALSE
 END FUNCTION
@@ -450,36 +470,81 @@ FUNCTION getColour(l_colName STRING) RETURNS STRING
 	RETURN NULL
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION cb_colour(l_cb ui.ComboBox) RETURNS ()
+FUNCTION cb_colour(l_cb ui.ComboBox) RETURNS()
 	DEFINE l_cnt SMALLINT
 	FOR l_cnt = 1 TO m_colours.getLength()
 		CALL l_cb.addItem(m_colours[l_cnt].c_name.trim(), m_colours[l_cnt].c_name.trim())
 	END FOR
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION getColours() RETURNS ()
+FUNCTION getIcons() RETURNS()
+	DEFINE c base.Channel
+	DEFINE l_icon RECORD
+		fld1 STRING,
+		fld2 STRING,
+		fld3 STRING
+	END RECORD
+	DEFINE l_cnt  SMALLINT = 0
+	DEFINE l_file STRING
+	DEFINE l_imgp STRING
+	DEFINE l_tok  STRING
+	DEFINE x      SMALLINT
+	DEFINE l_toks base.StringTokenizer
+	LET l_imgp = fgl_getenv("FGLIMAGEPATH")
+	LET l_toks = base.StringTokenizer.create(l_imgp, ":")
+	WHILE l_toks.hasMoreTokens()
+		LET l_tok = l_toks.nextToken()
+		IF l_tok MATCHES "*.txt" THEN
+			LET l_file = l_tok
+			EXIT WHILE
+		END IF
+	END WHILE
+	IF l_file IS NULL OR l_file.getLength() < 2 THEN
+		LET l_file = os.Path.join(base.Application.getFglDir(), "lib")
+		LET l_file = os.Path.join(l_file, "image2font.txt")
+	END IF
+	DISPLAY SFMT("getIcons from %1", l_file)
+	LET c = base.Channel.create()
+	CALL c.setDelimiter(":")
+	CALL c.openFile(l_file, "r")
+	WHILE NOT c.isEof()
+		IF c.read([l_icon.*]) THEN
+			IF l_icon.fld1.subString(1, 3) = "fa-" OR l_icon.fld1.subString(1, 4) = "fas-" THEN
+				LET x                                  = l_icon.fld1.getIndexOf("=", 1)
+				LET m_icons[l_cnt := l_cnt + 1].i_name = l_icon.fld1.subString(1, x - 1)
+				LET m_icons[l_cnt].i_file              = l_icon.fld1.subString(x + 1, l_icon.fld1.getLength())
+				LET m_icons[l_cnt].i_glyph             = l_icon.fld2
+				LET m_icons[l_cnt].i_colr              = l_icon.fld3
+			END IF
+		END IF
+	END WHILE
+	CALL c.close()
+	DISPLAY SFMT("getIcons from %1 got %2 icons", l_file, m_icons.getLength())
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION getColours() RETURNS()
 	DEFINE c     base.Channel
-	DEFINE l_col t_colours
-	DEFINE l_cnt SMALLINT = 0 
-	LET c      = base.Channel.create()
+	DEFINE l_col t_colour
+	DEFINE l_cnt SMALLINT = 0
+	LET c = base.Channel.create()
 	CALL c.openFile(C_COLOURSFILE, "r")
 	WHILE NOT c.isEof()
 		IF c.read([l_col.*]) THEN
-			LET m_colours[l_cnt:=l_cnt+1].c_name = l_col.c_name.trim()
-			LET m_colours[l_cnt].c_hex = l_col.c_hex
+			LET m_colours[l_cnt := l_cnt + 1].c_name = l_col.c_name.trim()
+			LET m_colours[l_cnt].c_hex               = l_col.c_hex
 		END IF
 	END WHILE
 	CALL c.close()
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION clipSet(l_text STRING) RETURNS ()
+FUNCTION clipSet(l_text STRING) RETURNS()
 	DEFINE l_res STRING
-	CALL ui.Interface.frontCall("standard","cbset", l_text, l_res)
-	MESSAGE (SFMT("Result: %1", IIF(l_res,"Success","Failed")))
+	CALL ui.Interface.frontCall("standard", "cbset", l_text, l_res)
+	MESSAGE (SFMT("Result: %1", IIF(l_res, "Success", "Failed")))
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION clipShow() RETURNS ()
+FUNCTION clipShow() RETURNS()
 	DEFINE l_res STRING
-	CALL ui.Interface.frontCall("standard","cbget", [], l_res)
+	CALL ui.Interface.frontCall("standard", "cbget", [], l_res)
 	CALL fgl_winMessage("Clipboard", l_res, "information")
 END FUNCTION
