@@ -43,7 +43,8 @@
 	<ActionDefault name="rpt" text="Report" image="fa-print" acceleratorName="Control-P" contextMenu="no"/>
 	
 	<ActionDefault name="testlogin" text="Test Login" image="fa-key" contextMenu="yes" acceleratorName="f12" acceleratorName2="control-g"/>
-	<ActionDefault name="forgotten" text="Forgotten" image="fa-question" comment="Forgotten?" defaultView="no" contextMenu="no" />
+	<ActionDefault name="forgotten" text="" image="fa-question" comment="Forgotten?" defaultView="no" contextMenu="no" />
+	<ActionDefault name="seepass" text="" image="fa-eye" comment="Show Password" defaultView="no" contextMenu="no" />
 	<ActionDefault name="dumpenv" text="Dump Env" image="fa-cloud-download" comment="Dump Env to env.txt" defaultView="no" contextMenu="yes" />
 	<ActionDefault name="alttheme1" text="Alternative Theme" image="fa-" comment="Alternaive theme" acceleratorName="f8" />
 

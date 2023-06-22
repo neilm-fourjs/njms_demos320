@@ -127,6 +127,9 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 		ON ACTION forgotten
 			CALL forgotten(l_login)
 
+		ON ACTION seepass
+			CALL showPassword()
+
 		ON CHANGE l_theme
 			CALL ui.Interface.frontCall("theme", "setTheme", [l_theme], [])
 			IF l_theme = "default" THEN
@@ -185,6 +188,7 @@ PUBLIC FUNCTION sql_checkEmail(l_email VARCHAR(80)) RETURNS BOOLEAN
 	END IF
 	RETURN TRUE
 END FUNCTION
+
 --------------------------------------------------------------------------------
 PUBLIC FUNCTION logout()
 	CALL g2_secure.g2_removeSession(C_SESSION_KEY)
@@ -240,6 +244,18 @@ PRIVATE FUNCTION validate_login(l_login LIKE sys_users.email, l_pass LIKE sys_us
 	CALL audit_login(l_login, "I")
 -- all okay
 	RETURN TRUE
+END FUNCTION
+--------------------------------------------------------------------------------
+#+ Show password - toggle the password type for the field
+PRIVATE FUNCTION showPassword() RETURNS ()
+	DEFINE l_n om.DomNode
+	DEFINE l_show BOOLEAN
+	LET l_n = ui.Window.getCurrent().getForm().findNode("FormField","formonly.l_pass").getFirstChild()
+	IF l_n IS NOT NULL THEN
+		LET l_show = NOT l_n.getAttribute("isPassword")
+		CALL l_n.setAttribute("isPassword", l_show )
+		CALL l_n.setAttribute("image",IIF(l_show,"fa-eye","fa-eye-slash"))
+	END IF
 END FUNCTION
 --------------------------------------------------------------------------------
 #+ Forgotten password routine.
