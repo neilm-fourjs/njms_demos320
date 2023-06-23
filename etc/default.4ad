@@ -38,32 +38,32 @@
 	<ActionDefault name="getcust" acceleratorName="Control-F" image="find" comment="Select Customer Item"/>
 	<ActionDefault name="getorder" acceleratorName="Control-F" image="find" comment="Find Order"/>
 	<ActionDefault name="save" text="Save" image="disk" contextMenu="yes"/>
-	<ActionDefault name="sample" text="Sample" image="fa-copy" contextMenu="no"/>
-	<ActionDefault name="findlist" text="Find List" image="fa-search-plus" contextMenu="no"/>
-	<ActionDefault name="rpt" text="Report" image="fa-print" acceleratorName="Control-P" contextMenu="no"/>
+	<ActionDefault name="sample" text="Sample" image="copy" contextMenu="no"/>
+	<ActionDefault name="findlist" text="Find List" image="findnext" contextMenu="no"/>
+	<ActionDefault name="rpt" text="Report" image="print" acceleratorName="Control-P" contextMenu="no"/>
 	<ActionDefault name="signin" text="Sign-In" image="sign-in" contextMenu="no"/>
 	<ActionDefault name="signout" text="Sign-Out" image="sign-out" contextMenu="no"/>
 	
-	<ActionDefault name="testlogin" text="Test Login" image="fa-key" contextMenu="yes" acceleratorName="f12" acceleratorName2="control-g"/>
+	<ActionDefault name="testlogin" text="Test Login" image="key" contextMenu="yes" acceleratorName="f12" acceleratorName2="control-g"/>
 	<ActionDefault name="forgotten" text="" image="question" comment="Forgotten?" defaultView="no" contextMenu="no" />
 	<ActionDefault name="seepass" text="" image="eye" comment="Show Password" defaultView="no" contextMenu="no" />
 	<ActionDefault name="dumpenv" text="Dump Env" image="fa-cloud-download" comment="Dump Env to env.txt" defaultView="no" contextMenu="yes" />
-	<ActionDefault name="alttheme1" text="Alternative Theme" image="fa-" comment="Alternaive theme" acceleratorName="f8" />
+	<ActionDefault name="alttheme1" text="Alternative Theme" image="" comment="Alternaive theme" acceleratorName="f8" />
 
 	<ActionDefault name="calendar_selection" text="eh!" defaultView="no" contextMenu="no" />
 	<ActionDefault name="prevmonth" text="eh!" defaultView="no" contextMenu="no" />
 	<ActionDefault name="nextmonth" text="eh!" defaultView="no" contextMenu="no" />
-	<ActionDefault name="wc_debug" text="WC Debug" image="fa-bug" defaultView="yes" contextMenu="no" />
+	<ActionDefault name="wc_debug" text="WC Debug" image="bug" defaultView="yes" contextMenu="no" />
 
-  <ActionDefault name="prod" text="Products" image="fa-industry" contextMenu="no"/>
+  <ActionDefault name="prod" text="Products" image="cup" contextMenu="no"/>
   <ActionDefault name="cust" text="Customers" image="services" contextMenu="no"/>
-  <ActionDefault name="quote" text="Quotes" image="fa-bookmark" contextMenu="no"/>
+  <ActionDefault name="quote" text="Quotes" image="bookmark" contextMenu="no"/>
   <ActionDefault name="advanced" text="Advanced" image="find" contextMenu="no"/>
   <ActionDefault name="refresh" text="Refresh" image="refresh" contextMenu="no"/>
   <ActionDefault name="add" text="Add New" contextMenu="no"/>
   <ActionDefault name="save" text="Save" contextMenu="no"/>
   <ActionDefault name="clear" text="Clear changes" contextMenu="no"/>
-  <ActionDefault name="search" image="fa-search" contextMenu="no" acceleratorName="return"/>
+  <ActionDefault name="search" image="find" contextMenu="no" acceleratorName="return"/>
 
   <ActionDefault name="f1" text="F1" acceleratorName="F1" contextMenu="no"/>
   <ActionDefault name="f2" text="F2" acceleratorName="F2" contextMenu="no"/>
