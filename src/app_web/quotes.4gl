@@ -60,7 +60,7 @@ MAIN
 		END INPUT
 		DISPLAY ARRAY m_scrArr TO list.*
 			BEFORE ROW
-				LET m_scrArr[arr_curr()].currrow = "fa-chevron-circle-right"
+				LET m_scrArr[arr_curr()].currrow = "play"
 			AFTER ROW
 				LET m_scrArr[arr_curr()].currrow = ""
 			ON ACTION SELECT
