@@ -164,9 +164,9 @@ p003 = ord_payment.card_no;
 COMBOBOX pm = FORMONLY.expires_m, ITEMS=(1,2,3,4,5,6,7,8,9,10,11,12), NOT NULL;
 COMBOBOX py = FORMONLY.expires_y, ITEMS=(2011,2012,2013,2014,2015,2016,2017),NOT NULL;
 p005 = ord_payment.issue_no;
-IMAGE pt1 : pt1, IMAGE="fa-cc-paypal", SIZEPOLICY=FIXED, AUTOSCALE;
-IMAGE pt2 : pt2, IMAGE="fa-cc-mastercard", SIZEPOLICY=FIXED, AUTOSCALE;
-IMAGE pt3 : pt3, IMAGE="fa-cc-visa", SIZEPOLICY=FIXED, AUTOSCALE;
+IMAGE pt1 : pt1, IMAGE="paypal", SIZEPOLICY=FIXED, AUTOSCALE;
+IMAGE pt2 : pt2, IMAGE="mastercard", SIZEPOLICY=FIXED, AUTOSCALE;
+IMAGE pt3 : pt3, IMAGE="visa", SIZEPOLICY=FIXED, AUTOSCALE;
 
 GROUP gref : oref ,TEXT=%"Your Reference:";
 c001 = ord_head.order_ref;

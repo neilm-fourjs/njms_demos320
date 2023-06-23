@@ -46,19 +46,20 @@
 	<ActionDefault name="list" text="List" image="zoom" acceleratorName="l" contextMenu="no"/>
 	<ActionDefault name="sameaddr" text="Default" image="" contextMenu="no"/>
 
-	<ActionDefault name="signin" text="Sign-In" image="fa-sign-in" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="viewb" text="View Basket" image="fa-shopping-cart" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="gotoco" text="Checkout" image="fa-shopping-cart" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="signin" text="Sign-In" image="sign-in" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="signout" text="Sign-Out" image="sign-out" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="viewb" text="View Basket" image="shopping-cart" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="gotoco" text="Checkout" image="shopping-cart" contextMenu="yes" defaultView="no" />
 	<ActionDefault name="newuser" text="Create Account" image="user" contextMenu="no"/>
 
 	<ActionDefault name="back" image="back" acceleratorName="Escape" defaultView="no" />
 	<ActionDefault name="showlicence" text="Show License" image="key" contextMenu="yes" />
-	<ActionDefault name="add1" text="" image="fa-cart-plus" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="add2" text="" image="fa-cart-plus" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="add3" text="" image="fa-cart-plus" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="add4" text="" image="fa-cart-plus" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="detlnk1" text="" image="fa-info-circle" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="detlnk2" text="" image="fa-info-circle" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="detlnk3" text="" image="fa-info-circle" contextMenu="yes" defaultView="no" />
-	<ActionDefault name="detlnk4" text="" image="fa-info-circle" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="add1" text="" image="shopping-cart-plus" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="add2" text="" image="shopping-cart-plus" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="add3" text="" image="shopping-cart-plus" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="add4" text="" image="shopping-cart-plus" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="detlnk1" text="" image="about" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="detlnk2" text="" image="about" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="detlnk3" text="" image="about" contextMenu="yes" defaultView="no" />
+	<ActionDefault name="detlnk4" text="" image="about" contextMenu="yes" defaultView="no" />
 </ActionDefaultList>

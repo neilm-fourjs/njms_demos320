@@ -6,7 +6,7 @@ TOOLBAR ( STYLE="gbc_weboe")
 	ITEM viewb ( STYLE="gbc_weboe")
 	ITEM gotoco ( STYLE="gbc_weboe")
 	ITEM about ( STYLE="gbc_weboe")
-	ITEM cancel (TEXT="Leave", IMAGE="fa-sign-out", STYLE="gbc_weboe")
+	ITEM cancel (TEXT="Leave", IMAGE="sign-out", STYLE="gbc_weboe")
 END -- TB
 
 LAYOUT (TEXT="Main Store Front", STYLE="gbc_footer", IMAGE="demo_icon")
@@ -60,9 +60,9 @@ ATTRIBUTES
 LABEL f001 = FORMONLY.custname,SIZEPOLICY=DYNAMIC, STYLE="gbc_status",TAG="user";
 LABEL status = FORMONLY.status,SIZEPOLICY=DYNAMIC, STYLE="gbc_status",TAG="status";
 
-IMAGE p1 : pt1, IMAGE="fab-cc-paypal", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS,STYLE="noborder";
-IMAGE p2 : pt2, IMAGE="fab-cc-mastercard", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
-IMAGE p3 : pt3, IMAGE="fab-cc-visa", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
+IMAGE p1 : pt1, IMAGE="paypal", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS,STYLE="noborder";
+IMAGE p2 : pt2, IMAGE="mastercard", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
+IMAGE p3 : pt3, IMAGE="visa", SIZEPOLICY=FIXED, AUTOSCALE, HEIGHT=48 PIXELS, WIDTH=48 PIXELS, STYLE="noborder";
 
 GROUP cats : cats, TEXT=%"Categories:", STYLE="cats";
 GROUP tots : tots, TEXT=%"";

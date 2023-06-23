@@ -144,6 +144,10 @@ minus=MaterialIcons-Regular.ttf:e7fe
 mobile=MaterialIcons-Regular.ttf:e324
 pack=MaterialIcons-Regular.ttf:e9b0
 plus=MaterialIcons-Regular.ttf:e145
+shopping-cart=MaterialIcons-Regular.ttf:e8cc
+shopping-cart-plus=MaterialIcons-Regular.ttf:e854
+sign-in=MaterialIcons-Regular.ttf:ea77
+sign-out=MaterialIcons-Regular.ttf:e9ba
 user-plus=MaterialIcons-Regular.ttf:e7fe
 #
 10k=MaterialIcons-Regular.ttf:e951

@@ -145,6 +145,10 @@ pack=FontAwesome.ttf:f00a:
 plus=FontAwesome.ttf:f067:
 services=FontAwesome.ttf:f085:
 settings=FontAwesome.ttf:f013:
+shopping-cart=FontAwesome.ttf:f07a:
+shopping-cart-plus=FontAwesome.ttf:f217:
+sign-in=FontAwesome.ttf:f090:
+sign-out=FontAwesome.ttf:f08b:
 square=FontAwesome.ttf:f0c8:
 user-plus=FontAwesome.ttf:f234:
 #
