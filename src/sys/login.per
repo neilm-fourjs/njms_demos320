@@ -1,7 +1,7 @@
 
 #+ Login Form - used by lib_login
 
-LAYOUT (TEXT=%"Login",WINDOWSTYLE="login", IMAGE="fa-user-secret")
+LAYOUT (TEXT=%"Login",WINDOWSTYLE="login", IMAGE="user")
 
 GRID (STYLE="center")
 {
@@ -66,8 +66,8 @@ LABEL l002 : lpassw,TEXT=%"Password:", STYLE="bold left";
 BUTTONEDIT f002 = FORMONLY.l_pass, INVISIBLE, REQUIRED, NOT NULL,PLACEHOLDER=%"Password", ACTION=seepass;
 BUTTON f : forgotten;
 
-LABEL l003 : lor,TEXT=%"Or Use:", STYLE="bold left";
-BUTTON openid : openid, TEXT=%"GoogleId", IMAGE="fab-google";
+LABEL l003 : lor,TEXT=%"Or login with:", STYLE="bold left";
+BUTTON openid : openid, IMAGE="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg";
 
 LABEL l004 : ltheme,TEXT=%"Theme:", STYLE="bold left";
 COMBOBOX f004 = FORMONLY.l_theme, NOT NULL, INITIALIZER=cb_gbc_theme;
@@ -86,11 +86,11 @@ TEXTEDIT l_rules = FORMONLY.l_rules, SCROLLBARS=NONE,STRETCH=BOTH,STYLE="small";
 
 LABEL info = FORMONLY.info, STYLE="center curvedcentered";
 
-BUTTON accept : accept, TEXT=%"Login",IMAGE="fa-user";
-BUTTON newacc : acct_new, TEXT=%"New User", IMAGE="fa-user-plus";
+BUTTON accept : accept, TEXT=%"Login",IMAGE="user";
+BUTTON newacc : acct_new, TEXT=%"New User", IMAGE="user-plus";
 
 --BUTTON forgotten : forgotten, TEXT=%"Reset Password?", IMAGE="fa-question-circle";
-BUTTON about : about, TEXT=%"About", IMAGE="fa-info-circle";
+BUTTON about : about;
 
 GROUP grp3 : grp3, GRIDCHILDRENINPARENT, HIDDEN@MEDIUM, HIDDEN@LARGE;
 LABEL mobile : mobile, TEXT=%"Mobile",JUSTIFY=CENTER;

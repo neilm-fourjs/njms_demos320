@@ -204,7 +204,7 @@ MAIN
 		ON ACTION quit
 			CALL checkSave()
 			EXIT DIALOG
-		ON ACTION rpt
+		ON ACTION report
 			CALL user_rpt()
 		ON ACTION close
 			EXIT DIALOG

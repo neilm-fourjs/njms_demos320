@@ -70,7 +70,7 @@ MAIN
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
 	CALL ui.Interface.setText(SFMT("%1 - %2", C_PRGDESC, C_PRGVER))
---  CALL ui.Interface.setImage("fa-bug")
+
 	CALL getIcons()
 	FOR x = 1 TO 15
 		LET l_arr[x].col1 = TODAY
@@ -303,10 +303,10 @@ FUNCTION dummy()
 	MENU "dummy"
 		BEFORE MENU
 			CALL DIALOG.getForm().setElementText("inactive", "Active")
-			CALL DIALOG.getForm().setElementImage("inactive", "fa-eye")
+			CALL DIALOG.getForm().setElementImage("inactive", "eye")
 		ON ACTION inactive
 			CALL DIALOG.getForm().setElementText("inactive", "Inactive")
-			CALL DIALOG.getForm().setElementImage("inactive", "fa-eye-slash")
+			CALL DIALOG.getForm().setElementImage("inactive", "eye-slash")
 			EXIT MENU
 	END MENU
 END FUNCTION
@@ -509,13 +509,14 @@ FUNCTION getIcons() RETURNS()
 	CALL c.openFile(l_file, "r")
 	WHILE NOT c.isEof()
 		IF c.read([l_icon.*]) THEN
-			IF l_icon.fld1.subString(1, 3) = "fa-" OR l_icon.fld1.subString(1, 4) = "fas-" THEN
+			IF l_icon.fld1.getCharAt(1) = "#" THEN CONTINUE WHILE END IF
+			--IF l_icon.fld1.subString(1, 3) = "fa-" OR l_icon.fld1.subString(1, 4) = "fas-" THEN
 				LET x                                  = l_icon.fld1.getIndexOf("=", 1)
 				LET m_icons[l_cnt := l_cnt + 1].i_name = l_icon.fld1.subString(1, x - 1)
 				LET m_icons[l_cnt].i_file              = l_icon.fld1.subString(x + 1, l_icon.fld1.getLength())
 				LET m_icons[l_cnt].i_glyph             = l_icon.fld2
 				LET m_icons[l_cnt].i_colr              = l_icon.fld3
-			END IF
+			--END IF
 		END IF
 	END WHILE
 	CALL c.close()

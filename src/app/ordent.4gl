@@ -55,7 +55,7 @@ MAIN
 	OPEN FORM ordent2 FROM "ordent2"
 	DISPLAY FORM ordent2
 	CALL ui.Interface.setText(C_PRGDESC)
-	CALL ui.Interface.setImage("fa-chess-queen")
+
 	DISPLAY SFMT(%"Welcome %1", m_fullname) TO welcome
 	--CALL setTitle()
 
@@ -398,26 +398,17 @@ FUNCTION enquire()
 
 			SELECT description, stock_cat INTO m_detailArray_tree[m_detailArray_tree.getLength()].description, l_stock_cat
 					FROM stock WHERE stock_code = m_detailArray_tree[m_detailArray_tree.getLength()].stock_code
-{			CASE l_stock_cat
-				WHEN "ARMY"
-					LET m_detailArray_tree[ m_detailArray_tree.getLength() ].img = "fa-bomb"
-				WHEN "FRUIT"
-					LET m_detailArray_tree[ m_detailArray_tree.getLength() ].img = "fa-apply"
-				WHEN "GAMES"
-					LET m_detailArray_tree[ m_detailArray_tree.getLength() ].img = "fa-dribbble"
-				WHEN "SUPPLIES"
-					LET m_detailArray_tree[ m_detailArray_tree.getLength() ].img = "fa-pencil"
-				OTHERWISE}
+
 			DISPLAY "Cat:", l_stock_cat
-			LET m_detailArray_tree[m_detailArray_tree.getLength()].img = "fa-square"
+			LET m_detailArray_tree[m_detailArray_tree.getLength()].img = "square"
 			--END CASE
 			IF m_detailArray_tree[m_detailArray_tree.getLength()].pack_flag = "P" THEN
-				LET m_detailArray_tree[m_detailArray_tree.getLength()].img = "fa-th"
+				LET m_detailArray_tree[m_detailArray_tree.getLength()].img = "pack"
 				LET l_pack_id                                              = m_detailArray_tree.getLength()
 				LET l_pack_qty = m_detailArray_tree[m_detailArray_tree.getLength()].quantity
 				FOREACH packCur USING m_detailArray_tree[m_detailArray_tree.getLength()].stock_code INTO l_packcode, l_pack.*
 					LET m_detailArray_tree[m_detailArray_tree.getLength() + 1].stock_code = l_pack.stock_code
-					LET m_detailArray_tree[m_detailArray_tree.getLength()].img            = "fa-genderless"
+					LET m_detailArray_tree[m_detailArray_tree.getLength()].img            = "circle"
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].description    = l_pack.description
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].quantity       = l_pack.qty * l_pack_qty
 					LET m_detailArray_tree[m_detailArray_tree.getLength()].price          = 0

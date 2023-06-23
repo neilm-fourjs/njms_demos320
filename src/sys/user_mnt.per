@@ -1,16 +1,6 @@
 
 &include "schema.inc"
 
-TOOLBAR
-	ITEM quit
-	ITEM save
-	ITEM cancel
-	ITEM delete ( TEXT=%"Delete User" )
-	ITEM removeroles (TEXT=%"Remote Roles", IMAGE="fa-minus" )
-	ITEM addroles (TEXT=%"Add Roles", IMAGE="fa-plus" )
-	ITEM rpt
-END -- TOOLBAR
-
 LAYOUT (TEXT=%"User Maintenance", WINDOWSTYLE="main2")
 HBOX (SPLITTER)
 VBOX
@@ -64,6 +54,10 @@ TABLE roles (DOUBLECLICK=dblclick)
 [r|r001                     |c]
 }
 END -- TABLES
+GRID
+{
+[ar           |rr            ]
+}
 END -- VBOX
 END -- HBOX
 END -- LAYOUT
@@ -123,6 +117,9 @@ PHANTOM sys_roles.role_key;
 r = FORMONLY.role_type,TITLE="Typ",COMMENT=%"S=System,M=Menu,A=Action";
 r001 = FORMONLY.role_name2,TITLE="Roles";
 CHECKBOX c =  sys_roles.active,VALUECHECKED="Y",VALUEUNCHECKED="N",NOT NULL;
+
+BUTTON ar : addroles,TEXT=%"Add Roles", IMAGE="plus";
+BUTTON rr : removeroles, TEXT=%"Remote Roles", IMAGE="minus";
 
 INSTRUCTIONS
 SCREEN RECORD u_arr (FORMONLY.fullname)

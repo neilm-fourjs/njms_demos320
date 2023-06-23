@@ -8,7 +8,7 @@ TOOLBAR
 	ITEM cancel
 END -- Toolbar
 
-LAYOUT ( TEXT="Your Details", WINDOWSTYLE="main2", IMAGE="fa-user" )
+LAYOUT ( TEXT="Your Details", WINDOWSTYLE="main2", IMAGE="user" )
 GRID
 {
 [user_key  |r1|f001        ]  [r                                  ]
@@ -81,9 +81,9 @@ COMBOBOX f009 = sys_users.acct_type,INITIALIZER=pop_combo,DEFAULT=1,NOT NULL, TA
 CHECKBOX a = sys_users.active,VALUECHECKED=1,VALUEUNCHECKED=0,DEFAULT=1,NOT NULL;
 CHECKBOX b = sys_users.forcepwchg, VALUECHECKED="Y", VALUEUNCHECKED="N",NOT NULL;
 
-BUTTONEDIT p001 = sys_users.login_pass, INVISIBLE, VERIFY, NOT NULL, TABINDEX=8, ACTION=generate, IMAGE="fa-cog";
+BUTTONEDIT p001 = sys_users.login_pass, INVISIBLE, VERIFY, NOT NULL, TABINDEX=8, ACTION=generate, IMAGE="services";
 TEXTEDIT rules = FORMONLY.l_rules, STRETCH=BOTH;
-BUTTON generate:generate, TEXT="Re-generate", IMAGE="fa-cog", HIDDEN;
+BUTTON generate:generate, TEXT="Re-generate", IMAGE="services", HIDDEN;
 --EDIT p001 = sys_users.login_pass, NOENTRY, FONTPITCH=FIXED, NOT NULL, TABINDEX=8, STYLE="em12";
 
 DATEEDIT p002 = sys_users.pass_expire, NOT NULL, TABINDEX=9;

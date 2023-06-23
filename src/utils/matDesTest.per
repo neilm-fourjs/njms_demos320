@@ -1,24 +1,24 @@
 
 ACTION DEFAULTS
-	ACTION showform ( TEXT="Show Form", IMAGE="fa-desktop" )
-	ACTION constrct ( TEXT="Construct", IMAGE="fa-database" )
-	ACTION msg ( TEXT="Message", IMAGE="fa-info-circle" )
-	ACTION err ( TEXT="Error", IMAGE="fa-exclamation-circle" )
-	ACTION win ( TEXT="Model Window", IMAGE="fa-circle" )
-	ACTION win_mess ( TEXT="Message Window", IMAGE="fa-info" )
-	ACTION notify ( TEXT="Notify", IMAGE="fa-circle" )
-	ACTION wintitle ( TEXT="Window Title", IMAGE="fa-square" )
-	ACTION uitext ( TEXT="UI Text", IMAGE="fa-square" )
-	ACTION dyntext ( TEXT="Dynamic Text", IMAGE="fa-square" )
-	ACTION darklogo ( TEXT="Dark Logo", IMAGE="fa-square" )
-	ACTION lightlogo ( TEXT="Light Logo", IMAGE="fa-square" )
-	ACTION pg ( TEXT="ProgressBar", IMAGE="fa-sliders-h" )
-	ACTION pg50 ( TEXT="Prog Bar 50", IMAGE="fa-battery-2" )
-	ACTION inactive ( TEXT="Inactive", IMAGE="fa-eye-slash" )
-	ACTION fc_ismob ( TEXT="isMobile", IMAGE="fa-mobile-phone" )
-	ACTION sleep ( TEXT="Sleep 5", IMAGE="fa-bed" )
-	ACTION clipset ( TEXT="Clipboard Set", IMAGE="fa-copy" )
-	ACTION clipshow ( TEXT="Clipboard Show", IMAGE="fa-paste" )
+	ACTION showform ( TEXT="Show Form", IMAGE="desktop" )
+	ACTION constrct ( TEXT="Construct", IMAGE="database" )
+	ACTION msg ( TEXT="Message", IMAGE="information" )
+	ACTION err ( TEXT="Error", IMAGE="exclamation" )
+	ACTION win ( TEXT="Model Window", IMAGE="circle" )
+	ACTION win_mess ( TEXT="Message Window", IMAGE="comment" )
+	ACTION notify ( TEXT="Notify", IMAGE="circle" )
+	ACTION wintitle ( TEXT="Window Title", IMAGE="square" )
+	ACTION uitext ( TEXT="UI Text", IMAGE="square" )
+	ACTION dyntext ( TEXT="Dynamic Text", IMAGE="square" )
+	ACTION darklogo ( TEXT="Dark Logo", IMAGE="square" )
+	ACTION lightlogo ( TEXT="Light Logo", IMAGE="square" )
+	ACTION pg ( TEXT="ProgressBar", IMAGE="list" )
+	ACTION pg50 ( TEXT="Prog Bar 50", IMAGE="battery-2" )
+	ACTION inactive ( TEXT="Inactive", IMAGE="eye-slash" )
+	ACTION fc_ismob ( TEXT="isMobile", IMAGE="mobile" )
+	ACTION sleep ( TEXT="Sleep 5", IMAGE="bedtime" )
+	ACTION clipset ( TEXT="Clipboard Set", IMAGE="copy" )
+	ACTION clipshow ( TEXT="Clipboard Show", IMAGE="paste" )
 END -- AD
 
 TOPMENU
@@ -78,7 +78,7 @@ TOOLBAR
 	ITEM sleep
 END -- TB
 
-LAYOUT ( STYLE="main2", TEXT="Material Design Test.", IMAGE="fa-bug" ) -- gbc_footer" )
+LAYOUT ( STYLE="main2", TEXT="Material Design Test.", IMAGE="bell" ) -- gbc_footer" )
 VBOX ( STYLE="formborder" )
 HBOX ( SPLITTER, ORIENTATION@SMALL = VERTICAL )
 GRID
@@ -193,7 +193,7 @@ Some text on a page.
 }
 END -- GRID
 END -- PAGE
-PAGE p2 (TEXT="Page2", IMAGE="fa-frown-o")
+PAGE p2 (TEXT="Page2", IMAGE="ssmiley")
 GRID
 {
 page 2 is almost empty
@@ -273,7 +273,7 @@ a002 = FORMONLY.col2, TITLE="Fld2";
 a03 = FORMONLY.col3, TITLE="Fld3";
 PHANTOM FORMONLY.img;
 
-BUTTON b1 : bomb, IMAGE="fa-bomb", TEXT="", TABINDEX=1;
+BUTTON b1 : bomb, IMAGE="heart", TEXT="", TABINDEX=1;
 BUTTON but1 : quit;
 BUTTON msg : msg;
 BUTTON err: err;

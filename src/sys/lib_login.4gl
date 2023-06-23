@@ -254,7 +254,7 @@ PRIVATE FUNCTION showPassword() RETURNS ()
 	IF l_n IS NOT NULL THEN
 		LET l_show = NOT l_n.getAttribute("isPassword")
 		CALL l_n.setAttribute("isPassword", l_show )
-		CALL l_n.setAttribute("image",IIF(l_show,"fa-eye","fa-eye-slash"))
+		CALL l_n.setAttribute("image",IIF(l_show,"eye","eye-slash"))
 	END IF
 END FUNCTION
 --------------------------------------------------------------------------------
