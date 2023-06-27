@@ -46,7 +46,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 	DEFINE l_ret                             SMALLINT
 	DEFINE l_allow_new                       BOOLEAN
 	DEFINE f                                 ui.Form
-	DEFINE l_refer                           STRING
+	DEFINE l_refer, l_host                   STRING
 
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	LET l_login = checkForSession() -- check to see if they have already logged in
@@ -54,6 +54,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 		RETURN l_login
 	END IF
 
+	LET l_host  = fgl_getenv("FGL_WEBSERVER_HTTP_HOST")
 	LET l_refer = fgl_getenv("FGL_WEBSERVER_HTTP_REFERER")
 	IF l_refer.getIndexOf("?", 1) = 0 AND l_refer.getLength() > 10 THEN
 		LET l_refer = l_refer.append("_web?gbc=gbc-mdi")
@@ -78,16 +79,25 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 		CALL ui.Interface.frontCall("theme", "getCurrentTheme", [], [l_cur_theme])
 		LET l_theme = l_cur_theme
 	END IF
-	LET l_login = fgl_getenv("OPENID_email")
+	IF base.Application.getArgument(1) = "OpenID" THEN
+		LET l_login = openid_login()
+	END IF
 	CALL g2_init.g2_log.logIt("before input for login")
 	DISPLAY %"F12 or Ctrl-G - login as 'test'" TO info
 	INPUT BY NAME l_login, l_pass, l_theme ATTRIBUTES(UNBUFFERED, WITHOUT DEFAULTS)
 		BEFORE INPUT
 			LET f = DIALOG.getForm()
+			CALL DIALOG.setActionActive("openid", FALSE)
 			IF NOT l_allow_new THEN
 				CALL DIALOG.setActionActive("acct_new", FALSE)
 				CALL DIALOG.setActionHidden("acct_new", TRUE)
 				CALL f.setElementHidden("acct_new", TRUE)
+			END IF
+			IF l_login.getLength() > 2 THEN
+				EXIT INPUT
+			END IF
+			IF l_host.getLength() > 2 AND l_host != "localhost" THEN
+				CALL DIALOG.setActionActive("openid", TRUE)
 			END IF
 
 		AFTER FIELD l_login
@@ -247,14 +257,14 @@ PRIVATE FUNCTION validate_login(l_login LIKE sys_users.email, l_pass LIKE sys_us
 END FUNCTION
 --------------------------------------------------------------------------------
 #+ Show password - toggle the password type for the field
-PRIVATE FUNCTION showPassword() RETURNS ()
-	DEFINE l_n om.DomNode
+PRIVATE FUNCTION showPassword() RETURNS()
+	DEFINE l_n    om.DomNode
 	DEFINE l_show BOOLEAN
-	LET l_n = ui.Window.getCurrent().getForm().findNode("FormField","formonly.l_pass").getFirstChild()
+	LET l_n = ui.Window.getCurrent().getForm().findNode("FormField", "formonly.l_pass").getFirstChild()
 	IF l_n IS NOT NULL THEN
 		LET l_show = NOT l_n.getAttribute("isPassword")
-		CALL l_n.setAttribute("isPassword", l_show )
-		CALL l_n.setAttribute("image",IIF(l_show,"eye","eye-slash"))
+		CALL l_n.setAttribute("isPassword", l_show)
+		CALL l_n.setAttribute("image", IIF(l_show, "eye", "eye-slash"))
 	END IF
 END FUNCTION
 --------------------------------------------------------------------------------
@@ -389,24 +399,23 @@ PRIVATE FUNCTION openId() RETURNS STRING
 	DEFINE l_url       STRING
 	DEFINE l_uri       STRING
 	DEFINE l_ret       INTEGER
-	DEFINE l_store     STRING
-	DEFINE l_oidc      t_oidc
+	DEFINE l_app       STRING
+	DEFINE x           SMALLINT
 	DEFINE l_key_list  STRING
 	DEFINE l_key_array DYNAMIC ARRAY OF STRING
-	DEFINE l_loop, x   SMALLINT
 
 	LET l_url = fgl_getenv("OPENIDLOGIN_URL")
 	IF l_url.getLength() < 2 THEN
 		LET l_uri = fgl_getenv("FGL_WEBSERVER_HTTP_REFERER")
 -- http://localhost/g4/ua/r/njmdemo
 -- 123456789010
-		LET x = l_uri.getIndexOf("/", 10)
+		LET x     = l_uri.getIndexOf("/r/", 10)
+		LET l_app = l_uri.subString(x + 3, l_uri.getLength())
 		IF x > 0 THEN
-			LET x     = l_uri.getIndexOf("/", x + 1)
-			LET l_url = SFMT("%1/ua/r/%2", l_uri.subString(1, x - 1), C_OPENIDLOGIN)
+			LET l_url = SFMT("%1/%2?Arg=%3", l_uri.subString(1, x + 1), C_OPENIDLOGIN, l_app)
 			GL_DBGMSG(1, SFMT("l_url = '%1'  derived from '%2'", l_url, l_uri))
 		ELSE
-			LET l_url = SFMT("https://generodemos.dynu.net/g/ua/r/%1", C_OPENIDLOGIN)
+			LET l_url = SFMT("https://generodemos.dynu.net/g/ua/r/%1?Arg=njmdemo", C_OPENIDLOGIN)
 			GL_DBGMSG(1, SFMT("l_url = '%1' defaulted", l_url))
 		END IF
 	END IF
@@ -424,7 +433,7 @@ PRIVATE FUNCTION openId() RETURNS STRING
 	CATCH
 -- Ignore the error if it doesn't exist
 	END TRY
-	LET l_loop = 10
+
 	IF NOT g2_core.m_isGDC THEN
 		MENU "OpenID Login"
 				ATTRIBUTE(STYLE = "dialog",
@@ -436,13 +445,31 @@ PRIVATE FUNCTION openId() RETURNS STRING
 				EXIT MENU
 			ON ACTION no
 				RETURN NULL
-				{	ON IDLE 2
-								CALL ui.Interface.frontCall("localStorage", "keys", [], [l_key_list] )
-								IF l_key_list IS NULL THEN CONTINUE MENU END IF
-								IF l_key_array.search(NULL,"openid") = 0 THEN DISPLAY "no openid" CONTINUE MENU END IF
-								LET l_loop = 0 }
+			ON IDLE 2
+				CALL ui.Interface.frontCall("localStorage", "keys", [], [l_key_list])
+				IF l_key_list IS NULL THEN
+					CONTINUE MENU
+				END IF
+				CALL util.JSON.parse(l_key_list, l_key_array)
+				IF l_key_array.search(NULL, "openid") = 0 THEN
+					DISPLAY "no openid"
+					CONTINUE MENU
+				END IF
+
 		END MENU
 	END IF
+	RETURN openId_login()
+END FUNCTION
+--------------------------------------------------------------------------------
+-- Try and use an OpenID Login
+PRIVATE FUNCTION openId_login() RETURNS STRING
+	DEFINE l_oidc      t_oidc
+	DEFINE l_store     STRING
+	DEFINE l_key_list  STRING
+	DEFINE l_key_array DYNAMIC ARRAY OF STRING
+	DEFINE l_loop, x   SMALLINT
+
+	LET l_loop = 10
 	DISPLAY "l_loop:", l_loop
 	-- loop looking for openId in storage
 	FOR x = 1 TO l_loop
@@ -489,6 +516,7 @@ END FUNCTION
 -- Check to see if we have already logged in recently.
 PRIVATE FUNCTION checkForSession()
 	DEFINE l_id STRING
+
 	LET l_id = g2_secure.g2_getSession(C_SESSION_KEY, C_SESSION_MINS)
 	IF l_id IS NULL THEN
 		RETURN NULL

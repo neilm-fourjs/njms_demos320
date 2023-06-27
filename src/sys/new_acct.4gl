@@ -73,6 +73,8 @@ FUNCTION new_acct(l_email STRING, l_family STRING, l_given STRING, l_photo STRIN
 		LET l_acc.pass_hash  = g2_secure.g2_genPasswordHash(l_acc.login_pass, l_acc.salt, l_acc.hash_type)
 		LET l_acc.login_pass = "PasswordEncrypted!" -- we don't store their clear text password!
 		INSERT INTO sys_users VALUES l_acc.*
+	ELSE
+		LET l_email = NULL
 	END IF
 
 	LET int_flag = FALSE

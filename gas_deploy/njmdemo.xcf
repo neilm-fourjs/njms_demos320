@@ -3,7 +3,7 @@
 	<RESOURCE Id="sep" Source="INTERNAL">/</RESOURCE><!-- This should be built in ? -->
 	<RESOURCE Id="res.path.njm_demo" Source="INTERNAL">$(res.deployment.path)</RESOURCE>
 	<RESOURCE Id="res.path.njm_demo_bin" Source="INTERNAL">$(res.path.njm_demo)$(sep)bin</RESOURCE>
-	<EXECUTION>
+	<EXECUTION AllowUrlParameters="TRUE">
 		<ENVIRONMENT_VARIABLE Id="FGLRESOURCEPATH">..$(sep)etc</ENVIRONMENT_VARIABLE>
 		<ENVIRONMENT_VARIABLE Id="FGLIMAGEPATH">..$(sep)pics:..$(sep)pics$(sep)njmdemos_i2f.txt</ENVIRONMENT_VARIABLE>
 		<ENVIRONMENT_VARIABLE Id="FGLLDPATH">.:$(res.gredir)$(sep)lib</ENVIRONMENT_VARIABLE>
