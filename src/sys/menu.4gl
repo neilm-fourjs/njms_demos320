@@ -27,6 +27,8 @@ MAIN
 	LET g2_init.g2_isParent = TRUE
 	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
 	WHENEVER ANY ERROR CALL g2_core.g2_error
+--	OPTIONS ON CLOSE APPLICATION CALL fe_close
+--	OPTIONS ON TERMINATE SIGNAL CALL be_close
 	CALL ui.Interface.setText(C_PRGDESC)
 
 	RUN SFMT("env | sort > /tmp/njmdemo_%1.env", fgl_getpid())
@@ -44,6 +46,14 @@ MAIN
 	END IF
 	CALL g2_core.g2_exitProgram(0, %"Program Finished")
 END MAIN
+--------------------------------------------------------------------------------
+FUNCTION fe_close()
+	CALL g2_core.g2_exitProgram(0,"Closed by frontend")
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION be_close()
+	CALL g2_core.g2_exitProgram(0,"Closed by terminate signal")
+END FUNCTION
 --------------------------------------------------------------------------------
 -- Connect to the database to do the login process
 FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN

@@ -12,6 +12,7 @@ export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
 export GASCFG=$(FGLASDIR)/etc/as.xcf
 export MUSICDIR=~/Music
+export FJS_GL_DBGLEV=2
 
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt

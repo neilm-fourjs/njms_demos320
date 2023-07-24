@@ -3,8 +3,8 @@ LAYOUT ( TEXT="WC Calendar Demo" )
 VBOX
 GRID
 {
-Date Selected:[d          ] Lang:[lang           ]
-[""]
+Date Selected:[d          ] Lang:[lang           ][tim]
+[""]                                              [   ]
 }
 END -- GRID
 
@@ -16,3 +16,5 @@ END -- LAYOUT
 ATTRIBUTES
 DATEEDIT d = FORMONLY.m_selected_date TYPE DATE;
 lang = FORMONLY.lang;
+WEBCOMPONENT tim = FORMONLY.clock,  COMPONENTTYPE="clock", SCROLLBARS=NONE, STRETCH=BOTH;
+

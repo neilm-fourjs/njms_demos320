@@ -1,0 +1,18 @@
+
+TOOLBAR
+	ITEM quit
+END -- TB
+
+LAYOUT (text="C3 Chart Test")
+  HBOX (splitter)
+    FOLDER (style="accordion")
+      PAGE head (text="Settings")
+        FORM "wc_c3chartSettings"
+      END --page
+      PAGE data (text="Data")
+        FORM "wc_c3chartData"
+      END --page
+    END --folder
+    FORM "wc_c3chartApi"
+  END --hbox
+END --layout

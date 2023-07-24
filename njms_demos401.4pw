@@ -371,6 +371,23 @@
           <File filePath="src/demos/wc_amcharts.4gl"/>
           <File filePath="src/demos/wc_amcharts.per"/>
         </Application>
+        <Application binaryName="wc_c3Charts" id="-1604817817" label="wc_c3Charts">
+          <Configuration id="-240932824" label="wc_c3Charts"/>
+          <File filePath="src/demos/wc_c3chartData.per"/>
+          <File filePath="src/demos/wc_c3charts.4gl"/>
+          <File filePath="src/demos/wc_c3charts.per"/>
+          <File filePath="src/demos/wc_c3chartSettings.per"/>
+          <File filePath="src/demos/wc_clock.per"/>
+        </Application>
+        <Library binaryName="wc_c3ChartsApi" id="-1342377652" label="wc_c3ChartsApi">
+          <VirtualFolder label="c3charts">
+            <File filePath="pics/webcomponents/c3charts/c3charts.html"/>
+            <File filePath="pics/webcomponents/c3charts/c3charts.js"/>
+            <File filePath="pics/webcomponents/c3charts/style.css"/>
+          </VirtualFolder>
+          <File filePath="src/demos/wc_c3chartApi.4gl"/>
+          <File filePath="src/demos/wc_c3chartApi.per"/>
+        </Library>
         <Library binaryName="wc_calendar" dependencies="-310428106,1136561508_14000,-47144818_14000" id="789344678" label="wc_calendar" language="Genero (no link)">
           <VirtualFolder label="wc">
             <File filePath="pics/webcomponents/fglsvgcanvas_cal/fglsvgcanvas_cal.html"/>
@@ -384,6 +401,9 @@
           <File filePath="src/demos/wc_calendar_demo.4gl"/>
           <File filePath="src/demos/wc_calendar_demo.per"/>
         </Application>
+        <Library binaryName="wc_common" id="863909998" label="wc_common">
+          <File filePath="src/demos/wc_common.4gl"/>
+        </Library>
         <Application binaryName="wc_d3Charts" dependencies="-400184264,2068081444,-310428106,1136561508_14000,-47144818_14000" id="-1072068994" label="wc_d3Charts">
           <Configuration id="-466421478" label="wc_d3Charts"/>
           <File filePath="src/demos/wc_d3Charts.4gl"/>
