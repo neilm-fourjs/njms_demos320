@@ -2,6 +2,6 @@
 # MS SQL Server
 dbi.default.driver = "dbmsnc"
 
-dbi.database.njm_demo310.source = "nat17_njm_demo310"
-dbi.database.njm_demo310.username = "neilm"
-dbi.database.njm_demo310.password = "12neilm"
+dbi.database.njm_demo400.source = "ms_njm_demo400"
+dbi.database.njm_demo400.username = "neilm"
+dbi.database.njm_demo400.password = "12MyAssW0rd"

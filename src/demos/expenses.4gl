@@ -29,7 +29,6 @@ DEFINE m_vat DYNAMIC ARRAY OF RECORD
 	vat_value t_d
 END RECORD
 MAIN
-	DEFINE x SMALLINT
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "default")
@@ -43,22 +42,21 @@ MAIN
 	DISPLAY FORM f
 	DIALOG ATTRIBUTE(UNBUFFERED)
 		INPUT ARRAY m_arr FROM scr_arr.* ATTRIBUTES(WITHOUT DEFAULTS = TRUE)
-			BEFORE ROW
-				LET x = arr_curr()
 
 			ON ACTION clone
+				VAR x = DIALOG.getCurrentRow("scr_arr")
 				CALL m_arr.insertElement(x)
 				LET m_arr[x].* = m_arr[x + 1].*
 				CALL DIALOG.setCurrentRow("scr_arr", x + 1)
 
 			BEFORE INSERT
-				LET x = arr_curr()
-				DISPLAY "X: ", x
+				VAR x = DIALOG.getCurrentRow("scr_arr")
 				IF m_arr[x].dte IS NULL THEN
 					CALL add(x, "", "?", 0, 0, 0, 0, 0, 0, 0, 0, NULL)
 				END IF
 
 			ON CHANGE milage, stationery, travel, hotels, tel_net, cloud, other, vat_code
+				VAR x = DIALOG.getCurrentRow("scr_arr")
 				LET m_arr[x].nett =
 						m_arr[x].milage + m_arr[x].stationery + m_arr[x].travel + m_arr[x].hotels + m_arr[x].tel_net
 								+ m_arr[x].cloud + m_arr[x].other

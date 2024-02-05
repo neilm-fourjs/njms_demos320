@@ -19,7 +19,7 @@ MAIN
 	OPEN FORM f FROM "mk_db"
 	DISPLAY FORM f
 
-	LET l_arg = arg_val(1)
+	LET l_arg = base.Application.getArgument(1)
 	IF l_arg IS NULL OR l_arg = " " THEN
 		LET l_arg = "ALL"
 	END IF
