@@ -1,6 +1,7 @@
 
+ifndef GENVER
 export GENVER=401
-#export GENVER=320
+endif
 export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
@@ -23,6 +24,8 @@ export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
 export DB_LOCALE=en_GB.utf8
 export LANG=en_GB.utf8
 
+SOURCE=$(shell find . -name \*.4gl)
+
 TARGETS=\
 	$(BIN)/g2_lib.42x\
 	gars\
@@ -35,8 +38,11 @@ all: $(TARGETS)
 $(BIN)/g2_lib.42x:
 	cd g2_lib && gsmake g2_lib$(GENVER).4pw
 
-gars: $(BIN)/menu.42r
+gars: $(SOURCE)
 	gsmake $(APP)$(GENVER).4pw
+
+force: $(SOURCE)
+	gsmake -disable-dependencies -max-errors 0 $(APP)$(GENVER).4pw; gsmake -disable-dependencies -max-errors 0 $(APP)$(GENVER).4pw
 
 gbc_clean/gbc-current:
 	cd gbc_clean && ln -s $(GBCPROJDIR)
@@ -62,6 +68,10 @@ clean:
 	find . -name \*.gar -delete
 	find . -name \*.4pdb -delete
 
+clean2: clean
+	find . -name \*.log -delete
+	find . -name \*.err -delete
+
 undeploy: 
 	cd distbin && gasadmin gar -f $(GASCFG) --disable-archive $(ARCH) | true
 	cd distbin && gasadmin gar -f $(GASCFG) --undeploy-archive $(ARCH).gar
@@ -74,14 +84,14 @@ deploy:
 
 redeploy: undeploy deploy
 
-run: $(BIN)/menu.42r
-	cd $(BIN) && fglrun menu.42r
+run: $(BIN)/menu.42m
+	cd $(BIN) && fglrun menu
 
 db: $(BIN)/mk_db.42m
 	cd $(BIN) && fglrun mk_db
 
-rundef: $(BIN)/menu.42r
-	unset FGLGBCDIR && cd $(BIN) && fglrun menu.42r
+rundef: $(BIN)/menu.42m
+	unset FGLGBCDIR && cd $(BIN) && fglrun menu
 
 beautify:
 	find src -name \*.4gl -exec fglcomp --format --fo-inplace {} \;
@@ -89,19 +99,19 @@ beautify:
 clear:
 	clear
 
-runmatdesnat: clear $(BIN)/menu.42r
+runmatdesnat: clear $(BIN)/menu.42m
 	export FGLPROFILE=../etc/profile.nat && \
 	cd $(BIN) && fglrun matDesTest.42m
 
-runmatdes: clear $(BIN)/menu.42r
+runmatdes: clear $(BIN)/menu.42m
 	cd $(BIN) && fglrun matDesTest.42m
 
 # Not supported!
-runmdi: $(BIN)/menu.42r gbc_mdi/distbin/gbc-mdi.zip
-	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-mdi && cd $(BIN) && fglrun container.42r
+runmdi: $(BIN)/menu.42m gbc_mdi/distbin/gbc-mdi.zip
+	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-mdi && cd $(BIN) && fglrun container.42m
 
-recmatdes: $(BIN)/menu.42r
-	cd $(BIN) && fglrun --start-guilog=../ggc/matdes.log materialDesignTest.42r
+recmatdes: $(BIN)/menu.42m
+	cd $(BIN) && fglrun --start-guilog=../ggc/matdes.log materialDesignTest.42m
 
 distbin/njms_demos401_pgs.war: distbin/njms_demos401_pgs.gar
 	fglgar war --input-gar $^ --output $@  --gbc /opt/fourjs/gbc-current401/dist/customization/gbc-clean

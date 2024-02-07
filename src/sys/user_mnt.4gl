@@ -1,4 +1,5 @@
 #+ User Maintenance Demo - by N.J.Martin neilm@4js.com
+#+  This module contains a report so needs --build-rdd See Post Compile option on Additional Properties panel
 
 IMPORT FGL g2_lib.*
 

@@ -1,4 +1,5 @@
 #+ Order Printing
+#+  This module contains a report so needs --build-rdd See Post Compile option on Additional Properties panel
 #+
 #+ Arg 1 - SDI/MDI
 #+ Arg 2 - userid
@@ -26,7 +27,7 @@ CONSTANT m_logo = "../pics/logo_dark.png"
 DEFINE m_rpt g2_grw.greRpt
 MAIN
 	DEFINE l_row                                SMALLINT
-	DEFINE l_stmt                               VARCHAR(200)
+	DEFINE l_stmt                               STRING
 	DEFINE l_ordno                              INTEGER
 	DEFINE l_rptStart, l_preview, l_interactive BOOLEAN
 	DEFINE l_report                             STRING
