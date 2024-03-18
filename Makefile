@@ -1,4 +1,12 @@
 
+.SUFFIXES: .4gl .42m .per .42f
+
+.4gl.42m:
+	fglcomp -c -W all $<
+
+.per.42f:
+	fglform -M $<
+
 ifndef GENVER
 export GENVER=401
 endif
@@ -16,7 +24,8 @@ export MUSICDIR=~/Music
 export FJS_GL_DBGLEV=2
 
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
-export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
+#export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
+export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa6.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
 export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(FGLPROFILEUI)
 export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
@@ -105,6 +114,9 @@ runmatdesnat: clear $(BIN)/menu.42m
 
 runmatdes: clear $(BIN)/menu.42m
 	cd $(BIN) && fglrun matDesTest.42m
+
+runfa: clear $(BIN)/fontAwesome.42m
+	cd $(BIN) && fglrun fontAwesome.42m
 
 # Not supported!
 runmdi: $(BIN)/menu.42m gbc_mdi/distbin/gbc-mdi.zip

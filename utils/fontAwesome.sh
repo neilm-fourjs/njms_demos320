@@ -18,6 +18,9 @@ fi
 if [ "$1" == "fa5" ]; then
 	export FGLIMAGEPATH=../pics/fa5.txt:../pics
 fi
+if [ "$1" == "fa6" ]; then
+	export FGLIMAGEPATH=../pics/fa6.txt:../pics
+fi
 if [ "$1" == "mdi" ]; then
 	export FGLIMAGEPATH=../pics/gmdi.txt:../pics
 fi

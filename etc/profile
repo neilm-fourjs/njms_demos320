@@ -1,1 +1,3 @@
-ifx/profile
+
+# Informix
+dbi.default.driver = "dbmifx"
