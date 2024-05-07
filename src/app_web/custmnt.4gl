@@ -1,5 +1,5 @@
 IMPORT FGL g2_lib.*
-IMPORT FGL combos -- from business apps app_lib
+IMPORT FGL applib.*
 
 &include "../schema.inc"
 

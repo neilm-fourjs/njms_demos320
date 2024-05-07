@@ -10,7 +10,7 @@
 -- 5: Allowed actions: Y/N > Find / Update / Insert / Delete / Sample / List  -- eg: YNNNNN = enquiry only.
 
 IMPORT FGL g2_lib.*
-
+IMPORT FGL glm.*
 
 IMPORT FGL glm_mkForm
 IMPORT FGL glm_sql

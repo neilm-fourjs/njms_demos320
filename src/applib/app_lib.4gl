@@ -1,3 +1,5 @@
+PACKAGE applib
+
 IMPORT FGL g2_lib.*
 &include "../schema.inc"
 

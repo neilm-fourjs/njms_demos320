@@ -4,12 +4,7 @@
 
 IMPORT os
 IMPORT util
---IMPORT FGL g2_lib.* -- crashes fglcomp in GST code editor, so have to import each required module
-IMPORT FGL g2_lib.g2_core
-IMPORT FGL g2_lib.g2_init
-IMPORT FGL g2_lib.g2_about
-IMPORT FGL g2_lib.g2_secure
-IMPORT FGL g2_lib.g2_debug
+IMPORT FGL g2_lib.*
 
 &include "../schema.inc"
 &include "../app/app.inc"

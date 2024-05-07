@@ -1,3 +1,4 @@
+PACKAGE applib
 &include "../schema.inc"
 
 FUNCTION dummy()

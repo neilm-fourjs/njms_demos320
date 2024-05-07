@@ -3,7 +3,7 @@
 
 IMPORT FGL g2_lib.*
 
-IMPORT FGL app_lib
+IMPORT FGL applib.app_lib
 
 &include "../schema.inc"
 &include "../app/app.inc"

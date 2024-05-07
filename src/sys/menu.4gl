@@ -10,8 +10,8 @@ IMPORT FGL lib_login
 IMPORT FGL menuLib
 IMPORT FGL new_acct
 
-&include "../schema.inc"
-&include "../app/app.inc"
+&include "schema.inc"
+&include "app.inc"
 
 CONSTANT C_PRGVER  = "3.2"
 CONSTANT C_PRGDESC = "Demos Menu System v3"
@@ -87,7 +87,7 @@ FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
 	END IF
 	LET m_user = l_user
 	SELECT user_key INTO l_user_id FROM sys_users WHERE email = l_user
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		LET l_err = SFMT(%"User '%1' not in database!", l_user)
 		CALL g2_core.g2_errPopup(l_err)
 		CALL g2_core.g2_exitProgram(1, l_err)

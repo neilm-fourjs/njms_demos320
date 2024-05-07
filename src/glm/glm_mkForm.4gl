@@ -1,5 +1,8 @@
-IMPORT util
+PACKAGE glm
+
 IMPORT FGL g2_lib.g2_db
+
+IMPORT util
 &include "dynMaint.inc"
 
 PUBLIC DEFINE m_fld_props DYNAMIC ARRAY OF t_fld_props

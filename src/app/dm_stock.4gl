@@ -5,12 +5,11 @@
 IMPORT util
 -- Core libraries
 IMPORT FGL g2_lib.*
-
+IMPORT FGL applib.app_lib
 -- Dynamic Maintenance Libraries
-IMPORT FGL glm_mkForm
-IMPORT FGL glm_sql
-IMPORT FGL glm_ui
-&include "../gl_dynMaint/dynMaint.inc"
+IMPORT FGL glm.*
+
+&include "dynMaint.inc"
 -- Schema / App
 &include "../schema.inc"
 &include "app.inc"

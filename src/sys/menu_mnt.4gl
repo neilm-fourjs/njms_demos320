@@ -1,8 +1,8 @@
 #+ Menu Maintenance Demo - by N.J.Martin neilm@4js.com
 
 IMPORT FGL g2_lib.*
+IMPORT FGL applib.app_lib
 
-IMPORT FGL app_lib
 &include "../schema.inc"
 &include "../app/app.inc"
 

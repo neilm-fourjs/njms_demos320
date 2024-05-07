@@ -1,15 +1,16 @@
-IMPORT os
---IMPORT FGL g2_lib.* -- crashes fglcomp in GST code editor, so have to import each required module
-IMPORT FGL g2_lib.g2_core
-IMPORT FGL g2_lib.g2_init
-IMPORT FGL g2_lib.g2_about
-
+IMPORT FGL g2_lib.*
 IMPORT FGL lib_login
-
-&include "../schema.inc"
+IMPORT os
+&include "schema.inc"
 
 PUBLIC DEFINE m_curMenu SMALLINT
 PUBLIC DEFINE m_args    STRING
+CONSTANT C_MENU_QUIT = "quit"
+CONSTANT C_MENU_MENU = "forwind"
+CONSTANT C_MENU_PROG_S = "play"
+CONSTANT C_MENU_PROG_P = "play"
+CONSTANT C_MENU_PROG_F = "play"
+CONSTANT C_MENU_BACK = "rewind"
 
 DEFINE m_menu DYNAMIC ARRAY OF RECORD
 	menu_key LIKE sys_menus.menu_key,
@@ -30,7 +31,7 @@ FUNCTION do_menu(l_logo STRING)
 	WHENEVER ANY ERROR CALL g2_core.g2_error
 	OPEN WINDOW w_menu WITH FORM "menu"
 	LET l_form  = ui.Window.getCurrent().getForm()
-	LET m_prf   = "FGLPROFILE=" || fgl_getEnv("FGLPROFILE")
+	LET m_prf   = "FGLPROFILE=" || fgl_getenv("FGLPROFILE")
 	LET m_useUR = TRUE
 
 	DISPLAY l_logo TO logo
@@ -193,21 +194,21 @@ FUNCTION populate_menu(l_mname LIKE sys_menus.m_id) RETURNS BOOLEAN
 		END IF
 		CASE m_menu[m_menu.getLength()].m_type
 			WHEN "C"
-				LET m_menu[m_menu.getLength()].m_img = "quit"
+				LET m_menu[m_menu.getLength()].m_img = C_MENU_QUIT
 			WHEN "M"
-				LET m_menu[m_menu.getLength()].m_img = "double-right"
+				LET m_menu[m_menu.getLength()].m_img = C_MENU_MENU
 			WHEN "P"
-				LET m_menu[m_menu.getLength()].m_img = "settings"
+				LET m_menu[m_menu.getLength()].m_img = C_MENU_PROG_P
 			WHEN "F"
-				LET m_menu[m_menu.getLength()].m_img = "settings"
+				LET m_menu[m_menu.getLength()].m_img = C_MENU_PROG_F
 			WHEN "S"
-				LET m_menu[m_menu.getLength()].m_img = "settings"
+				LET m_menu[m_menu.getLength()].m_img = C_MENU_PROG_S
 		END CASE
 	END FOREACH
 	LET m_menu[m_menu.getLength()].m_type = "C"
 	LET m_menu[m_menu.getLength()].m_text = "Back"
 	LET m_menu[m_menu.getLength()].m_item = "back"
-	LET m_menu[m_menu.getLength()].m_img  = "double-left"
+	LET m_menu[m_menu.getLength()].m_img  = C_MENU_BACK
 	IF m_menu[m_menu.getLength() - 1].m_pid IS NULL THEN
 		LET m_menu[m_menu.getLength()].m_text = "Quit"
 		LET m_menu[m_menu.getLength()].m_item = "quit"
@@ -235,7 +236,7 @@ FUNCTION progArgs(l_prog STRING) RETURNS(STRING, STRING)
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION quit() RETURNS BOOLEAN
-	IF ARG_VAL(1) = "MDI" THEN
+	IF base.Application.getArgument(1) = "MDI" THEN
 		IF ui.Interface.getChildCount() > 0 THEN
 			CALL g2_core.g2_warnPopup(%"Must close child windows first!")
 			RETURN FALSE
@@ -245,7 +246,7 @@ FUNCTION quit() RETURNS BOOLEAN
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION run_withoutWaiting(l_cmd STRING)
-	CALL g2_init.g2_log.logit("RUN: " || NVL(l_cmd, "NULL!"))
+	CALL g2_init.g2_log.logIt("RUN: " || NVL(l_cmd, "NULL!"))
 	RUN l_cmd WITHOUT WAITING
 END FUNCTION
 --------------------------------------------------------------------------------

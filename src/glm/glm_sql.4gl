@@ -1,6 +1,9 @@
-IMPORT util
+PACKAGE glm
+IMPORT FGL glm.glm_mkForm
+
 IMPORT FGL g2_lib.*
-IMPORT FGL glm_mkForm
+
+IMPORT util
 &include "dynMaint.inc"
 
 PUBLIC DEFINE m_where, m_cols        STRING

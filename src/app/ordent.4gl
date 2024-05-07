@@ -11,7 +11,7 @@
 IMPORT util
 IMPORT FGL g2_lib.*
 
-IMPORT FGL app_lib
+IMPORT FGL applib.app_lib
 IMPORT FGL oe_lib
 
 &include "app.inc"
