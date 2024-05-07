@@ -16,7 +16,7 @@ mkdir $DISTARC/pics
 mkdir $DISTARC/etc
 
 # Copy files to archive folder
-cp njm_app_bin/*.42? $DISTARC/bin
+cp bin$GENVER/*.42? $DISTARC/bin
 #cp g2_lib/bin320/*.42? $DISTARC/bin
 cp gas_deploy/*.xcf $DISTARC/
 cp etc/* $DISTARC/etc 2> /dev/null
