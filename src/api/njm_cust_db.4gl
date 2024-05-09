@@ -1,4 +1,5 @@
-&include "../schema.inc"
+
+&include "schema.inc"
 
 PUBLIC TYPE t_customers RECORD
 	arr      DYNAMIC ARRAY OF RECORD LIKE customer.*,

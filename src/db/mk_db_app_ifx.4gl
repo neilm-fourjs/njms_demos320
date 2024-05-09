@@ -1,8 +1,10 @@
 IMPORT FGL g2_lib.*
 IMPORT FGL mk_db_lib
 IMPORT reflect
+
 &include "schema.inc"
-&include "../njm_demo400.inc"
+&include "njm_demo400.inc"
+
 #+ Create the application database tables: Informix
 --------------------------------------------------------------------------------
 FUNCTION ifx_create_app_tables(l_db g2_db.dbInfo INOUT)

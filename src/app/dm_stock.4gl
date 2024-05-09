@@ -11,7 +11,7 @@ IMPORT FGL glm.*
 
 &include "dynMaint.inc"
 -- Schema / App
-&include "../schema.inc"
+&include "schema.inc"
 &include "app.inc"
 -- Program Info
 CONSTANT C_PRGVER  = "3.1"

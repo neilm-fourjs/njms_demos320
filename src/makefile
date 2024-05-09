@@ -1,8 +1,8 @@
 
 PROJBASE=..
-TRG=$(PROJBASE)/bin$(GENVER)
+TRG=$(PROJBASE)/njm_app_bin$(GENVER)
 G2LIB=$(PROJBASE)/g2_lib/g2_lib
-INCL=-I gl_dynMaint -I app
+INCL=-Igl_dynMaint -Iapplib -Ig2_lib
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa6.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
 export FGLLDPATH=$(GREDIR)/lib
@@ -31,7 +31,6 @@ APPWEB=\
 	app_web/prods.4gl \
 	app_web/quotemnt.4gl \
 	app_web/quotes.4gl
-
 
 SYS=\
 	sys/container.4gl \
@@ -75,37 +74,40 @@ UTILS=\
 
 API=api/njm_demoapi.4gl
 
-all: $(TRG) forms build_db build_dyn build_aw build_app build_sys build_demos build_utils build_api
+all: $(TRG) g2_lib forms build_db build_dyn build_aw build_app build_sys build_demos build_utils build_api
 
 $(TRG):
 	mkdir $@
 
+g2_lib:
+	ln -s ../g2_lib/g2_lib
+
 forms: $(FORMS)
-	fglform -M --make -o $(TRG) $^
+	fglform -M --make -o $(TRG) $(INCL) $^
 
 build_db: $(DB)
-	fglcomp -M --make -o $(TRG) $^
+	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_dyn: $(APP)
 	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_aw: $(APPWEB)
-	fglcomp -M --make -o $(TRG) $^
+	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_app: $(APP)
-	fglcomp -M --make -o $(TRG) $^
+	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_sys: $(SYS)
 	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_demos: $(DEMOS)
-	fglcomp -M --make -o $(TRG) $^
+	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_utils: $(UTILS)
-	fglcomp -M --make -o $(TRG) $^
+	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 build_api: $(API)
-	fglcomp -M --make -o $(TRG) $^
+	fglcomp -M --make -o $(TRG) $(INCL) $^
 
 run:
 	cd $(TRG) && fglrun menu

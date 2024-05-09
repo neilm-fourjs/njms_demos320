@@ -8,12 +8,12 @@
 	fglform -M $<
 
 ifndef GENVER
-export GENVER=500
+export GENVER=401
 endif
 export BIN=njm_app_bin$(GENVER)
-export SCH=etc/njm_demo400.sch
+
 export PROJBASE=$(PWD)
-export DBTYPE=pgs
+export DBTYPE=sqt
 export DBNAME=njm_demo400
 export GBC=gbc-clean
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
@@ -27,23 +27,31 @@ export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 #export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa6.txt
 export FGLRESOURCEPATH=$(PROJBASE)/etc
-export FGLDBPATH=$(PROJBASE)/etc
 export FGLPROFILE=$(PROJBASE)/etc/$(DBTYPE)/profile:$(FGLPROFILEUI)
 export FGLLDPATH=njm_app_bin:$(GREDIR)/lib
 
 export DB_LOCALE=en_GB.utf8
 export LANG=en_GB.utf8
 
-all: $(SCH) njmdemo gar
+SOURCE=$(shell find . -name \*.4gl)
 
-$(SCH):
-	fgldbsch -db $@ -dv $(DBTYPE)
+TARGETS=\
+	$(BIN)/g2_lib.42x\
+	gars\
+#	gbc_clean/distbin/gbc-clean.zip\
+#	gbc_njm/distbin/gbc-njm.zip\
+#	gbc_mdi/distbin/gbc-mdi.zip
 
-njmdemo:
-	cd src && make
+all: $(TARGETS)
 
-gar:
-	./mk_gar.sh
+$(BIN)/g2_lib.42x:
+	cd g2_lib && gsmake g2_lib$(GENVER).4pw
+
+gars: $(SOURCE)
+	gsmake $(APP)$(GENVER).4pw
+
+force: $(SOURCE)
+	gsmake -disable-dependencies -max-errors 0 $(APP)$(GENVER).4pw; gsmake -disable-dependencies -max-errors 0 $(APP)$(GENVER).4pw
 
 gbc_clean/gbc-current:
 	cd gbc_clean && ln -s $(GBCPROJDIR)
@@ -123,5 +131,3 @@ distbin/njms_demos401_pgs.war: distbin/njms_demos401_pgs.gar
 runwar: distbin/njms_demos401_pgs.war
 	fglgar run --war $^
 
-code: 
-	code .

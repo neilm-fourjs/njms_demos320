@@ -1,7 +1,7 @@
 IMPORT FGL g2_lib.*
 IMPORT FGL applib.*
 
-&include "../schema.inc"
+&include "schema.inc"
 
 MAIN
 	DEFINE l_db  g2_db.dbInfo

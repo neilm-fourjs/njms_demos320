@@ -6,10 +6,10 @@ IMPORT os
 IMPORT util
 IMPORT FGL g2_lib.*
 
-&include "../schema.inc"
-&include "../app/app.inc"
+&include "schema.inc"
+&include "app.inc"
+&include "g2_debug.inc"
 &include "../OpenIdLogin/OpenIdLogin.inc"
-&include "../../g2_lib/g2_lib/g2_debug.inc"
 
 -- Callback function for creating a new account.
 TYPE f_new_account FUNCTION(l_email STRING, l_family STRING, l_given STRING, l_photo STRING) RETURNS STRING
@@ -75,7 +75,7 @@ PUBLIC FUNCTION login(l_appname STRING, l_ver STRING) RETURNS STRING
 		LET l_theme = l_cur_theme
 	END IF
 	IF base.Application.getArgument(1) = "OpenID" THEN
-		LET l_login = openid_login()
+		LET l_login = openId_login()
 	END IF
 	CALL g2_init.g2_log.logIt("before input for login")
 	DISPLAY %"F12 or Ctrl-G - login as 'test'" TO info
@@ -188,7 +188,7 @@ END FUNCTION
 #+ @return true if exists else false
 PUBLIC FUNCTION sql_checkEmail(l_email VARCHAR(80)) RETURNS BOOLEAN
 	SELECT * FROM sys_users WHERE email = l_email
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		RETURN FALSE
 	END IF
 	RETURN TRUE
@@ -212,7 +212,7 @@ PRIVATE FUNCTION validate_login(l_login LIKE sys_users.email, l_pass LIKE sys_us
 
 -- does account exist?
 	SELECT * INTO l_acc.* FROM sys_users WHERE email = l_login
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		CALL g2_init.g2_log.logIt("No account for:" || l_login)
 		CALL audit_login(l_login, "A")
 		RETURN FALSE
@@ -501,7 +501,7 @@ PRIVATE FUNCTION openId_login() RETURNS STRING
 	END TRY
 
 	SELECT * FROM sys_users WHERE email = l_oidc.email
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		LET l_oidc.email = m_new_acc_func(l_oidc.email, l_oidc.family, l_oidc.given, l_oidc.picture)
 	END IF
 
@@ -554,7 +554,7 @@ PRIVATE FUNCTION audit_login(l_email LIKE sys_users.email, l_stat CHAR(1))
 	LET l_audit_rec.last_login = CURRENT
 	LET l_audit_rec.stat       = l_stat
 	INSERT INTO sys_login_hist VALUES l_audit_rec.*
-	LET m_login_audit_key = SQLCA.SQLERRD[2]
+	LET m_login_audit_key = sqlca.sqlerrd[2]
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION cb_gbc_theme(l_cb ui.ComboBox)

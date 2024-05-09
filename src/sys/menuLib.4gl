@@ -1,6 +1,7 @@
 IMPORT FGL g2_lib.*
 IMPORT FGL lib_login
 IMPORT os
+
 &include "schema.inc"
 
 PUBLIC DEFINE m_curMenu SMALLINT
@@ -169,7 +170,7 @@ FUNCTION populate_menu(l_mname LIKE sys_menus.m_id) RETURNS BOOLEAN
 
 	DISPLAY CURRENT, ": Menu:", l_mname, " m_curMenu:", m_curMenu
 	SELECT m_text INTO l_titl FROM sys_menus WHERE m_id = l_mname AND m_type = "T"
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		DISPLAY "Menu:" || l_mname || " not found!"
 		RETURN FALSE
 	END IF

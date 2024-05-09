@@ -10,9 +10,10 @@
             "name": "(4gl) Launch",
             "program": "${fileBasenameNoExtension}",
             "args": [],
-            "stopAtEntry": "true",
-            "externalConsole": false,
-            "cwd": "../bin500"
+            "stopAtEntry": true,
+            "externalConsole": true,
+            "preLaunchTask": "4gl: build active file",
+            "cwd": "./njm_app_bin500"
         }
     ]
 }

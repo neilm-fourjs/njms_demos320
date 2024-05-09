@@ -5,8 +5,8 @@ IMPORT FGL g2_lib.*
 
 IMPORT FGL applib.app_lib
 
-&include "../schema.inc"
-&include "../app/app.inc"
+&include "schema.inc"
+&include "app.inc"
 
 CONSTANT C_PRGDESC = "User Maintenance Demo"
 CONSTANT C_PRGAUTH = "Neil J.Martin"

@@ -1,13 +1,11 @@
 
 --IMPORT FGL g2_lib.* -- crashes fglcomp in GST code editor, so have to import each required module
 IMPORT FGL g2_lib.g2_core
-IMPORT FGL g2_lib.g2_init
-IMPORT FGL g2_lib.g2_about
 IMPORT FGL g2_lib.g2_secure
 
 IMPORT FGL lib_login
 
-&include "../schema.inc"
+&include "schema.inc"
 --------------------------------------------------------------------------------
 #+ Create a new account.
 FUNCTION new_acct(l_email STRING, l_family STRING, l_given STRING, l_photo STRING) RETURNS STRING
@@ -81,7 +79,7 @@ FUNCTION new_acct(l_email STRING, l_family STRING, l_given STRING, l_photo STRIN
 	RETURN l_email
 END FUNCTION
 --------------------------------------------------------------------------------
-FUNCTION pop_combo(l_cb ui.Combobox)
+FUNCTION pop_combo(l_cb ui.ComboBox)
 	CALL l_cb.addItem(0, "Admin")
 	CALL l_cb.addItem(1, "User")
 	CALL l_cb.addItem(2, "Special")
