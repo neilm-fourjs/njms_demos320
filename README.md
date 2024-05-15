@@ -109,11 +109,11 @@ Type "help" for help.
 postgres=# grant all privileges on database njm_demo400 to <appuser>;
 GRANT
 postgres=# \q
+sudo -u postgres psql njm_demo400
+njm_demo400=# GRANT ALL ON SCHEMA public TO <appuser>;
 ```
-
 or
 ```
-postgres=# \connect njm_demo400;
 You are now connected to database "njm_demo400" as user "postgres".
 njm_demo400=# GRANT UPDATE ON ALL TABLES IN SCHEMA public TO fourjs;
 GRANT
