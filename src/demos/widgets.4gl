@@ -189,6 +189,12 @@ MAIN
 				LET f_n = f.getNode()
 				GL_DBGMSG(2, "Before menu")
 				--	CALL f.setElementText("url","Button URL")
+
+			ON IDLE 60
+				GL_DBGMSG(1,"On Idle reached")
+				LET func = "Q"
+				EXIT MENU	
+
 			COMMAND "chgstyle0"
 				LET func = "0"
 				EXIT MENU
