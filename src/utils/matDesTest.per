@@ -19,6 +19,8 @@ ACTION DEFAULTS
 	ACTION sleep ( TEXT="Sleep 5", IMAGE="bedtime" )
 	ACTION clipset ( TEXT="Clipboard Set", IMAGE="copy" )
 	ACTION clipshow ( TEXT="Clipboard Show", IMAGE="paste" )
+	ACTION asterisk ( TEXT="Asterisk", ACCELERATOR="*" )
+	ACTION asterisk2 ( TEXT="Asterisk2", ACCELERATOR="Shift-8" )
 END -- AD
 
 TOPMENU
@@ -84,15 +86,16 @@ HBOX ( SPLITTER, ORIENTATION@SMALL = VERTICAL )
 GRID
 {
 [lab1|f001       |lab2a|f02a  ]
-[lab2|f002           ]
-[lab3|f003           ][a      ]
-[lab4|f004           ][b      ]
-[lab5|f005           ][c      ]
-[lab6|f006           ][col    ]
+[lab2|f002           |de1     ]
+[lab3|f003           |de2     ]
+[lab4|f004           ][col    ]
+[lab5|f005           ]
+[lab6|f006           ]
 [: :b1:but1  :msg    :err   : :]
 <G g1                          >
-[lab7|f007           ]
-[lab8|f008           ]
+[lab7|f007           ][a      ]
+[lab8|f008           ][b      ]
+[lab9|f009           ][c      ]
 <                              >
  more text outside of group.
 <T tab                         >
@@ -232,21 +235,24 @@ GROUP g2 : g2, TEXT=%"A Group #2",STYLE="collapsed";
 
 LABEL lab1 : lab1, TEXT=%"ButtonEdit:",JUSTIFY=RIGHT;
 LABEL lab2 : lab2, TEXT=%"DateEdit:",JUSTIFY=RIGHT;
+LABEL de1 : de1, TEXT=%"normal", STYLE="small";
+LABEL de2 : de2, TEXT=%"dropdown", STYLE="small";
+LABEL lab3 : lab3, TEXT=%"DateEdit:",JUSTIFY=RIGHT;
 LABEL lab2a : lab2a, TEXT=%"Interval:",JUSTIFY=RIGHT;
-LABEL lab3 : lab3, TEXT=%"Combo:",JUSTIFY=RIGHT;
-LABEL lab4 : lab4, TEXT=%"Combo(QE):",JUSTIFY=RIGHT;
-LABEL lab5 : lab5, TEXT=%"Readonly:",JUSTIFY=RIGHT;
+LABEL lab4 : lab4, TEXT=%"Combo:",JUSTIFY=RIGHT;
+LABEL lab5 : lab5, TEXT=%"Combo(QE):",JUSTIFY=RIGHT;
 LABEL lab6 : lab6, TEXT=%"Completer:",JUSTIFY=RIGHT;
-LABEL lab7 : lab7, TEXT=%"Live Field:",JUSTIFY=RIGHT;
-LABEL lab8 : lab8, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
+LABEL lab7 : lab7, TEXT=%"Readonly:",JUSTIFY=RIGHT;
+LABEL lab8 : lab8, TEXT=%"Live Field:",JUSTIFY=RIGHT;
+LABEL lab9 : lab9, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
 
 BUTTONEDIT f001 = FORMONLY.fld1, ACTION=win, TABINDEX=2;
 DATEEDIT f002 = FORMONLY.fld2, TABINDEX=3;
-f02a = FORMONLY.fld2a, SCROLL, TABINDEX=4;
-COMBOBOX f003 = FORMONLY.fld3, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", TABINDEX=5;
-COMBOBOX f004 = FORMONLY.fld4, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=6;
-f005 = FORMONLY.fld5, NOENTRY;
-f006 = FORMONLY.fld6,COMPLETER, TABINDEX=7;
+DATEEDIT f003 = FORMONLY.fld3, TABINDEX=4, STYLE="dropdown";
+f02a = FORMONLY.fld2a, SCROLL, TABINDEX=5;
+COMBOBOX f004 = FORMONLY.fld4, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", TABINDEX=6;
+COMBOBOX f005 = FORMONLY.fld5, INITIALIZER=cb_colour, PLACEHOLDER=%"Pick a Colour", QUERYEDITABLE, TABINDEX=7;
+f006 = FORMONLY.fld6,COMPLETER, TABINDEX=8;
 
 WEBCOMPONENT col = FORMONLY.col_hex,
 	STYLE="curvedborder",
@@ -256,12 +262,13 @@ WEBCOMPONENT col = FORMONLY.col_hex,
 	HEIGHT=32 PIXELS, WIDTH=64 PIXELS,
 	COMPONENTTYPE="colour";
 
-f007 = FORMONLY.fld7, TABINDEX=8;
-f008 = FORMONLY.fld8, NOENTRY;
-p101 = FORMONLY.fld9, TABINDEX=9;
-p102 = FORMONLY.fld10, NOENTRY;
-CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=10;
-CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=11;
+f007 = FORMONLY.fld7, NOENTRY;
+f008 = FORMONLY.fld8, TABINDEX=9;
+f009 = FORMONLY.fld9, NOENTRY;
+p101 = FORMONLY.fld10, TABINDEX=10;
+p102 = FORMONLY.fld11, NOENTRY;
+CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=11;
+CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=12;
 CHECKBOX c = FORMONLY.nul, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Nul?";
 
 IMAGE logo2 : logo2, IMAGE="logo_light", SIZEPOLICY=INITIAL,STYLE="noborder center";

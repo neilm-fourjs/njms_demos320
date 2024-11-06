@@ -13,9 +13,9 @@ endif
 export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
-export DBTYPE=sqt
+export DBTYPE=ifx
 export DBNAME=njm_demo400
-export GBC=gbc-clean
+export GBC=gbc-clean2
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
@@ -120,8 +120,8 @@ runfa: clear $(BIN)/fontAwesome.42m
 	cd $(BIN) && fglrun fontAwesome.42m
 
 # Not supported!
-runmdi: $(BIN)/menu.42m gbc_mdi/distbin/gbc-mdi.zip
-	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-mdi && cd $(BIN) && fglrun container.42m
+runmdi: 
+	cd $(BIN) && fglrun container.42m
 
 recmatdes: $(BIN)/menu.42m
 	cd $(BIN) && fglrun --start-guilog=../ggc/matdes.log materialDesignTest.42m
@@ -132,3 +132,8 @@ distbin/njms_demos401_pgs.war: distbin/njms_demos401_pgs.gar
 runwar: distbin/njms_demos401_pgs.war
 	fglgar run --war $^
 
+dba:
+	dbaccess njm_demo400
+
+dbtest:
+	export FGLSQLDEBUG=3 && fglrun dbtest

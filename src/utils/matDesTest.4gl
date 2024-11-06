@@ -40,15 +40,16 @@ MAIN
 		fld1    CHAR(10),
 		fld2    DATE,
 		fld2a   INTERVAL HOUR TO MINUTE,
-		fld3    STRING,
+		fld3    DATE,
 		fld4    STRING,
 		fld5    STRING,
 		fld6    STRING, -- Colour completer
-		col_hex STRING, -- WebComponent
 		fld7    STRING,
+		col_hex STRING, -- WebComponent
 		fld8    STRING,
 		fld9    STRING,
 		fld10   STRING,
+		fld11   STRING,
 		okay    BOOLEAN,
 		notokay BOOLEAN,
 		nul     BOOLEAN
@@ -85,16 +86,17 @@ MAIN
 	END FOR
 	LET l_rec.fld1    = "Active"
 	LET l_rec.fld2    = TODAY
+	LET l_rec.fld3    = TODAY-1
 	LET l_tim         = TIME
 	LET l_rec.fld2a   = ((l_tim + 90 UNITS MINUTE) - l_tim)
-	LET l_rec.fld3    = 1
-	LET l_rec.fld4    = "Red"
-	LET l_rec.fld5    = "Inactive"
+	LET l_rec.fld4    = "DarkViolet2"
+	LET l_rec.fld5    = "Red"
 	LET l_rec.fld6    = "Turquoise2"
-	LET l_rec.fld7    = "Active"
-	LET l_rec.fld8    = "Inactive"
-	LET l_rec.fld9    = "Active"
-	LET l_rec.fld10   = "Inactive"
+	LET l_rec.fld7    = "Inactive"
+	LET l_rec.fld8    = "Active"
+	LET l_rec.fld9    = "Inactive"
+	LET l_rec.fld10   = "Active"
+	LET l_rec.fld11   = "Inactive"
 	LET l_rec.okay    = TRUE
 	LET l_rec.notokay = FALSE
 	LET l_rec.nul     = NULL
@@ -116,8 +118,8 @@ MAIN
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
 		INPUT BY NAME l_rec.* ATTRIBUTES(WITHOUT DEFAULTS)
-			ON CHANGE fld3
-				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld3))
+			ON CHANGE fld4
+				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld4))
 { Can't change the content of a web component using this FC because it's in an iframe.
 				TRY
 					CALL ui.Interface.frontCall("mymodule","replace_html",["colour",l_rec.fld3],[x])
@@ -125,7 +127,7 @@ MAIN
 				CATCH
 					DISPLAY SFMT("FC test failed! %1 %2", status, err_get(status))
 				END TRY}
-				LET l_rec.fld6 = l_rec.fld3
+				LET l_rec.fld6 = l_rec.fld4
 			ON CHANGE fld6
 				CALL set_completer(DIALOG, l_rec.fld6)
 				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
@@ -250,6 +252,10 @@ MAIN
 			ERROR "Control-Y"
 		ON ACTION actionz
 			ERROR "Control-Z"
+		ON ACTION asterisk
+			ERROR "Asterisk"
+		ON ACTION asterisk2
+			ERROR "Asterisk2"
 		ON ACTION f1
 			ERROR "F1"
 		ON ACTION f2
@@ -294,7 +300,7 @@ MAIN
 				CALL DIALOG.setActionActive("dyntext", FALSE)
 			END IF
 			CALL DIALOG.getForm().ensureElementVisible("tab2info") -- attempt to bring listView to front in folder
-			CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
+			CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld4))
 	END DIALOG
 END MAIN
 --------------------------------------------------------------------------------
