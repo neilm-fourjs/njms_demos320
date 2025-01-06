@@ -297,6 +297,7 @@
           <Configuration id="-602258307" label="expenses"/>
           <File filePath="src/demos/expenses.4gl"/>
           <File filePath="src/demos/expenses.per"/>
+          <File filePath="src/demos/copyTable.4gl"/>
         </Application>
         <Application binaryName="ipodTree" dependencies="-310428106,1136561508_14000,-47144818_14000" id="-217822240" label="ipodTree">
           <Configuration id="1446480833" label="ipodTree"/>

@@ -1,4 +1,6 @@
 IMPORT FGL g2_lib.*
+IMPORT FGL copyTable
+IMPORT reflect
 
 CONSTANT C_PRGVER  = "3.1"
 CONSTANT C_PRGDESC = "Table Expenses Demo"
@@ -64,6 +66,8 @@ MAIN
 				LET m_arr[x].gross = m_arr[x].nett + m_arr[x].vat
 				CALL vat_table()
 
+			ON ACTION copytable
+				CALL copyTable(reflect.Value.valueOf(m_arr))
 		END INPUT
 		DISPLAY ARRAY m_vat TO vat_arr.*
 		END DISPLAY
