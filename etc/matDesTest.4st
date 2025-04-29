@@ -11,21 +11,21 @@
 		<StyleAttribute name="border" value="none" />
 	</Style>
 	<Style name=".html">
-     <StyleAttribute name="textFormat" value="html"/>
+		 <StyleAttribute name="textFormat" value="html"/>
 	</Style>
 	<Style name=".bold">
-     <StyleAttribute name="fontWeight" value="bold"/>
+		 <StyleAttribute name="fontWeight" value="bold"/>
 	</Style>
 	<Style name=".em12">
-     <StyleAttribute name="fontSize" value="1.2em"/>
+		 <StyleAttribute name="fontSize" value="1.2em"/>
 	</Style>
 	<Style name=".em8">
-     <StyleAttribute name="fontSize" value=".8em"/>
+		 <StyleAttribute name="fontSize" value=".8em"/>
 	</Style>
 
-  <Style name="Folder">
-      <StyleAttribute name="lateRendering" value="yes" />
-  </Style>
+	<Style name="Folder">
+			<StyleAttribute name="lateRendering" value="yes" />
+	</Style>
 	<Style name="Folder.accordion">
 		<StyleAttribute name="position"	value="accordion" />
 	</Style>
@@ -33,8 +33,9 @@
 	<Style name="Table.listview">
 		<StyleAttribute name="tableType"	value="listView" />
 	</Style>
-	<Style name="Table.nocurrent">
+	<Style name=".nocurrent">
 		<StyleAttribute name="highlightCurrentRow" value="no" />
+		<StyleAttribute name="highlightCurrentCell" value="no"/>
 	</Style>
 
 	<Style name="Group.collapsed" >
@@ -57,6 +58,7 @@
 		<StyleAttribute name="windowType" value="normal" />
 		<StyleAttribute name="actionPanelPosition" value="none" />
 		<StyleAttribute name="ringMenuPosition" value="none" />
+		<StyleAttribute name="errorMessagePosition" value="popup" />
 	</Style>
 	<Style name="Window.centered">
 		<StyleAttribute name="windowType" value="normal" />

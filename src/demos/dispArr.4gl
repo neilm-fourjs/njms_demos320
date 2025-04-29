@@ -65,50 +65,72 @@ END MAIN
 -------------------------------------------------------------------------------
 -- Multi Row Selection - Method 1
 FUNCTION disp_arr1()
-	DISPLAY ARRAY m_arr TO arr.* ATTRIBUTES(UNBUFFERED)
-		BEFORE DISPLAY
-			CALL DIALOG.setSelectionMode("arr", TRUE)
-			CALL DIALOG.getForm().setElementHidden("formonly.chkd", TRUE)
-			CALL DIALOG.getForm().setElementHidden("formonly.seld", FALSE)
+	DEFINE dummy STRING
+	DIALOG ATTRIBUTES(UNBUFFERED)
 
-		ON SELECTION CHANGE
-			CALL totals(DIALOG, "SELC")
+		DISPLAY ARRAY m_arr TO arr.*
+			BEFORE DISPLAY
+				DISPLAY "Before display"
+				CALL DIALOG.setSelectionMode("arr", TRUE)
+				CALL DIALOG.getForm().setElementHidden("formonly.chkd", TRUE)
+				CALL DIALOG.getForm().setElementHidden("formonly.seld", FALSE)
 
-		ON ACTION tot
-			CALL totals(DIALOG, "ACT ")
+--			ON SELECTION CHANGE
+--				CALL totals(DIALOG, "SELC")
+
+			ON ACTION tot
+				CALL totals(DIALOG, "ACT ")
+
+			ON ACTION test
+				CALL DIALOG.nextField("dummy")
+				--NEXT FIELD dummy
 
 -- Popualtte or clear the array
-		ON ACTION poparr
-			CALL poparr()
-		ON ACTION clrarr
-			CALL m_arr.clear()
-			MESSAGE "Rows:", m_arr.getLength()
+			ON ACTION poparr
+				CALL poparr()
+			ON ACTION clrarr
+				CALL m_arr.clear()
+				MESSAGE "Rows:", m_arr.getLength()
 
 -- Maintenance Triggers
-		ON APPEND
-			CALL editRow(FALSE)
-		ON INSERT
-			CALL editRow(FALSE)
-		ON UPDATE
-			CALL editRow(TRUE)
-		ON DELETE
-			IF g2_core.g2_winQuestion("Confirm", "Delete this row?\n" || m_arr[arr_curr()].desc, "No", "Yes|No", "questions")
-					= "No" THEN
-				LET int_flag = TRUE
-			END IF
+			ON APPEND
+				CALL editRow(FALSE)
+				IF NOT int_flag THEN
+					DISPLAY "done append"
+					CALL DIALOG.nextField("dummy")
+				END IF
+			ON INSERT
+				CALL editRow(FALSE)
+				NEXT FIELD dummy
+			ON UPDATE
+				CALL editRow(TRUE)
+			ON DELETE
+				IF g2_core.g2_winQuestion(
+								"Confirm", "Delete this row?\n" || m_arr[arr_curr()].desc, "No", "Yes|No", "questions")
+						= "No" THEN
+					LET int_flag = TRUE
+				END IF
+				NEXT FIELD dummy
+		END DISPLAY
+
+		INPUT BY NAME dummy
+			BEFORE INPUT
+				DISPLAY "Input"
+		END INPUT
 
 		ON ACTION about
 			CALL g2_about.g2_about()
 -- Default actions to leave the statement
 		ON ACTION close
-			EXIT DISPLAY
+			EXIT DIALOG
 		ON ACTION quit
-			EXIT DISPLAY
-	END DISPLAY
+			EXIT DIALOG
+	END DIALOG
 END FUNCTION
 -------------------------------------------------------------------------------
 -- Multi Row Selection - Method 2
 FUNCTION disp_arr2()
+	LET int_flag = FALSE
 	DISPLAY ARRAY m_arr TO arr.* ATTRIBUTES(UNBUFFERED, FOCUSONFIELD)
 		BEFORE DISPLAY
 			CALL DIALOG.getForm().setElementHidden("formonly.chkd", FALSE)
@@ -184,6 +206,15 @@ FUNCTION editRow(l_edit BOOLEAN)
 			END IF
 			LET m_arr[arr_curr()].tot = (m_arr[arr_curr()].pri * m_arr[arr_curr()].qty)
 	END INPUT
+{
+	IF NOT int_flag THEN
+		IF l_edit THEN
+				UPDATE ...
+		ELSE
+				INSERT ...
+		END IF
+	END IF
+}
 END FUNCTION
 -------------------------------------------------------------------------------
 #+ handle totals for selected rows.

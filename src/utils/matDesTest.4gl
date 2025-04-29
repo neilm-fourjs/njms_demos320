@@ -11,11 +11,11 @@ IMPORT FGL g2_lib.g2_about
 
 CONSTANT C_PRGDESC = "Material Design Test"
 CONSTANT C_PRGAUTH = "Neil J.Martin"
-CONSTANT C_PRGVER  = "3.3"
+CONSTANT C_PRGVER  = "3.4"
 CONSTANT C_PRGICON = "logo_dark"
 CONSTANT C_IMG     = "smiley"
 
-CONSTANT C_COLOURSFILE = "../etc/colour_names.txt"
+CONSTANT C_COLOURSFILE = "colour_names.txt"
 CONSTANT C_NOTICE      = "🔴"
 
 CONSTANT PG_MAX = 1000
@@ -67,6 +67,7 @@ MAIN
 	END RECORD
 	DEFINE x     SMALLINT
 	DEFINE l_tim DATETIME HOUR TO SECOND
+	DEFINE l_tmp STRING
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
@@ -104,10 +105,13 @@ MAIN
 
 	OPEN FORM f FROM "matDesTest"
 	DISPLAY FORM f
-
+ 
 	DISPLAY fgl_getenv("FGLIMAGEPATH") TO imgpath
+	DISPLAY fgl_getenv("FGLPROFILE" ) TO fglprof
+	DISPLAY readFile( fgl_getenv("FGLPROFILE") ) TO fglpro
 	DISPLAY getAUIAttrVal("StyleList", "fileName") TO stylefile
-
+	DISPLAY fgl_getVersion() TO rtver
+	DISPLAY SFMT("%1 %2 %3 %4", ui.Interface.getFrontEndName(), ui.Interface.getFrontEndVersion(), ui.Interface.getUniversalClientName(),  ui.Interface.getUniversalClientVersion()) TO client
 	-- various attempt to bring listView page to front in folder, all FAIL!
 	CALL ui.Window.getCurrent().getForm().ensureElementVisible("tab2info")
 	DISPLAY ARRAY l_listView TO arr2.*
@@ -159,6 +163,9 @@ MAIN
 			ERROR "Error Message"
 		ON ACTION win
 			CALL win()
+		ON ACTION win_quest
+			CALL fgl_winQuestion("Confirm", "Are you sure?", "Yes", "Yes|No", "question",0) RETURNING l_tmp
+			CALL g2_core.g2_winMessage("Info", SFMT("Answer %1", l_tmp), "information")
 		ON ACTION win_mess
 			CALL notify(C_NOTICE)
 			CALL g2_core.g2_winMessage("Info", "Testing", "information")
@@ -187,6 +194,11 @@ MAIN
 			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_dark.png'/>")
 		ON ACTION lightlogo
 			CALL gbc_replaceHTML("logocell", "<img src='./resources/img/logo_light.png'/>")
+
+		ON ACTION customfc
+			CALL customfc()
+		ON ACTION customfc2
+			CALL customfc2()
 
 		ON ACTION pg
 			CALL pg(DIALOG.getForm(), 0)
@@ -533,8 +545,20 @@ FUNCTION getColours() RETURNS()
 	DEFINE c     base.Channel
 	DEFINE l_col t_colour
 	DEFINE l_cnt SMALLINT = 0
+	DEFINE l_file STRING
+
+	LET l_file = os.Path.join(base.Application.getProgramDir(),C_COLOURSFILE )
+	IF NOT os.Path.exists(l_file) THEN
+		DISPLAY SFMT("Didn't find '%1'.", l_file)
+		LET l_file =  os.Path.join("../etc", C_COLOURSFILE)
+	END IF
+	IF NOT os.Path.exists(l_file) THEN
+		DISPLAY SFMT("Didn't find '%1'.", l_file)
+		RETURN
+	END IF
+	DISPLAY SFMT("Loading '%1' ...", l_file)
 	LET c = base.Channel.create()
-	CALL c.openFile(C_COLOURSFILE, "r")
+	CALL c.openFile(l_file, "r")
 	WHILE NOT c.isEof()
 		IF c.read([l_col.*]) THEN
 			LET m_colours[l_cnt := l_cnt + 1].c_name = l_col.c_name.trim()
@@ -555,3 +579,36 @@ FUNCTION clipShow() RETURNS()
 	CALL ui.Interface.frontCall("standard", "cbget", [], l_res)
 	CALL fgl_winMessage("Clipboard", l_res, "information")
 END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION readFile( l_file STRING ) RETURNS(STRING)
+	DEFINE l_txt TEXT
+	LOCATE l_txt IN FILE l_file
+	RETURN l_txt
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION customfc()
+	DEFINE l_ret STRING
+	DEFINE l_itm STRING
+	DEFINE l_val STRING
+	LET l_itm = "lab3"
+	LET l_val = "DateEdit2:"
+	TRY
+		CALL ui.Interface.frontCall("mymodule","replace_html2",[l_itm, l_val],[l_ret])
+	CATCH
+		CALL fgl_winMessage("Error",SFMT("Frontcall mymodule.replace_html failed %1",ERR_GET(STATUS)), "exclamation")
+	END TRY
+	DISPLAY SFMT("Ret: %1", l_ret)
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION customfc2()
+	DEFINE l_ret STRING
+	TRY
+		CALL ui.Interface.frontCall("shopritecustom","selectPort",[],[l_ret])
+	CATCH
+		CALL fgl_winMessage("Error",SFMT("Frontcall shopritecustom.selectPort failed %1",ERR_GET(STATUS)), "exclamation")
+		RETURN
+	END TRY
+	CALL fgl_winMessage("Info", SFMT("Ret: %1", l_ret), "information")
+END FUNCTION
+
+

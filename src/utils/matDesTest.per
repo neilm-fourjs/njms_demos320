@@ -6,6 +6,7 @@ ACTION DEFAULTS
 	ACTION err ( TEXT="Error", IMAGE="exclamation" )
 	ACTION win ( TEXT="Model Window", IMAGE="circle" )
 	ACTION win_mess ( TEXT="Message Window", IMAGE="comment" )
+	ACTION win_quest ( TEXT="Question", IMAGE="question" )
 	ACTION notify ( TEXT="Notify", IMAGE="circle" )
 	ACTION wintitle ( TEXT="Window Title", IMAGE="square" )
 	ACTION uitext ( TEXT="UI Text", IMAGE="square" )
@@ -21,6 +22,8 @@ ACTION DEFAULTS
 	ACTION clipshow ( TEXT="Clipboard Show", IMAGE="paste" )
 	ACTION asterisk ( TEXT="Asterisk", ACCELERATOR="*" )
 	ACTION asterisk2 ( TEXT="Asterisk2", ACCELERATOR="Shift-8" )
+	ACTION customfc ( TEXT="Custom FrontCall", IMAGE="circle" )
+	ACTION customfc2 ( TEXT="Custom FrontCall 2", IMAGE="circle" )
 END -- AD
 
 TOPMENU
@@ -41,6 +44,7 @@ TOPMENU
 		COMMAND err
 		COMMAND win
 		COMMAND win_mess
+		COMMAND win_quest
 		COMMAND notify
 		COMMAND wintitle
 		COMMAND uitext
@@ -53,6 +57,8 @@ TOPMENU
 		COMMAND sleep
 		COMMAND clipset
 		COMMAND clipshow
+		COMMAND customfc
+		COMMAND customfc2
 	END -- opt
 	GROUP help (TEXT="Help")
 		COMMAND about
@@ -88,9 +94,9 @@ GRID
 [lab1|f001       |lab2a|f02a  ]
 [lab2|f002           |de1     ]
 [lab3|f003           |de2     ]
-[lab4|f004           ][col    ]
-[lab5|f005           ]
-[lab6|f006           ]
+[lab4|f004           |col     ]
+[lab5|f005           |cl   ]
+[lab6|f006           |     ]
 [: :b1:but1  :msg    :err   : :]
 <G g1                          >
 [lab7|f007           ][a      ]
@@ -115,35 +121,40 @@ PAGE f2p1 (TEXT="Some Text", IMAGE="smiley")
 GRID
 {
 This folder is using the 'accordion' style
-The table in the tab below is using 'listview' style
 IMAGEPATH:
 [ip                                          ]
 [                                            ]
-Style File:
+[lfglpro                                     ]
+[fglprof                                     ]
+[fglpro                                      ]
+[                                            ]
+[                                            ]
+[l4stfile         ]
 [sf                                          ]
 [                                            ]
+[lrt         ]
+[rtver                   ]
+[lcli        ]
+[client                                      ]
 }
 END -- GRID
 END -- PAGE
 
-PAGE f2p2 (TEXT="ListView", IMAGE="smiley", ACTION=arr2)
+PAGE f2p2 (TEXT="ScrollGrid", IMAGE="smiley", ACTION=arr2)
 GRID
 {
-<T tab2                                        >
- [t201                   |t202                ]
- [t201                   |t202                ]
- [t201                   |t202                ]
- [t201                   |t202                ]
- [t201                   |t202                ]
- [t201                   |t202                ]
- [t201                   |t202                ]
+ScrollGrid with WANTFIXEDPAGESIZE=NO
+<S tab2                                        >
+ [t200|t202                                   ]
+ [    |t201                                   ]
+ ----------------------------------------------
 <                                              >
  [: :tab2info                              : :]
 }
 END -- GRID
 END -- PAGE
 
-PAGE f2p3 (TEXT="Table 2", IMAGE="smiley", ACTION=arr3)
+PAGE f2p3 (TEXT="Table 3", IMAGE="smiley", ACTION=arr3)
 GRID
 {
 <T tab3                                        >
@@ -190,6 +201,11 @@ Some text on a page.
  [t402                ]
  [t402                ]
  [t402                ]
+ [t402                ]
+ [t402                ]
+ [t402                ]
+ [t402                ]
+ [t402                ]
  <                     >
  bottom of group
 <                       >
@@ -202,6 +218,8 @@ GRID
 page 2 is almost empty
 <G "Logo in a group box"        >
  [logo2                        ]
+ [                             ]
+ [                             ]
 }
 END -- GRID
 END -- PAGE
@@ -212,7 +230,7 @@ END -- HBOX
 HBOX (HIDDEN@SMALL)
 GRID
 {
-[pg                         ]
+[pg                         : :dcl         ]
 }
 END -- GRID
 GRID
@@ -245,6 +263,10 @@ LABEL lab6 : lab6, TEXT=%"Completer:",JUSTIFY=RIGHT;
 LABEL lab7 : lab7, TEXT=%"Readonly:",JUSTIFY=RIGHT;
 LABEL lab8 : lab8, TEXT=%"Live Field:",JUSTIFY=RIGHT;
 LABEL lab9 : lab9, TEXT=%"Dead Field:",JUSTIFY=RIGHT;
+LABEL l4stfile : l4stfile, TEXT=%"Style File:";
+LABEL lfglpro : lfglpro, TEXT=%"FGLPROFILE:";
+LABEL lrt : lrt, TEXT=%"Runtime:";
+LABEL lcli : lcli, TEXT=%"Client:";
 
 BUTTONEDIT f001 = FORMONLY.fld1, ACTION=win, TABINDEX=2;
 DATEEDIT f002 = FORMONLY.fld2, TABINDEX=3;
@@ -262,6 +284,9 @@ WEBCOMPONENT col = FORMONLY.col_hex,
 	HEIGHT=32 PIXELS, WIDTH=64 PIXELS,
 	COMPONENTTYPE="colour";
 
+WEBCOMPONENT cl = FORMONLY.cl, COMPONENTTYPE="clock";
+WEBCOMPONENT dcl = FORMONLY.dcl, COMPONENTTYPE="dclock";
+
 f007 = FORMONLY.fld7, NOENTRY;
 f008 = FORMONLY.fld8, TABINDEX=9;
 f009 = FORMONLY.fld9, NOENTRY;
@@ -270,8 +295,6 @@ p102 = FORMONLY.fld11, NOENTRY;
 CHECKBOX a = FORMONLY.okay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Ok?", NOT NULL, TABINDEX=11;
 CHECKBOX b = FORMONLY.notokay, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"NOk?", NOT NULL, TABINDEX=12;
 CHECKBOX c = FORMONLY.nul, VALUECHECKED=1, VALUEUNCHECKED=0, TEXT=%"Nul?";
-
-IMAGE logo2 : logo2, IMAGE="logo_light", SIZEPOLICY=INITIAL,STYLE="noborder center";
 
 -- normal table
 --TABLE tab : tab, WANTFIXEDPAGESIZE; -- ideally want this for @small only!
@@ -286,13 +309,22 @@ BUTTON msg : msg;
 BUTTON err: err;
 
 TEXTEDIT ip = FORMONLY.imgpath,STRETCH=X;
+EDIT fglprof = FORMONLY.fglprof;
+TEXTEDIT fglpro = FORMONLY.fglpro,STRETCH=X, STYLE="small";
 TEXTEDIT sf = FORMONLY.stylefile,STRETCH=X;
+EDIT rtver = FORMONLY.rtver;
+EDIT client = FORMONLY.client;
 
--- list view table
-TABLE tab2 : tab2, STYLE="listview";
-t201 = FORMONLY.lvcol1, SCROLL, IMAGECOLUMN=lvimg, STYLE="bold em12";
-t202 = FORMONLY.lvcol2, SCROLL,  STYLE="em8"; --, STYLE="html noborder", SCROLLBARS=NONE;
-PHANTOM FORMONLY.lvimg;
+-- list view table - old style
+--TABLE tab2 : tab2, STYLE="listview";
+--t201 = FORMONLY.lvcol1, SCROLL, IMAGECOLUMN=lvimg, STYLE="bold em12";
+--t202 = FORMONLY.lvcol2, SCROLL,  STYLE="em8"; --, STYLE="html noborder", SCROLLBARS=NONE;
+--PHANTOM FORMONLY.lvimg;
+SCROLLGRID tab2 : tab2, STYLE="nocurrent", WANTFIXEDPAGESIZE=NO;
+IMAGE t200 = FORMONLY.lvimg,AUTOSCALE, STYLE="noborder";
+LABEL t201 = FORMONLY.lvcol1, STYLE="em8";
+LABEL t202 = FORMONLY.lvcol2, STYLE="bold em11";
+
 LABEL tab2info = FORMONLY.tab2info, STYLE="center";
 
 -- arr2 table
@@ -303,17 +335,20 @@ PHANTOM FORMONLY.a3img;
 LABEL tab3info = FORMONLY.tab3info, STYLE="center";
 
 -- table in group
-TABLE tab4 : tab4, WANTFIXEDPAGESIZE, STYLE="nocurrent";
+TABLE tab4 : tab4, WANTFIXEDPAGESIZE, STYLE="nocurrent fill";
 PHANTOM FORMONLY.tab401;
-t402 = FORMONLY.tab402, TITLE="Colours";
+t402 = FORMONLY.tab402, TITLE="Colour";
 PHANTOM FORMONLY.tab403;
 
 IMAGE logo : logo, IMAGE="logo_dark", SIZEPOLICY=INITIAL,STYLE="noborder center";
 IMAGE sp : sp, IMAGE="", STRETCH=X, STYLE="noborder";
 PROGRESSBAR pg = FORMONLY.pg, VALUEMAX=10000 ;
 
+IMAGE logo2 : logo2, IMAGE="logo_light", SIZEPOLICY=INITIAL,STYLE="noborder center";
+
 INSTRUCTIONS
 SCREEN RECORD arr1 [6] ( FORMONLY.col1 THRU FORMONLY.img )
-SCREEN RECORD arr2 ( FORMONLY.lvcol1 THRU FORMONLY.lvimg )
+--SCREEN RECORD arr2 ( FORMONLY.lvcol1 THRU FORMONLY.lvimg )
+SCREEN RECORD arr2 ( FORMONLY.lvimg THRU FORMONLY.lvcol2 )
 SCREEN RECORD arr3 ( FORMONLY.a3col1 THRU FORMONLY.a3img )
 SCREEN RECORD arr4 ( FORMONLY.tab401 THRU FORMONLY.tab403 )

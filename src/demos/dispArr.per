@@ -6,6 +6,7 @@ ACTION DEFAULTS
 	ACTION append (TEXT="Append", IMAGE="fa-plus-square-o")
 	ACTION delete (TEXT="Remove", IMAGE="fa-minus-square-o")
 	ACTION update (TEXT="Update", IMAGE="fa-pencil-square-o")
+	ACTION test (TEXT="Test", IMAGE="fa-bug")
 	ACTION quit (TEXT="Quit", IMAGE="fa-power-off")
 END -- AD
 
@@ -39,6 +40,8 @@ TOOLBAR
 	ITEM append
 	ITEM update
 	ITEM delete
+	SEPARATOR
+	ITEM test
 	ITEM about
 END -- TB
 
@@ -62,19 +65,22 @@ END -- TABLE
 GRID ( COMMENT="Manual Totals" )
 {
 Total of selected rows:[stot        ][t ][btot]
+A dummy field:[fld1   ]
 }
 END -- GRID
 END -- VBOX
 
 ATTRIBUTES
 
-a001 = FORMONLY.key,TITLE="Key:", NOENTRY;
+a001 = FORMONLY.key,TITLE="Key:", NOENTRY, DEFAULT=0;
 a002 = FORMONLY.desc,TITLE="Description",REQUIRED;
 a003 = FORMONLY.pri,TITLE="Price", NOT NULL,REQUIRED;
 a04  = FORMONLY.qty,TITLE="Qty", NOT NULL,REQUIRED;
 a005 = FORMONLY.tot,TITLE="Total", NOENTRY;
 IMAGE a = FORMONLY.chkd, TITLE="Chk";
 IMAGE b = FORMONLY.seld, TITLE="Sel";
+
+fld1 = FORMONLY.dummy;
 
 AGGREGATE t1 = FORMONLY.t1,AGGREGATETEXT="Totals:";
 AGGREGATE t2 = FORMONLY.t2;
