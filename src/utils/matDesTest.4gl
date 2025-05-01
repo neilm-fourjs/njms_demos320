@@ -114,10 +114,11 @@ MAIN
 	DISPLAY SFMT("%1 %2 %3 %4", ui.Interface.getFrontEndName(), ui.Interface.getFrontEndVersion(), ui.Interface.getUniversalClientName(),  ui.Interface.getUniversalClientVersion()) TO client
 	-- various attempt to bring listView page to front in folder, all FAIL!
 	CALL ui.Window.getCurrent().getForm().ensureElementVisible("tab2info")
-	DISPLAY ARRAY l_listView TO arr2.*
-		BEFORE ROW EXIT DISPLAY
-	END DISPLAY
-	CALL ui.Interface.refresh()
+
+--	DISPLAY ARRAY l_listView TO arr2.*
+--		BEFORE ROW EXIT DISPLAY
+--	END DISPLAY
+--	CALL ui.Interface.refresh()
 	---------------------------------------------------------
 
 	DIALOG ATTRIBUTE(UNBUFFERED, FIELD ORDER FORM)
@@ -138,20 +139,24 @@ MAIN
 			AFTER FIELD fld6
 				CALL DIALOG.setFieldValue("col_hex", getColour(l_rec.fld6))
 		END INPUT
+
 		DISPLAY ARRAY l_arr TO arr1.* --ATTRIBUTES(ACCEPT=FALSE)
 		END DISPLAY
+
 		DISPLAY ARRAY l_listView TO arr2.*
 			BEFORE ROW
 				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr2"), l_listView.getLength()) TO tab2info
-			ON UPDATE
-				CALL g2_core.g2_winMessage("Update", "Update not available!", "exclamation")
-			ON DELETE
-				CALL g2_core.g2_winMessage("Delete", "Delete not available!", "exclamation")
+--			ON UPDATE
+--				CALL g2_core.g2_winMessage("Update", "Update not available!", "exclamation")
+--			ON DELETE
+--				CALL g2_core.g2_winMessage("Delete", "Delete not available!", "exclamation")
 		END DISPLAY
+
 		DISPLAY ARRAY l_listView TO arr3.*
 			BEFORE ROW
 				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr3"), l_listView.getLength()) TO tab3info
 		END DISPLAY
+
 		DISPLAY ARRAY m_colours TO arr4.*
 		END DISPLAY
 

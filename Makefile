@@ -8,12 +8,12 @@
 	fglform -M $<
 
 ifndef GENVER
-export GENVER=401
+export GENVER=501
 endif
 export BIN=njm_app_bin$(GENVER)
 
 export PROJBASE=$(PWD)
-export DBTYPE=sqt
+export DBTYPE=pgs
 export DBNAME=njm_demo400
 export GBC=gbc-clean
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
