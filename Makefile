@@ -16,6 +16,8 @@ export PROJBASE=$(PWD)
 export DBTYPE=pgs
 export DBNAME=njm_demo400
 export GBC=gbc-clean
+#export GBC=gbc
+#export GBC=sample
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
@@ -24,7 +26,7 @@ export MUSICDIR=~/Music
 export FJS_GL_DBGLEV=2
 
 export FGLPROFILEUI=$(PROJBASE)/etc/profile
-export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
+export FGLGBCDIR=$(FGLDIR)/web_utilities/gbc/$(GBC)
 export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
 #export FGLIMAGEPATH=../pics/fa6.txt:../pics
 export FGLRESOURCEPATH=$(PROJBASE)/etc

@@ -24,6 +24,8 @@ ACTION DEFAULTS
 	ACTION asterisk2 ( TEXT="Asterisk2", ACCELERATOR="Shift-8" )
 	ACTION customfc ( TEXT="Custom FrontCall", IMAGE="circle" )
 	ACTION customfc2 ( TEXT="Custom FrontCall 2", IMAGE="circle" )
+	ACTION fs_inc ( TEXT="Font+", IMAGE="plus" )
+	ACTION fs_dec ( TEXT="Font-", IMAGE="minus" )
 END -- AD
 
 TOPMENU
@@ -59,6 +61,8 @@ TOPMENU
 		COMMAND clipshow
 		COMMAND customfc
 		COMMAND customfc2
+		COMMAND fs_inc
+		COMMAND fs_dec
 	END -- opt
 	GROUP help (TEXT="Help")
 		COMMAND about
@@ -74,6 +78,9 @@ TOOLBAR
 	ITEM editcut
 	ITEM editcopy
 	ITEM editpaste
+	SEPARATOR
+	ITEM fs_inc
+	ITEM fs_dec
 	SEPARATOR
 	ITEM showform
 	ITEM inactive

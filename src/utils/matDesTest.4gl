@@ -34,7 +34,8 @@ TYPE t_icon RECORD
 END RECORD
 DEFINE m_colours DYNAMIC ARRAY OF t_colour
 DEFINE m_icons   DYNAMIC ARRAY OF t_icon
-
+DEFINE m_fontSize SMALLINT = 4
+DEFINE m_allow_fs_change BOOLEAN = FALSE
 MAIN
 	DEFINE l_rec RECORD
 		fld1    CHAR(10),
@@ -68,6 +69,7 @@ MAIN
 	DEFINE x     SMALLINT
 	DEFINE l_tim DATETIME HOUR TO SECOND
 	DEFINE l_tmp STRING
+	DEFINE l_fs STRING
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "matDesTest")
@@ -114,6 +116,13 @@ MAIN
 	DISPLAY SFMT("%1 %2 %3 %4", ui.Interface.getFrontEndName(), ui.Interface.getFrontEndVersion(), ui.Interface.getUniversalClientName(),  ui.Interface.getUniversalClientVersion()) TO client
 	-- various attempt to bring listView page to front in folder, all FAIL!
 	CALL ui.Window.getCurrent().getForm().ensureElementVisible("tab2info")
+	TRY
+		CALL ui.Interface.frontCall("MyModule","fontsize",[], [l_fs])
+		LET m_allow_fs_change = TRUE
+		DISPLAY SFMT("FontSize: %1", l_fs)
+	CATCH
+		DISPLAY SFMT("fontsize frontcall failed: %1 %2", status, err_get(status))
+	END TRY
 
 --	DISPLAY ARRAY l_listView TO arr2.*
 --		BEFORE ROW EXIT DISPLAY
@@ -146,10 +155,10 @@ MAIN
 		DISPLAY ARRAY l_listView TO arr2.*
 			BEFORE ROW
 				DISPLAY SFMT("On row %1 of %2", DIALOG.getCurrentRow("arr2"), l_listView.getLength()) TO tab2info
---			ON UPDATE
---				CALL g2_core.g2_winMessage("Update", "Update not available!", "exclamation")
---			ON DELETE
---				CALL g2_core.g2_winMessage("Delete", "Delete not available!", "exclamation")
+			ON UPDATE
+				CALL g2_core.g2_winMessage("Update", "Update not available!", "exclamation")
+			ON DELETE
+				CALL g2_core.g2_winMessage("Delete", "Delete not available!", "exclamation")
 		END DISPLAY
 
 		DISPLAY ARRAY l_listView TO arr3.*
@@ -305,11 +314,25 @@ MAIN
 			CALL fgl_winMessage(
 					"Mobile?", IIF(gbc_isMobile(), "App Running on Mobile device!", "App not running on Mobile device"),
 					"information")
+		ON ACTION fs_dec
+			IF m_fontSize > 1 THEN
+				LET m_fontSize = m_fontSize - 1
+				CALL applyFontSize( fontSizeFromNumber( m_fontSize ) )
+			END IF
+		ON ACTION fs_inc
+			IF m_fontSize < 8 THEN
+				LET m_fontSize = m_fontSize + 1
+				CALL applyFontSize( fontSizeFromNumber( m_fontSize ) )
+			END IF
 		ON ACTION close
 			EXIT DIALOG
 		ON ACTION quit
 			EXIT DIALOG
 		BEFORE DIALOG
+			IF NOT m_allow_fs_change THEN
+				CALL DIALOG.setActionActive("fs_dec", FALSE)
+				CALL DIALOG.setActionActive("fs_inc", FALSE)
+			END IF
 			CALL pg(DIALOG.getForm(), (PG_MAX / 2))
 			IF ui.Interface.getFrontEndName() != "GBC" THEN
 				CALL DIALOG.setActionActive("darklogo", FALSE)
@@ -615,5 +638,60 @@ FUNCTION customfc2()
 	END TRY
 	CALL fgl_winMessage("Info", SFMT("Ret: %1", l_ret), "information")
 END FUNCTION
-
+--------------------------------------------------------------------------------------------------------------
+-- Simple confirm prompt
+FUNCTION applyFontSize(l_fontSize STRING)
+  DEFINE n     om.DomNode
+  DEFINE l_ret STRING
+  DISPLAY (SFMT("applyFontSize: '%1'", l_fontSize))
+  IF l_fontSize IS NULL THEN
+    RETURN
+  END IF
+--  TRY
+--    LET n = ui.Interface.getRootNode().selectByTagName("StyleList").item(1)
+--  CATCH
+--    DEBUG("No StyleList!")
+--    RETURN
+--  END TRY
+--  IF n IS NULL THEN
+--    RETURN
+--  END IF
+--  LET n = n.selectByPath("//Style[@name='UserInterface']").item(1)
+--  LET n = n.createChild("StyleAttribute")
+--  CALL n.setAttribute("name", "fontSize")
+--  CALL n.setAttribute("value", l_fontSize)
+  TRY
+    CALL ui.Interface.frontCall("mymodule", "fontsize", l_fontSize, l_ret)
+  CATCH
+    DISPLAY (SFMT("applyFontSize: failed frontcall for fontsize: %1 '%2'", err_get(status), l_ret))
+  END TRY
+  DISPLAY (SFMT("applyFontSize: '%1' was '%2'", l_fontSize, l_ret))
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION fontSizeFromNumber(l_fs SMALLINT) RETURNS STRING
+  CASE l_fs
+    WHEN 1 RETURN ".7em"
+    WHEN 2 RETURN ".8em"
+    WHEN 3 RETURN ".9em"
+    WHEN 4 RETURN "1.0em"
+    WHEN 5 RETURN "1.2em"
+    WHEN 6 RETURN "1.3em"
+    WHEN 7 RETURN "1.4em"
+  END CASE
+  RETURN 0 
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION fontSizeToNumber(l_fs STRING) RETURNS SMALLINT
+  CASE l_fs
+    WHEN ".7em" RETURN 1
+    WHEN ".8em" RETURN 2
+    WHEN ".9em" RETURN 3
+    WHEN "12pt" RETURN 4
+    WHEN "1.0em" RETURN 4
+    WHEN "1.2em" RETURN 5
+    WHEN "1.3em" RETURN 6
+    WHEN "1.4em" RETURN 7
+  END CASE
+  RETURN NULL
+END FUNCTION
 
