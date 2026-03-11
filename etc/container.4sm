@@ -13,16 +13,17 @@
     <StartMenuCommand image="play" text="Expenses" exec="fglrun expenses C"/>
     <StartMenuCommand image="play" text="Table" exec="fglrun table C"/>
     <StartMenuCommand image="play" text="listView" exec="fglrun listView C"/>
+		<StartMenuGroup text="WebComponent Demos">
+			<StartMenuCommand image="bar-chart" text="amCharts" exec="fglrun wc_amCharts.42r C"/>
+			<StartMenuCommand image="bar-chart" text="d4Charts" exec="fglrun wc_d3Charts.42r C"/>
+			<StartMenuCommand image="map" text="Google Maps" exec="fglrun wc_googleMaps.42r C"/>
+			<StartMenuCommand image="music" text="Music" exec="fglrun wc_music.42r C"/>
+			<StartMenuCommand image="plane" text="Aircraft Galley" exec="fglrun wc_aircraft.42r C"/>
+		</StartMenuGroup>
   </StartMenuGroup>
   <StartMenuGroup text="Utils">
     <StartMenuCommand image="fab-font-awesome-flag" text="Font Awesume Viewer" exec="fglrun fontAwesome C"/>
     <StartMenuCommand image="play" text="Material Design Test" exec="fglrun matDesTest C"/>
   </StartMenuGroup>
-  <StartMenuGroup text="WebComponent Demos">
-    <StartMenuCommand image="bar-chart" text="amCharts" exec="fglrun wc_amCharts.42r C"/>
-    <StartMenuCommand image="bar-chart" text="d4Charts" exec="fglrun wc_d3Charts.42r C"/>
-    <StartMenuCommand image="map" text="Google Maps" exec="fglrun wc_googleMaps.42r C"/>
-    <StartMenuCommand image="music" text="Music" exec="fglrun wc_music.42r C"/>
-    <StartMenuCommand image="plane" text="Aircraft Galley" exec="fglrun wc_aircraft.42r C"/>
-  </StartMenuGroup>
+
 </StartMenu>

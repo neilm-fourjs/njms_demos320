@@ -151,7 +151,7 @@ FUNCTION oe_getStockRec(l_row SMALLINT, l_verbose BOOLEAN) RETURNS BOOLEAN
 	END TRY
 
 	FETCH fetch_stock_cur INTO l_stk.*
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		CALL g2_core.g2_errPopup(%"Item not found.")
 		RETURN FALSE
 	END IF
@@ -165,7 +165,7 @@ FUNCTION oe_getStockRec(l_row SMALLINT, l_verbose BOOLEAN) RETURNS BOOLEAN
 	DISPLAY "Stk:", m_stk.disc_code, " CST:", g_cust.disc_code
 	OPEN getDisc USING m_stk.disc_code, g_cust.disc_code
 	FETCH getDisc INTO l_d.*
-	IF STATUS = NOTFOUND THEN
+	IF status = NOTFOUND THEN
 		LET l_d.disc_percent = 0
 	END IF
 	LET g_detailArray[l_row].description  = l_stk.description

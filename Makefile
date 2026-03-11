@@ -97,6 +97,7 @@ deploy:
 redeploy: undeploy deploy
 
 run: $(BIN)/menu.42m
+	echo FGLPROFILE=$(FGLPROFILE)
 	cd $(BIN) && fglrun menu
 
 db: $(BIN)/mk_db.42m

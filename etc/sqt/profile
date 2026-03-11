@@ -1,3 +1,5 @@
 
 # SQLite
 dbi.default.driver = "dbmsqt"
+
+prometheus.enabled=true

@@ -1,3 +1,5 @@
 
 # Informix
 dbi.default.driver = "dbmifx"
+
+prometheus.enabled=true

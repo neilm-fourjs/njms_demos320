@@ -4,13 +4,18 @@
 	<!--Style name="*">
 		<StyleAttribute name="defaultTTFColor" value="windowText" />
 	</Style-->
-
-	<Style name="UserInterface">
-		<StyleAttribute name="desktopMultiWindow" value="no" /><!-- MDI only ? -->
-		<StyleAttribute name="browserMultiPage" value="yes" /><!-- MDI only -->
-		<StyleAttribute name="applicationListVisible" value="no" />
-		<StyleAttribute name="windowListVisible" value="no" />
-	</Style>
+  <Style name="UserInterface"> <!-- Default MDI -->
+    <StyleAttribute name="desktopMultiWindow" value="no"/>
+    <StyleAttribute name="browserMultiPage" value="no"/>
+    <StyleAttribute name="applicationListVisible" value="yes"/>
+    <StyleAttribute name="windowListVisible" value="no"/>
+  </Style>
+  <Style name="UserInterface.sdi"> <!-- SDI -->
+    <StyleAttribute name="desktopMultiWindow" value="yes"/>
+    <StyleAttribute name="browserMultiPage" value="yes"/>
+    <StyleAttribute name="applicationListVisible" value="no"/>
+    <StyleAttribute name="windowListVisible" value="no"/>
+  </Style>
 
   <Style name="Folder">
       <StyleAttribute name="lateRendering" value="yes" />

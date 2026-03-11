@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <StyleList>
+  <Style name="UserInterface.mdi"> <!-- Default MDI -->
+    <StyleAttribute name="desktopMultiWindow" value="no"/>
+    <StyleAttribute name="browserMultiPage" value="no"/>
+    <StyleAttribute name="applicationListVisible" value="yes"/>
+    <StyleAttribute name="windowListVisible" value="no"/>
+  </Style>
+  <Style name="UserInterface"> <!-- SDI -->
+    <StyleAttribute name="desktopMultiWindow" value="yes"/>
+    <StyleAttribute name="browserMultiPage" value="yes"/>
+    <StyleAttribute name="applicationListVisible" value="no"/>
+    <StyleAttribute name="windowListVisible" value="no"/>
+  </Style>
+
 	<!-- Style name="*">
 		<StyleAttribute name="defaultTTFColor" value="buttonText" />
 	</Style-->
