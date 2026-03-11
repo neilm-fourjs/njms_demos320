@@ -8,7 +8,7 @@
 	fglform -M $<
 
 ifndef GENVER
-export GENVER=500
+export GENVER=600
 endif
 export BIN=njm_app_bin$(GENVER)
 export SCH=etc/njm_demo400.sch
@@ -37,7 +37,7 @@ export LANG=en_GB.utf8
 all: $(SCH) njmdemo gar
 
 $(SCH):
-	fgldbsch -db $@ -dv $(DBTYPE)
+	fgldbsch -db ${DBNAME} -dv dbm$(DBTYPE) -of $@
 
 njmdemo:
 	cd src && make
