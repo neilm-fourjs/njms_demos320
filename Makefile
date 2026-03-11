@@ -37,7 +37,7 @@ export LANG=en_GB.utf8
 all: $(SCH) njmdemo gar
 
 $(SCH):
-	fgldbsch -db ${DBNAME} -dv dbm$(DBTYPE) -of $@
+	fgldbsch -db ${DBNAME} -dv dbm$(DBTYPE) -of etc/${DBNAME}
 
 njmdemo:
 	cd src && make
