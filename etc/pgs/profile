@@ -2,4 +2,5 @@
 # PostgreSQL
 dbi.default.driver = "dbmpgs"
 
-dbi.database.njm_demo310.ifxemul.datatype.serial.emulation = "native"
+dbi.database.njm_demo400.ifxemul.datatype.serial.emulation = "native"
+

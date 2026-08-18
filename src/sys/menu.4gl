@@ -44,32 +44,23 @@ MAIN
 END MAIN
 --------------------------------------------------------------------------------
 FUNCTION fe_close()
-	CALL g2_core.g2_exitProgram(0,"Closed by frontend")
+	CALL g2_core.g2_exitProgram(0, "Closed by frontend")
 END FUNCTION
 --------------------------------------------------------------------------------
 FUNCTION be_close()
-	CALL g2_core.g2_exitProgram(0,"Closed by terminate signal")
+	CALL g2_core.g2_exitProgram(0, "Closed by terminate signal")
 END FUNCTION
 --------------------------------------------------------------------------------
 -- Connect to the database to do the login process
 FUNCTION do_dbconnect_and_login() RETURNS BOOLEAN
 	DEFINE l_user    STRING
 	DEFINE l_user_id INTEGER
-	DEFINE l_err STRING
+	DEFINE l_err     STRING
 
-	IF g2_core.m_mdi = "S" THEN
-		CALL g2_core.g2_splash(0, C_SPLASH, 243, 53) -- open splash
-	END IF
+	LET lib_login.m_logo_image = C_SPLASH
 
 	CALL g2_db.m_db.g2_connect(NULL)
 
-	IF g2_core.m_mdi = "S" THEN
-		DISPLAY CURRENT, " SLEEP 2"
-		CALL g2_core.g2_sleep(2)
-		CALL g2_core.g2_splash(-1, NULL, 0, 0) -- close splash
-	END IF
-
-	LET lib_login.m_logo_image   = C_SPLASH
 	LET lib_login.m_new_acc_func = FUNCTION new_acct.new_acct
 
 -- For quick testing only

@@ -87,9 +87,9 @@ DEFINE cnt  SMALLINT
 DEFINE scal SMALLINT
 DEFINE f_n  om.DomNode
 MAIN
-	DEFINE tmp  STRING
+	DEFINE tmp    STRING
 	DEFINE l_stat SMALLINT
-	DEFINE f    ui.Form
+	DEFINE f      ui.Form
 
 	CALL g2_core.m_appInfo.progInfo(C_PRGDESC, C_PRGAUTH, C_PRGVER, C_PRGICON)
 	CALL g2_init.g2_init(base.Application.getArgument(1), "widgets")
@@ -108,8 +108,6 @@ MAIN
 		LET cwd = "/fourjs/"
 	END IF
 	GL_DBGMSG(2, "done - fix_path.")
-
---  CALL gl_splash.gl_splash(4)
 
 	CALL ui.Interface.loadStartMenu("widgets")
 
@@ -223,7 +221,7 @@ MAIN
 				CALL webkit()
 
 			COMMAND "manual"
-				CALL ui.Interface.frontCall("standard","launchURL","https://4js.com/download/documentation",l_stat)
+				CALL ui.Interface.frontCall("standard", "launchURL", "https://4js.com/download/documentation", l_stat)
 
 			COMMAND "displaya2"
 				CALL lookup1("D")
@@ -297,9 +295,6 @@ MAIN
 
 			ON ACTION url2
 				CALL ui.Interface.frontCall("standard", "launchURL", "http://www.4js.com/", [tmp])
-
---      ON ACTION splash
---        CALL gl_splash.gl_splash(4)
 
 			ON ACTION about
 				CALL g2_about.g2_about()

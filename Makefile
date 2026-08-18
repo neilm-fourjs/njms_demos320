@@ -15,13 +15,17 @@ export SCH=etc/njm_demo400.sch
 export PROJBASE=$(PWD)
 export DBTYPE=pgs
 export DBNAME=njm_demo400
+export DBUSER=neilm 
+ifndef DBPASS
+export DBPASS=<set me>
+endif
 export GBC=gbc-clean
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
 export GASCFG=$(FGLASDIR)/etc/as.xcf
 export MUSICDIR=~/Music
-export FJS_GL_DBGLEV=2
+export FJS_GL_DBGLEV=3
 
 export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/$(GBC)
 #export FGLIMAGEPATH=$(PROJBASE)/pics:$(PROJBASE)/pics/fa5.txt
@@ -94,6 +98,9 @@ db: $(BIN)/mk_db.42m
 rundef: $(BIN)/menu.42m
 	unset FGLGBCDIR && cd $(BIN) && fglrun menu
 
+runmdi: $(BIN)/menu.42m $(BIN)/container.42m
+	cd $(BIN) && fglrun container.42m
+
 beautify:
 	find src -name \*.4gl -exec fglcomp --format --fo-inplace {} \;
 
@@ -109,10 +116,6 @@ runmatdes: clear $(BIN)/menu.42m
 
 runfa: clear $(BIN)/fontAwesome.42m
 	cd $(BIN) && fglrun fontAwesome.42m
-
-# Not supported!
-runmdi: $(BIN)/menu.42m gbc_mdi/distbin/gbc-mdi.zip
-	export FGLGBCDIR=$(GBCPROJDIR)/dist/customization/gbc-mdi && cd $(BIN) && fglrun container.42m
 
 recmatdes: $(BIN)/menu.42m
 	cd $(BIN) && fglrun --start-guilog=../ggc/matdes.log materialDesignTest.42m

@@ -11,6 +11,12 @@ export FGLDBPATH=$(PROJBASE)/etc
 FORMS=$(wildcard */*.per)
 
 DB=\
+	db/mk_db_lib.4gl \
+	db/mk_db_sys_ifx.4gl \
+	db/mk_db_sys_sqt.4gl \
+	db/mk_db_sys_data.4gl \
+	db/mk_db_app_ifx.4gl \
+	db/mk_db_app_data.4gl \
 	db/mk_db.4gl
 
 DYN=\
@@ -74,7 +80,7 @@ UTILS=\
 
 API=api/njm_demoapi.4gl
 
-all: $(TRG) g2_lib forms build_db build_dyn build_aw build_app build_sys build_demos build_utils build_api
+all: $(TRG) g2_lib forms build_lib build_db build_dyn build_aw build_app build_sys build_demos build_utils build_api
 
 $(TRG):
 	mkdir $@
@@ -84,6 +90,25 @@ g2_lib:
 
 forms: $(FORMS)
 	fglform -M --make -o $(TRG) $(INCL) $^
+
+# The library packages, built before any program that imports them.
+#
+# fglcomp aborts with "importVariables: Assertion `d->type->typeSymbol ==
+# NULL' failed" (fglcPass2.c) when one invocation has to rebuild a package
+# module that another module in the same invocation imports - that is, when the
+# .42m files of a package are of mixed age. Compiling one module of g2_lib by
+# hand is enough to produce that state.
+#
+# So when any library source changes, delete the package output and build it
+# cold. A cold build in one invocation is reliable.
+LIBSRC=$(wildcard g2_lib/*.4gl) $(wildcard applib/*.4gl) $(wildcard glm/*.4gl)
+
+build_lib: $(TRG)/libstamp
+
+$(TRG)/libstamp: $(LIBSRC)
+	rm -rf $(TRG)/g2_lib $(TRG)/applib $(TRG)/glm
+	fglcomp -M --make -o $(TRG) $(INCL) g2_lib/*.4gl applib/*.4gl glm/*.4gl
+	touch $@
 
 build_db: $(DB)
 	fglcomp -M --make -o $(TRG) $(INCL) $^
@@ -113,7 +138,8 @@ run:
 	cd $(TRG) && fglrun menu
 
 clean:
-	rm $(TRG)/*.42?
+	rm -f $(TRG)/*.42? $(TRG)/libstamp
+	rm -rf $(TRG)/g2_lib $(TRG)/applib $(TRG)/glm
 
 env:
 	env | sort
