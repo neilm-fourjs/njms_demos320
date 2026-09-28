@@ -1,3 +1,38 @@
+
+#
+bar-chart=FontAwesome.ttf:f080:
+battery-0=FontAwesome.ttf:f244:
+battery-1=FontAwesome.ttf:f243:
+battery-2=FontAwesome.ttf:f242:
+battery-3=FontAwesome.ttf:f241:
+battery-4=FontAwesome.ttf:f240:
+bedtime=FontAwesome.ttf:f236:
+bookmark=FontAwesome.ttf:f02e:
+bug=FontAwesome.ttf:f188:
+database=FontAwesome.ttf:f1c0:
+desktop=FontAwesome.ttf:f108:
+double-left=FontAwesome.ttf:f100:
+double-right=FontAwesome.ttf:f101:
+eye=FontAwesome.ttf:f06e:
+eye-slash=FontAwesome.ttf:f070:
+list=FontAwesome.ttf:f0ae:
+map=FontAwesome.ttf:f279:
+minus=FontAwesome.ttf:f068:
+mobile=FontAwesome.ttf:f10b:
+music=FontAwesome.ttf:f001:
+pack=FontAwesome.ttf:f00a:
+plane=FontAwesome.ttf:f072:
+plus=FontAwesome.ttf:f067:
+services=FontAwesome.ttf:f085:
+settings=FontAwesome.ttf:f013:
+shopping-cart=FontAwesome.ttf:f07a:
+shopping-cart-plus=FontAwesome.ttf:f217:
+sign-in=FontAwesome.ttf:f090:
+sign-out=FontAwesome.ttf:f08b:
+square=FontAwesome.ttf:f0c8:
+user-plus=FontAwesome.ttf:f234:
+
+# Legacy
 about=FontAwesome.ttf:f129:
 accept=FontAwesome.ttf:f00c:
 arr2beg=FontAwesome.ttf:f048:
@@ -127,6 +162,8 @@ uplevel=FontAwesome.ttf:f148:
 user=FontAwesome.ttf:f007:
 wizard=FontAwesome.ttf:f0d0:
 zoom=FontAwesome.ttf:f002:
+
+# FA
 fas-0=fa-solid-900_v65.ttf:30:#f0f
 fas-1=fa-solid-900_v65.ttf:31:#f0f
 fas-2=fa-solid-900_v65.ttf:32:#f0f

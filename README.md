@@ -185,6 +185,8 @@ Server profiles are in `etc/`. Create the database and the user, then run
 sudo -u postgres createuser <appuser>
 sudo -u postgres createdb njm_demo400
 sudo -u postgres psql -c "grant all privileges on database njm_demo400 to <appuser>;"
+psql -d njm_demo400 -c "ALTER USER neilm PASSWORD '12test';"
+psql -d njm_demo400 --password -c "SELECT user;"
 ```
 
 ## Deployment

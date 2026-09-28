@@ -9,6 +9,7 @@ question=MaterialIcons-Regular.ttf:e887
 copy=MaterialIcons-Regular.ttf:e14d
 cut=MaterialIcons-Regular.ttf:e14e
 paste=MaterialIcons-Regular.ttf:e14f
+user-plus=MaterialIcons-Regular.ttf:e7fe
 
 # Defaults
 10k=MaterialIcons-Regular.ttf:e951
