@@ -1,0 +1,26 @@
+
+$ mkdir vendor
+$ cp $ARCDIR/vendor/* vendor/
+$ mkdir arc_docs
+$ cp $ARCDIR/web/README.md arc_docs/
+$ cp $ARCDIR/web/src/content/how-it-works.md arc_docs/
+$ cp $ARCDIR/web/.wrangler/dry-run/README.md arc_docs/
+$ cp $ARCDIR/docs/typed-contract.md arc_docs/
+$ cp $ARCDIR/docs/build-your-own.md arc_docs/
+
+
+$ npm install ./vendor/4js-ai-arc-protocol-0.1.1.tgz ./vendor/4js-ai-arc-client-0.1.1.tgz ./vendor/4js-ai-arc-react-0.1.1.tgz
+
+added 6 packages in 1s
+npm notice
+npm notice New major version of npm available! 11.19.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+
+Claude Prompt: 
+Read the docs in arc/arc_docs - I want to generate a new react arc ui for the src/app/cust_mnt.4gl program, this program is already built and deployed to a local GAS and can be run using http://localhost/g6/ua/r/runprog?Arg=cust_mnt and I have local arc gateway running on http://127.0.0.1:9000
+
+2nd prompt to fix a bug I found:
+something is wrong with the next previous navigation, it's not going past the 2nd row,  the first and last buttons seem to work correctly. The 'classic' GBC version is working

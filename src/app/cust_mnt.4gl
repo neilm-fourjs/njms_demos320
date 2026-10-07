@@ -114,11 +114,16 @@ MAIN
 				MESSAGE %"Row deleted"
 			END IF
 
-{	 	ON ACTION list
-			LET RECKEY = app_lib.fldChoose( TABNAMEQ, base.TypeInfo.create( m_rec ) )
-			DISPLAY "key:",RECKEY
-			LET m_wher = KEYFLDQ||"='"||RECKEY||"'"
-			IF getRec() THEN CALL showRow(1) END IF}
+	 	ON ACTION findlist
+			CALL m_recs.clear()
+			LET m_recs[1].key =
+			 g2_lookup.g2_lookup(TABNAMEQ, "customer_code,customer_name", "Code,Customer", "1=1", "customer_name")
+			IF m_recs[1].key IS NOT NULL THEN
+				CALL showRow(1)
+				CALL app_lib.setActions(m_row, m_recs.getLength(), m_allowedActions)
+			ELSE
+				CALL m_recs.clear()
+			END IF
 
 		ON ACTION report
 			CALL rpt1()
@@ -293,15 +298,16 @@ FUNCTION delete() RETURNS BOOLEAN
 		RETURN g2_db.g2_sqlStatus(
 				__LINE__, __FILE__, "DELETE FROM " || TABNAMEQ || " WHERE " || KEYFLDQ || " = '" || RECKEY || "'")
 	END IF
-	RETURN FALSE
+	RETURN TRUE
 END FUNCTION
 --------------------------------------------------------------------------------
 #+ Update a row in the database table.
 #+
-#+ @return True / False - fails / works.
+#+ @return True / False - worked / failed
 FUNCTION update() RETURNS BOOLEAN
-	DEFINE l_stmt VARCHAR(20000)
-	DEFINE l_wher VARCHAR(100)
+	DEFINE l_stmt STRING
+	DEFINE l_wher STRING
+	DEFINE l_ret BOOLEAN = FALSE
 
 	IF m_rec_o.del_addr = 0 OR m_rec_o.inv_addr = 0 THEN
 		LET m_rec2.rec_key   = m_rec_o.del_addr
@@ -324,7 +330,7 @@ FUNCTION update() RETURNS BOOLEAN
 		RETURN FALSE
 	END IF
 
-	IF g2_core.g2_winQuestion(%"Confirm", %"Update this customer?", "No", "Yes|No", "question") = "Yes" THEN
+	IF g2_core.g2_winQuestion(%"Confirm", %"Update this customer?", "No", "Yes|No", "question") = "No" THEN
 		RETURN FALSE
 	END IF
 
@@ -342,6 +348,7 @@ FUNCTION update() RETURNS BOOLEAN
 			EXECUTE pre_upd USING m_rec_o.KEYFLD
 			LET m_recs[m_row].key = m_rec.KEYFLD
 			MESSAGE SFMT(%"Row %1 updated.", TABNAMEQ)
+			LET l_ret = TRUE
 		CATCH
 			RETURN g2_db.g2_sqlStatus(__LINE__, __FILE__, l_stmt)
 		END TRY
@@ -359,12 +366,13 @@ FUNCTION update() RETURNS BOOLEAN
 		TRY
 			EXECUTE pre_upd2 USING m_rec2_o.JOIN2_D
 			MESSAGE SFMT(%"Row %1 updated.", TABNAMEQ)
+			LET l_ret = TRUE
 		CATCH
 			RETURN g2_db.g2_sqlStatus(__LINE__, __FILE__, l_stmt)
 		END TRY
 	END IF
 
-	IF m_rec3.* = m_rec3_o.* THEN
+	IF m_rec3.* != m_rec3_o.* THEN
 		LET l_wher = KEYFLD2Q || " = ?"
 		LET l_stmt =
 				g2_db.g2_genUpdate(TABNAME2Q, l_wher, base.TypeInfo.create(m_rec3), base.TypeInfo.create(m_rec3_o), 0, TRUE)
@@ -376,11 +384,12 @@ FUNCTION update() RETURNS BOOLEAN
 		TRY
 			EXECUTE pre_upd3 USING m_rec3_o.JOIN2_D
 			MESSAGE "Row " || TABNAME2Q || " updated!"
+			LET l_ret = TRUE
 		CATCH
 			RETURN g2_db.g2_sqlStatus(__LINE__, __FILE__, l_stmt)
 		END TRY
 	END IF
-	RETURN FALSE
+	RETURN l_ret
 
 END FUNCTION
 --------------------------------------------------------------------------------

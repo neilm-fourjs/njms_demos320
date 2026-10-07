@@ -155,7 +155,7 @@ FUNCTION setActions(l_row INT, l_max INT, l_allowedActions CHAR(6)) RETURNS()
 		CALL d.setActionActive("delete", FALSE)
 	END IF
 	--IF ACT_SAM = "N" THEN CALL d.setActionActive("sample",FALSE) END IF
-	IF l_max > 1 THEN
+	IF l_max > 0 THEN
 		IF ACT_UPD = "Y" THEN
 			CALL d.setActionActive("update", TRUE)
 		END IF
