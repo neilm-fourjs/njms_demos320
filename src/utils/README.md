@@ -11,3 +11,4 @@ Demonstration and test utilities for UI features, themes, icons, and reporting. 
 | gre_test4rp.4gl | Genero Report Engine test tool for running `.4rp` reports with various output devices. |
 | icons_2_image2font.4gl | Generates an `image2font.txt` mapping from FontAwesome 5 JSON icon data. |
 | matDesTest.4gl | Material Design showcase — colours, icons, forms, progress bars, GBC features. |
+| runprog.4gl | Simple program to run other programs based on passed prog name, uses etc/progs.txt |

@@ -26,6 +26,7 @@ cp njm_app_bin${GENVER}/glm/*.42? $DISTARC/bin/glm
 cp gas_deploy/*.xcf $DISTARC/
 cp etc/* $DISTARC/etc 2> /dev/null
 cp etc/$DB/* $DISTARC/etc
+cp etc/progs.txt $DISTARC/etc
 cp -r pics/* $DISTARC/pics
 
 # build list of .xcf files

@@ -76,7 +76,8 @@ UTILS=\
 	utils/gbc_theme.4gl \
 	utils/gre_test4rp.4gl \
 	utils/icons_2_image2font.4gl \
-	utils/matDesTest.4gl
+	utils/matDesTest.4gl \
+	utils/runprog.4gl
 
 API=api/njm_demoapi.4gl
 
