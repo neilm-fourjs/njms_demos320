@@ -23,7 +23,7 @@
 		<ENVIRONMENT_VARIABLE Id="DB_LOCALE">en_GB.utf8</ENVIRONMENT_VARIABLE>
 		<ENVIRONMENT_VARIABLE Id="FGLSQLDEBUG">0</ENVIRONMENT_VARIABLE>
 		<PATH>$(res.path.njm_demo)$(sep)bin</PATH>
-		<MODULE>menu.42r</MODULE>
+		<MODULE>menu</MODULE>
 		<WEB_COMPONENT_DIRECTORY>$(res.path.njm_demo)$(sep)pics$(sep)webcomponents;$(res.fgldir)$(sep)webcomponents</WEB_COMPONENT_DIRECTORY>
 	</EXECUTION>
 	<UA_OUTPUT>

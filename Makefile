@@ -23,7 +23,7 @@ export GBC=gbc-clean
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos
 export ARCH=$(APP)$(GENVER)_$(DBTYPE)
-export GASCFG=$(FGLASDIR)/etc/as.xcf
+export GASAPPDATA=res.appdata.path=/opt/fourjs/gas$(GENVER)_appdata
 export MUSICDIR=~/Music
 export FJS_GL_DBGLEV=3
 
@@ -78,13 +78,13 @@ clean2: clean
 	find . -name \*.err -delete
 
 undeploy: 
-	cd distbin && gasadmin gar -f $(GASCFG) --disable-archive $(ARCH) | true
-	cd distbin && gasadmin gar -f $(GASCFG) --undeploy-archive $(ARCH).gar
+	cd distbin && gasadmin gar -E $(GASAPPDATA) --disable-archive $(ARCH) | true
+	cd distbin && gasadmin gar -E $(GASAPPDATA) --undeploy-archive $(ARCH).gar
 	rm -f distbin/.deployed
 
 deploy: 
-	cd distbin && gasadmin gar -f $(GASCFG) --deploy-archive $(ARCH).gar
-	cd distbin && gasadmin gar -f $(GASCFG) --enable-archive $(ARCH)
+	cd distbin && gasadmin gar -E $(GASAPPDATA) --deploy-archive $(ARCH).gar
+	cd distbin && gasadmin gar -E $(GASAPPDATA) --enable-archive $(ARCH)
 	echo "deployed" > distbin/.deployed
 
 redeploy: undeploy deploy
