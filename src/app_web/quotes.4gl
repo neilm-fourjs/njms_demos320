@@ -63,7 +63,7 @@ MAIN
 			AFTER ROW
 				LET m_scrArr[arr_curr()].currrow = ""
 			ON ACTION SELECT
-				RUN "fglrun quotemnt.42r " || g2_core.m_mdi || " " || m_arr[arr_curr()].quote_number WITHOUT WAITING
+				RUN "fglrun quotemnt " || g2_core.m_mdi || " " || m_arr[arr_curr()].quote_number WITHOUT WAITING
 		END DISPLAY
 		BEFORE DIALOG
 			CALL DIALOG.setCellAttributes(m_arrCol)
@@ -78,7 +78,7 @@ MAIN
 			END IF
 		ON ACTION add
 			LET l_rec.quote_number = 0
-			RUN "fglrun quotemnt.42r " || g2_core.m_mdi || " " || l_rec.quote_number WITHOUT WAITING
+			RUN "fglrun quotemnt " || g2_core.m_mdi || " " || l_rec.quote_number WITHOUT WAITING
 	END DIALOG
 
 	CALL g2_core.g2_exitProgram(0, "Finished")

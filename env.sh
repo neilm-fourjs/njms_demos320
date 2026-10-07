@@ -1,4 +1,4 @@
-export GENVER=401
+export GENVER=600
 . env$GENVER
 
 export BIN=bin$GENVER

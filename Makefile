@@ -16,9 +16,9 @@ export PROJBASE=$(PWD)
 export DBTYPE=pgs
 export DBNAME=njm_demo400
 export DBUSER=neilm 
-ifndef DBPASS
-export DBPASS=<set me>
-endif
+#ifndef DBPASS
+#export DBPASS=<set me>
+#endif
 export GBC=gbc-clean
 export GBCPROJDIR=/opt/fourjs/gbc-current$(GENVER)
 export APP=njms_demos

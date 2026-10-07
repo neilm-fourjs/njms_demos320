@@ -40,7 +40,7 @@ MAIN
 		END INPUT
 		DISPLAY ARRAY m_scrArr TO list.*
 			ON ACTION SELECT
-				RUN "fglrun custmnt.42r " || g2_core.m_mdi || " " || m_arr[arr_curr()].customer_code WITHOUT WAITING
+				RUN "fglrun custmnt " || g2_core.m_mdi || " " || m_arr[arr_curr()].customer_code WITHOUT WAITING
 		END DISPLAY
 		ON ACTION refresh
 			CALL getData(NULL, "customer_code")
@@ -50,7 +50,7 @@ MAIN
 			EXIT DIALOG
 		ON ACTION add
 			LET l_rec.customer_code = "new"
-			RUN "fglrun custmnt.42r " || g2_core.m_mdi || " " || l_rec.customer_code WITHOUT WAITING
+			RUN "fglrun custmnt " || g2_core.m_mdi || " " || l_rec.customer_code WITHOUT WAITING
 		ON ACTION rpt
 			CALL rpt_func1()
 	END DIALOG
